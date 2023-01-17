@@ -24,6 +24,10 @@ public class testController {
     public String getUserCount()   {
         return service.getUserCount();
     }
+    @GetMapping("hello")
+    public String Hello(){
+        return "hello";
+    }
 
 }
 
