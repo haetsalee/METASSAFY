@@ -22,7 +22,6 @@ public class testController {
     //테스트용- db에 저장된 user의 수를 반환하는 api
     @GetMapping("userCount")
     public String getUserCount()   {
-        System.out.println("hi");
         return service.getUserCount();
     }
 
