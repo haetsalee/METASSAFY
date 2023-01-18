@@ -11,5 +11,4 @@ public class MetassafyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MetassafyApplication.class, args);
 	}
-
 }
