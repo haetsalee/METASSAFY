@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 import java.util.List;
 
@@ -24,8 +24,18 @@ public class BoardController {
     private BoardService boardService;
 
      @PostMapping
-    public ResponseEntity<String> writeArticle(@RequestBody BoardDto boardDto, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
-        logger.info("writeArticle - 호출");
+    public ResponseEntity<String> writeArticle(@RequestBody BoardDto boardDto,@RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam("files") List<MultipartFile> files) throws Exception {
+
+         logger.info("writeArticle - 호출");
+         if (!thumbnail.isEmpty()) {
+             logger.info("writeArticle_thumbnail - 호출");
+         }
+
+         if(!files.isEmpty()){
+             logger.info("writeArticle_files - 호출");
+         }
+
+
         if (boardService.writeArticle(boardDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
