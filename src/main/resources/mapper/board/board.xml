@@ -8,7 +8,7 @@
 <!--	private String user_id;-->
 <!--	private String title;-->
 <!--	private String content;-->
-	!--	private int hit;-->
+<!--	!&#45;&#45;	private int hit;&ndash;&gt;-->
 <!--	private String regtime;-->
 <!--	private String modtime;-->
 <!--	private String thumbnail;-->
@@ -22,7 +22,7 @@
         insert into article_file (article_no, user_id, origin_name, saved_name, path)
         values (#{article_no}, #{user_id}, #{origin_name}, #{saved_name}, #{path})
     </insert>
-	
+
 	<select id="listArticle" parameterType="boardParameterDto" resultType="boardDto">
 		select article_no, user_id, title, content, hit, regtime, moditime, thumbnail, (select count(*) from like where like_type = 0 and article_no = no) as like
 		from article
