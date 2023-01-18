@@ -9,4 +9,8 @@
         VALUES (#{user_id}, #{user_pwd}, #{name},#{area},#{email},now());
     </insert>
 
+    <select id="login"  resultType="com.ssafy.metassafy.dto.user.User">
+        select * from User where user_id = #{user_id} and  user_pwd=#{user_pwd};
+    </select>
+
 </mapper>

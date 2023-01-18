@@ -17,4 +17,10 @@ public class UserService {
     }
 
 
+    public boolean login(User user) {
+        User loginUser=mapper.login(user);
+        if(loginUser!=null)
+            return true;
+        return false;
+    }
 }
