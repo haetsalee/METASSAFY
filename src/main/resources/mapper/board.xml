@@ -79,5 +79,5 @@
 <!--		where articletype = 'b' and articleno = #{articleno}-->
 <!--	</delete>-->
 
-<!--</mapper>-->
+<!--</mapper> -->
 
