@@ -1,6 +1,7 @@
 package com.ssafy.metassafy.controller.board;
 
 import com.ssafy.metassafy.dto.board.BoardDto;
+import com.ssafy.metassafy.dto.board.BoardParameterDto;
 import com.ssafy.metassafy.service.board.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,33 +28,25 @@ public class BoardController {
     public ResponseEntity<String> writeArticle(@RequestBody BoardDto boardDto,@RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam("files") List<MultipartFile> files) throws Exception {
 
          logger.info("writeArticle - 호출");
-         if (!thumbnail.isEmpty()) {
-             logger.info("writeArticle_thumbnail - 호출");
-         }
 
-         if(!files.isEmpty()){
-             logger.info("writeArticle_files - 호출");
-         }
-
-
-        if (boardService.writeArticle(boardDto)) {
+        if (boardService.writeArticle(boardDto,thumbnail,files)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
-    public ResponseEntity<List<BoardDto>> listArticle() throws Exception {
+    public ResponseEntity<List<BoardDto>> listArticle(BoardParameterDto boardParameterDto) throws Exception {
         logger.info("listArticle - 호출");
-        return new ResponseEntity<List<BoardDto>>(boardService.listArticle(), HttpStatus.OK);
+        return new ResponseEntity<List<BoardDto>>(boardService.listArticle(boardParameterDto), HttpStatus.OK);
     }
 
 
     @GetMapping("/{article_no}")
-    public ResponseEntity<BoardDto> getArticle(@PathVariable("article_no") int articleno) throws Exception {
-        logger.info("getArticle - 호출 : " + articleno);
-        boardService.updateHit(articleno);
-        return new ResponseEntity<BoardDto>(boardService.getArticle(articleno), HttpStatus.OK);
+    public ResponseEntity<BoardDto> getArticle(@PathVariable("article_no") int article_no) throws Exception {
+        logger.info("getArticle - 호출 : " + article_no);
+        boardService.updateHit(article_no);
+        return new ResponseEntity<BoardDto>(boardService.getArticle(article_no), HttpStatus.OK);
     }
 
    @PutMapping
@@ -67,9 +60,9 @@ public class BoardController {
     }
 
    @DeleteMapping("/{article_no}")
-    public ResponseEntity<String> deleteArticle(@PathVariable("article_no")  int articleno) throws Exception {
+    public ResponseEntity<String> deleteArticle(@PathVariable("article_no")  int article_no) throws Exception {
         logger.info("deleteArticle - 호출");
-        if (boardService.deleteArticle(articleno)) {
+        if (boardService.deleteArticle(article_no)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
