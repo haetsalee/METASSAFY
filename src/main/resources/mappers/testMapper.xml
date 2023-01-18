@@ -6,7 +6,7 @@
     <select id="getUserCount" resultType="string">
         <![CDATA[
 		select count(*) from User;
-	]]>
+	    ]]>
     </select>
 
 </mapper>
