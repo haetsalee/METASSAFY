@@ -63,4 +63,25 @@
     <delete id="deleteUser" parameterType="string">
         delete from User where user_id=#{user_id};
     </delete>
+
+    <select id="getAllTechList"  resultType="com.ssafy.metassafy.dto.user.TechStack">
+        select * from Tech_Stack;
+    </select>
+
+    <select id="getTechStack"  parameterType="string" resultType="com.ssafy.metassafy.dto.user.TechStack">
+        select * from Tech_Stack where tech_id in
+        (select tech_id from User_Tech where user_id=#{user_id});
+    </select>
+
+    <insert id="addTech" parameterType="map">
+        INSERT INTO User_Tech(user_id, tech_id)
+        VALUES (#{user_id}, #{tech_id});
+    </insert>
+
+    <delete id="deleteTech" parameterType="map">
+        delete from User_Tech where user_id=#{user_id} and tech_id=#{tech_id};
+    </delete>
+
+
+
 </mapper>
