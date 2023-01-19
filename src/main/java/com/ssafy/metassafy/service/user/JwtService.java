@@ -1,5 +1,6 @@
 package com.ssafy.metassafy.service.user;
 
+import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -13,10 +14,11 @@ import java.util.Map;
 @Component
 public class JwtService {
     private String secretKey = "myKey"; // 서명에 사용할 secretKey
-    private long exp = 1000L * 60 * 60; // 토큰 사용가능 시간, 1시간
+    //private long exp = 1000L * 60 * 60; // 토큰 사용가능 시간, 1시간
+    private long exp = 2629800000L; //1개월
 
     // 토큰 생성하는 메서드
-    public String createToken(User user) { // 토큰에 담고싶은 값 파라미터로 가져오기
+    public String createToken(JwtInfoDto user) { // 토큰에 담고싶은 값 파라미터로 가져오기
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT") // 토큰 타입
                 .setSubject("userToken") // 토큰 제목
@@ -42,4 +44,8 @@ public class JwtService {
     public void checkValid(String token) {
         Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token);
     }
+
+
+
+
 }
