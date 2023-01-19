@@ -1,9 +1,13 @@
 package com.ssafy.metassafy.mapper.user;
 
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
+import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 @Repository
@@ -20,4 +24,12 @@ public interface UserMapper {
     int getEmailCount(String email);
 
     void deleteUser(String user_id);
+
+    List<TechStack> getAllTechList();
+
+    List<TechStack> getTechStack(String user_id);
+
+    boolean addTech(HashMap<String, String> map);
+
+    boolean deleteTech(HashMap<String, String> map);
 }
