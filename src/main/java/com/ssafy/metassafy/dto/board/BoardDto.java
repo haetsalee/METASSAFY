@@ -4,6 +4,7 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@EntityScan
 public class BoardDto {
     private int article_no;
     private String user_id;

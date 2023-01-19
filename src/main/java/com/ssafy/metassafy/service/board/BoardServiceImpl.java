@@ -4,6 +4,7 @@ package com.ssafy.metassafy.service.board;
 import com.ssafy.metassafy.dto.board.BoardDto;
 import com.ssafy.metassafy.dto.board.BoardParameterDto;
 import com.ssafy.metassafy.dto.file.FileDto;
+import com.ssafy.metassafy.dto.like.LikeDto;
 import com.ssafy.metassafy.mapper.board.BoardMapper;
 import com.ssafy.metassafy.service.File.FileService;
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +22,6 @@ public class BoardServiceImpl implements  BoardService{
     private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
     @Autowired
     private SqlSession sqlSession;
-
     @Autowired
     private FileService fileService;
 
@@ -33,26 +33,59 @@ public class BoardServiceImpl implements  BoardService{
             throw new Exception();
         }
 
+        System.out.println(thumbnail.isEmpty() + " 썸내일");
+        System.out.println(files.size() + " 파일");
+
+        FileDto file = null;
+
         if (!thumbnail.isEmpty()) {
             logger.info("thumbnail - 업로드");
-            FileDto file = fileService.saveFile(thumbnail);
+            file = fileService.saveFile(thumbnail);
             boardDto.setThumbnail(file.getSaved_name());
         }
 
-        if(!files.isEmpty()){
+        sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
+
+
+        System.out.println();
+        System.out.println(boardDto);
+
+        if(file != null){
+            System.out.println(file + " 1");
+            file.setArticle_no(boardDto.getArticle_no());
+            sqlSession.getMapper(BoardMapper.class).uploadFile(file);
+        }
+
+        if(!files.get(0).isEmpty()){
             logger.info("writeArticle_files - 업로드");
             for (MultipartFile multipartFile : files) {
-                FileDto file = fileService.saveFile(multipartFile);
+                logger.info(multipartFile.getOriginalFilename().length() + " 길이 몇?");
+                file = fileService.saveFile(multipartFile);
                 file.setArticle_no(boardDto.getArticle_no());
-                file.setUser_id(boardDto.getUser_id());
                 sqlSession.getMapper(BoardMapper.class).uploadFile(file);
             }
         }
 
-        return sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto) == 1;
+        LikeDto likeDto = new LikeDto();
+        likeDto.setLike_type(0);
+        likeDto.setUser_id(boardDto.getUser_id());
+        likeDto.setNo(boardDto.getArticle_no());
+        System.out.println(likeDto);
+
+        return makeLike(likeDto);
     }
+
+
+
     @Override
+    public boolean makeLike(LikeDto likeDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).makeLike(likeDto) == 1;
+    }
+
+    @Override
+    @Transactional
     public List<BoardDto> listArticle(BoardParameterDto boardParameterDto) throws Exception {
+
         return sqlSession.getMapper(BoardMapper.class).listArticle(boardParameterDto);
     }
 
@@ -74,5 +107,10 @@ public class BoardServiceImpl implements  BoardService{
     @Override
     public boolean deleteArticle(int article_no) throws Exception {
         return sqlSession.getMapper(BoardMapper.class).deleteArticle(article_no) == 1;
+    }
+
+    @Override
+    public boolean deleteFile(FileDto fileDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).deleteFile(fileDto) == 1;
     }
 }

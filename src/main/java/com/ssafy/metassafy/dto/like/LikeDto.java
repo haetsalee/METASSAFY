@@ -1,4 +1,4 @@
-package com.ssafy.metassafy.dto.board;
+package com.ssafy.metassafy.dto.like;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @Setter
 @ToString
 @EntityScan
-public class BoardParameterDto {
-    private String key;
-    private String word;
+public class LikeDto {
+    private int like_no;
+    private int like_type;
+    private String user_id;
+    private int no;
 }

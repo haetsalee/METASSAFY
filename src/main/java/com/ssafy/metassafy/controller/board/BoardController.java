@@ -2,6 +2,8 @@ package com.ssafy.metassafy.controller.board;
 
 import com.ssafy.metassafy.dto.board.BoardDto;
 import com.ssafy.metassafy.dto.board.BoardParameterDto;
+import com.ssafy.metassafy.dto.file.FileDto;
+import com.ssafy.metassafy.dto.like.LikeDto;
 import com.ssafy.metassafy.service.board.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +26,8 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-     @PostMapping
-    public ResponseEntity<String> writeArticle(@RequestBody BoardDto boardDto,@RequestParam("thumbnail") MultipartFile thumbnail, @RequestParam("files") List<MultipartFile> files) throws Exception {
-
+    @PostMapping
+    public ResponseEntity<String> writeArticle(@RequestPart("boardDto") BoardDto boardDto,@RequestPart("thumbnail") MultipartFile thumbnail, @RequestPart("files") List<MultipartFile> files) throws Exception {
          logger.info("writeArticle - 호출");
 
         if (boardService.writeArticle(boardDto,thumbnail,files)) {
@@ -50,8 +51,8 @@ public class BoardController {
     }
 
    @PutMapping
-    public ResponseEntity<String> modifyArticle(@RequestBody BoardDto boardDto) throws Exception {
-        logger.info("modifyArticle - 호출 {}", boardDto);
+    public ResponseEntity<String> modifyArticle(BoardDto boardDto) throws Exception {
+        logger.info("modifyArticle - {article_no, title, content}", boardDto);
 
         if (boardService.modifyArticle(boardDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -61,8 +62,17 @@ public class BoardController {
 
    @DeleteMapping("/{article_no}")
     public ResponseEntity<String> deleteArticle(@PathVariable("article_no")  int article_no) throws Exception {
-        logger.info("deleteArticle - 호출");
+        logger.info("deleteArticle - {article_no}");
         if (boardService.deleteArticle(article_no)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/file")
+    public ResponseEntity<String> deleteFile(FileDto fileDto) throws Exception {
+        logger.info("deleteFile - {fileDto}");
+        if (boardService.deleteFile(fileDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

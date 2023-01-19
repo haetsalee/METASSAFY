@@ -3,7 +3,6 @@ package com.ssafy.metassafy.service.File;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.cloud.StorageClient;
 import com.ssafy.metassafy.dto.file.FileDto;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,11 +29,8 @@ public class FileServiceImpl implements FileService{
         // 파일 이름으로 쓸 uuid 생성
         String uuid = UUID.randomUUID().toString();
 
-        // 확장자 추출(ex : .png)
-        String extension = origin_name.substring(origin_name.lastIndexOf("."));
-
         // uuid와 확장자 결합
-        String saved_name = uuid + extension;
+        String saved_name = uuid + origin_name;
 
         // 파일 업로드 & 링크 받아오기
         String path = this.uploadFile(multipartFile, saved_name);
