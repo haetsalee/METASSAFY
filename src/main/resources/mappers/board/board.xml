@@ -75,5 +75,10 @@
 		where article_no = #{article_no}
 	</delete>
 
+	<delete id="deleteFile" parameterType="com.ssafy.metassafy.dto.file.FileDto">
+		delete from article_file
+		where article_no = #{article_no} and saved_name = #{saved_name}
+	</delete>
+
 </mapper>
 

@@ -6,6 +6,9 @@ import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.User;
 import com.ssafy.metassafy.service.user.JwtService;
 import com.ssafy.metassafy.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Api("유저 컨트롤러  API V1")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
     private static final String SUCCESS = "success";
@@ -36,8 +40,9 @@ public class UserController {
     JwtService jwtService; //jwt 인증이 필요한 api는 경로에 /auth 붙이기
 
     //회원 가입
+    @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping("/regist")
-    public ResponseEntity<String> register(@RequestBody User user){
+    public ResponseEntity<String> register(@RequestBody @ApiParam(value = "유저 정보(user_id, user_pwd, name, area, email)", required = true) User user){
         try{
             service.regist(user);
         }catch(Exception e){
@@ -47,8 +52,9 @@ public class UserController {
     }
 
     //로그인
+    @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 Object가 json형태로 반환된다.", response = Object.class)
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody User user, HttpServletResponse response) {
+    public ResponseEntity<Object> login(@RequestBody @ApiParam(value = "유저 로그인(user_id, user_pwd)", required = true)  User user, HttpServletResponse response) {
         try {
             JwtInfoDto loginUser=service.login(user);
             if(loginUser.getUser_id()!=null&&loginUser.getEmail()!=null) { // 유효한 사용자일 경우
@@ -63,6 +69,7 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "유저 토큰", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다.", response = Object.class)
     @GetMapping("/auth/getUser") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
     public ResponseEntity<Object> getUser(HttpServletRequest request) {
         try {
@@ -79,24 +86,27 @@ public class UserController {
         }
     }
     //아이디 중복 체크->false면 해당 아이디 사용 가능
+    @ApiOperation(value = "유저 아이디 중복 체크", notes = "유저 아이디가 중복되었는지 확인한다. 그리고 DB입력 성공여부에 따라 'true' 또는 'false'를 반환한다.", response = Boolean.class)
     @GetMapping("/isExist/{user_id}")
-    public boolean isExist(@PathVariable("user_id") String user_id){
+    public boolean isExist(@PathVariable("user_id") @ApiParam(value = "유저 아이디(user_id)", required = true) String user_id){
         if(service.getCount(user_id)!=0)
             return true;
         return false;
     }
 
     //이메일 중복 체크
+    @ApiOperation(value = "유저 이메일 중복 체크", notes = "유저 이메일이 중복되었는지 확인한다. 그리고 DB입력 성공여부에 따라 'true' 또는 'false'를 반환한다.", response = Boolean.class)
     @GetMapping("/isExistEmail/{email}")
-    public boolean isExistEmail(@PathVariable("email") String email){
+    public boolean isExistEmail(@PathVariable("email") @ApiParam(value = "유저 이메일(email)", required = true) String email){
         if(service.getEmailCount(email)!=0)
             return true;
         return false;
     }
 
     //회원 정보 수정(auth)
+    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping("/auth/update")
-    public ResponseEntity<String> update(@RequestBody User user){
+    public ResponseEntity<String> update(@RequestBody @ApiParam(value = "업데이트할 유저 정보(*)", required = true) User user){
         try{
             service.update(user);
         }catch(Exception e){
@@ -106,8 +116,9 @@ public class UserController {
     }
 
     //회원 탈퇴
+    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @GetMapping("/auth/delete/{user_id}")
-    public ResponseEntity<String> deleteUser(@PathVariable String user_id,HttpServletRequest request){
+    public ResponseEntity<String> deleteUser(@PathVariable @ApiParam(value = "삭제할 유저 아이디(user_id)", required = true) String user_id,HttpServletRequest request){
         try{
             String token = request.getHeader("jwt-auth-token");
             Map<String, Object> tokenInfoMap = jwtService.getInfo(token);
