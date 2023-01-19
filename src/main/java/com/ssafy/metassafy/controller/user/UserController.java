@@ -3,6 +3,7 @@ package com.ssafy.metassafy.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.metassafy.controller.board.BoardController;
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
+import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
 import com.ssafy.metassafy.service.user.JwtService;
 import com.ssafy.metassafy.service.user.UserService;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -133,6 +136,41 @@ public class UserController {
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
     }
+
+    //기술 스택 전체 보기
+    @GetMapping("/allTechList")
+    public List<TechStack> getAllTechList(){
+        List <TechStack> list=service.getAllTechList();
+        return list;
+    }
+
+    //특정 유저의 기술 스택 보기
+    @GetMapping("/techList/{user_id}")
+    public List<TechStack> getAllTechList(@PathVariable String user_id){
+        List <TechStack> list=service.getTechList(user_id);
+        return list;
+    }
+
+
+    //특정 유저의 기술스택 하나 추가
+    @PostMapping("/addTech")
+    public ResponseEntity<String> addTech(@RequestBody HashMap<String, String> map){
+       if(service.addTech(map)) {
+           return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+       }
+       return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    //특정 유저의 기술 스택 하나 삭제
+    @PostMapping("/deleteTech")
+    public ResponseEntity<String> deleteTech(@RequestBody HashMap<String, String> map){
+        if(service.deleteTech(map)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
 
 
