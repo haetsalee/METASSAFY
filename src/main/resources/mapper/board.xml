@@ -63,6 +63,7 @@
 		where article_no = #{article_no}
 	</update>
 
+<<<<<<< HEAD:src/main/resources/mapper/board/board.xml
 	<update id="modifyArticle" parameterType="com.ssafy.metassafy.dto.board.BoardDto">
 		update article
 		set title = #{title}, content = #{content}
@@ -76,4 +77,7 @@
 	</delete>
 
 </mapper>
+=======
+<!--</mapper> -->
+>>>>>>> c234baca0dadc32d35d239045afb238f9bf3d297:src/main/resources/mapper/board.xml
 
