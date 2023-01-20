@@ -11,7 +11,7 @@ import { AnimationClip, AnimationMixer } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
 
-const socket = io.connect("http://192.168.100.124:8089", {
+const socket = io.connect("http://192.168.100.124:8090", {
   path: "/socket.io",
   transports: ["websocket"],
 });
