@@ -71,66 +71,125 @@ function Canvas() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    const boxMaterial = new THREE.MeshNormalMaterial();
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+    // const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
+    // const boxMaterial = new THREE.MeshNormalMaterial();
+    // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     // scene.add(boxMesh);
 
     let loaders = new GLTFLoader();
+
     loaders.load(
-      "toon_cat_free/scene.gltf",
+      "model/cartoon_lowpoly_small_city_free_pack/scene.gltf",
+      function (gltf) {
+        gltf.scene.scale.x = 0.1;
+        gltf.scene.scale.y = 0.1;
+        gltf.scene.scale.z = 0.1;
+        gltf.scene.position.y = 12;
+        gltf.scene.position.x = 50;
+        scene.add(gltf.scene);
+      },
+      // called while loading is progressing
+      function (xhr) {
+        // console.log(xhr)
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+      },
+      // called when loading has errors
+      function (error) {
+        console.log(error);
+      }
+    );
+
+
+    loaders.load(
+      "model/toon_cat_free/scene.gltf",
       function (gltf) {
         gltf.scene.scale.x = 0.01;
         gltf.scene.scale.y = 0.01;
         gltf.scene.scale.z = 0.01;
 
         scene.add(gltf.scene);
+        // console.log(gltf.scene.rotation)
 
         document.addEventListener("keydown", onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
           var keyCode = event.which;
           if (keyCode === 87) {
-            gltf.scene.position.y += 1;
-            socket.emit("move", [
-              gltf.scene.position.x,
-              gltf.scene.position.y,
-              gltf.scene.position.z,
-            ]);
+            gltf.scene.position.z += 0.3;
+            socket.emit("move", {
+              pos: [
+                gltf.scene.position.x,
+                gltf.scene.position.y,
+                gltf.scene.position.z,
+              ],
+              rot: [
+                gltf.scene.rotation.x,
+                gltf.scene.rotation.y,
+                gltf.scene.rotation.z,
+              ],
+            });
           } else if (keyCode === 83) {
-            gltf.scene.position.y -= 1;
-            socket.emit("move", [
-              gltf.scene.position.x,
-              gltf.scene.position.y,
-              gltf.scene.position.z,
-            ]);
+            gltf.scene.position.z -= 0.3;
+            socket.emit("move", {
+              pos: [
+                gltf.scene.position.x,
+                gltf.scene.position.y,
+                gltf.scene.position.z,
+              ],
+              rot: [
+                gltf.scene.rotation.x,
+                gltf.scene.rotation.y,
+                gltf.scene.rotation.z,
+              ],
+            });
           } else if (keyCode === 65) {
-            gltf.scene.position.x -= 1;
-            socket.emit("move", [
-              gltf.scene.position.x,
-              gltf.scene.position.y,
-              gltf.scene.position.z,
-            ]);
+            gltf.scene.rotation.y += 0.3;
+            socket.emit("move", {
+              pos: [
+                gltf.scene.position.x,
+                gltf.scene.position.y,
+                gltf.scene.position.z,
+              ],
+              rot: [
+                gltf.scene.rotation.x,
+                gltf.scene.rotation.y,
+                gltf.scene.rotation.z,
+              ],
+            });
           } else if (keyCode === 68) {
-            gltf.scene.position.x += 1;
-            socket.emit("move", [
-              gltf.scene.position.x,
-              gltf.scene.position.y,
-              gltf.scene.position.z,
-            ]);
+            gltf.scene.rotation.y -= 0.3;
+            socket.emit("move", {
+              pos: [
+                gltf.scene.position.x,
+                gltf.scene.position.y,
+                gltf.scene.position.z,
+              ],
+              rot: [
+                gltf.scene.rotation.x,
+                gltf.scene.rotation.y,
+                gltf.scene.rotation.z,
+              ],
+            });
           } else if (keyCode === 32) {
             gltf.scene.position.set(0, 0, 0);
-            socket.emit("move", [
-              gltf.scene.position.x,
-              gltf.scene.position.y,
-              gltf.scene.position.z,
-            ]);
+            socket.emit("move", {
+              pos: [
+                gltf.scene.position.x,
+                gltf.scene.position.y,
+                gltf.scene.position.z,
+              ],
+              rot: [
+                gltf.scene.rotation.x,
+                gltf.scene.rotation.y,
+                gltf.scene.rotation.z,
+              ],
+            });
           }
           // animate();
         }
       },
       // called while loading is progressing
       function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded me");
       },
       // called when loading has errors
       function (error) {
@@ -139,26 +198,26 @@ function Canvas() {
     );
     // ㄴ 내 모델
 
-    // 남의 모델
-    function getModel() {
-      loaders.load(
-        "ptoon_cat_free/scene.gltf",
-        function (gltf) {
-          gltf.scene.scale.x = 0.01;
-          gltf.scene.scale.y = 0.01;
-          gltf.scene.scale.z = 0.01;
-          scene.add(gltf.scene);
-        },
-        // called while loading is progressing
-        function (xhr) {
-          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        },
-        // called when loading has errors
-        function (error) {
-          console.log(error);
-        }
-      );
-    }
+    // // 남의 모델
+    // function getModel() {
+    //   loaders.load(
+    //     "ptoon_cat_free/scene.gltf",
+    //     function (gltf) {
+    //       gltf.scene.scale.x = 0.01;
+    //       gltf.scene.scale.y = 0.01;
+    //       gltf.scene.scale.z = 0.01;
+    //       scene.add(gltf.scene);
+    //     },
+    //     // called while loading is progressing
+    //     function (xhr) {
+    //       console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //     },
+    //     // called when loading has errors
+    //     function (error) {
+    //       console.log(error);
+    //     }
+    //   );
+    // }
 
     //On connection server sends the client his ID
     socket.on("introduction", (_id, _clientNum, _ids) => {
@@ -169,7 +228,7 @@ function Canvas() {
           };
 
           loaders.load(
-            "toon_cat_free/scene.gltf",
+            "model/toon_cat_free/scene.gltf",
             function (gltf) {
               gltf.scene.scale.x = 0.01;
               gltf.scene.scale.y = 0.01;
@@ -177,11 +236,18 @@ function Canvas() {
               clients[_ids[i]].mesh = gltf.scene;
               //Add initial users to the scene
               scene.add(clients[_ids[i]].mesh);
-              socket.emit("move", [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ]);
+              socket.emit("move", {
+                pos: [
+                  gltf.scene.position.x,
+                  gltf.scene.position.y,
+                  gltf.scene.position.z,
+                ],
+                rot: [
+                  gltf.scene.rotation.x,
+                  gltf.scene.rotation.y,
+                  gltf.scene.rotation.z,
+                ],
+              });
             },
             // called while loading is progressing
             function (xhr) {
@@ -262,18 +328,31 @@ function Canvas() {
           let oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
           let newPos = _clientProps[Object.keys(_clientProps)[i]].position;
 
+          // console.log(newPos)
+
+          let newRot = _clientProps[Object.keys(_clientProps)[i]].rotation;
+          console.log(newRot)
+
+
           //Create a vector 3 and lerp the new values with the old values
           let lerpedPos = new THREE.Vector3();
-          lerpedPos.x = THREE.MathUtils.lerp(oldPos.x, newPos[0], 1);
-          lerpedPos.y = THREE.MathUtils.lerp(oldPos.y, newPos[1], 1);
-          lerpedPos.z = THREE.MathUtils.lerp(oldPos.z, newPos[2], 1);
+          lerpedPos.x = THREE.MathUtils.lerp(oldPos.x, newPos[0], 0.3);
+          lerpedPos.y = THREE.MathUtils.lerp(oldPos.y, newPos[1], 0.3);
+          lerpedPos.z = THREE.MathUtils.lerp(oldPos.z, newPos[2], 0.3);
 
           //Set the position
-          clients[Object.keys(_clientProps)[i]].mesh.position.set(
-            lerpedPos.x,
-            lerpedPos.y,
-            lerpedPos.z
-          );
+          // clients[Object.keys(_clientProps)[i]].mesh.position.set(
+          //   lerpedPos.x,
+          //   lerpedPos.y,
+          //   lerpedPos.z
+          // );
+          clients[Object.keys(_clientProps)[i]].mesh.position.x = newPos[0]
+          clients[Object.keys(_clientProps)[i]].mesh.position.y = newPos[1]
+          clients[Object.keys(_clientProps)[i]].mesh.position.z = newPos[2]
+
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.x = newRot[0]
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.y = newRot[1]
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.z = newRot[2]
         }
       }
     });
@@ -304,8 +383,8 @@ function Canvas() {
     // }
 
     const animate = () => {
-      boxMesh.rotation.x += 0.01;
-      boxMesh.rotation.y += 0.01;
+      // boxMesh.rotation.x += 0.01;
+      // boxMesh.rotation.y += 0.01;
       stats.update();
       controls.update();
       renderer.render(scene, camera);

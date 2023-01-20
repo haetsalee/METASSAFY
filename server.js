@@ -68,11 +68,12 @@ io.on("connection", (client) => {
   // 그리고 현재의 접속자수와 지금 접속한 client의 id 그리고 현재 clients의 key 배열을
   // 데이터로 전달한다.
 
-  client.on("move", (pos) => {
+  client.on("move", (posrot) => {
     // client로부터 move라는 이벤트를 들으면
     // pos라는 데이터를 함께 받아오는데, 이걸 어떻게 쓰는가...
 
-    clients[client.id].position = pos;
+    clients[client.id].position = posrot.pos;
+    clients[client.id].rotation = posrot.rot;
     // server의 clients라는 오브젝트에서 move라는 이벤트를 보낸 client의 id를 찾아
     // 해당 key의 position의 값을 받아온 pos로 바꾼다.
     // console.log(pos)
