@@ -282,7 +282,7 @@ function Canvas() {
           mesh: null,
         };
         loaders.load(
-          "toon_cat_free/scene.gltf",
+          "model/toon_cat_free/scene.gltf",
           function (gltf) {
             gltf.scene.scale.x = 0.01;
             gltf.scene.scale.y = 0.01;
