@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.metassafy.mapper.chatting.ChatMapper">
+
+<!--	private int croom_no;-->
+<!--	private String croom_name;-->
+<!--	private String last_chat;-->
+<!--	private int not_read_chat;-->
+<!--	private String regtime;-->
+
+
+	<select id="findAllRooms" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatRoomDto">
+		SELECT croom_no, croom_name, last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = #{croom_no}) not_read_chat, regtime
+		FROM chatroom
+		WHERE croom_no in (SELECT croom_no FROM participant WHERE user_id = #{user_id})
+	</select>
+
+	<insert id="createChatRoom" parameterType="string">
+		insert into chatroom (croom_name)
+		values (#{croom_name})
+	</insert>
+
+	<update id="editChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+		update chatroom
+		set croom_name = #{croom_name}
+		where croom_no = #{croom_no}
+	</update>
+
+	<delete id="deleteChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+		delete from chatroom
+		where croom_no = #{croom_no}
+	</delete>
+
+<!--	private int chat_no;-->
+<!--	private int croom_no;-->
+<!--	private String user_id;-->
+<!--	private String user_name;-->
+<!--	private String message;-->
+<!--	private int not_read;-->
+<!--	private String regtime;-->
+
+	<select id="findAllChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		SELECT c.chat_no, c.croom_no, c.user_id, u.user_name, c.message, c.not_read, c.regtime
+		FROM chat c
+		LEFT JOIN user u
+		ON c.user_id = u.user_id
+		WHERE c.croom_no = #{croom_no}
+	</select>
+</mapper>
+
