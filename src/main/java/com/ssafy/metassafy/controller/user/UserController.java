@@ -43,7 +43,7 @@ public class UserController {
     JwtService jwtService; //jwt 인증이 필요한 api는 경로에 /auth 붙이기
 
     //회원 가입
-    @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 성공하면 success 반환", response = String.class)
     @PostMapping("/regist")
     public ResponseEntity<String> register(@RequestBody @ApiParam(value = "유저 정보(user_id, user_pwd, name, area, email)", required = true) User user){
         try{
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     //로그인
-    @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 Object가 json형태로 반환된다.", response = Object.class)
+    @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 success 반환", response = Object.class)
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody @ApiParam(value = "유저 로그인(user_id, user_pwd)", required = true)  User user, HttpServletResponse response) {
         try {
@@ -107,7 +107,7 @@ public class UserController {
     }
 
     //회원 정보 수정(auth)
-    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다.", response = String.class)
     @PostMapping("/auth/update")
     public ResponseEntity<String> update(@RequestBody @ApiParam(value = "업데이트할 유저 정보(*)", required = true) User user){
         try{
@@ -119,7 +119,7 @@ public class UserController {
     }
 
     //회원 탈퇴
-    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다.", response = String.class)
     @GetMapping("/auth/delete/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable @ApiParam(value = "삭제할 유저 아이디(user_id)", required = true) String user_id,HttpServletRequest request){
         try{
