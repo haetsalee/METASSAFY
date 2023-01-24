@@ -18,4 +18,27 @@
 	    ]]>
     </select>
 
+    <select id="getNotifyList" resultType="com.ssafy.metassafy.dto.friend.FriendDto">
+        <![CDATA[
+		select * from Friend where to_user_id=#{user_id};
+	    ]]>
+    </select>
+    <select id="countRelation" resultType="integer">
+        <![CDATA[
+		select count(*) from Friend where (to_user_id=#{to_user_id} and from_user_id=#{from_user_id})
+        or (to_user_id=#{from_user_id} and from_user_id=#{to_user_id});
+	    ]]>
+    </select>
+
+    <insert id="addNotify"  >
+        Insert Into Friend(from_user_id,to_user_id,accept) Values(#{from_user_id},#{to_user_id},false);
+    </insert>
+
+    <update id="acceptFriend">
+        update Friend set accept=true where friend_no=#{friend_no};
+    </update>
+    <delete id="rejectFriend">
+        delete from Friend where friend_no=#{friend_no};
+    </delete>
+
 </mapper>

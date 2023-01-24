@@ -42,6 +42,11 @@ public class UserController {
     @Autowired
     JwtService jwtService; //jwt 인증이 필요한 api는 경로에 /auth 붙이기
 
+    @GetMapping("/allUser")
+    public List<User> getAllUser(){
+        return service.getAllUser();
+    }
+
     //회원 가입
     @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 성공하면 success 반환", response = String.class)
     @PostMapping("/regist")
@@ -63,6 +68,7 @@ public class UserController {
             if(loginUser.getUser_id()!=null&&loginUser.getEmail()!=null) { // 유효한 사용자일 경우
                 String token = jwtService.createToken(loginUser); // 사용자 정보로 토큰 생성
                 response.setHeader("jwt-auth-token", token); // client에 token 전달
+
                 return new ResponseEntity<Object>("login Success", HttpStatus.OK);
             } else {
                 return new ResponseEntity<Object>("login Fail", HttpStatus.OK);

@@ -4,6 +4,9 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.metassafy.mapper.user.UserMapper">
 
+    <select id="getAllUser"  resultType="com.ssafy.metassafy.dto.user.User">
+        select * from User;
+    </select>
     <insert id="regist">
         INSERT INTO User(user_id, user_pwd,name,area,email,regtime)
         VALUES (#{user_id}, #{user_pwd}, #{name},#{area},#{email},now());

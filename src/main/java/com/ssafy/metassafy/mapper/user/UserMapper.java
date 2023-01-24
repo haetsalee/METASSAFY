@@ -32,4 +32,6 @@ public interface UserMapper {
     boolean addTech(HashMap<String, String> map);
 
     boolean deleteTech(HashMap<String, String> map);
+
+    List<User> getAllUser();
 }
