@@ -429,7 +429,6 @@ function Canvas() {
       const delta = clock.getDelta();
       if (mixer) mixer.update(delta);
 
-      //
       stats.update();
       controls.update();
       renderer.render(scene, camera);
