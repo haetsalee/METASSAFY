@@ -1,7 +1,8 @@
 // server.js
 const express = require("express");
 const http = require("http");
-const port = 8080; // 서버를 열 포트 번호
+const port = 5000; // 서버를 열 포트 번호
+// const port = 8080; // 서버를 열 포트 번호
 const app = express();
 
 const server = http.createServer(app);

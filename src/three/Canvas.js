@@ -11,7 +11,8 @@ import { AnimationClip, AnimationMixer } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
 
-const socket = io.connect("http://192.168.100.124:8090", {
+// const socket = io.connect("http://192.168.100.124:8090", {
+const socket = io.connect("localhost:5000", {
   path: "/socket.io",
   transports: ["websocket"],
 });
@@ -56,8 +57,8 @@ function Canvas() {
 
     const orbitControls = new OrbitControls(camera, renderer.domElement);
     orbitControls.enableDamping = true;
-    orbitControls.minDistance = 5;
-    orbitControls.maxDistance = 15;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
     orbitControls.enablePan = false;
     orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
     orbitControls.update();
@@ -91,7 +92,7 @@ function Canvas() {
       // called while loading is progressing
       function (xhr) {
         // console.log(xhr)
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
       },
       // called when loading has errors
       function (error) {
@@ -100,13 +101,33 @@ function Canvas() {
     );
 
 
-    loaders.load(
-      "model/toon_cat_free/scene.gltf",
-      function (gltf) {
-        gltf.scene.scale.x = 0.01;
-        gltf.scene.scale.y = 0.01;
-        gltf.scene.scale.z = 0.01;
+    // animation 관련
+    let mixer;
 
+    loaders.load(
+      // "model/toon_cat_free/scene.gltf",
+      "model/people/ilbuni.glb",
+      function (gltf) {
+        console.log('-------------')
+        console.log(gltf.scene.children);
+        console.log(gltf);
+        console.log(gltf.animations[0]);
+        console.log(gltf.animations[1]);
+        console.log(gltf.animations[2]);
+        
+        mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
+        const actions = [];
+        actions[0] = mixer.clipAction(gltf.animations[0]);
+        actions[0].play();
+
+        console.log('-------------')
+        // gltf.scene.scale.x = 0.01;
+        // gltf.scene.scale.y = 0.01;
+        // gltf.scene.scale.z = 0.01;
+        gltf.scene.scale.x = 3;
+        gltf.scene.scale.y = 3;
+        gltf.scene.scale.z = 3;
+        gltf.scene.position.y += 2;
         scene.add(gltf.scene);
         // console.log(gltf.scene.rotation)
 
@@ -198,26 +219,31 @@ function Canvas() {
     );
     // ㄴ 내 모델
 
-    // // 남의 모델
-    // function getModel() {
-    //   loaders.load(
-    //     "ptoon_cat_free/scene.gltf",
-    //     function (gltf) {
-    //       gltf.scene.scale.x = 0.01;
-    //       gltf.scene.scale.y = 0.01;
-    //       gltf.scene.scale.z = 0.01;
-    //       scene.add(gltf.scene);
-    //     },
-    //     // called while loading is progressing
-    //     function (xhr) {
-    //       console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    //     },
-    //     // called when loading has errors
-    //     function (error) {
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+    // 남의 모델
+    function getModel() {
+      loaders.load(
+        // "ptoon_cat_free/scene.gltf",
+        "people/ilbuni.glb",
+        function (gltf) {
+          // gltf.scene.scale.x = 0.01;
+          // gltf.scene.scale.y = 0.01;
+          // gltf.scene.scale.z = 0.01;
+          gltf.scene.scale.x = 3;
+          gltf.scene.scale.y = 3;
+          gltf.scene.scale.z = 3;
+          gltf.scene.position.y += 2;
+          scene.add(gltf.scene);
+        },
+        // called while loading is progressing
+        function (xhr) {
+          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        },
+        // called when loading has errors
+        function (error) {
+          console.log(error);
+        }
+      );
+    }
 
     //On connection server sends the client his ID
     socket.on("introduction", (_id, _clientNum, _ids) => {
@@ -228,11 +254,16 @@ function Canvas() {
           };
 
           loaders.load(
-            "model/toon_cat_free/scene.gltf",
+            // "model/toon_cat_free/scene.gltf",
+            "model/people/ilbuni.glb",
             function (gltf) {
-              gltf.scene.scale.x = 0.01;
-              gltf.scene.scale.y = 0.01;
-              gltf.scene.scale.z = 0.01;
+              // gltf.scene.scale.x = 0.01;
+              // gltf.scene.scale.y = 0.01;
+              // gltf.scene.scale.z = 0.01;
+              gltf.scene.scale.x = 3;
+              gltf.scene.scale.y = 3;
+              gltf.scene.scale.z = 3;
+              gltf.scene.position.y += 2;
               clients[_ids[i]].mesh = gltf.scene;
               //Add initial users to the scene
               scene.add(clients[_ids[i]].mesh);
@@ -282,11 +313,16 @@ function Canvas() {
           mesh: null,
         };
         loaders.load(
-          "model/toon_cat_free/scene.gltf",
+          // "model/toon_cat_free/scene.gltf",
+          "model/people/ilbuni.glb",
           function (gltf) {
-            gltf.scene.scale.x = 0.01;
-            gltf.scene.scale.y = 0.01;
-            gltf.scene.scale.z = 0.01;
+            // gltf.scene.scale.x = 0.01;
+            // gltf.scene.scale.y = 0.01;
+            // gltf.scene.scale.z = 0.01;
+            gltf.scene.scale.x = 3;
+            gltf.scene.scale.y = 3;
+            gltf.scene.scale.z = 3;
+            gltf.scene.position.y += 2;
             clients[_id].mesh = gltf.scene;
             console.log(clients);
             console.log(clients[_id].mesh, "mesh 보이는지 확인하는 용도");
@@ -331,7 +367,7 @@ function Canvas() {
           // console.log(newPos)
 
           let newRot = _clientProps[Object.keys(_clientProps)[i]].rotation;
-          console.log(newRot)
+          // console.log(newRot)
 
 
           //Create a vector 3 and lerp the new values with the old values
@@ -382,9 +418,18 @@ function Canvas() {
     //   animate();
     // }
 
+    // 애니메이션
+    const clock = new THREE.Clock();
+
     const animate = () => {
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
+
+      // 애니메이션을 위한 것
+      const delta = clock.getDelta();
+      if (mixer) mixer.update(delta);
+
+      //
       stats.update();
       controls.update();
       renderer.render(scene, camera);
