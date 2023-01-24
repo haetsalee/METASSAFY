@@ -67,4 +67,8 @@ public class UserService {
     public boolean deleteTech(HashMap<String, String> map) {
         return mapper.deleteTech(map);
     }
+
+    public List<User> getAllUser() {
+        return mapper.getAllUser();
+    }
 }
