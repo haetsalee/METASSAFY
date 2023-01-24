@@ -17,10 +17,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/chat")
-public class ChatRoomController {
+public class ChatController {
 
     private final ChatService chatService;
-    private static final Logger logger = LoggerFactory.getLogger(ChatRoomController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -31,7 +31,7 @@ public class ChatRoomController {
         return new ResponseEntity<List<ChatRoomDto>>(chatService.findAllRooms(chatParameterDto), HttpStatus.OK);
     }
 
-    //채팅방 개설
+    //채팅방 생성
     @PostMapping(value = "/room")
     public ResponseEntity<String> createRoom(ChatParameterDto chatParameterDto) throws Exception{
 
@@ -64,7 +64,7 @@ public class ChatRoomController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-    //채팅 조회
+    //채팅 목록 조회
     @GetMapping
     public ResponseEntity<List<ChatDto>> findAllChat(ChatParameterDto chatParameterDto) throws Exception{
         logger.info("rooms - 호출");

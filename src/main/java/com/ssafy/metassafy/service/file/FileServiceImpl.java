@@ -1,4 +1,4 @@
-package com.ssafy.metassafy.service.File;
+package com.ssafy.metassafy.service.file;
 
 
 import com.google.cloud.storage.Blob;
