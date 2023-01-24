@@ -6,7 +6,7 @@ import com.ssafy.metassafy.dto.board.BoardParameterDto;
 import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.like.LikeDto;
 import com.ssafy.metassafy.mapper.board.BoardMapper;
-import com.ssafy.metassafy.service.File.FileService;
+import com.ssafy.metassafy.service.file.FileService;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

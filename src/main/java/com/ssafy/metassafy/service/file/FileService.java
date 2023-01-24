@@ -1,4 +1,4 @@
-package com.ssafy.metassafy.service.File;
+package com.ssafy.metassafy.service.file;
 
 import com.ssafy.metassafy.dto.file.FileDto;
 import org.springframework.web.multipart.MultipartFile;

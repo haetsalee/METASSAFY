@@ -18,19 +18,19 @@
 	</select>
 
 	<insert id="createChatRoom" parameterType="string">
-		insert into chatroom (croom_name)
-		values (#{croom_name})
+		INSERT INTO chatroom (croom_name)
+		VALUES (#{croom_name})
 	</insert>
 
 	<update id="editChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
-		update chatroom
-		set croom_name = #{croom_name}
-		where croom_no = #{croom_no}
+		UPDATE chatroom
+		SET croom_name = #{croom_name}
+		WHERE croom_no = #{croom_no}
 	</update>
 
 	<delete id="deleteChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
-		delete from chatroom
-		where croom_no = #{croom_no}
+		DELETE FROM chatroom
+		WHERE croom_no = #{croom_no}
 	</delete>
 
 <!--	private int chat_no;-->
@@ -48,5 +48,65 @@
 		ON c.user_id = u.user_id
 		WHERE c.croom_no = #{croom_no}
 	</select>
+
+	<select id="getMeberNum" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto" resultType="Integer">
+		SELECT COUNT(*)
+		FROM participant
+		WHERE croom_no = #{croom_no}
+	</select>
+
+	<select id="getLastReadChatId" parameterType="Integer" resultType="Integer">
+		SELECT max(chat_no)
+		FROM chat
+		WHERE croom_no = #{croom_no}
+	</select>
+
+	<insert id="createChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		INSERT INTO chat (croom_no, user_id, message, not_read)
+		VALUES (#{croom_no}, #{user_id}, #{message}, #{not_read})
+	</insert>
+
+
+	<update id="updateLastChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		UPDATE chatroom
+		SET last_chat = #{message}
+		WHERE croom_no = #{croom_no}
+	</update>
+
+<!--	private int participant_no;-->
+<!--	private String user_id;-->
+<!--	private int croom_no;-->
+<!--	private String croom_name;-->
+<!--	private int not_read_chat;-->
+<!--	private int last_read_chat_id;-->
+<!--	private String regtime;-->
+
+	<!-- 모든 participant 리스트 -->
+	<select id="findAllParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+		SELECT participant_no, user_id, croom_no, croom_name, not_read_chat, last_read_chat_id, regtime
+		FROM participant
+		WHERE user_id = #{user_id} and croom_no = #{croom_no}
+	</select>
+
+	<!-- 친구 추가시 participant 등록  -->
+	<insert id="registParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		INSERT INTO participant (user_id, croom_no, croom_name, not_read_chat, last_read_chat_id)
+		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, #{last_read_chat_id})
+	</insert>
+
+	<delete id="deleteParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		DELETE FROM participant
+		WHERE user_id = #{user_id} AND croom_no = #{croom_no}
+	</delete>
+
+	<!-- not_read_chat 갱신 -->
+	<update id="renewNotReadChat" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE participant
+			SET not_read_chat = (SELECT count(*) FROM chat WHERE croom_no = #{item.croom_no} AND chat_no > #{item.last_read_chat_id})
+			WHERE user_id = #{item.user_id} AND croom_no = #{item.croom_no}
+		</foreach>
+	</update>
+
 </mapper>
 
