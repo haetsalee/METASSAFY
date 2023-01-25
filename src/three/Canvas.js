@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { io } from "socket.io-client";
 
 import * as THREE from "three";
 
@@ -11,11 +10,8 @@ import { AnimationClip, AnimationMixer } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
 
-// const socket = io.connect("http://192.168.100.124:8090", {
-const socket = io.connect("localhost:5000", {
-  path: "/socket.io",
-  transports: ["websocket"],
-});
+import { socket } from "../Socket";
+
 
 function Canvas() {
   useEffect(() => {
