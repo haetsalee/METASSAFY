@@ -81,7 +81,6 @@
 
 
 
-<!--	private int participant_no;-->
 <!--	private String user_id;-->
 <!--	private int croom_no;-->
 <!--	private String croom_name;-->
@@ -91,7 +90,7 @@
 
 	<!-- 모든 participant 리스트 -->
 	<select id="findAllParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
-		SELECT participant_no, user_id, croom_no, croom_name, not_read_chat, last_read_chat_id, regtime
+		SELECT user_id, croom_no, croom_name, not_read_chat, last_read_chat_id, regtime
 		FROM participant
 		WHERE user_id = #{user_id} and croom_no = #{croom_no}
 	</select>

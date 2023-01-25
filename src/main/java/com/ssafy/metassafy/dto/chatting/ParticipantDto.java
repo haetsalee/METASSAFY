@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @ToString
 @EntityScan
 public class ParticipantDto {
-    private int participant_no;
     private String user_id;
     private int croom_no;
     private String croom_name;

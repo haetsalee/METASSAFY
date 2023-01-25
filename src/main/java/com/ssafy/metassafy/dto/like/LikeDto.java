@@ -14,8 +14,6 @@ import io.swagger.annotations.ApiModelProperty;
 @EntityScan
 @ApiModel(value = "LikeDto : 게시판 좋아요 정보", description = "게시판 좋아요 정보")
 public class LikeDto {
-    @ApiModelProperty(value = "좋아요 식별자")
-    private int like_no;
     @ApiModelProperty(value = "좋아요 타입(게시글, 댓글, 대댓글 등)")
     private int like_type;
     @ApiModelProperty(value = "작성자 아이디")
