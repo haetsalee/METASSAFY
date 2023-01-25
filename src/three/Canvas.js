@@ -201,7 +201,7 @@ function Canvas() {
               ],
             });
           }
-          // animate();
+          animate();
         }
       },
       // called while loading is progressing
@@ -221,6 +221,10 @@ function Canvas() {
         // "ptoon_cat_free/scene.gltf",
         "people/ilbuni.glb",
         function (gltf) {
+          mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
+          const actions = [];
+          actions[0] = mixer.clipAction(gltf.animations[0]);
+          actions[0].play();
           // gltf.scene.scale.x = 0.01;
           // gltf.scene.scale.y = 0.01;
           // gltf.scene.scale.z = 0.01;
@@ -229,6 +233,7 @@ function Canvas() {
           gltf.scene.scale.z = 3;
           gltf.scene.position.y += 2;
           scene.add(gltf.scene);
+          animate();
         },
         // called while loading is progressing
         function (xhr) {
@@ -253,6 +258,11 @@ function Canvas() {
             // "model/toon_cat_free/scene.gltf",
             "model/people/ilbuni.glb",
             function (gltf) {
+              mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
+              const actions = [];
+              actions[0] = mixer.clipAction(gltf.animations[0]);
+              actions[0].play();
+
               // gltf.scene.scale.x = 0.01;
               // gltf.scene.scale.y = 0.01;
               // gltf.scene.scale.z = 0.01;
@@ -260,6 +270,7 @@ function Canvas() {
               gltf.scene.scale.y = 3;
               gltf.scene.scale.z = 3;
               gltf.scene.position.y += 2;
+              animate();
               clients[_ids[i]].mesh = gltf.scene;
               //Add initial users to the scene
               scene.add(clients[_ids[i]].mesh);
@@ -312,6 +323,12 @@ function Canvas() {
           // "model/toon_cat_free/scene.gltf",
           "model/people/ilbuni.glb",
           function (gltf) {
+
+            mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
+            const actions = [];
+            actions[0] = mixer.clipAction(gltf.animations[0]);
+            actions[0].play();
+            animate();
             // gltf.scene.scale.x = 0.01;
             // gltf.scene.scale.y = 0.01;
             // gltf.scene.scale.z = 0.01;
