@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.metassafy.mapper.memo.MemoMapper">
+<mapper namespace="com.ssafy.metassafy.mapper.memo.MememoMapper">
 
 	<select id="listMememo" parameterType="com.ssafy.metassafy.dto.memo.MemoParameterDto" resultType="com.ssafy.metassafy.dto.memo.MememoDto">
 		SELECT m.mememo_no, m.user_id, m.memo_no, m.content,(SELECT COUNT(*) FROM `like` WHERE like_type = 3 AND `no` = m.mememo_no) mememo_like, m.regtime

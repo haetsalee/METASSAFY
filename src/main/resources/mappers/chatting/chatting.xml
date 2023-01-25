@@ -49,13 +49,13 @@
 		WHERE c.croom_no = #{croom_no}
 	</select>
 
-	<select id="getMeberNum" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto" resultType="Integer">
+	<select id="getMeberNum" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto" resultType="int">
 		SELECT COUNT(*)
 		FROM participant
 		WHERE croom_no = #{croom_no}
 	</select>
 
-	<select id="getLastReadChatId" parameterType="Integer" resultType="Integer">
+	<select id="getLastReadChatId" parameterType="Integer" resultType="int">
 		SELECT max(chat_no)
 		FROM chat
 		WHERE croom_no = #{croom_no}
@@ -73,7 +73,7 @@
 		WHERE croom_no = #{croom_no}
 	</update>
 
-	<update id="updateNotRead" parameterType="Integer">
+	<update id="updateNotRead" parameterType="int">
 		UPDATE chat
 		SET not_read = IF(not_read > 0, not_read - 1, 0)
 		WHERE chat_no = #{chat_no}
