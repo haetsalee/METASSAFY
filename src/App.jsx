@@ -1,9 +1,9 @@
-import Canvas from "./three/Canvas";
+import Canvas from './metaverse/three/Canvas';
 
 function App() {
   return (
     <div>
-      <Canvas/>
+      <Canvas />
     </div>
   );
 }
