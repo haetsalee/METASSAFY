@@ -32,7 +32,6 @@ public class UserController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-
     @Autowired
     UserService service;
     /*
@@ -42,6 +41,7 @@ public class UserController {
     @Autowired
     JwtService jwtService; //jwt 인증이 필요한 api는 경로에 /auth 붙이기
 
+    @ApiOperation(value = "유저 목록 조회", notes = "모든 유저의 목록을 출력한다. 성공하면 success 반환", response = String.class)
     @GetMapping("/allUser")
     public List<User> getAllUser(){
         return service.getAllUser();
@@ -60,7 +60,10 @@ public class UserController {
     }
 
     //로그인
-    @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 success 반환", response = Object.class)
+    @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 success 반환하고 헤더에 jwt-auth-token을 부여.(postman) 예시: \n {\n" +
+            "  \"user_id\": \"ssafy\"\n" +
+            "  \"user_pwd\": \"1234\"\n" +
+            "}" , response = Object.class)
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody @ApiParam(value = "유저 로그인(user_id, user_pwd)", required = true)  User user, HttpServletResponse response) {
         try {
@@ -78,7 +81,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "유저 토큰", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다.", response = Object.class)
+    @ApiOperation(value = "유저 토큰", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다. (postman)", response = Object.class)
     @GetMapping("/auth/getUser") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
     public ResponseEntity<Object> getUser(HttpServletRequest request) {
         try {
@@ -95,7 +98,7 @@ public class UserController {
         }
     }
     //아이디 중복 체크->false면 해당 아이디 사용 가능
-    @ApiOperation(value = "유저 아이디 중복 체크", notes = "유저 아이디가 중복되었는지 확인한다. 그리고 DB입력 성공여부에 따라 'true' 또는 'false'를 반환한다.", response = Boolean.class)
+    @ApiOperation(value = "유저 아이디 중복 체크", notes = "유저 아이디가 중복되었는지 확인한다. 중복되지 않는 아이디면 'false'를 반환한다.", response = Boolean.class)
     @GetMapping("/isExist/{user_id}")
     public boolean isExist(@PathVariable("user_id") @ApiParam(value = "유저 아이디(user_id)", required = true) String user_id){
         if(service.getCount(user_id)!=0)
@@ -104,7 +107,7 @@ public class UserController {
     }
 
     //이메일 중복 체크
-    @ApiOperation(value = "유저 이메일 중복 체크", notes = "유저 이메일이 중복되었는지 확인한다. 그리고 DB입력 성공여부에 따라 'true' 또는 'false'를 반환한다.", response = Boolean.class)
+    @ApiOperation(value = "유저 이메일 중복 체크", notes = "유저 이메일이 중복되었는지 확인한다. 중복되지 않는 이메일이면 'false'를 반환한다.", response = Boolean.class)
     @GetMapping("/isExistEmail/{email}")
     public boolean isExistEmail(@PathVariable("email") @ApiParam(value = "유저 이메일(email)", required = true) String email){
         if(service.getEmailCount(email)!=0)
@@ -113,7 +116,7 @@ public class UserController {
     }
 
     //회원 정보 수정(auth)
-    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다.", response = String.class)
+    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
     @PostMapping("/auth/update")
     public ResponseEntity<String> update(@RequestBody @ApiParam(value = "업데이트할 유저 정보(*)", required = true) User user){
         try{
@@ -125,7 +128,7 @@ public class UserController {
     }
 
     //회원 탈퇴
-    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다.", response = String.class)
+    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
     @GetMapping("/auth/delete/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable @ApiParam(value = "삭제할 유저 아이디(user_id)", required = true) String user_id,HttpServletRequest request){
         try{
@@ -144,6 +147,7 @@ public class UserController {
     }
 
     //기술 스택 전체 보기
+    @ApiOperation(value = "기술 스택 전체 보기", notes = "옵션으로 제공되는 기술스택 목록 반환", response = TechStack.class)
     @GetMapping("/allTechList")
     public List<TechStack> getAllTechList(){
         List <TechStack> list=service.getAllTechList();
@@ -151,14 +155,19 @@ public class UserController {
     }
 
     //특정 유저의 기술 스택 보기
+    @ApiOperation(value = "특정 유저의 기술 스택 반환", notes = "user_id의 기술스택 목록 반환", response = TechStack.class)
     @GetMapping("/techList/{user_id}")
-    public List<TechStack> getAllTechList(@PathVariable String user_id){
+    public List<TechStack> getAllTechList(@PathVariable @ApiParam(value = "유저 아이디", required = true) String user_id){
         List <TechStack> list=service.getTechList(user_id);
         return list;
     }
 
 
     //특정 유저의 기술스택 하나 추가
+    @ApiOperation(value="특정 유저의 기술 스택 추가",notes="유저아이디, 기술스택 아이디를 받는다. 성공시 success 반환 예시:\n {\n" +
+            "        \"user_id\": \"admin\",\n" +
+            "        \"tech_id\": 1\n" +
+            "} ")
     @PostMapping("/addTech")
     public ResponseEntity<String> addTech(@RequestBody HashMap<String, String> map){
        if(service.addTech(map)) {
@@ -168,6 +177,7 @@ public class UserController {
     }
 
     //특정 유저의 기술 스택 하나 삭제
+    @ApiOperation(value = "특정 유저의 기술 스택 삭제", notes = "특정 유저의 기술스택을 삭제한다. 형식은 기술 스택 추가와 동일", response = String.class)
     @PostMapping("/deleteTech")
     public ResponseEntity<String> deleteTech(@RequestBody HashMap<String, String> map){
         if(service.deleteTech(map)) {

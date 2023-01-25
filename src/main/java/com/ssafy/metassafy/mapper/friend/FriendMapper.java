@@ -21,4 +21,6 @@ public interface FriendMapper {
     void acceptFriend(int friend_no);
 
     void rejectFriend(int friend_no);
+
+    FriendDto getNotify(String from_user_id, String to_user_id);
 }
