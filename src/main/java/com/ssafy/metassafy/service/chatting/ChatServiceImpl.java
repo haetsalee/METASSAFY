@@ -89,5 +89,10 @@ public class ChatServiceImpl implements ChatService{
         return sqlSession.getMapper(ChatMapper.class).renewNotReadChat(participantDtos) == 1;
     }
 
+    @Override
+    public boolean updateNotRead(int chat_no) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).updateNotRead(chat_no) == 1;
+    }
+
 
 }

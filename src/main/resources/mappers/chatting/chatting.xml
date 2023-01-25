@@ -73,6 +73,14 @@
 		WHERE croom_no = #{croom_no}
 	</update>
 
+	<update id="updateNotRead" parameterType="Integer">
+		UPDATE chat
+		SET not_read = IF(not_read > 0, not_read - 1, 0)
+		WHERE chat_no = #{chat_no}
+	</update>
+
+
+
 <!--	private int participant_no;-->
 <!--	private String user_id;-->
 <!--	private int croom_no;-->
