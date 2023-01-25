@@ -115,6 +115,7 @@ function Canvas() {
         const actions = [];
         actions[0] = mixer.clipAction(gltf.animations[0]);
         actions[0].play();
+        animate();
 
         console.log('-------------')
         // gltf.scene.scale.x = 0.01;
@@ -159,7 +160,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 65) {
-            gltf.scene.rotation.y += 0.3;
+            gltf.scene.position.x += 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
@@ -173,7 +174,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 68) {
-            gltf.scene.rotation.y -= 0.3;
+            gltf.scene.position.x -= 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
