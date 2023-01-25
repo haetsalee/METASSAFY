@@ -71,5 +71,15 @@ public class ChatController {
         return new ResponseEntity<List<ChatDto>>(chatService.findAllChat(chatParameterDto), HttpStatus.OK);
     }
 
+    //안읽은 채팅 업데이트
+    @PutMapping(value = "/{chat_no}")
+    public ResponseEntity<String> updateNotRead(@PathVariable("chat_no") int chat_no) throws Exception{
+
+        if(chatService.updateNotRead(chat_no)){
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
 
 }
