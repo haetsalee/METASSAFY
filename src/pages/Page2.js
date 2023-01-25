@@ -12,6 +12,7 @@ import { AnimationClip, AnimationMixer } from "three";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 import { socket } from "../Socket";
+import Card from "../components/ui/Card";
 
 function Page2() {
   const canvasRef = useRef(null); // useRef사용
@@ -19,8 +20,8 @@ function Page2() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 0.5;
-    canvas.height = window.innerHeight * 0.5;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     setCanvasTag(canvas);
 
@@ -53,15 +54,10 @@ function Page2() {
       antialias: true,
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth * 0.5, window.innerHeight * 0.5);
     renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.shadowMap.enabled = true;
     // ㄴ 이게 무엇인지는 확인이 필요
-    // console.log('-------------')
-    // console.log(canvasRef)
-    // console.log('-------------')
-
-    // canvasRef.appendChild(renderer.domElement);
     // document.body.appendChild(renderer.domElement);
   //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
 
@@ -470,10 +466,10 @@ function Page2() {
     <h1>Page2</h1>
     <div className="canvas_Wrap">
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
+      <Card>
       <canvas className="meta-ssafy" ref={canvasRef}></canvas>
-      <div>
         <h1>Canvas</h1>  
-      </div>  
+      </Card>  
     </div>
   </section>);
 }
