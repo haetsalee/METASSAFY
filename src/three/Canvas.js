@@ -108,7 +108,6 @@ function Canvas() {
         gltf.scene.scale.z = 0.01;
 
         scene.add(gltf.scene);
-        // console.log(gltf.scene.rotation)
 
         document.addEventListener("keydown", onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
