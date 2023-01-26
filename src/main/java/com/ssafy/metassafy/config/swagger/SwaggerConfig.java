@@ -4,16 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.Contact;
+import springfox.documentation.builders.*;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.schema.ScalarType;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.builders.ParameterBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration // 스프링 실행시 설정파일
 @EnableSwagger2 // Swagger2를 사용
@@ -30,12 +30,11 @@ public class SwaggerConfig {
 
     private String host="localhost:9999/metassafy"; //추가
 
-    @Value("${AUTHORIZATION_HEADER}")
-    String AUTHORIZATION_HEADER;
-    @Value("${REAUTHORIZATION_HEADER}")
-    String REAUTHORIZATION_HEADER;
 
     private ApiInfo apiInfo() {
+
+
+
         String descript = "METASSAFY React.js API Reference for Developers<br>";
         return new ApiInfoBuilder().title(title)
                 .version("0.0.1")
@@ -49,9 +48,19 @@ public class SwaggerConfig {
 
     @Bean
     public Docket allApi() {
+        //Authentication header 처리를 위해 사용
+        RequestParameterBuilder aParameterBuilder = new RequestParameterBuilder();
+        aParameterBuilder.name("jwt-auth-token")
+                .query(q -> q.defaultValue("no-cache, no-store")
+                        .model(modelSpecificationBuilder -> modelSpecificationBuilder.scalarModel(ScalarType.STRING)))
+                .in(ParameterType.HEADER).required(true).build();
+
+        List<RequestParameter> aParameters = new ArrayList<>();
+        aParameters.add(aParameterBuilder.build());
+
         return new Docket(DocumentationType.SWAGGER_2).groupName("1. 전체").apiInfo(apiInfo()).host(host).select() //수정
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.metassafy.controller")).paths(PathSelectors.regex("/*.*"))
-                .apis(RequestHandlerSelectors.any()).build();
+                .apis(RequestHandlerSelectors.any()).build().globalRequestParameters(aParameters);
     }
 
     @Bean
@@ -68,9 +77,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any()).build();
     }
 
-    private ApiKey apiKey() {
-        return new ApiKey("Authorization", "Authorization", "header");
-    }
 
 
 }
