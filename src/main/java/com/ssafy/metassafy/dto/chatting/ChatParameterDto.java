@@ -14,5 +14,5 @@ public class ChatParameterDto {
     private int croom_no;
     private String croom_name;
     private String user_id;
-    private String user_name;
+    private String name;
 }

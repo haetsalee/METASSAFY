@@ -48,13 +48,17 @@ public class ChatServiceImpl implements ChatService{
     }
     @Override
     public void createChat(ChatDto chatDto) throws Exception {
-
         // 채팅방에 속해있는 사람 수
         int member_num = sqlSession.getMapper(ChatMapper.class).getMemberNum(chatDto);
         chatDto.setNot_read(member_num);
-
         //저장
         sqlSession.getMapper(ChatMapper.class).createChat(chatDto);
+    }
+
+    @Override
+    public int getChatNo(ChatDto chatDto) throws Exception {
+        System.out.println(chatDto + "  getChatNo");
+        return sqlSession.getMapper(ChatMapper.class).getChatNo(chatDto);
     }
 
     //룸 마지막 대화 업데이트
@@ -90,9 +94,13 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public boolean updateNotRead(int chat_no) throws Exception {
-        return sqlSession.getMapper(ChatMapper.class).updateNotRead(chat_no) == 1;
+    public boolean updateNotRead(ChatParameterDto chatParameterDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).updateNotRead(chatParameterDto) == 1;
     }
 
+    @Override
+    public boolean renewLastReadChatId(ParticipantDto participantDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).renewLastReadChatId(participantDto) == 1;
+    }
 
 }

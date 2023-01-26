@@ -21,5 +21,7 @@ public interface ChatService {
     public int getLastReadChatId(int croom_no) throws Exception;
     public List<ParticipantDto> findAllParticipants(ChatParameterDto chatParameterDto) throws Exception;
     public boolean renewNotReadChat(List<ParticipantDto> participantDtos) throws Exception;
-    public boolean updateNotRead(int chat_no) throws Exception;
+    public boolean updateNotRead(ChatParameterDto chatParameterDto) throws Exception;
+    public boolean renewLastReadChatId(ParticipantDto participantDto) throws Exception;
+    public int getChatNo(ChatDto chatDto) throws Exception;
 }

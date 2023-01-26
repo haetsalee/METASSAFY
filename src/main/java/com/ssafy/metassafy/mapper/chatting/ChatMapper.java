@@ -25,5 +25,7 @@ public interface ChatMapper {
     public int getLastReadChatId(int croom_no) throws SQLException;
     public List<ParticipantDto> findAllParticipants(ChatParameterDto chatParameterDto) throws SQLException;
     public int renewNotReadChat(List<ParticipantDto> participantDtos) throws SQLException;
-    public int updateNotRead(int chat_no) throws SQLException;
+    public int updateNotRead(ChatParameterDto chatParameterDto) throws SQLException;
+    public int renewLastReadChatId(ParticipantDto participantDto) throws SQLException;
+    public int getChatNo(ChatDto chatDto) throws SQLException;
 }

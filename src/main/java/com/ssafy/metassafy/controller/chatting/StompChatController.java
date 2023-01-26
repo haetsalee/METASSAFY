@@ -28,7 +28,7 @@ public class StompChatController {
     //"/pub/chat"
     @MessageMapping(value = "/chat/enter")
     public void enterWorld(ChatDto message){
-        message.setMessage(message.getUser_name() + "님이 접속하였습니다.");
+        message.setMessage(message.getName() + "님이 접속하였습니다.");
 
         template.convertAndSend("/sub/chat", message);
     }
@@ -42,7 +42,7 @@ public class StompChatController {
     //"/pub/chat/room/enter"
     @MessageMapping(value = "/chat/room/enter")
     public void enterRoom(ChatDto message) throws Exception{
-        message.setMessage(message.getUser_name() + "님이 채팅방에 참여하였습니다.");
+        message.setMessage(message.getName() + "님이 채팅방에 참여하였습니다.");
 
         // 마지막 채팅 no 가져오기
         int last_read_chat_id = chatService.getLastReadChatId(message.getCroom_no());
@@ -52,29 +52,32 @@ public class StompChatController {
         // 채팅 방에서 해당 인원 추가
         chatService.registParticipant(message);
 
-        template.convertAndSend("/sub/chat/room/" + message.getChat_no(), message);
+        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
     }
 
     @MessageMapping(value = "/chat/room/leave")
     public void leaveRoom(ChatDto message) throws Exception{
-        message.setMessage(message.getUser_name() + "님이 채팅방을 떠났습니다.");
+        message.setMessage(message.getName() + "님이 채팅방을 떠났습니다.");
         // 채팅 방에서 해당 인원 삭제
         chatService.deleteParticipant(message);
 
-        template.convertAndSend("/sub/chat/room/" + message.getChat_no(), message);
+        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
     }
 
     //"/pub/chat/room/message"
     @MessageMapping(value = "/chat/room/message")
     public void message(ChatDto message) throws  Exception{
-        message.setMessage(message.getUser_name() + " : " + message.getMessage());
+        message.setMessage(message.getName() + " : " + message.getMessage());
 
         //대화 저장
         chatService.createChat(message);
         //룸 마지막 대화 업데이트
         chatService.updateLastChat(message);
+        //chat_no 가져오기
+        int chat_no = chatService.getChatNo(message);
+        message.setChat_no(chat_no);
 
-        template.convertAndSend("/sub/chat/room/" + message.getChat_no(), message);
+        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
     }
 
     // 초대기능, 읽음 처리 -- 이론상으로는 해결
