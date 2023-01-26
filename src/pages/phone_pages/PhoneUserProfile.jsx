@@ -6,9 +6,8 @@ import BackgroundBox from '../../components/phone/BackgroundBox';
 
 function PhoneUserProfile(props) {
   return <div className={classes.phone_user_profile}>
-    {props.children}
       <BackgroundBox />
-      <TextGroupComponent name='김싸피' class='구미 2반'/>
+      <TextGroupComponent name='??' class='???'/>
       {/* 전공, 포지션, 공통 */}
       <MajorPositionClass />
       기술스택
