@@ -32,7 +32,7 @@ const StyledInput = styled.input`
 
 const ErrorText = styled.p`
   color: red;
-  margin: 0;
+  margin-top: 3px;
   font-size: 5px;
   font-family: korail_light;
   letter-spacing: 0.5px;

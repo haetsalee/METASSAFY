@@ -1,21 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../../store/action/authAction';
 
 import useInput from '../../hooks/use-input';
 import AuthInput from './AuthInput';
-import SubmitButtons from './SubmitButtons';
-
-const StyledHr = styled.hr`
-  margin: 0;
-  border: 0;
-  border-bottom: 1.5px dashed #eee;
-`;
+import SubmitButton from './SubmitButton';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch();
+
   const {
-    value: userId,
+    value: userIdValue,
     isValid: userIdIsValid,
     hasError: userIdHasError,
     valueChangeHandler: userIdChangeHandler,
@@ -44,7 +41,8 @@ const LoginForm = (props) => {
       return;
     }
 
-    console.log('제출!', userId, userPasswordValue);
+    console.log('제출!', userIdValue, userPasswordValue);
+    dispatch(loginAction(userIdValue, userPasswordValue));
 
     resetuserId();
     resetuserPassword();
@@ -58,14 +56,14 @@ const LoginForm = (props) => {
           type="text"
           id="userId"
           placeholder="아이디 입력"
-          value={userId}
+          value={userIdValue}
           onChange={userIdChangeHandler}
           onBlur={userIdBlurHandler}
           hasError={userIdHasError}
         />
         <AuthInput
           label="비밀번호"
-          type="text"
+          type="password"
           id="userPassword"
           placeholder="비밀번호 입력"
           value={userPasswordValue}
@@ -74,8 +72,7 @@ const LoginForm = (props) => {
           hasError={userPasswordHasError}
         />
       </div>
-      <SubmitButtons />
-      <StyledHr />
+      <SubmitButton>로그인하기</SubmitButton>
     </form>
   );
 };

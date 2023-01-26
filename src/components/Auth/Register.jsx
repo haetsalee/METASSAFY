@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Regist = (props) => {
+const Register = (props) => {
   return <p>회원가입</p>;
 };
 
-export default Regist;
+export default Register;
