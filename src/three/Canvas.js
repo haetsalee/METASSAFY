@@ -9,7 +9,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import { AnimationClip, AnimationMixer } from "three";
 
-import Stats from "three/examples/jsm/libs/stats.module";
+// import Stats from "three/examples/jsm/libs/stats.module";
 
 const socket = io.connect("http://192.168.100.124:8090", {
   path: "/socket.io",
@@ -358,8 +358,8 @@ function Canvas() {
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    const stats = Stats();
-    document.body.appendChild(stats.dom);
+    // const stats = Stats();
+    // document.body.appendChild(stats.dom);
 
     // var xSpeed = 0.0001;
     // var ySpeed = 0.0001;
@@ -384,7 +384,7 @@ function Canvas() {
     const animate = () => {
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
-      stats.update();
+      // stats.update();
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
