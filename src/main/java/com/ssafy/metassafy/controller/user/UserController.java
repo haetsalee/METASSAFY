@@ -48,7 +48,13 @@ public class UserController {
     }
 
     //회원 가입
-    @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 성공하면 success 반환", response = String.class)
+    @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 성공하면 success 반환 예시: \n {\n" +
+            "    \"user_id\": \"ssafy\",\n" +
+            "    \"user_pwd\":\"1234\",\n" +
+            "    \"name\":\"kim\",\n" +
+            "    \"area\":\"구미\",\n" +
+            "    \"email\":\"ssafy@naver.com\"\n" +
+            "}", response = String.class)
     @PostMapping("/regist")
     public ResponseEntity<String> register(@RequestBody @ApiParam(value = "유저 정보(user_id, user_pwd, name, area, email)", required = true) User user){
         try{
@@ -61,7 +67,7 @@ public class UserController {
 
     //로그인
     @ApiOperation(value = "유저 로그인", notes = "유저가 로그인한다. 그리고 DB입력 성공하면 success 반환하고 헤더에 jwt-auth-token을 부여.(postman) 예시: \n {\n" +
-            "  \"user_id\": \"ssafy\"\n" +
+            "  \"user_id\": \"ssafy\",\n" +
             "  \"user_pwd\": \"1234\"\n" +
             "}" , response = Object.class)
     @PostMapping("/login")
@@ -69,9 +75,11 @@ public class UserController {
         try {
             JwtInfoDto loginUser=service.login(user);
             if(loginUser.getUser_id()!=null&&loginUser.getEmail()!=null) { // 유효한 사용자일 경우
-                String token = jwtService.createToken(loginUser); // 사용자 정보로 토큰 생성
-                response.setHeader("jwt-auth-token", token); // client에 token 전달
-
+                String access_token = jwtService.createToken(loginUser,"access"); // 사용자 정보로 토큰 생성
+                String refresh_token = jwtService.createToken(loginUser,"refresh"); //refresh 토큰 생성
+                response.setHeader("jwt-auth-token", access_token);  // client에 token 전달
+                response.setHeader("jwt-refresh-token",refresh_token);
+                service.setRefresh(user.getUser_id(),refresh_token); //refresh 토큰은 서버에 저장하기
                 return new ResponseEntity<Object>("login Success", HttpStatus.OK);
             } else {
                 return new ResponseEntity<Object>("login Fail", HttpStatus.OK);
@@ -79,6 +87,25 @@ public class UserController {
         } catch(Exception e) {
             return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
         }
+    }
+
+    //refresh 토큰으로 새로운 액세스 토큰을 발급받는다.
+    @ApiOperation(value = "액세스 토큰 만료시 새 토큰 발급", notes = "헤더에 refresh 토큰을 넣으면 새 액세스 토큰을 발급해줍니다.", response = Object.class)
+    @GetMapping("/getNewAccessToken")
+    public ResponseEntity<Object> getNewAccess(HttpServletResponse response,HttpServletRequest request) {
+        try{
+            String refresh_token = request.getHeader("jwt-refresh-token");
+            User user=service.getUserWithRefresh(refresh_token);
+            if(user!=null){
+                String newToken=jwtService.createToken(new JwtInfoDto(user.getUser_id(),user.getEmail()),"access");
+                response.setHeader("jwt-auth-token", newToken);
+                return new ResponseEntity<Object>("success", HttpStatus.OK);
+            }
+        }catch(Exception e){
+            return new ResponseEntity<Object>("에러 발생", HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>("refresh 토큰이 없습니다. ", HttpStatus.OK);
+
     }
 
     @ApiOperation(value = "유저 토큰", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다. (postman)", response = Object.class)
