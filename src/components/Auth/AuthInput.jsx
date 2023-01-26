@@ -3,30 +3,39 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   width: 100%;
-  height: 70px;
+  height: 65px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 21px;
 `;
 
 const StyledLabel = styled.label`
-  font-size: 10px;
-  margin-bottom: 2px;
+  font-size: 12px;
+  margin-bottom: 4px;
+  font-family: korail_bold;
+  color: '#292D32';
 `;
 
 const StyledInput = styled.input`
-  height: 37px;
+  height: 35px;
   border-width: 1px;
   border-color: ${(props) => (props.hasError ? '#FDA29B' : '#CED4DA')};
   border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 3px;
+  padding: 10px;
+  border-style: solid;
+  font-family: korail_light;
+  font-size: 13px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ErrorText = styled.p`
   color: red;
   margin: 0;
   font-size: 5px;
+  font-family: korail_light;
+  letter-spacing: 0.5px;
 `;
 
 const AuthInput = (props) => {

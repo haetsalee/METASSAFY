@@ -29,9 +29,9 @@ const slideDown = keyframes`
 
 const StyledModalContent = styled.div`
   width: 400px;
-  height: 500px;
+  height: 560px;
   background-color: white;
-  padding: 25px;
+  padding: 27px;
   border-radius: 13px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   animation: ${slideDown} 300ms ease-out forwards;

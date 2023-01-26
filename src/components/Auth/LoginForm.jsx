@@ -6,6 +6,7 @@ import AuthInput from './AuthInput';
 import SubmitButtons from './SubmitButtons';
 
 const StyledHr = styled.hr`
+  margin: 0;
   border: 0;
   border-bottom: 1.5px dashed #eee;
 `;

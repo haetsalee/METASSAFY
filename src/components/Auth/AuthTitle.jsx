@@ -5,7 +5,9 @@ import styled from 'styled-components';
 const SubTitle = styled.h3`
   font-family: 'korail_bold';
   text-align: center;
-  margin: 0;
+  margin: 38px 0 10px 0;
+  font-size: 20px;
+  letter-spacing: -1px;
 `;
 
 const Title = styled.h3`
@@ -13,7 +15,7 @@ const Title = styled.h3`
   text-align: center;
   color: #799fc0;
   font-size: 30px;
-  margin-top: 0;
+  margin: 0 0 30px 0;
 `;
 
 const AuthTitle = (props) => {
