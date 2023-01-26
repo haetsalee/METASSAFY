@@ -108,7 +108,6 @@ function Canvas() {
         gltf.scene.scale.z = 0.01;
 
         scene.add(gltf.scene);
-        // console.log(gltf.scene.rotation)
 
         document.addEventListener("keydown", onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
@@ -142,7 +141,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 65) {
-            gltf.scene.rotation.y += 0.3;
+            gltf.scene.position.x += 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
@@ -156,7 +155,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 68) {
-            gltf.scene.rotation.y -= 0.3;
+            gltf.scene.position.x -= 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
