@@ -142,7 +142,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 65) {
-            gltf.scene.rotation.y += 0.3;
+            gltf.scene.position.x += 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
@@ -156,7 +156,7 @@ function Canvas() {
               ],
             });
           } else if (keyCode === 68) {
-            gltf.scene.rotation.y -= 0.3;
+            gltf.scene.position.x -= 0.3;
             socket.emit("move", {
               pos: [
                 gltf.scene.position.x,
