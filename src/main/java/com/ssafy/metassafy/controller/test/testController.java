@@ -29,5 +29,11 @@ public class testController {
         return "hello";
     }
 
+    @GetMapping("hi")
+    public String Hi(){
+        return "hi";
+    }
+
+
 }
 
