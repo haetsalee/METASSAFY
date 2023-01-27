@@ -41,8 +41,7 @@ const LoginForm = (props) => {
       return;
     }
 
-    console.log('제출!', userIdValue, userPasswordValue);
-    dispatch(loginAction(userIdValue, userPasswordValue));
+    dispatch(loginAction({ userIdValue, userPasswordValue }));
 
     resetuserId();
     resetuserPassword();

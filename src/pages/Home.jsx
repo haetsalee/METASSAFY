@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Login from '../components/auth/Login';
-import Register from '../components/auth/Register';
+import Login from '../components/Auth/Login';
+import Register from '../components/Auth/Register';
 
 const StyledSection = styled.section`
   background-color: antiquewhite;

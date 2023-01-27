@@ -4,10 +4,11 @@ import authApi from '../../services/authApi';
 
 export const loginAction = createAsyncThunk(
   'auth/login',
-  async ({ id, password }, { rejectWithValue }) => {
+  async ({ userIdValue, userPasswordValue }, { rejectWithValue }) => {
     try {
-      const { data } = await authApi.login(id, password);
-      localStorage.setItem('userToken', data['jwt-auth-token']);
+      const response = await authApi.login(userIdValue, userPasswordValue);
+      console.log('로그인 요청 후 액션', response.data, response);
+      return response.headers;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

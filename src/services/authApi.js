@@ -7,7 +7,7 @@ const config = {
 };
 
 const authAxios = axios.create({
-  baseURL: 'http://localhost:9999/metassafy/user/',
+  baseURL: 'http://192.168.100.56:9999/metassafy/user/',
 });
 
 const authApi = {
