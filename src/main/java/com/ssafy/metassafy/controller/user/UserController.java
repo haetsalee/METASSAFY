@@ -79,10 +79,13 @@ public class UserController {
                 String refresh_token = jwtService.createToken(loginUser,"refresh"); //refresh 토큰 생성
                 response.setHeader("jwt-auth-token", access_token);  // client에 token 전달
                 response.setHeader("jwt-refresh-token",refresh_token);
+                //logger.info("check:"+response.getHeader("Access-Control-Expose-Headers"));
+                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token,jwt-refresh-token");
+
                 service.setRefresh(user.getUser_id(),refresh_token); //refresh 토큰은 서버에 저장하기
                 return new ResponseEntity<Object>("login Success", HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>("login Fail", HttpStatus.OK);
+                return new ResponseEntity<Object>("login Fail", HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);

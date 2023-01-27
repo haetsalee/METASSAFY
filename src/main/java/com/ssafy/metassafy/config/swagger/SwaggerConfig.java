@@ -48,26 +48,18 @@ public class SwaggerConfig {
 
     @Bean
     public Docket allApi() {
-        //Authentication header 처리를 위해 사용
-        RequestParameterBuilder aParameterBuilder = new RequestParameterBuilder();
-        aParameterBuilder.name("jwt-auth-token")
-                .query(q -> q.defaultValue("no-cache, no-store")
-                        .model(modelSpecificationBuilder -> modelSpecificationBuilder.scalarModel(ScalarType.STRING)))
-                .in(ParameterType.HEADER).required(true).build();
-
-        List<RequestParameter> aParameters = new ArrayList<>();
-        aParameters.add(aParameterBuilder.build());
 
         return new Docket(DocumentationType.SWAGGER_2).groupName("1. 전체").apiInfo(apiInfo()).host(host).select() //수정
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.metassafy.controller")).paths(PathSelectors.regex("/*.*"))
-                .apis(RequestHandlerSelectors.any()).build().globalRequestParameters(aParameters);
+                .apis(RequestHandlerSelectors.any()).build() ;
     }
 
     @Bean
     public Docket userApi() {
+
         return new Docket(DocumentationType.SWAGGER_2).groupName("2. 회원").apiInfo(apiInfo()).select()
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.metassafy.controller")).paths(PathSelectors.regex("/user*.*"))
-                .apis(RequestHandlerSelectors.any()).build();
+                .apis(RequestHandlerSelectors.any()).build() ;
     }
 
     @Bean
