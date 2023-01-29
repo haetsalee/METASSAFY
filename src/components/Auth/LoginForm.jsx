@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { loginAction } from '../../store/action/authAction';
 
 import useInput from '../../hooks/use-input';
 import AuthInput from './AuthInput';
 import SubmitButton from './SubmitButton';
+import { useDispatch } from 'react-redux';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
@@ -41,6 +41,7 @@ const LoginForm = (props) => {
       return;
     }
 
+    // 로그인 API
     dispatch(loginAction({ userIdValue, userPasswordValue }));
 
     resetuserId();

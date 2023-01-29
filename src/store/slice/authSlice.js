@@ -2,42 +2,30 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loginAction } from '../action/authAction';
 
 const initialState = {
-  loading: false,
-  userInfo: {},
-  userAccessToken: null,
-  userRefreshToken: null,
+  data: null,
+  status: null,
   error: null,
-  success: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
-    logoutAccount(state) {
-      state.loading = false;
-      state.userAccessToken = null;
-      state.userRefreshToken = null;
+    logoutSlice(state) {
+      state.data = null;
+      state.status = null;
     },
   },
-  extraReducers: {
-    [loginAction.pending]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [loginAction.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.success = true;
-      state.userAccessToken = payload['jwt-auth-token'];
-      state.userRefreshToken = payload['jwt-refresh-token'];
-    },
-    [loginAction.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
-    },
+  extraReducers: (builder) => {
+    builder.addCase(loginAction.fulfilled, (state, action) => {
+      state = { ...action.payload };
+    });
+    builder.addCase(loginAction.rejected, (state, action) => {
+      state = { ...action.payload };
+    });
   },
 });
 
-export const { loginAccount, logoutAccount } = authSlice.actions;
+export const { loginSlice, logoutSlice } = authSlice.actions;
 
 export default authSlice;

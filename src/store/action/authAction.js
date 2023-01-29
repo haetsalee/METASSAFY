@@ -1,20 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import authApi from '../../services/authApi';
+import { fetchLogin } from '../../services/auth-service';
+import { setCookie } from '../../utils/cookie';
 
 export const loginAction = createAsyncThunk(
   'auth/login',
-  async ({ userIdValue, userPasswordValue }, { rejectWithValue }) => {
+  async (
+    { userIdValue: id, userPasswordValue: password },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await authApi.login(userIdValue, userPasswordValue);
-      console.log('로그인 요청 후 액션', response.data, response);
-      return response.headers;
+      const response = await fetchLogin(id, password);
+      console.log('로그인 요청 후 액션', response);
+      const { data, status, error } = response;
+      setCookie('auth', data);
+      return { data, status, error };
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      return rejectWithValue(error.response);
     }
   }
 );

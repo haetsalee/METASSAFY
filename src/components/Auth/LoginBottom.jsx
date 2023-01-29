@@ -17,7 +17,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 75px;
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 
 const StyledP = styled.p`
