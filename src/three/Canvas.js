@@ -126,7 +126,6 @@ function Canvas() {
         gltf.scene.scale.z = 3;
         gltf.scene.position.y += 2;
         scene.add(gltf.scene);
-        // console.log(gltf.scene.rotation)
 
         document.addEventListener("keydown", onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
