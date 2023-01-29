@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginAction } from '../action/authAction';
+import { loginAction, registerAction } from '../action/authAction';
 
 const initialState = {
   data: null,
@@ -21,6 +21,12 @@ const authSlice = createSlice({
       state = { ...action.payload };
     });
     builder.addCase(loginAction.rejected, (state, action) => {
+      state = { ...action.payload };
+    });
+    builder.addCase(registerAction.fulfilled, (state, action) => {
+      state = { ...action.payload };
+    });
+    builder.addCase(registerAction.rejected, (state, action) => {
       state = { ...action.payload };
     });
   },

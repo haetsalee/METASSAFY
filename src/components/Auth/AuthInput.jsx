@@ -51,7 +51,7 @@ const AuthInput = (props) => {
         onBlur={props.onBlur}
         value={props.value}
       />
-      {props.hasError && <ErrorText>필수 입력입니다.</ErrorText>}
+      {props.hasError && <ErrorText>{props.errorText}</ErrorText>}
     </StyledWrapper>
   );
 };
