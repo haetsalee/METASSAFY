@@ -1,16 +1,53 @@
 import React from 'react';
-import classes from './BackgroundBox.module.css';
+import styled from 'styled-components';
 
 function BackgroundBox() {
   return (
-    <div style={{ display: 'block' }}>
-      <div className={classes.background_box}>
-        <div className={classes.circle}>
-          <div className={classes.circle_img}></div>
-        </div>
-      </div>
-    </div>
+    <WrapperStyle>
+      <BackgroundBoxStyle>
+        <CircleBackgroundStyle>
+          <CircleImgStyle></CircleImgStyle>
+        </CircleBackgroundStyle>
+      </BackgroundBoxStyle>
+    </WrapperStyle>
   );
 }
 
 export default BackgroundBox;
+
+const WrapperStyle = styled.div`
+  display: block;
+`;
+
+const BackgroundBoxStyle = styled.div`
+  background-color: #e0f4ff;
+  border-radius: 20px;
+  box-shadow: inset 0 0.2rem 0.2rem rgba(0, 0, 0, 0.0500000007);
+  width: 18rem;
+  height: 10rem;
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 60px;
+`;
+
+const CircleBackgroundStyle = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: skyblue;
+  border-radius: 100%;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const CircleImgStyle = styled.div`
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
