@@ -2,12 +2,12 @@ import React from 'react';
 import TextGroup from './TextGroup';
 import styled from 'styled-components';
 
-function MajorPositionClass() {
+function MajorPositionClass(props) {
   return (
     <MajorPositionClassStyle>
-      <TextGroup name="Java" class="전공" />
-      <TextGroup name="FE" class="포지션" />
-      <TextGroup name="D211ER" class="공통" />
+      <TextGroup name={props.major} class="전공" />
+      <TextGroup name={props.position} class="포지션" />
+      <TextGroup name={props.track} class="공통" />
     </MajorPositionClassStyle>
   );
 }
@@ -25,6 +25,6 @@ const MajorPositionClassStyle = styled.div`
   justify-content: space-around;
   /* width: 90%; */
   width: 18rem;
-  margin: 0rem 0rem 5rem 0rem;
+  /* margin: 0rem 0rem 5rem 0rem; */
   padding: 0.5rem;
 `;
