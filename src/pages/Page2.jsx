@@ -13,6 +13,7 @@ import Stats from "three/examples/jsm/libs/stats.module";
 
 import { socket } from "../Socket";
 import Card from "../components/UI/Card";
+import Chat from "../modules/chat/Chat"
 
 function Page2() {
   const canvasRef = useRef(null); // useRef사용
@@ -464,6 +465,7 @@ function Page2() {
 
   return (<section>
     <h1>Page2</h1>
+    <Chat/>
     <div className="canvas_Wrap">
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       <Card>
