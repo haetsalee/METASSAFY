@@ -8,7 +8,7 @@ function Page1() {
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <h1>Page1</h1>
+      {/* <h1>Page1</h1> */}
       {/* <Phone > */}
       <PhoneUserProfile></PhoneUserProfile>
       {/* 프로필 사진

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.2b1a3243.css",
-    "main.js": "/static/js/main.b6e2b061.js",
-    "static/media/Korail_Round_Gothic_Medium.ttf": "/static/media/Korail_Round_Gothic_Medium.77c2552767f7c56fa4ed.ttf",
-    "static/media/Korail_Round_Gothic_Bold.ttf": "/static/media/Korail_Round_Gothic_Bold.6fadf0bc223edd244f35.ttf",
-    "static/media/Korail_Round_Gothic_Light.ttf": "/static/media/Korail_Round_Gothic_Light.401d16ba91710d9dc5d0.ttf",
-    "static/media/kakao.svg": "/static/media/kakao.742e6a5c927f2a56ef449754ad8b58db.svg",
-    "static/media/naver.svg": "/static/media/naver.f8c7c390bed337fceba86e6472d2ac4b.svg",
-    "static/media/google.svg": "/static/media/google.9346206452390abc0dd5ea35af399ab3.svg",
-    "index.html": "/index.html",
-    "main.2b1a3243.css.map": "/static/css/main.2b1a3243.css.map",
-    "main.b6e2b061.js.map": "/static/js/main.b6e2b061.js.map"
+    "main.css": "./static/css/main.c9a79428.css",
+    "main.js": "./static/js/main.a1652172.js",
+    "static/media/Korail_Round_Gothic_Medium.ttf": "./static/media/Korail_Round_Gothic_Medium.77c2552767f7c56fa4ed.ttf",
+    "static/media/Korail_Round_Gothic_Bold.ttf": "./static/media/Korail_Round_Gothic_Bold.6fadf0bc223edd244f35.ttf",
+    "static/media/Korail_Round_Gothic_Light.ttf": "./static/media/Korail_Round_Gothic_Light.401d16ba91710d9dc5d0.ttf",
+    "static/media/kakao.svg": "./static/media/kakao.742e6a5c927f2a56ef449754ad8b58db.svg",
+    "static/media/naver.svg": "./static/media/naver.f8c7c390bed337fceba86e6472d2ac4b.svg",
+    "static/media/google.svg": "./static/media/google.9346206452390abc0dd5ea35af399ab3.svg",
+    "index.html": "./index.html",
+    "main.c9a79428.css.map": "./static/css/main.c9a79428.css.map",
+    "main.a1652172.js.map": "./static/js/main.a1652172.js.map"
   },
   "entrypoints": [
-    "static/css/main.2b1a3243.css",
-    "static/js/main.b6e2b061.js"
+    "static/css/main.c9a79428.css",
+    "static/js/main.a1652172.js"
   ]
 }
