@@ -91,24 +91,25 @@ function Page2() {
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
     loaders.setDRACOLoader(dracoLoader);
 
-    // loaders.load(
-    //   'build/model/map/map.gltf',
-    //   function (gltf) {
-    //     gltf.scene.scale.set(10, 10, 10);
-    //     // gltf.scene.position.y = 0.5;
-    //     gltf.scene.position.z = 5;
-    //     scene.add(gltf.scene);
-    //   },
-    //   // called while loading is progressing
-    //   function (xhr) {
-    //     // console.log(xhr)
-    //     // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
-    //   },
-    //   // called when loading has errors
-    //   function (error) {
-    //     console.log(error);
-    //   }
-    // );
+    loaders.load(
+      // 'build/model/map/map.gltf',
+      'build/model/map/ssafyMap.gltf',
+      function (gltf) {
+        gltf.scene.scale.set(10, 10, 10);
+        // gltf.scene.position.y = 0.5;
+        gltf.scene.position.z = 5;
+        scene.add(gltf.scene);
+      },
+      // called while loading is progressing
+      function (xhr) {
+        // console.log(xhr)
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+      },
+      // called when loading has errors
+      function (error) {
+        console.log(error);
+      }
+    );
 
     // animation 관련
     let mixer;
