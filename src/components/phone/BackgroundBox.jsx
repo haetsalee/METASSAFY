@@ -33,7 +33,8 @@ const BackgroundBoxStyle = styled.div`
 const CircleBackgroundStyle = styled.div`
   width: 100px;
   height: 100px;
-  background-color: #8b9cd9;
+  background: linear-gradient(to left, #c1a1d3, #c3ddff);
+  /* background-color: #8b9cd9; */
   border-radius: 100%;
   position: absolute;
   top: 100%;
