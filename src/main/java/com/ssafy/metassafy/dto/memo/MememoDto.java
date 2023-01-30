@@ -1,4 +1,4 @@
-package com.ssafy.metassafy.dto.chatting;
+package com.ssafy.metassafy.dto.memo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +9,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @Setter
 @ToString
 @EntityScan
-public class ChatParameterDto {
-    private int chat_no;
-    private int croom_no;
-    private String croom_name;
+public class MememoDto {
+    private int mememo_no;
     private String user_id;
-    private String name;
+    private int memo_no;
+    private String content;
+    private int mememo_like;
+    private String regtime;
 }

@@ -85,6 +85,13 @@
         delete from User_Tech where user_id=#{user_id} and tech_id=#{tech_id};
     </delete>
 
-
+    <update id="setRefresh" >
+        update User
+        set refresh_token=#{refresh_token}
+        where user_id=#{user_id};
+    </update>
+    <select id="getUserWithRefresh" parameterType="string" resultType="com.ssafy.metassafy.dto.user.User" >
+        select * from User where refresh_token = #{refresh_token};
+    </select>
 
 </mapper>

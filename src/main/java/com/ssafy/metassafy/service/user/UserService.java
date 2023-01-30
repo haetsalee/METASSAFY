@@ -71,4 +71,12 @@ public class UserService {
     public List<User> getAllUser() {
         return mapper.getAllUser();
     }
+
+    public void setRefresh(String user_id, String refresh_token) {
+        mapper.setRefresh(user_id,refresh_token);
+    }
+
+    public User getUserWithRefresh(String refresh_token) {
+        return mapper.getUserWithRefresh(refresh_token);
+    }
 }

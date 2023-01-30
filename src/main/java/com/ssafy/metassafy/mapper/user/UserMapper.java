@@ -34,4 +34,8 @@ public interface UserMapper {
     boolean deleteTech(HashMap<String, String> map);
 
     List<User> getAllUser();
+
+    void setRefresh(String user_id, String refresh_token);
+
+    User getUserWithRefresh(String refresh_token);
 }

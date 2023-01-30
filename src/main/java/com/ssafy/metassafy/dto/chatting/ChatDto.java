@@ -13,7 +13,7 @@ public class ChatDto {
     private int chat_no;
     private int croom_no;
     private String user_id;
-    private String user_name;
+    private String name;
     private String message;
     private int not_read;
     private int last_read_chat_id;

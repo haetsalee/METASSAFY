@@ -9,10 +9,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @Setter
 @ToString
 @EntityScan
-public class ChatParameterDto {
-    private int chat_no;
+public class ParticipantDto {
+    private String user_id;
     private int croom_no;
     private String croom_name;
-    private String user_id;
-    private String name;
+    private int not_read_chat;
+    private int last_read_chat_id;
+    private String regtime;
 }

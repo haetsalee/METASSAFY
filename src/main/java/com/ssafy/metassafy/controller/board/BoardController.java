@@ -8,6 +8,7 @@ import com.ssafy.metassafy.service.board.BoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/board")
 @Api("게시판 컨트롤러  API V1")
 public class BoardController {
+
+    private final BoardService boardService;
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
-    private BoardService boardService;
     @ApiOperation(value = "게시판 글작성", notes = "새로운 게시글 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping
     public ResponseEntity<String> writeArticle(@RequestPart("boardDto") @ApiParam(value = "게시글 정보(user_id, title, content, thumbnail)", required = true) BoardDto boardDto, @RequestPart("thumbnail") @ApiParam(value = "썸내일 정보.", required = false) MultipartFile thumbnail, @RequestPart("files") @ApiParam(value = "업로드 파일 정보.", required = false) List<MultipartFile> files) throws Exception {

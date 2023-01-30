@@ -51,7 +51,8 @@ public class FriendController {
     //알림창에 입장한 걸로 connect 판단.
     @GetMapping(value="/receive/notify/{to_user_id}" ,produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter receiveNotify(@PathVariable("to_user_id") String user_id){
-        SseEmitter sseEmitter = new SseEmitter(1000L * 60L * 15L);
+        //SseEmitter sseEmitter = new SseEmitter(1000L * 60L * 15L);
+        SseEmitter sseEmitter = new SseEmitter(  2629800000L);
         //503 방지 위한 더미 데이터 보내기
         try {
             sseEmitter.send(SseEmitter.event()

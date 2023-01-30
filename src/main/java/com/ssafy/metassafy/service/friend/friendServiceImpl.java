@@ -68,8 +68,9 @@ public class friendServiceImpl implements  FriendService{
 
     @Override
     public void sendMessage(String to_user_id,String from_user_id) {
-        FriendDto notify=new FriendDto(to_user_id, from_user_id);
+
         mapper.addNotify(from_user_id,to_user_id); //친구 신청 내역을 db에 추가
+        FriendDto notify=mapper.getNotify(from_user_id,to_user_id); //방금 가져온 dto 가져옴
         //알림창에 접속상태이면
         if(connectedUser.containsKey(to_user_id)){
             SseEmitter sseEmitter = connectedUser.get(to_user_id); //해당 유저의 sseEmitter 가져오기
