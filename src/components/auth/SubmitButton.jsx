@@ -1,7 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const StyledButton = styled.button`
+const SubmitButton = (props) => {
+  return <ButtonStyle {...props}>{props.children}</ButtonStyle>;
+};
+
+export default SubmitButton;
+
+const ButtonStyle = styled.button`
   width: 100%;
   height: 36px;
   border-radius: 8px;
@@ -19,9 +25,3 @@ const StyledButton = styled.button`
     `;
   }}
 `;
-
-const SubmitButton = (props) => {
-  return <StyledButton {...props}>{props.children}</StyledButton>;
-};
-
-export default SubmitButton;

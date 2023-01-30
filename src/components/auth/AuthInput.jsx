@@ -1,7 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledWrapper = styled.div`
+const AuthInput = (props) => {
+  return (
+    <WrapperStyle>
+      <LabelStyle htmlFor="name">{props.label}</LabelStyle>
+      <InputStyle
+        {...props}
+        type={props.type}
+        id={props.id}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        value={props.value}
+      />
+      {props.hasError && <ErrorText>{props.errorText}</ErrorText>}
+    </WrapperStyle>
+  );
+};
+
+export default AuthInput;
+
+const WrapperStyle = styled.div`
   width: 100%;
   height: 65px;
   display: flex;
@@ -9,14 +29,14 @@ const StyledWrapper = styled.div`
   margin-bottom: 21px;
 `;
 
-const StyledLabel = styled.label`
+const LabelStyle = styled.label`
   font-size: 12px;
   margin-bottom: 4px;
   font-family: korail_bold;
   color: '#292D32';
 `;
 
-const StyledInput = styled.input`
+const InputStyle = styled.input`
   height: 35px;
   border-width: 1px;
   border-color: ${(props) => (props.hasError ? '#FDA29B' : '#CED4DA')};
@@ -37,23 +57,3 @@ const ErrorText = styled.p`
   font-family: korail_light;
   letter-spacing: 0.5px;
 `;
-
-const AuthInput = (props) => {
-  return (
-    <StyledWrapper>
-      <StyledLabel htmlFor="name">{props.label}</StyledLabel>
-      <StyledInput
-        {...props}
-        type={props.type}
-        id={props.id}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        value={props.value}
-      />
-      {props.hasError && <ErrorText>{props.errorText}</ErrorText>}
-    </StyledWrapper>
-  );
-};
-
-export default AuthInput;
