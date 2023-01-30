@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 // import { AnimationClip, AnimationMixer } from "three";
 
@@ -84,15 +85,17 @@ function Page2() {
     // scene.add(boxMesh);
 
     let loaders = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    loaders.setDRACOLoader(dracoLoader);
 
     loaders.load(
-      'model/cartoon_lowpoly_small_city_free_pack/scene.gltf',
+      'model/map/map.gltf',
       function (gltf) {
-        gltf.scene.scale.x = 0.1;
-        gltf.scene.scale.y = 0.1;
-        gltf.scene.scale.z = 0.1;
-        gltf.scene.position.y = 12;
-        gltf.scene.position.x = 50;
+        gltf.scene.scale.set(10, 10, 10);
+        // gltf.scene.position.y = 0.5;
+        gltf.scene.position.z = 5;
         scene.add(gltf.scene);
       },
       // called while loading is progressing
