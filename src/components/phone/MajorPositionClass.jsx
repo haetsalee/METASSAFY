@@ -23,7 +23,8 @@ const MajorPositionClassStyle = styled.div`
   display: flex;
   align-content: center;
   justify-content: space-around;
-  width: 90%;
+  /* width: 90%; */
+  width: 18rem;
   margin: 0rem 0rem 5rem 0rem;
   padding: 0.5rem;
 `;
