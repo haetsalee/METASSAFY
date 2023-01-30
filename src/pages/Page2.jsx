@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 
@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-import { AnimationClip, AnimationMixer } from "three";
+// import { AnimationClip, AnimationMixer } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
 
@@ -27,7 +27,7 @@ function Page2() {
     setCanvasTag(canvas);
 
     let id;
-    let instances = [];
+    // let instances = [];
     let clients = new Object();
     console.log(clients);
 
@@ -261,7 +261,7 @@ function Page2() {
     //On connection server sends the client his ID
     socket.on("introduction", (_id, _clientNum, _ids) => {
       for (let i = 0; i < _ids.length; i++) {
-        if (_ids[i] != _id) {
+        if (_ids[i] !== _id) {
           clients[_ids[i]] = {
             mesh: null,
           };
@@ -321,12 +321,12 @@ function Page2() {
       console.log(clientCount + " clients connected");
       let alreadyHasUser = false;
       for (let i = 0; i < Object.keys(clients).length; i++) {
-        if (Object.keys(clients)[i] == _id) {
+        if (Object.keys(clients)[i] === _id) {
           alreadyHasUser = true;
           break;
         }
       }
-      if (_id != id && !alreadyHasUser) {
+      if (_id !== id && !alreadyHasUser) {
         console.log("A new user connected with the id: " + _id);
         clients[_id] = {
           mesh: null,
@@ -370,7 +370,7 @@ function Page2() {
       //Update the data from the server
       // document.getElementById("numUsers").textContent = clientCount;
 
-      if (_id != id) {
+      if (_id !== id) {
         console.log("A user disconnected with the id: " + _id);
         scene.remove(clients[_id].mesh);
         delete clients[_id];
@@ -384,7 +384,7 @@ function Page2() {
       // console.log('Positions of all users are ', _clientProps, id);
       // console.log(Object.keys(_clientProps)[0] == id);
       for (let i = 0; i < Object.keys(_clientProps).length; i++) {
-        if (Object.keys(_clientProps)[i] != id) {
+        if (Object.keys(_clientProps)[i] !== id) {
           //Store the values
           let oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
           let newPos = _clientProps[Object.keys(_clientProps)[i]].position;
