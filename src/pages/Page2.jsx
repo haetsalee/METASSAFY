@@ -93,7 +93,7 @@ function Page2() {
 
     loaders.load(
       // 'build/model/map/map.gltf',
-      'build/model/map/ssafyMap.gltf',
+      'build/model/map/ssafyMap.glb',
       function (gltf) {
         gltf.scene.scale.set(10, 10, 10);
         // gltf.scene.position.y = 0.5;
