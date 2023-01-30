@@ -403,8 +403,8 @@ function Canvas() {
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    // const stats = Stats();
-    // document.body.appendChild(stats.dom);
+    const stats = Stats();
+    document.body.appendChild(stats.dom);
 
     // var xSpeed = 0.0001;
     // var ySpeed = 0.0001;
