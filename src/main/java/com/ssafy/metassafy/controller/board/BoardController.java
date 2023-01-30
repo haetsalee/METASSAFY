@@ -78,10 +78,20 @@ public class BoardController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
+    @ApiOperation(value = "파일 다운로드", notes = "파일을 다운로드한다. 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @GetMapping("/{article_no}/file")
+    public ResponseEntity<String> downloadFile(@ApiParam(value = "다운로드할 파일 정보(article_no, origin_name, saved_name)", required = true) FileDto fileDto) throws Exception {
+        logger.info("downloadFile - " + fileDto);
+        if (boardService.downloadFile(fileDto)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
     @ApiOperation(value = "파일 삭제", notes = "파일 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-    @DeleteMapping("/file")
+    @DeleteMapping("/{article_no}/file")
     public ResponseEntity<String> deleteFile(@ApiParam(value = "삭제할 파일 정보(article_no, saved_name)", required = true) FileDto fileDto) throws Exception {
-        logger.info("deleteFile - {fileDto}");
+        logger.info("deleteFile - " + fileDto);
         if (boardService.deleteFile(fileDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }

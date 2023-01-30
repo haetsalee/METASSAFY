@@ -111,6 +111,12 @@ public class BoardServiceImpl implements  BoardService{
 
     @Override
     public boolean deleteFile(FileDto fileDto) throws Exception {
+        fileService.deleteFile(fileDto);
         return sqlSession.getMapper(BoardMapper.class).deleteFile(fileDto) == 1;
+    }
+
+    @Override
+    public boolean downloadFile(FileDto fileDto) throws Exception {
+        return fileService.downloadFile(fileDto) == 1;
     }
 }
