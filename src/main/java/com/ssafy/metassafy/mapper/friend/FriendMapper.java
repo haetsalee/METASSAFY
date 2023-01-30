@@ -23,4 +23,5 @@ public interface FriendMapper {
     void rejectFriend(int friend_no);
 
     FriendDto getNotify(String from_user_id, String to_user_id);
+    void deleteFriend(String user_id1, String user_id2);
 }
