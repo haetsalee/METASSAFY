@@ -7,4 +7,5 @@ import java.io.IOException;
 
 public interface FileService {
     public FileDto saveFile(MultipartFile file) throws IOException;
+    public Object downloadFile(String fileName) throws IOException;
 }
