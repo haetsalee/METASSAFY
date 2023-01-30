@@ -92,7 +92,11 @@ io.on('connection', (client) => {
   });
 
   client.on('chat', (text) => {
-    console.log(text);
+    const chating = {
+      name: client.id,
+      text: text,
+    };
+    io.sockets.emit('chating', chating);
   });
 
   //Handle the disconnection
