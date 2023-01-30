@@ -47,9 +47,7 @@ public class FileServiceImpl implements FileService{
         FileDto fileDto = new FileDto();
 
         // 원래 파일 이름 추출
-        StringTokenizer st = new StringTokenizer(multipartFile.getOriginalFilename(), ".");
-        String origin_name = st.nextToken();
-
+        String origin_name = multipartFile.getOriginalFilename();
 
         // 파일 이름으로 쓸 uuid 생성
         String uuid = UUID.randomUUID().toString();
@@ -62,21 +60,46 @@ public class FileServiceImpl implements FileService{
         upload(bucketName,saved_name,uploadFile);
         // 파일 업로드 & 링크 받아오기
 
-        //String path = this.uploadFile(multipartFile, saved_name);
-
         fileDto.setOrigin_name(origin_name);
         fileDto.setSaved_name(saved_name);
-        fileDto.setPath(endPoint + bucketName + saved_name);
+        fileDto.setPath(endPoint +"/"+ bucketName +"/"+ saved_name);
 
         return fileDto;
     }
 
     @Override
-    public Object downloadFile(String fileName) throws IOException{
+    public int downloadFile(FileDto fileDto) throws IOException{
 
+        System.out.println(fileDto);
 
+        try {
+            S3Object s3Object = s3.getObject(bucketName, fileDto.getSaved_name());
+            S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
 
-        return null;
+            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream("C:/"+fileDto.getOrigin_name()));
+            byte[] bytesArray = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = s3ObjectInputStream.read(bytesArray)) != -1) {
+                outputStream.write(bytesArray, 0, bytesRead);
+            }
+
+            outputStream.close();
+            s3ObjectInputStream.close();
+
+            System.out.format("Object %s has been downloaded.\n", fileDto.getOrigin_name());
+            return 1;
+        } catch (AmazonS3Exception e) {
+            e.printStackTrace();
+            return 0;
+        } catch(SdkClientException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public void deleteFile(FileDto fileDto) throws IOException {
+
     }
 
     private void mkdir(String bucketName, String folderName) {
