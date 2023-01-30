@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -79,16 +81,17 @@ public class UserController {
                 String refresh_token = jwtService.createToken(loginUser,"refresh"); //refresh 토큰 생성
                 response.setHeader("jwt-auth-token", access_token);  // client에 token 전달
                 response.setHeader("jwt-refresh-token",refresh_token);
-                //logger.info("check:"+response.getHeader("Access-Control-Expose-Headers"));
-                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token,jwt-refresh-token");
+
+                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token,jwt-refresh-token,cookie");
+
 
                 service.setRefresh(user.getUser_id(),refresh_token); //refresh 토큰은 서버에 저장하기
                 return new ResponseEntity<Object>("login Success", HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>("login Fail", HttpStatus.NO_CONTENT);
+                return new ResponseEntity<Object>("login Fail", HttpStatus.OK);
             }
         } catch(Exception e) {
-            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+            return new ResponseEntity<Object>("뭔가 이상해요..", HttpStatus.CONFLICT);
         }
     }
 
@@ -217,7 +220,15 @@ public class UserController {
     }
 
 
+    @PostMapping("/setProfileImg")
+    public void setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
+        try{
+            service.setProfileImg(user_id,profile_img);
+        }catch (Exception e){
 
+        }
+
+    }
 
 
 

@@ -1,11 +1,15 @@
 package com.ssafy.metassafy.service.user;
 
+import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
 import com.ssafy.metassafy.mapper.board.BoardMapper;
 import com.ssafy.metassafy.mapper.user.UserMapper;
+import com.ssafy.metassafy.service.file.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +18,9 @@ import java.util.List;
 public class UserService {
 
     final UserMapper mapper;
+
+    @Autowired
+    private FileService fileService;
 
     public UserService(UserMapper mapper) {
         this.mapper = mapper;
@@ -79,4 +86,13 @@ public class UserService {
     public User getUserWithRefresh(String refresh_token) {
         return mapper.getUserWithRefresh(refresh_token);
     }
+
+    public void setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
+        FileDto img=fileService.saveFile(profile_img);
+        mapper.setProfileImg(user_id,img.getPath());
+
+    }
+
+
+
 }

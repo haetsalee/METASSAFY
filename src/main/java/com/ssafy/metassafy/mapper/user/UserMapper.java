@@ -38,4 +38,6 @@ public interface UserMapper {
     void setRefresh(String user_id, String refresh_token);
 
     User getUserWithRefresh(String refresh_token);
+
+    void setProfileImg(String user_id, String profile_img);
 }
