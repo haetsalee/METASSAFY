@@ -97,6 +97,10 @@ public class FriendController {
         service.rejectFriend(friend);
     }
 
-
+    //친구 삭제
+    @PostMapping("/deleteFriend/{user_id1}/{user_id2}")
+    public void deleteFriend(@PathVariable("user_id1") String user_id1, @PathVariable("user_id2") String user_id2){
+        service.deleteFriend(user_id1,user_id2);
+    }
 
 }

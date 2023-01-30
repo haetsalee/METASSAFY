@@ -46,5 +46,7 @@
     <delete id="rejectFriend">
         delete from Friend where friend_no=#{friend_no};
     </delete>
-
+    <delete id="deleteFriend">
+        delete from Friend where (from_user_id=#{user_id1} and to_user_id=#{user_id2}) or (from_user_id=#{user_id2} and to_user_id=#{user_id1});
+    </delete>
 </mapper>
