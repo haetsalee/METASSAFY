@@ -1,6 +1,6 @@
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 
-export const socket = io.connect("http://localhost:5000", {
-  path: "/socket.io",
-  transports: ["websocket"],
+export const socket = io.connect('http://localhost:8090', {
+  path: '/socket.io',
+  transports: ['websocket'],
 });
