@@ -33,12 +33,13 @@ const BackgroundBoxStyle = styled.div`
 const CircleBackgroundStyle = styled.div`
   width: 100px;
   height: 100px;
-  background-color: skyblue;
+  background-color: #8b9cd9;
   border-radius: 100%;
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 `;
 
 const CircleImgStyle = styled.div`
