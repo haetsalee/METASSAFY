@@ -99,7 +99,7 @@ io.on('connection', (client) => {
     io.sockets.emit('chating', chating);
   });
 
-  //Handle the disconnection
+  //Handle the disconnection - 수정
   client.on('disconnect', () => {
     // client로부터 떠났다는 disconnect 이벤트를 들으면,
 
