@@ -1,7 +1,6 @@
 import BackgroundBox from '../phone/BackgroundBox';
 import MajorPositionClass from '../phone/MajorPositionClass';
 import TextGroupComponent from '../phone/TextGroupComponent';
-import classes from './Phone.module.css'
 import styled from 'styled-components';
 
 function Phone(props) {
