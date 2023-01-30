@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Dropdown from './Dropdown';
+import Dropdown from '../Dropdown';
 
 const RegisterSelectorInfo = (props) => {
   return (

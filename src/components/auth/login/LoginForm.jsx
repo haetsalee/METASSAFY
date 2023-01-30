@@ -1,9 +1,9 @@
 import React from 'react';
-import { loginAction } from '../../store/action/authAction';
+import { loginAction } from '../../../store/action/authAction';
 
-import useInput from '../../hooks/use-input';
-import AuthInput from './AuthInput';
-import SubmitButton from './SubmitButton';
+import useInput from '../../../hooks/use-input';
+import AuthInput from '../AuthInput';
+import SubmitButton from '../SubmitButton';
 import { useDispatch } from 'react-redux';
 
 const isNotEmpty = (value) => value.trim() !== '';

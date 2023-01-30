@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
-import SubmitButton from './SubmitButton';
-import { ReactComponent as Google } from '../../assets/icons/google.svg';
-import { ReactComponent as Kakao } from '../../assets/icons/kakao.svg';
-import { ReactComponent as Naver } from '../../assets/icons/naver.svg';
+import SubmitButton from '../SubmitButton';
+import { ReactComponent as Google } from '../../../assets/icons/google.svg';
+import { ReactComponent as Kakao } from '../../../assets/icons/kakao.svg';
+import { ReactComponent as Naver } from '../../../assets/icons/naver.svg';
 
 const LoginBottom = (props) => {
   return (
