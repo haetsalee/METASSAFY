@@ -14,8 +14,8 @@ const RoundBoxStyle = styled.div`
   width: 18rem;
   /* height: 10rem; */
   position: relative;
-  margin-top: 15px;
-  margin-bottom: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 1rem;
   font-size: 0.7rem;
 `;
