@@ -1,14 +1,16 @@
 import API from '../utils/api';
+import { setTokens } from '../utils/token';
 
 export const fetchLogin = async ({ id, password }) => {
-  console.log('fetch');
   const requestBody = {
     user_id: id,
     user_pwd: password,
   };
 
   try {
-    const { data, status } = await API.post('/user/login', requestBody);
+    const response = await API.post('/user/login', requestBody);
+    setTokens(response.headers);
+    const { data, status, error } = response;
     return { data, status, error: null };
   } catch (error) {
     const {
