@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AuthModal from '../UI/Modal/AuthModal';
+import AuthModal from '../UI/modal/AuthModal';
 import AuthTitle from './AuthTitle';
 import LoginForm from './LoginForm';
 import LoginBottom from './LoginBottom';

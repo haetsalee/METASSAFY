@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 
 import * as THREE from "three";
@@ -11,10 +12,19 @@ import { AnimationClip, AnimationMixer } from "three";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 import { socket } from "../Socket";
+import Card from "../components/UI/Card";
 
+function Page2() {
+  const canvasRef = useRef(null); // useRef사용
+  const [canvasTag, setCanvasTag] = useState([]);
 
-function Canvas() {
   useEffect(() => {
+    const canvas = canvasRef.current;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    setCanvasTag(canvas);
+
     let id;
     let instances = [];
     let clients = new Object();
@@ -38,18 +48,18 @@ function Canvas() {
     // 3D 오브젝트가 알아서 canvas 안에 들어가는 것 같음.
     // 다만 지정 했을 때 안 했을 때 렌더 되는 위치가 다르다(이유는 잘...)
 
-    const canvas = document.getElementById("myThreeJsCanvas");
+    // const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth * 0.5, window.innerHeight * 0.5);
     renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.shadowMap.enabled = true;
     // ㄴ 이게 무엇인지는 확인이 필요
-    document.body.appendChild(renderer.domElement);
-    // ㄴ 이건 필요함(없으면 렌더가 안보임)
+    // document.body.appendChild(renderer.domElement);
+  //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
 
     const orbitControls = new OrbitControls(camera, renderer.domElement);
     orbitControls.enableDamping = true;
@@ -104,12 +114,12 @@ function Canvas() {
       // "model/toon_cat_free/scene.gltf",
       "model/people/ilbuni.glb",
       function (gltf) {
-        console.log('-------------')
-        console.log(gltf.scene.children);
-        console.log(gltf);
-        console.log(gltf.animations[0]);
-        console.log(gltf.animations[1]);
-        console.log(gltf.animations[2]);
+        // console.log('-------------')
+        // console.log(gltf.scene.children);
+        // console.log(gltf);
+        // console.log(gltf.animations[0]);
+        // console.log(gltf.animations[1]);
+        // console.log(gltf.animations[2]);
         
         mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
         const actions = [];
@@ -117,7 +127,7 @@ function Canvas() {
         actions[0].play();
         animate();
 
-        console.log('-------------')
+        // console.log('-------------')
         // gltf.scene.scale.x = 0.01;
         // gltf.scene.scale.y = 0.01;
         // gltf.scene.scale.z = 0.01;
@@ -126,6 +136,7 @@ function Canvas() {
         gltf.scene.scale.z = 3;
         gltf.scene.position.y += 2;
         scene.add(gltf.scene);
+        // console.log(gltf.scene.rotation)
 
         document.addEventListener("keydown", onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
@@ -409,7 +420,7 @@ function Canvas() {
     const controls = new OrbitControls(camera, renderer.domElement);
 
     const stats = Stats();
-    document.body.appendChild(stats.dom);
+    // document.body.appendChild(stats.dom);
 
     // var xSpeed = 0.0001;
     // var ySpeed = 0.0001;
@@ -450,7 +461,17 @@ function Canvas() {
 
     animate();
   }, []);
-  return <canvas id="myThreeJsCanvas"></canvas>;
+
+  return (<section>
+    <h1>Page2</h1>
+    <div className="canvas_Wrap">
+      {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
+      <Card>
+      <canvas className="meta-ssafy" ref={canvasRef}></canvas>
+        <h1>Canvas</h1>  
+      </Card>  
+    </div>
+  </section>);
 }
 
-export default Canvas;
+export default Page2;
