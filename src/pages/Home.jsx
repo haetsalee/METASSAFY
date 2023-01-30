@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Login from '../components/auth/Login';
-import Register from '../components/auth/Register';
-
-const StyledSection = styled.section`
-  background-color: antiquewhite;
-  height: 100vh;
-`;
+import Login from '../components/auth/login/Login';
 
 const Home = () => {
   const [loginShown, setLoginShown] = useState(false);
-  const [registShown, setRegistShown] = useState(false);
+  const navigate = useNavigate();
 
   const showLoginHandler = () => {
     setLoginShown(true);
@@ -21,22 +16,22 @@ const Home = () => {
     setLoginShown(false);
   };
 
-  const showRegistHandler = () => {
-    setRegistShown(true);
-  };
-
-  const hideRegistHandler = () => {
-    setRegistShown(false);
+  const registerHandler = () => {
+    navigate('/register');
   };
 
   return (
-    <StyledSection>
+    <SectionStyle>
       <button onClick={showLoginHandler}>로그인</button>
-      <button onClick={showRegistHandler}>회원가입</button>
       {loginShown && <Login onClose={hideLoginHandler} />}
-      {registShown && <Register onClose={hideRegistHandler} />}
-    </StyledSection>
+      <button onClick={registerHandler}>회원가입</button>
+    </SectionStyle>
   );
 };
 
 export default Home;
+
+const SectionStyle = styled.section`
+  background-color: antiquewhite;
+  height: 100vh;
+`;

@@ -1,11 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { registerAction } from '../../../store/action/authAction';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
+import ExistCheckButton from './ExistCheckButton';
 import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
-import { useDispatch } from 'react-redux';
 
 const isNotEmpty = (value) => value.trim() !== '';
 const isSamePassword = (value, copy) => value.trim() === copy.trim();
@@ -77,7 +78,9 @@ const RegisterForm = (props) => {
           onBlur={userIdBlurHandler}
           hasError={userIdHasError}
           errorText="필수 입력입니다."
+          marginBottom="5px"
         />
+        <ExistCheckButton />
         <AuthInput
           label="비밀번호"
           type="password"
@@ -88,6 +91,7 @@ const RegisterForm = (props) => {
           onBlur={userPasswordBlurHandler}
           hasError={userPasswordHasError}
           errorText="필수 입력입니다."
+          marginBottom="5px"
         />
         <AuthInput
           label="비밀번호 재확인"

@@ -15,4 +15,6 @@ export default RegisterSelectorInfo;
 
 const DivStyle = styled.div`
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 `;
