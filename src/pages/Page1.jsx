@@ -1,7 +1,8 @@
-import { useHistory } from 'react-router-dom';
-import TextGroupComponent from '../components/phone/TextGroupComponent';
-import Phone from '../components/UI/Phone';
+// import { useHistory } from 'react-router-dom';
+// import TextGroupComponent from '../components/phone/TextGroupComponent';
+// import Phone from '../components/UI/Phone';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
+import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 
 function Page1() {
   return (
@@ -11,6 +12,7 @@ function Page1() {
       <h1>Page1</h1>
       {/* <Phone > */}
       <PhoneUserProfile></PhoneUserProfile>
+      <PhoneFriendPage />
       {/* 프로필 사진
       활동중 뱃지
       이름
