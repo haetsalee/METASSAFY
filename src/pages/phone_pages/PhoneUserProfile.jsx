@@ -3,17 +3,49 @@ import TextGroupComponent from '../../components/phone/TextGroupComponent';
 import MajorPositionClass from '../../components/phone/MajorPositionClass';
 import BackgroundBox from '../../components/phone/BackgroundBox';
 import RoundBox from '../../components/phone/RoundBox';
+import TechStackBox from '../../components/phone/TechStackBox';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 function PhoneUserProfile(props) {
+  const [userinfo, setStacks] = useState({
+    name: '배싸피',
+    class: '구미2반',
+    major: 'Java',
+    position: 'FE',
+    track: 'D211ER',
+    stacks: ['android', 'Java', 'C', 'C++', 'vuejs', 'svelte'],
+    introduce:
+      'React 가라사대 뉴진스가 있었으니...하루만에 모든 서비스 페이지가 만들어졌다. 그리고 6주가 남았다더라',
+  });
+
+  const stackDivs = userinfo.stacks.map((s, index) => {
+    return <TechStackBox stack={s} key={index}></TechStackBox>;
+  });
+
   return (
     <PhoneUserProfileStyle>
       <BackgroundBox />
-      <TextGroupComponent name="김싸피" class="구미2반" />
+      <TextGroupComponent name={userinfo.name} class={userinfo.class} />
       {/* 전공, 포지션, 공통 */}
-      <MajorPositionClass />
-      기술스택 자기소개 생일
-      <RoundBox text="자기소개"></RoundBox>
+      <MajorPositionClass
+        major={userinfo.major}
+        position={userinfo.major}
+        track={userinfo.track}
+      />
+      {/* 기술스택 자기소개 생일 */}
+      <RoundBox text={userinfo.introduce}></RoundBox>
+      {/* <TechStackBox stack="android"></TechStackBox> */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+        }}
+      >
+        {stackDivs}
+      </div>
     </PhoneUserProfileStyle>
   );
 }
