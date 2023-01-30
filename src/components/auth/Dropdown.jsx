@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { GrDown } from 'react-icons/gr';
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 
-const Dropdown = ({ list, title }) => {
-  const [acitve, setActive] = useState(false); // 리스트가 열려있는지 확인
+const Dropdown = ({ list, title, setInfo }) => {
+  const [active, setActive] = useState(false); // 리스트가 열려있는지 확인
   const [selected, setSelected] = useState(title); // 선택된 값을 selected에 담아 컴포넌트 간에 공유
 
   return (
     <SelectBoxStyle>
-      <SelectLabelStyle value={selected} onClick={() => setActive(!acitve)}>
+      <SelectLabelStyle value={selected} onClick={() => setActive(!active)}>
         {selected}
-        <GrDown />
+        {!active && <BsChevronDown className="icon" />}
+        {active && <BsChevronUp className="icon" />}
       </SelectLabelStyle>
-      <OptionListStyle active={acitve}>
+      <OptionListStyle active={active}>
         {list
           .filter((element) => element !== selected)
           .map((element) => (
@@ -22,6 +23,7 @@ const Dropdown = ({ list, title }) => {
               onClick={() => {
                 setActive(false);
                 setSelected(element);
+                setInfo(selected);
               }}
             >
               {element}
@@ -37,7 +39,7 @@ export default Dropdown;
 const SelectBoxStyle = styled.div`
   position: relative;
   width: 6.5rem;
-  height: 2.6rem;
+  height: 100%;
   cursor: pointer;
 `;
 
@@ -47,21 +49,26 @@ const SelectLabelStyle = styled.button`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 1rem;
-  font-size: 1rem;
+  padding: 0.8rem;
+  font-size: 0.85rem;
   cursor: pointer;
   background-color: transparent;
+  color: #868e96;
   border-radius: 5px;
   border: 1px solid #ced4da;
+
+  .icon {
+    color: '#868E96';
+  }
 `;
 
 const activeExist = ({ active = true }) => {
-  return `max-height: ${active ? '100px' : '0'}`;
+  return `max-height: ${active ? '4.5rem' : '0'}`;
 };
 
 export const OptionListStyle = styled.ul`
   position: absolute;
-  top: 2.7rem;
+  top: 2.3rem;
   width: 100%;
   ${activeExist};
   transition: 0.2s ease-in-out;
@@ -88,11 +95,14 @@ export const OptionListStyle = styled.ul`
 const OptionItemStyle = styled.li`
   background: #ffffff;
   box-sizing: border-box;
-  padding: 0.8rem 1rem 0.8rem 1rem;
+  padding: 0.8rem 1rem;
   transition: 0.3s;
   border: solid 1px #ced4da;
   border-radius: 5px;
+  font-size: 0.85rem;
+  color: #868e96;
   &:hover {
-    background: #ced4da;
+    color: white;
+    background: #799fc0;
   }
 `;

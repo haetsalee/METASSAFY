@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 const AuthInput = (props) => {
   return (
-    <WrapperStyle>
-      <LabelStyle htmlFor="name">{props.label}</LabelStyle>
+    <WrapperStyle marginBottom={props.marginBottom}>
+      <LabelStyle htmlFor="name" color={props.color}>
+        {props.label}
+      </LabelStyle>
       <InputStyle
         {...props}
         type={props.type}
@@ -33,7 +35,7 @@ const LabelStyle = styled.label`
   font-size: 12px;
   margin-bottom: 4px;
   font-family: korail_bold;
-  color: '#292D32';
+  color: ${(props) => props.color || '#292D32'};
 `;
 
 const InputStyle = styled.input`

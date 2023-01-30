@@ -7,12 +7,17 @@ import AuthInput from '../AuthInput';
 import ExistCheckButton from './ExistCheckButton';
 import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
+import { useState } from 'react';
 
 const isNotEmpty = (value) => value.trim() !== '';
-const isSamePassword = (value, copy) => value.trim() === copy.trim();
+const isSamePassword = (value, copy) =>
+  value.trim() !== '' && value.trim() === copy.trim();
+const isEmailType = (value) => value.trim() !== '' && value.includes('@');
 
 const RegisterForm = (props) => {
   const dispatch = useDispatch();
+  const [generation, setGeneration] = useState({});
+  const [area, setArea] = useState({});
 
   const {
     value: userIdValue,
@@ -41,11 +46,41 @@ const RegisterForm = (props) => {
     reset: resetUserRetryPassword,
   } = useInput(isSamePassword.bind(null, userPasswordValue));
 
+  const {
+    value: userNameValue,
+    isValid: userNameIsValid,
+    hasError: userNameHasError,
+    valueChangeHandler: userNameChangeHandler,
+    inputBlurHandler: userNameBlurHandler,
+    reset: resetUserName,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: userEmailValue,
+    isValid: userEmailValueIsValid,
+    hasError: userEmailHasError,
+    valueChangeHandler: userEmailChangeHandler,
+    inputBlurHandler: userEmailBlurHandler,
+    reset: resetUserEmail,
+  } = useInput(isEmailType);
+
+  const {
+    value: userStudentIdValue,
+    isValid: userStudentIdIsValid,
+    hasError: userStudentIdHasError,
+    valueChangeHandler: userStudentIdChangeHandler,
+    inputBlurHandler: userStudentIdBlurHandler,
+    reset: resetUserStudentId,
+  } = useInput(isNotEmpty);
+
   let formIsValid = false;
   if (
     userIdIsValid &&
     userPasswordValueIsValid &&
-    userRetryPasswordValueIsValid
+    userRetryPasswordValueIsValid &&
+    userNameIsValid &&
+    userEmailValueIsValid &&
+    userStudentIdIsValid
   ) {
     formIsValid = true;
   }
@@ -58,11 +93,24 @@ const RegisterForm = (props) => {
     }
 
     // 로그인 API
-    dispatch(registerAction({ userIdValue, userPasswordValue }));
+    dispatch(
+      registerAction({
+        userIdValue,
+        userPasswordValue,
+        userNameValue,
+        userEmailValue,
+        userStudentIdValue,
+        generation,
+        area,
+      })
+    );
 
     resetUserId();
     resetUserPassword();
     resetUserRetryPassword();
+    resetUserName();
+    resetUserEmail();
+    resetUserStudentId();
   };
 
   return (
@@ -78,9 +126,10 @@ const RegisterForm = (props) => {
           onBlur={userIdBlurHandler}
           hasError={userIdHasError}
           errorText="필수 입력입니다."
-          marginBottom="5px"
+          marginBottom="0.1rem"
+          color="#617485"
         />
-        <ExistCheckButton />
+        <ExistCheckButton value={userIdValue} />
         <AuthInput
           label="비밀번호"
           type="password"
@@ -91,7 +140,8 @@ const RegisterForm = (props) => {
           onBlur={userPasswordBlurHandler}
           hasError={userPasswordHasError}
           errorText="필수 입력입니다."
-          marginBottom="5px"
+          marginBottom="0.3rem"
+          color="#617485"
         />
         <AuthInput
           label="비밀번호 재확인"
@@ -103,10 +153,48 @@ const RegisterForm = (props) => {
           onBlur={userRetryPasswordBlurHandler}
           hasError={userRetryPasswordHasError}
           errorText="비밀번호가 일치하지 않습니다."
+          marginBottom="0.65rem"
+          color="#617485"
         />
-        <RegisterSelectorInfo />
+        <AuthInput
+          label="이름"
+          type="text"
+          id="userName"
+          placeholder="이름 입력"
+          value={userNameValue}
+          onChange={userNameChangeHandler}
+          onBlur={userNameBlurHandler}
+          hasError={userNameHasError}
+          errorText="필수 입력입니다."
+          marginBottom="0.3rem"
+          color="#617485"
+        />
+        <AuthInput
+          label="본인 확인 이메일"
+          type="text"
+          id="userEmail"
+          placeholder="이메일 입력"
+          value={userEmailValue}
+          onChange={userEmailChangeHandler}
+          onBlur={userEmailBlurHandler}
+          hasError={userEmailHasError}
+          errorText="이메일 형식이 아닙니다."
+          color="#617485"
+        />
+        <RegisterSelectorInfo
+          type="text"
+          id="userStudentId"
+          placeholder="학번"
+          value={userStudentIdValue}
+          onChange={userStudentIdChangeHandler}
+          onBlur={userStudentIdBlurHandler}
+          hasError={userStudentIdHasError}
+          errorText="필수 입력입니다."
+          setGeneration={setGeneration}
+          setArea={setArea}
+        />
       </div>
-      <SubmitButton>회원가입</SubmitButton>
+      <SubmitButton height="2.8rem">회원가입</SubmitButton>
     </form>
   );
 };
