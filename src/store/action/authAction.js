@@ -10,8 +10,14 @@ export const loginAction = createAsyncThunk(
   ) => {
     try {
       const { data, status, error } = await fetchLogin({ id, password });
+      if (data === 'FAIL') {
+        console.log('FAIL');
+        return { data, status, error: 'FAIL' };
+      }
+      console.log('action', data, status, error);
       return { data, status, error };
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response);
     }
   }
@@ -41,6 +47,10 @@ export const registerAction = createAsyncThunk(
         generation,
         area
       );
+      if (data === 'FAIL') {
+        console.log('FAIL');
+        return { data, status, error: 'FAIL' };
+      }
       return { data, status, error };
     } catch (error) {
       return rejectWithValue(error.response);

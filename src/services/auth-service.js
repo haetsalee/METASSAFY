@@ -10,7 +10,8 @@ export const fetchLogin = async ({ id, password }) => {
   try {
     const response = await API.post('/user/login', requestBody);
     setTokens(response.headers);
-    const { data, status, error } = response;
+    console.log('api', response);
+    const { data, status } = response;
     return { data, status, error: null };
   } catch (error) {
     const {

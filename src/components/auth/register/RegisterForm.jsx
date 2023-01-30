@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { registerAction } from '../../../store/action/authAction';
 
 import useInput from '../../../hooks/use-input';
@@ -18,6 +18,7 @@ const isEmailType = (value) => value.trim() !== '' && value.includes('@');
 const RegisterForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
   const [generation, setGeneration] = useState('');
   const [area, setArea] = useState('');
 
@@ -109,14 +110,18 @@ const RegisterForm = (props) => {
       })
     );
 
+    // 회원가입 성공 시 메인으로 이동
+    if (auth.status === 200) {
+      navigate('/');
+      console.log('register success');
+    }
+
     resetUserId();
     resetUserPassword();
     resetUserRetryPassword();
     resetUserName();
     resetUserEmail();
     resetUserStudentId();
-
-    navigate('/');
   };
 
   return (

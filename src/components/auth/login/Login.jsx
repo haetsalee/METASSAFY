@@ -11,7 +11,7 @@ const Login = (props) => {
     <AuthModal>
       <AuthClose onClose={props.onClose} />
       <AuthTitle title="METASSAFY!" subTitle="DIVE TO" />
-      <LoginForm />
+      <LoginForm onClose={props.onClose} />
       <LoginBottom />
     </AuthModal>
   );

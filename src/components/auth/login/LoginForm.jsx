@@ -1,15 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../../store/action/authAction';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
 import SubmitButton from '../SubmitButton';
-import { useDispatch } from 'react-redux';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
 
   const {
     value: userIdValue,
@@ -43,6 +44,12 @@ const LoginForm = (props) => {
 
     // 로그인 API
     dispatch(loginAction({ userIdValue, userPasswordValue }));
+
+    // 로그인 성공 시 모달 닫기
+    if (!auth.error) {
+      props.onClose();
+      console.log('modal success');
+    }
 
     resetuserId();
     resetuserPassword();
