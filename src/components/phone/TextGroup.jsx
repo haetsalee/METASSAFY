@@ -1,12 +1,22 @@
 import React from "react";
-import classes from './TextGroup.module.css'
+import styled from 'styled-components';
 
 function TextGroup(props) {
-    return <div style={{display:'flex', flexDirection: 'column', textAlign: 'center'}}>
-        <b className={classes.name_text}>{props.name}</b>
+    return <TextGroupStyle>
+        <NameTextStyle>{props.name}</NameTextStyle>
         {/* <b style={{margin: 0, padding: 0, fontSize: '1rem'}}>{props.name}</b> */}
         <b style={{margin: 0, padding: 0, fontSize: '0.5rem'}}>{props.class}</b>
-    </div>
+    </TextGroupStyle>
 }
 
 export default TextGroup;
+
+const TextGroupStyle = styled.div`
+    display:'flex';
+    flex-direction: 'column';
+    text-align: 'center';
+`
+const NameTextStyle = styled.div`
+    color: #8B9CD9;
+    font-family: Korail Round Gothic Medium, 'Source Sans Pro';    
+`
