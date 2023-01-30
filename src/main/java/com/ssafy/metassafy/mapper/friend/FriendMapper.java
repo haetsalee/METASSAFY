@@ -21,4 +21,6 @@ public interface FriendMapper {
     void acceptFriend(int friend_no);
 
     void rejectFriend(int friend_no);
+
+    void deleteFriend(String user_id1, String user_id2);
 }

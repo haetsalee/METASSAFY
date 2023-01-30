@@ -56,6 +56,11 @@ public class friendServiceImpl implements  FriendService{
     }
 
     @Override
+    public void deleteFriend(String user_id1, String user_id2) {
+        mapper.deleteFriend(user_id1,user_id2);
+    }
+
+    @Override
     public void setUserEmitter(String user_id, SseEmitter sseEmitter) {
         connectedUser.put(user_id, sseEmitter);
 
