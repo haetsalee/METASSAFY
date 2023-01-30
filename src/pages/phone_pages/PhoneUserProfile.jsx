@@ -2,7 +2,7 @@ import TextGroupComponent from '../../components/phone/TextGroupComponent';
 
 import MajorPositionClass from '../../components/phone/MajorPositionClass';
 import BackgroundBox from '../../components/phone/BackgroundBox';
-
+import RoundBox from '../../components/phone/RoundBox';
 import styled from 'styled-components';
 
 function PhoneUserProfile(props) {
@@ -13,6 +13,7 @@ function PhoneUserProfile(props) {
       {/* 전공, 포지션, 공통 */}
       <MajorPositionClass />
       기술스택 자기소개 생일
+      <RoundBox text="자기소개"></RoundBox>
     </PhoneUserProfileStyle>
   );
 }
