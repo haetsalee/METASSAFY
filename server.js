@@ -1,7 +1,7 @@
 // server.js
 const express = require("express");
 const http = require("http");
-const port = 8080; // 서버를 열 포트 번호
+const port = 5000; // 서버를 열 포트 번호
 const app = express();
 
 const server = http.createServer(app);
@@ -72,6 +72,8 @@ io.on("connection", (client) => {
     // client로부터 move라는 이벤트를 들으면
     // pos라는 데이터를 함께 받아오는데, 이걸 어떻게 쓰는가...
 
+    // console.log(posrot)
+
     clients[client.id].position = posrot.pos;
     clients[client.id].rotation = posrot.rot;
     // server의 clients라는 오브젝트에서 move라는 이벤트를 보낸 client의 id를 찾아
@@ -84,9 +86,14 @@ io.on("connection", (client) => {
 
     io.sockets.emit("userPositions", clients);
     // 이후 io를 통해 sockets(접속자들)에게 전체 emit한다. 무엇을?
+    // console.log(clients, 'clientssss')
     // userPositions라는 이벤트를.
     // 그리고 clients라는 오브젝트를 데이터로 전달한다.
   });
+
+  client.on("chat", (text) => {
+    console.log(text)
+  })
 
   //Handle the disconnection
   client.on("disconnect", () => {
