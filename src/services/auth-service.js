@@ -21,11 +21,23 @@ export const fetchLogin = async ({ id, password }) => {
   }
 };
 
-export const fetchRegister = async ({ id, password, email }) => {
+export const fetchRegister = async ({
+  id,
+  password,
+  name,
+  email,
+  studentId,
+  generation,
+  area,
+}) => {
   const requestBody = {
     user_id: id,
     user_pwd: password,
+    user_name: name,
     user_email: email,
+    user_studentId: studentId,
+    user_generation: generation,
+    user_area: area,
   };
 
   try {

@@ -8,6 +8,7 @@ import ExistCheckButton from './ExistCheckButton';
 import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const isNotEmpty = (value) => value.trim() !== '';
 const isSamePassword = (value, copy) =>
@@ -16,8 +17,9 @@ const isEmailType = (value) => value.trim() !== '' && value.includes('@');
 
 const RegisterForm = (props) => {
   const dispatch = useDispatch();
-  const [generation, setGeneration] = useState({});
-  const [area, setArea] = useState({});
+  const navigate = useNavigate();
+  const [generation, setGeneration] = useState('');
+  const [area, setArea] = useState('');
 
   const {
     value: userIdValue,
@@ -80,7 +82,9 @@ const RegisterForm = (props) => {
     userRetryPasswordValueIsValid &&
     userNameIsValid &&
     userEmailValueIsValid &&
-    userStudentIdIsValid
+    userStudentIdIsValid &&
+    generation &&
+    area
   ) {
     formIsValid = true;
   }
@@ -111,6 +115,8 @@ const RegisterForm = (props) => {
     resetUserName();
     resetUserEmail();
     resetUserStudentId();
+
+    navigate('/');
   };
 
   return (
