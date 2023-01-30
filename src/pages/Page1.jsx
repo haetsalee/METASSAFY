@@ -1,14 +1,15 @@
-import { useHistory } from "react-router-dom";
-import TextGroupComponent from "../components/phone/TextGroupComponent";
-import Phone from "../components/UI/Phone";
-import PhoneUserProfile from "./phone_pages/PhoneUserProfile";
+import { useHistory } from 'react-router-dom';
+import TextGroupComponent from '../components/phone/TextGroupComponent';
+import Phone from '../components/UI/Phone';
+import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 
 function Page1() {
-
-
-  return <section style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
-    <h1>Page1</h1>
-    {/* <Phone > */}
+  return (
+    <section
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
+      <h1>Page1</h1>
+      {/* <Phone > */}
       <PhoneUserProfile></PhoneUserProfile>
       {/* 프로필 사진
       활동중 뱃지
@@ -21,8 +22,9 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
-    {/* </Phone> */}
-  </section>;
+      {/* </Phone> */}
+    </section>
+  );
 }
 
 export default Page1;

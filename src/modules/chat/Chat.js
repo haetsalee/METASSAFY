@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { socket } from "../../Socket"; 
+import { useEffect, useState } from 'react';
+import { socket } from '../../Socket';
 
 function Chat() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const onChange = (e) => {
     setText(e.target.value);
   };
- 
+
   const onSocket = () => {
-    socket.emit("chat", text)
-    setText("");
+    socket.emit('chat', text);
+    setText('');
   };
   return (
     <div>

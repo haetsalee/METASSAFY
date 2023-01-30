@@ -1,19 +1,18 @@
 // import { useHistory } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
+import * as THREE from 'three';
 
-import * as THREE from "three";
-
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 // import { AnimationClip, AnimationMixer } from "three";
 
-import Stats from "three/examples/jsm/libs/stats.module";
+import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { socket } from "../Socket";
-import Card from "../components/UI/Card";
-import Chat from "../modules/chat/Chat"
+import { socket } from '../Socket';
+import Card from '../components/UI/Card';
+import Chat from '../modules/chat/Chat';
 
 function Page2() {
   const canvasRef = useRef(null); // useRef사용
@@ -32,7 +31,7 @@ function Page2() {
     console.log(clients);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("white");
+    scene.background = new THREE.Color('white');
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -60,7 +59,7 @@ function Page2() {
     // renderer.shadowMap.enabled = true;
     // ㄴ 이게 무엇인지는 확인이 필요
     // document.body.appendChild(renderer.domElement);
-  //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
+    //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
 
     const orbitControls = new OrbitControls(camera, renderer.domElement);
     orbitControls.enableDamping = true;
@@ -87,7 +86,7 @@ function Page2() {
     let loaders = new GLTFLoader();
 
     loaders.load(
-      "model/cartoon_lowpoly_small_city_free_pack/scene.gltf",
+      'model/cartoon_lowpoly_small_city_free_pack/scene.gltf',
       function (gltf) {
         gltf.scene.scale.x = 0.1;
         gltf.scene.scale.y = 0.1;
@@ -107,13 +106,12 @@ function Page2() {
       }
     );
 
-
     // animation 관련
     let mixer;
 
     loaders.load(
       // "model/toon_cat_free/scene.gltf",
-      "model/people/ilbuni.glb",
+      'model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -121,7 +119,7 @@ function Page2() {
         // console.log(gltf.animations[0]);
         // console.log(gltf.animations[1]);
         // console.log(gltf.animations[2]);
-        
+
         mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
         const actions = [];
         actions[0] = mixer.clipAction(gltf.animations[0]);
@@ -139,12 +137,12 @@ function Page2() {
         scene.add(gltf.scene);
         // console.log(gltf.scene.rotation)
 
-        document.addEventListener("keydown", onDocumentKeyDown, false);
+        document.addEventListener('keydown', onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
           var keyCode = event.which;
           if (keyCode === 87) {
             gltf.scene.position.z += 0.3;
-            socket.emit("move", {
+            socket.emit('move', {
               pos: [
                 gltf.scene.position.x,
                 gltf.scene.position.y,
@@ -158,7 +156,7 @@ function Page2() {
             });
           } else if (keyCode === 83) {
             gltf.scene.position.z -= 0.3;
-            socket.emit("move", {
+            socket.emit('move', {
               pos: [
                 gltf.scene.position.x,
                 gltf.scene.position.y,
@@ -172,7 +170,7 @@ function Page2() {
             });
           } else if (keyCode === 65) {
             gltf.scene.position.x += 0.3;
-            socket.emit("move", {
+            socket.emit('move', {
               pos: [
                 gltf.scene.position.x,
                 gltf.scene.position.y,
@@ -186,7 +184,7 @@ function Page2() {
             });
           } else if (keyCode === 68) {
             gltf.scene.position.x -= 0.3;
-            socket.emit("move", {
+            socket.emit('move', {
               pos: [
                 gltf.scene.position.x,
                 gltf.scene.position.y,
@@ -200,7 +198,7 @@ function Page2() {
             });
           } else if (keyCode === 32) {
             gltf.scene.position.set(0, 0, 0);
-            socket.emit("move", {
+            socket.emit('move', {
               pos: [
                 gltf.scene.position.x,
                 gltf.scene.position.y,
@@ -218,7 +216,7 @@ function Page2() {
       },
       // called while loading is progressing
       function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded me");
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded me');
       },
       // called when loading has errors
       function (error) {
@@ -231,7 +229,7 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        "people/ilbuni.glb",
+        'people/ilbuni.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -249,7 +247,7 @@ function Page2() {
         },
         // called while loading is progressing
         function (xhr) {
-          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
         },
         // called when loading has errors
         function (error) {
@@ -259,7 +257,7 @@ function Page2() {
     }
 
     //On connection server sends the client his ID
-    socket.on("introduction", (_id, _clientNum, _ids) => {
+    socket.on('introduction', (_id, _clientNum, _ids) => {
       for (let i = 0; i < _ids.length; i++) {
         if (_ids[i] !== _id) {
           clients[_ids[i]] = {
@@ -268,7 +266,7 @@ function Page2() {
 
           loaders.load(
             // "model/toon_cat_free/scene.gltf",
-            "model/people/ilbuni.glb",
+            'model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -286,7 +284,7 @@ function Page2() {
               clients[_ids[i]].mesh = gltf.scene;
               //Add initial users to the scene
               scene.add(clients[_ids[i]].mesh);
-              socket.emit("move", {
+              socket.emit('move', {
                 pos: [
                   gltf.scene.position.x,
                   gltf.scene.position.y,
@@ -301,7 +299,7 @@ function Page2() {
             },
             // called while loading is progressing
             function (xhr) {
-              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+              console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
             },
             // called when loading has errors
             function (error) {
@@ -314,11 +312,11 @@ function Page2() {
       console.log(clients);
 
       id = _id;
-      console.log("My ID is: " + id);
+      console.log('My ID is: ' + id);
     });
 
-    socket.on("newUserConnected", (clientCount, _id, _ids) => {
-      console.log(clientCount + " clients connected");
+    socket.on('newUserConnected', (clientCount, _id, _ids) => {
+      console.log(clientCount + ' clients connected');
       let alreadyHasUser = false;
       for (let i = 0; i < Object.keys(clients).length; i++) {
         if (Object.keys(clients)[i] === _id) {
@@ -327,15 +325,14 @@ function Page2() {
         }
       }
       if (_id !== id && !alreadyHasUser) {
-        console.log("A new user connected with the id: " + _id);
+        console.log('A new user connected with the id: ' + _id);
         clients[_id] = {
           mesh: null,
         };
         loaders.load(
           // "model/toon_cat_free/scene.gltf",
-          "model/people/ilbuni.glb",
+          'model/people/ilbuni.glb',
           function (gltf) {
-
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
             actions[0] = mixer.clipAction(gltf.animations[0]);
@@ -350,13 +347,13 @@ function Page2() {
             gltf.scene.position.y += 2;
             clients[_id].mesh = gltf.scene;
             console.log(clients);
-            console.log(clients[_id].mesh, "mesh 보이는지 확인하는 용도");
+            console.log(clients[_id].mesh, 'mesh 보이는지 확인하는 용도');
             //Add initial users to the scene
             scene.add(clients[_id].mesh);
           },
           // called while loading is progressing
           function (xhr) {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
           },
           // called when loading has errors
           function (error) {
@@ -366,21 +363,21 @@ function Page2() {
       }
     });
 
-    socket.on("userDisconnected", (clientCount, _id, _ids) => {
+    socket.on('userDisconnected', (clientCount, _id, _ids) => {
       //Update the data from the server
       // document.getElementById("numUsers").textContent = clientCount;
 
       if (_id !== id) {
-        console.log("A user disconnected with the id: " + _id);
+        console.log('A user disconnected with the id: ' + _id);
         scene.remove(clients[_id].mesh);
         delete clients[_id];
       }
     });
 
-    socket.on("connect", () => {});
+    socket.on('connect', () => {});
 
     //Update when one of the users moves in space
-    socket.on("userPositions", (_clientProps) => {
+    socket.on('userPositions', (_clientProps) => {
       // console.log('Positions of all users are ', _clientProps, id);
       // console.log(Object.keys(_clientProps)[0] == id);
       for (let i = 0; i < Object.keys(_clientProps).length; i++) {
@@ -394,7 +391,6 @@ function Page2() {
           let newRot = _clientProps[Object.keys(_clientProps)[i]].rotation;
           // console.log(newRot)
 
-
           //Create a vector 3 and lerp the new values with the old values
           let lerpedPos = new THREE.Vector3();
           lerpedPos.x = THREE.MathUtils.lerp(oldPos.x, newPos[0], 0.3);
@@ -407,13 +403,13 @@ function Page2() {
           //   lerpedPos.y,
           //   lerpedPos.z
           // );
-          clients[Object.keys(_clientProps)[i]].mesh.position.x = newPos[0]
-          clients[Object.keys(_clientProps)[i]].mesh.position.y = newPos[1]
-          clients[Object.keys(_clientProps)[i]].mesh.position.z = newPos[2]
+          clients[Object.keys(_clientProps)[i]].mesh.position.x = newPos[0];
+          clients[Object.keys(_clientProps)[i]].mesh.position.y = newPos[1];
+          clients[Object.keys(_clientProps)[i]].mesh.position.z = newPos[2];
 
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.x = newRot[0]
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.y = newRot[1]
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.z = newRot[2]
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.x = newRot[0];
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.y = newRot[1];
+          clients[Object.keys(_clientProps)[i]].mesh.rotation.z = newRot[2];
         }
       }
     });
@@ -463,17 +459,19 @@ function Page2() {
     animate();
   }, []);
 
-  return (<section>
-    <h1>Page2</h1>
-    <Chat/>
-    <div className="canvas_Wrap">
-      {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
-      <Card>
-      <canvas className="meta-ssafy" ref={canvasRef}></canvas>
-        <h1>Canvas</h1>  
-      </Card>  
-    </div>
-  </section>);
+  return (
+    <section>
+      <h1>Page2</h1>
+      <Chat />
+      <div className="canvas_Wrap">
+        {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
+        <Card>
+          <canvas className="meta-ssafy" ref={canvasRef}></canvas>
+          <h1>Canvas</h1>
+        </Card>
+      </div>
+    </section>
+  );
 }
 
 export default Page2;

@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function MainPage() {
-    
+  useEffect(() => {});
 
-    useEffect(() => {
-
-    })
-
-    return(
-        <section>
-            <h1>MainPage</h1>
-        </section>
-    )
+  return (
+    <section>
+      <h1>MainPage</h1>
+    </section>
+  );
 }
 
-export default MainPage
+export default MainPage;
