@@ -11,7 +11,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { socket } from '../Socket';
+import { socket, connectSocket } from '../Socket';
 import Card from '../components/UI/Card';
 import Chat from '../modules/chat/Chat';
 
@@ -20,6 +20,7 @@ function Page2() {
   const [canvasTag, setCanvasTag] = useState([]);
 
   useEffect(() => {
+    connectSocket();
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;

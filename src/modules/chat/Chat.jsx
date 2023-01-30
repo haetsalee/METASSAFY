@@ -14,11 +14,7 @@ function Chat() {
   return (
     <div>
       <input onChange={onChange} value={text} />
-      <button onClick={onSocket}>소켓 동작 확인</button>
-      <div>
-        <b>값: </b>
-        {text}
-      </div>
+      <button onClick={onSocket}>채팅 보내기</button>
     </div>
   );
 }
