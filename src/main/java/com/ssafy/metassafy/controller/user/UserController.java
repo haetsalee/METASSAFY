@@ -184,6 +184,7 @@ public class UserController {
     @GetMapping("/allTechList")
     public List<TechStack> getAllTechList(){
         List <TechStack> list=service.getAllTechList();
+        logger.info("아이니는 "+Integer.toString(list.get(0).getTech_id()));
         return list;
     }
 

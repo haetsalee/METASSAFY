@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TechStack {
+    int tech_id;
     String tech_name;
     String tech_logo;
 }
