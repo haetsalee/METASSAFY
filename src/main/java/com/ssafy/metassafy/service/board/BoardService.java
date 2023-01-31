@@ -18,6 +18,5 @@ public interface BoardService {
     public boolean modifyArticle(BoardDto boardDto) throws Exception;
     public boolean deleteArticle(int article_no) throws Exception;
     public boolean deleteFile(FileDto fileDto) throws Exception;
-    public boolean downloadFile(FileDto fileDto) throws Exception;
-
+    public boolean uploadFile(FileDto fileDto, MultipartFile file) throws Exception;
 }
