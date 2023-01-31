@@ -23,16 +23,18 @@ public class SwaggerConfig {
 //	Swagger-UI 2.x 확인
 //	http://localhost[:8080]/{your-app-root}/swagger-ui.html
 //	Swagger-UI 3.x 확인
-//	http://localhost:9999/metassafy/swagger-ui/index.html
-
+//	http://i8d211.p.ssafy.io:8088/metassafy/swagger-ui/index.html
+    // http://localhost[:8080]/{your-app-root}/swagger-ui.html
     private String version = "V1";
     private String title = "METASSAFY API" + version;
 
-    private String host="http://i8d211.p.ssafy.io:8088/metassafy"; //추가
+    private String host="i8d211.p.ssafy.io:8088/metassafy"; //추가
 
 
     private ApiInfo apiInfo() {
-        
+
+
+
         String descript = "METASSAFY React.js API Reference for Developers<br>";
         return new ApiInfoBuilder().title(title)
                 .version("0.0.1")
