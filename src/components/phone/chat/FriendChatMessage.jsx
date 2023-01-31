@@ -9,7 +9,8 @@ function FriendChatMessage(props) {
 export default FriendChatMessage;
 
 const FriendChatMessageStyle = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  word-break: break-all;
   background-color: #e0f4ff;
   width: auto;
   max-width: 10rem;

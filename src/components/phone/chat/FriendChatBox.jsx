@@ -29,7 +29,7 @@ const ChatImgStyle = styled.img`
 
 const ChatBoxStyle = styled.div`
   display: flex;
-  padding: 0.3rem;
+  padding: 0.5rem;
   justify-self: left;
 `;
 

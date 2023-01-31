@@ -7,7 +7,7 @@ function MyChatBox() {
   return (
     <ChatBoxStyle>
       <ChatTime />
-      <MyChatMessage chat="하이용" />
+      <MyChatMessage chat="하이용asdfadfdadafa dfdfadfdfsdfsaaa aaaaaaaaa" />
     </ChatBoxStyle>
   );
 }
@@ -16,6 +16,6 @@ export default MyChatBox;
 
 const ChatBoxStyle = styled.div`
   display: flex;
-  padding: 0.3rem;
+  padding: 0.5rem;
   justify-self: right;
 `;

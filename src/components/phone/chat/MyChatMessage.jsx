@@ -7,7 +7,8 @@ function MyChatMessage(props) {
 export default MyChatMessage;
 
 const MyChatMessageStyle = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  word-break: break-all;
   background-color: #f9f6fc;
   width: auto;
   max-width: 10rem;

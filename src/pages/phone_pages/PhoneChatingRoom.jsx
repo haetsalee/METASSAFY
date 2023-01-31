@@ -19,6 +19,8 @@ function PhoneChatingRoom() {
         <FriendChatBox chat="여기 chat데이터 들어가야함" />
         <MyChatBox />
         <FriendChatBox chat="여기 chat데이터 들어가야함" />
+        <FriendChatBox chat="여기 chat데이터 들어가야함" />
+        <MyChatBox />
         <MyChatBox />
       </PhoneChatingRoomStyle>
     </Phone>
@@ -34,4 +36,11 @@ const PhoneChatingRoomStyle = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #617485;
+  }
 `;
