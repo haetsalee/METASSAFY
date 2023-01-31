@@ -1,9 +1,18 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const StyledButton = styled.button`
+const SubmitButton = (props) => {
+  return (
+    <ButtonStyle {...props} onClick={props.move}>
+      {props.children}
+    </ButtonStyle>
+  );
+};
+
+export default SubmitButton;
+
+const ButtonStyle = styled.button`
   width: 100%;
-  height: 36px;
   border-radius: 8px;
   border-width: 1px;
   margin-bottom: 10px;
@@ -16,12 +25,7 @@ const StyledButton = styled.button`
       color: ${props.color || 'white'};
       background-color: ${props.backgroundColor || '#799FC0'};
       border-color: ${props.borderColor || '#799FC1'};
+      height: ${props.height || '36px'};
     `;
   }}
 `;
-
-const SubmitButton = (props) => {
-  return <StyledButton {...props}>{props.children}</StyledButton>;
-};
-
-export default SubmitButton;

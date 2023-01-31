@@ -1,16 +1,15 @@
 import React from 'react';
-import { loginAction } from '../../store/action/authAction';
 
-import useInput from '../../hooks/use-input';
-import AuthInput from './AuthInput';
-import SubmitButton from './SubmitButton';
-import { useDispatch } from 'react-redux';
+import useInput from '../../../hooks/use-input';
+import AuthInput from '../AuthInput';
+import SubmitButton from '../SubmitButton';
+
+import { fetchLogin, fetchUserInfo } from '../../../services/auth-service';
+import { setUserInfo } from '../../../utils/local-storage';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
 const LoginForm = (props) => {
-  const dispatch = useDispatch();
-
   const {
     value: userIdValue,
     isValid: userIdIsValid,
@@ -34,7 +33,7 @@ const LoginForm = (props) => {
     formIsValid = true;
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!formIsValid) {
@@ -42,10 +41,21 @@ const LoginForm = (props) => {
     }
 
     // 로그인 API
-    dispatch(loginAction({ userIdValue, userPasswordValue }));
+    const { data, status, error } = await fetchLogin({
+      id: userIdValue,
+      password: userPasswordValue,
+    });
 
-    resetuserId();
-    resetuserPassword();
+    // 로그인 성공 시 모달 닫기
+    if (data === 'Success') {
+      const { data, status } = await fetchUserInfo();
+      setUserInfo(data);
+      props.onClose();
+    } else {
+      resetuserId();
+      resetuserPassword();
+      alert('로그인 실패: 아이디와 비밀번호를 확인해주세요.');
+    }
   };
 
   return (
