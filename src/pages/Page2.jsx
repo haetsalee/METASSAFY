@@ -11,7 +11,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { socket } from '../Socket';
+import { socket, connectSocket } from '../Socket';
 import Card from '../components/UI/Card';
 import Chat from '../modules/chat/Chat';
 
@@ -20,6 +20,7 @@ function Page2() {
   const [canvasTag, setCanvasTag] = useState([]);
 
   useEffect(() => {
+    connectSocket();
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -91,7 +92,8 @@ function Page2() {
     loaders.setDRACOLoader(dracoLoader);
 
     loaders.load(
-      'model/map/map.gltf',
+      // 'build/model/map/map.gltf',
+      'build/model/map/ssafyMap.glb',
       function (gltf) {
         gltf.scene.scale.set(10, 10, 10);
         // gltf.scene.position.y = 0.5;
@@ -113,8 +115,8 @@ function Page2() {
     let mixer;
 
     loaders.load(
-      // "model/toon_cat_free/scene.gltf",
-      'model/people/ilbuni.glb',
+      // "build/model/toon_cat_free/scene.gltf",
+      'build/model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -268,8 +270,8 @@ function Page2() {
           };
 
           loaders.load(
-            // "model/toon_cat_free/scene.gltf",
-            'model/people/ilbuni.glb',
+            // "build/model/toon_cat_free/scene.gltf",
+            'build/model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -333,8 +335,8 @@ function Page2() {
           mesh: null,
         };
         loaders.load(
-          // "model/toon_cat_free/scene.gltf",
-          'model/people/ilbuni.glb',
+          // "build/model/toon_cat_free/scene.gltf",
+          'build/model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];

@@ -3,7 +3,36 @@ import ReactDOM from 'react-dom';
 
 import styled, { keyframes } from 'styled-components';
 
-const StyledModal = styled.div`
+// const Backdrop = (props) => {
+//   return <div className={classes.backdrop} onClick={props.onClose} />;
+// };
+
+const ModalOverlay = (props) => {
+  return (
+    <ModalStyle>
+      <ModalContentStyle onClick={props.onClose}>
+        {props.children}
+      </ModalContentStyle>
+    </ModalStyle>
+  );
+};
+
+const portalElement = document.getElementById('modal-root');
+
+const Modal = (props) => {
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <ModalOverlay>{props.children}</ModalOverlay>,
+        portalElement
+      )}
+    </React.Fragment>
+  );
+};
+
+export default Modal;
+
+const ModalStyle = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -27,7 +56,7 @@ const slideDown = keyframes`
   }
 `;
 
-const StyledModalContent = styled.div`
+const ModalContentStyle = styled.div`
   width: 400px;
   height: 560px;
   background-color: white;
@@ -36,32 +65,3 @@ const StyledModalContent = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   animation: ${slideDown} 300ms ease-out forwards;
 `;
-
-// const Backdrop = (props) => {
-//   return <div className={classes.backdrop} onClick={props.onClose} />;
-// };
-
-const ModalOverlay = (props) => {
-  return (
-    <StyledModal>
-      <StyledModalContent onClick={props.onClose}>
-        {props.children}
-      </StyledModalContent>
-    </StyledModal>
-  );
-};
-
-const portalElement = document.getElementById('modal-root');
-
-const Modal = (props) => {
-  return (
-    <React.Fragment>
-      {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
-        portalElement
-      )}
-    </React.Fragment>
-  );
-};
-
-export default Modal;
