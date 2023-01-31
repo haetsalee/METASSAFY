@@ -28,13 +28,11 @@ public class SwaggerConfig {
     private String version = "V1";
     private String title = "METASSAFY API" + version;
 
-    private String host="localhost:9999/metassafy"; //추가
+    private String host="http://i8d211.p.ssafy.io:8088/metassafy"; //추가
 
 
     private ApiInfo apiInfo() {
-
-
-
+        
         String descript = "METASSAFY React.js API Reference for Developers<br>";
         return new ApiInfoBuilder().title(title)
                 .version("0.0.1")
