@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://192.168.100.56:9999/metassafy',
+  baseURL: 'http://i8d211.p.ssafy.io:8088/metassafy',
   headers: {
     'Content-Type': 'application/json',
   },

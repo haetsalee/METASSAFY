@@ -42,6 +42,7 @@ export const fetchRegister = async ({
     const { data, status } = response;
     return { data, status, error: null };
   } catch (error) {
-    return { data: error.message, status: error.response.status, error };
+    // return { data: error.message, status: error.response.status, error };
+    return error;
   }
 };

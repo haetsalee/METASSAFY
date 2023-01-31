@@ -116,10 +116,8 @@ const RegisterForm = (props) => {
     // console.log(auth.data, auth.status, auth.error);
 
     // 회원가입 성공 시 메인으로 이동
-    if (auth.error !== 'FAIL') {
-      console.log('register success');
-      navigate('/register');
-    }
+
+    navigate('/');
 
     resetUserId();
     resetUserPassword();

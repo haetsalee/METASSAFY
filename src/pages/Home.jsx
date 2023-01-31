@@ -4,7 +4,11 @@ import styled from 'styled-components';
 
 import Login from '../components/auth/login/Login';
 
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 const Home = () => {
+  const auth = useSelector((state) => state.auth);
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
 
@@ -19,6 +23,13 @@ const Home = () => {
   const registerHandler = () => {
     navigate('/register');
   };
+
+  useEffect(() => {
+    console.log('useeffect', auth);
+    if (auth.error !== 'FAIL') {
+      console.log('register success', auth);
+    }
+  }, []);
 
   return (
     <SectionStyle>
