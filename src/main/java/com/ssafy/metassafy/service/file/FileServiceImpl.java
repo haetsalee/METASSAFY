@@ -68,82 +68,41 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public int downloadFile(FileDto fileDto) throws IOException{
+    public void deleteFile(FileDto fileDto){
 
-        System.out.println(fileDto);
-
-        try {
-            S3Object s3Object = s3.getObject(bucketName, fileDto.getSaved_name());
-            S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
-
-            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream("C:/"+fileDto.getOrigin_name()));
-            byte[] bytesArray = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = s3ObjectInputStream.read(bytesArray)) != -1) {
-                outputStream.write(bytesArray, 0, bytesRead);
-            }
-
-            outputStream.close();
-            s3ObjectInputStream.close();
-
-            System.out.format("Object %s has been downloaded.\n", fileDto.getOrigin_name());
-            return 1;
-        } catch (AmazonS3Exception e) {
-            e.printStackTrace();
-            return 0;
-        } catch(SdkClientException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    @Override
-    public void deleteFile(FileDto fileDto) throws IOException {
-
-    }
-
-    private void mkdir(String bucketName, String folderName) {
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(0L);
-        objectMetadata.setContentType("application/x-directory");
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName, new ByteArrayInputStream(new byte[0]), objectMetadata);
+        System.out.println("deleteFile ::" + fileDto);
 
         try {
-            s3.putObject(putObjectRequest);
-            System.out.format("Folder %s has been created.\n", folderName);
+            s3.deleteObject(bucketName, fileDto.getSaved_name());
+            System.out.format("Object %s has been deleted.\n", fileDto.getSaved_name());
         } catch (AmazonS3Exception e) {
             e.printStackTrace();
         } catch(SdkClientException e) {
             e.printStackTrace();
         }
     }
+
+
+//    private void mkdir(String bucketName, String folderName) {
+//        ObjectMetadata objectMetadata = new ObjectMetadata();
+//        objectMetadata.setContentLength(0L);
+//        objectMetadata.setContentType("application/x-directory");
+//        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName, new ByteArrayInputStream(new byte[0]), objectMetadata);
+//
+//        try {
+//            s3.putObject(putObjectRequest);
+//            System.out.format("Folder %s has been created.\n", folderName);
+//        } catch (AmazonS3Exception e) {
+//            e.printStackTrace();
+//        } catch(SdkClientException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void upload(String bucketName, String fileName, File uploadFile) {
         s3.putObject(new PutObjectRequest(bucketName, fileName, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         uploadFile.delete();
-    }
-
-    private void download(String bucketName, String fileName, String downloadFilePath) throws Exception{
-        try {
-            S3Object s3Object = s3.getObject(bucketName, fileName);
-            S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
-
-            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFilePath));
-            byte[] bytesArray = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = s3ObjectInputStream.read(bytesArray)) != -1) {
-                outputStream.write(bytesArray, 0, bytesRead);
-            }
-
-            outputStream.close();
-            s3ObjectInputStream.close();
-            System.out.format("Object %s has been downloaded.\n", fileName);
-        } catch (AmazonS3Exception e) {
-            e.printStackTrace();
-        } catch(SdkClientException e) {
-            e.printStackTrace();
-        }
     }
 
     private Optional<File> convert(MultipartFile file) throws IOException {

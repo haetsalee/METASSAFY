@@ -116,7 +116,15 @@ public class BoardServiceImpl implements  BoardService{
     }
 
     @Override
-    public boolean downloadFile(FileDto fileDto) throws Exception {
-        return fileService.downloadFile(fileDto) == 1;
+    public boolean uploadFile(FileDto fileDto, MultipartFile file) throws Exception {
+
+        FileDto temp = fileService.saveFile(file);
+
+        fileDto.setOrigin_name(temp.getOrigin_name());
+        fileDto.setSaved_name(temp.getSaved_name());
+        fileDto.setPath(temp.getPath());
+
+        return sqlSession.getMapper(BoardMapper.class).uploadFile(fileDto) == 1;
     }
+
 }
