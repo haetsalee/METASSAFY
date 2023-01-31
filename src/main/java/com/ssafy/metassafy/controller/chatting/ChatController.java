@@ -65,9 +65,16 @@ public class ChatController {
     }
 
     //채팅 목록 조회
+    @GetMapping("/upscroll")
+    public ResponseEntity<List<ChatDto>> upScroll(ChatParameterDto chatParameterDto) throws Exception{
+        logger.info("upScroll - 호출");
+        return new ResponseEntity<List<ChatDto>>(chatService.upScroll(chatParameterDto), HttpStatus.OK);
+    }
+
+    //채팅 목록 조회
     @GetMapping
     public ResponseEntity<List<ChatDto>> findAllChat(ChatParameterDto chatParameterDto) throws Exception{
-        logger.info("findAllChat - 호출");
+        logger.info("findAllChat start_no 방에 들어갈 때는 0으로 넣어주세요 그 외에는 현재 chat_no 중에 가장 작은 값, user_id, croom_no - 호출");
         return new ResponseEntity<List<ChatDto>>(chatService.findAllChat(chatParameterDto), HttpStatus.OK);
     }
 

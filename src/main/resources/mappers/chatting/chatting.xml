@@ -40,13 +40,20 @@
 <!--	private String message;-->
 <!--	private int not_read;-->
 <!--	private String regtime;-->
+	<select id="upScroll" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
+		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
+		FROM chat c
+				 LEFT JOIN user u
+						   ON c.user_id = u.user_id
+		WHERE c.croom_no = #{croom_no} AND chat_no BETWEEN #{start_no} AND (#{cur_no} - 1)
+	</select>
 
 	<select id="findAllChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
 		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
 		FROM chat c
 		LEFT JOIN user u
 		ON c.user_id = u.user_id
-		WHERE c.croom_no = #{croom_no}
+		WHERE c.croom_no = #{croom_no} AND chat_no >= #{start_no}
 	</select>
 
 	<select id="getMemberNum" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto" resultType="int">
@@ -59,6 +66,27 @@
 		SELECT max(chat_no)
 		FROM chat
 		WHERE croom_no = #{croom_no}
+	</select>
+
+	<select id="getUserLastReadChatId" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="int">
+		SELECT last_read_chat_id
+		FROM participant
+		WHERE user_id = #{user_id} AND croom_no = #{croom_no}
+	</select>
+
+	<select id="getLowChatNo" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="int">
+		SELECT COUNT(*)
+		FROM chat
+		WHERE croom_no = #{croom_no} AND chat_no &lt; #{cur_no}
+	</select>
+
+	<select id="getStartNo" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="int">
+		SELECT MIN(chat_no)
+		FROM (SELECT *
+		FROM chat
+		WHERE croom_no = #{croom_no} AND chat_no &lt; #{cur_no}
+		ORDER BY chat_no DESC
+		LIMIT 10) c
 	</select>
 
 	<insert id="createChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
