@@ -1,11 +1,12 @@
-import TextGroupComponent from '../../components/phone/TextGroupComponent';
+import styled from 'styled-components';
+import { useState } from 'react';
 
 import MajorPositionClass from '../../components/phone/MajorPositionClass';
+import TextGroupComponent from '../../components/phone/TextGroupComponent';
 import BackgroundBox from '../../components/phone/BackgroundBox';
 import RoundBox from '../../components/phone/RoundBox';
 import TechStackBox from '../../components/phone/TechStackBox';
-import styled from 'styled-components';
-import { useState } from 'react';
+import InfoBox from '../../components/phone/InfoBox';
 
 function PhoneUserProfile(props) {
   const [userinfo, setStacks] = useState({
@@ -14,7 +15,7 @@ function PhoneUserProfile(props) {
     major: 'Java',
     position: 'FE',
     track: 'D211ER',
-    stacks: ['android', 'Java', 'C', 'C++', 'vuejs', 'svelte'],
+    stacks: ['Python', 'android', 'Java', 'C', 'C++', 'vuejs', 'svelte'],
     introduce:
       'React 가라사대 뉴진스가 있었으니...하루만에 모든 서비스 페이지가 만들어졌다. 그리고 6주가 남았다더라',
   });
@@ -30,7 +31,7 @@ function PhoneUserProfile(props) {
       {/* 전공, 포지션, 공통 */}
       <MajorPositionClass
         major={userinfo.major}
-        position={userinfo.major}
+        position={userinfo.position}
         track={userinfo.track}
       />
       {/* 기술스택 자기소개 생일 */}
@@ -46,6 +47,7 @@ function PhoneUserProfile(props) {
       >
         {stackDivs}
       </div>
+      <InfoBox icon={<box-icon name="smile"></box-icon>} text="?????"></InfoBox>
     </PhoneUserProfileStyle>
   );
 }
