@@ -19,6 +19,6 @@ public interface BoardMapper {
     public int deleteArticle(int article_no) throws SQLException;
     public int deleteFile(FileDto fileDto) throws SQLException;
     public int makeLike(LikeDto likeDto) throws SQLException;
-    public void uploadFile(FileDto fileDto) throws SQLException;
+    public int uploadFile(FileDto fileDto) throws SQLException;
 
 }
