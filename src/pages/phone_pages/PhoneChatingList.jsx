@@ -1,11 +1,12 @@
 import Phone from '../../components/UI/Phone';
 
 import styled from 'styled-components';
+import ChatListNav from '../../components/phone/chat/ChatListNav';
 
 function PhoneChatingList() {
   return (
     <Phone>
-      <div>여기는 채팅방 표시와 설정</div>
+      <ChatListNav />
       <PhoneChatingListStyle>
         <div>여기는 새 채팅 검색</div>
         <div>여기는 검색하면 나올 결과창 if 랜더링</div>
