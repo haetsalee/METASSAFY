@@ -5,6 +5,7 @@ import com.ssafy.metassafy.dto.user.User;
 
 import com.ssafy.metassafy.service.friend.FriendService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -31,23 +32,27 @@ public class FriendController {
     private FriendService service;
 
     //user_id의 친구 목록 조회
+    @ApiOperation(value = "user_id의 친구 목록 조회", notes = "user_id의 친구 목록을 조회한다." )
     @GetMapping("/getFriendList/{user_id}")
     public List<User> getFriendList(@PathVariable("user_id") String user_id){
         return service.getFrinedList(user_id);
     }
 
     //user_id의 친구 수 조회
+    @ApiOperation(value = "user_id의 친구 수 조회", notes = "user_id의 친구 수를 조회한다." )
     @GetMapping("/getFriendNum/{user_id}")
     public String getFriendNum(@PathVariable("user_id") String user_id){
         return service.getFrinedNum(user_id);
     }
 
     //user_id가 받은 모든 친구 신청 알람 보여줌
+    @ApiOperation(value = "user_id가 받은 모든 친구 신청 보여줌", notes = "친구 신청은 누가 누구에게 보냈고 수락여부는 어떤지를 포함합니다." )
     @GetMapping("/getNotifyList/{user_id}")
     public List<FriendDto> getNotifyList(@PathVariable("user_id") String user_id){
         return service.getNotifyList(user_id);
     }
     //user_id가 알림창 입장해 있는 경우 실시간 알림
+    @ApiOperation(value = "user_id가 알림창 입장해 있는 경우 실시간 알림", notes = "sse를 이용해 새로고침 없이 알림을 띄워줍니다." )
     //알림창에 입장한 걸로 connect 판단.
     @GetMapping(value="/receive/notify/{to_user_id}" ,produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter receiveNotify(@PathVariable("to_user_id") String user_id){
@@ -75,6 +80,7 @@ public class FriendController {
     }
 
     //친구 신청 보내기
+    @ApiOperation(value = "from_user_id가 to_user_id에게 친추 보냄", notes = "앞에 오는게 from_user_id" )
     @GetMapping("/call/notify/{from_user_id}/{to_user_id}")
     public boolean callNotify(@PathVariable("from_user_id") String from_user_id,@PathVariable("to_user_id") String to_user_id) {
         if(service.isValidAdd(from_user_id,to_user_id)){
@@ -86,12 +92,14 @@ public class FriendController {
     }
 
     //신청 수락
+    @ApiOperation(value = "친구 신청을 수락합니다.", notes = "postmapping 파라미터로 FriendDto 객체를 보내주세요." )
     @PostMapping("/acceptFriend")
     public void acceptFriend(@RequestBody FriendDto friend){
         service.acceptFriend(friend);
     }
 
     //신청 거절->테이블에서 삭제
+    @ApiOperation(value = "친구 신청을 거절합니다.", notes = "친구" )
     @PostMapping("/rejectFriend")
     public void rejectFriend(@RequestBody FriendDto friend){
         service.rejectFriend(friend);
