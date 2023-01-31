@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const MyProfile = () => {
   const [profile, setProfile] = useState(MyProfileData);
-  console.log(profile);
   return (
     <MyProfileDivStyle>
       <MyProfileImgDivStyle>

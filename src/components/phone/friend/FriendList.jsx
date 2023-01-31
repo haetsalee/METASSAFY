@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FriendItem from './FriendItem';
+import FriendListItem from './FriendListItem';
 
 const FriendList = () => {
   const [friends, setFriends] = useState(FriendData);
@@ -12,7 +12,7 @@ const FriendList = () => {
     <ul>
       <FriendListStyle>
         {friends.map((friend) => (
-          <FriendItem key={friend.id} friend={friend} onDelete={onDelete} />
+          <FriendListItem key={friend.id} friend={friend} onDelete={onDelete} />
         ))}
       </FriendListStyle>
     </ul>
@@ -43,7 +43,7 @@ const FriendData = [
 export default FriendList;
 
 const FriendListStyle = styled.div`
-  width: 100%;
+  width: 90%;
   padding: 1rem;
   border-radius: 1rem 1rem 1rem 0rem;
 `;

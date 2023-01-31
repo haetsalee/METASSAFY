@@ -4,7 +4,7 @@ import { VscChromeClose, VscComment } from 'react-icons/vsc';
 
 const FriendItem = ({ friend, onDelete }) => {
   return (
-    <li>
+    <>
       <GroutStyle>
         <FriendImgDivStyle>
           <FriendImgStyle
@@ -31,7 +31,7 @@ const FriendItem = ({ friend, onDelete }) => {
         </FriendItemStyle>
       </GroutStyle>
       <hr />
-    </li>
+    </>
   );
 };
 
@@ -78,4 +78,9 @@ const IconStyle = styled.div`
   display: inline-block;
   right: 2rem;
   padding: 5px;
+`;
+
+const StateTextStyle = styled.div`
+  font-size: 0.6rem;
+  padding-top: 5px;
 `;

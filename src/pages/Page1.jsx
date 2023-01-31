@@ -3,6 +3,7 @@
 // import Phone from '../components/UI/Phone';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import PhoneFriendPage from './phone_pages/PhoneFriendPage';
+import PhoneFriendRequest from './phone_pages/PhoneFriendRequest';
 
 function Page1() {
   return (
@@ -13,6 +14,7 @@ function Page1() {
       {/* <Phone > */}
       <PhoneUserProfile></PhoneUserProfile>
       <PhoneFriendPage />
+      <PhoneFriendRequest />
       {/* 프로필 사진
       활동중 뱃지
       이름
