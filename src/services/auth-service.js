@@ -14,11 +14,7 @@ export const fetchLogin = async ({ id, password }) => {
     const { data, status } = response;
     return { data, status, error: null };
   } catch (error) {
-    const {
-      data: { message },
-      status,
-    } = error.response;
-    return { data: message, status, error };
+    return { data: error.message, status: error.response.status, error };
   }
 };
 
@@ -34,21 +30,18 @@ export const fetchRegister = async ({
   const requestBody = {
     user_id: id,
     user_pwd: password,
-    user_name: name,
-    user_email: email,
+    name: name,
+    email: email,
     user_studentId: studentId,
     user_generation: generation,
-    user_area: area,
+    area: area,
   };
 
   try {
-    const { data, status } = await API.post('/user/register', requestBody);
+    const response = await API.post('/user/regist', requestBody);
+    const { data, status } = response;
     return { data, status, error: null };
   } catch (error) {
-    const {
-      data: { message },
-      status,
-    } = error.response;
-    return { data: message, status, error };
+    return { data: error.message, status: error.response.status, error };
   }
 };

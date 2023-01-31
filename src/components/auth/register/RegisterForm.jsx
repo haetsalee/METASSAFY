@@ -9,6 +9,7 @@ import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const isNotEmpty = (value) => value.trim() !== '';
 const isSamePassword = (value, copy) =>
@@ -19,6 +20,7 @@ const RegisterForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
+  console.log(auth);
   const [generation, setGeneration] = useState('');
   const [area, setArea] = useState('');
 
@@ -110,10 +112,13 @@ const RegisterForm = (props) => {
       })
     );
 
+    console.log('등러ㅗㄱ', auth);
+    // console.log(auth.data, auth.status, auth.error);
+
     // 회원가입 성공 시 메인으로 이동
-    if (auth.status === 200) {
-      navigate('/');
+    if (auth.error !== 'FAIL') {
       console.log('register success');
+      navigate('/register');
     }
 
     resetUserId();
