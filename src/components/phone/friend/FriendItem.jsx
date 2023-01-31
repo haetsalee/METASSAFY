@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { VscChromeClose, VscComment } from 'react-icons/vsc';
 
 const FriendItem = ({ friend, onDelete }) => {
   return (
@@ -15,14 +16,18 @@ const FriendItem = ({ friend, onDelete }) => {
         <FriendItemStyle>
           <TextGroutStyle>
             <NameTextStyle>{friend.name}</NameTextStyle>
-            {friend.state}
+            <StateTextStyle>{friend.state}</StateTextStyle>
           </TextGroutStyle>
-          <button className="FriemdMessage" onClick={() => console.log('클릭')}>
-            채팅
-          </button>
-          <button className="FriendDelete" onClick={() => onDelete(friend.id)}>
-            삭제
-          </button>
+          <IconStyle>
+            <VscComment
+              color="#212121"
+              onClick={() => console.log('채팅방 이동')}
+            />
+            <VscChromeClose
+              color="#212121"
+              onClick={() => onDelete(friend.id)}
+            />
+          </IconStyle>
         </FriendItemStyle>
       </GroutStyle>
       <hr />
@@ -66,4 +71,11 @@ const FriendItemStyle = styled.div`
 
 const GroutStyle = styled.div`
   display: inline-block;
+`;
+
+const IconStyle = styled.div`
+  position: absolute;
+  display: inline-block;
+  right: 2rem;
+  padding: 5px;
 `;

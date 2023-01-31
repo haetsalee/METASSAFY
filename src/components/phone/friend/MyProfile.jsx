@@ -27,8 +27,8 @@ export default MyProfile;
 
 const MyProfileImgStyle = styled.img`
   vertical-align: middle;
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 70%;
   overflow: hidden;
 `;
@@ -43,8 +43,7 @@ const MyProfileDivStyle = styled.div`
   width: 18rem;
   height: 3rem;
   position: relative;
-  margin-top: 15px;
-  margin-bottom: 60px;
+  margin-top: 5px;
 `;
 
 const NameTextStyle = styled.div`
