@@ -31,8 +31,8 @@ import java.util.Map;
 @Api("유저 컨트롤러  API V1")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-    private static final String SUCCESS = "success";
-    private static final String FAIL = "fail";
+    private static final String SUCCESS = "Success";
+    private static final String FAIL = "Fail";
 
     @Autowired
     UserService service;
@@ -62,7 +62,7 @@ public class UserController {
         try{
             service.regist(user);
         }catch(Exception e){
-            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(FAIL , HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
     }
@@ -86,12 +86,12 @@ public class UserController {
 
 
                 service.setRefresh(user.getUser_id(),refresh_token); //refresh 토큰은 서버에 저장하기
-                return new ResponseEntity<Object>("login Success", HttpStatus.OK);
+                return new ResponseEntity<Object>(SUCCESS, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Object>("login Fail", HttpStatus.OK);
+                return new ResponseEntity<Object>(FAIL+ " 해당 아이디-비번인 유저가 없습니다.", HttpStatus.OK);
             }
         } catch(Exception e) {
-            return new ResponseEntity<Object>("뭔가 이상해요..", HttpStatus.CONFLICT);
+            return new ResponseEntity<Object>(FAIL, HttpStatus.OK);
         }
     }
 
@@ -105,10 +105,10 @@ public class UserController {
             if(user!=null){
                 String newToken=jwtService.createToken(new JwtInfoDto(user.getUser_id(),user.getEmail()),"access");
                 response.setHeader("jwt-auth-token", newToken);
-                return new ResponseEntity<Object>("success", HttpStatus.OK);
+                return new ResponseEntity<Object>(SUCCESS, HttpStatus.OK);
             }
         }catch(Exception e){
-            return new ResponseEntity<Object>("에러 발생", HttpStatus.OK);
+            return new ResponseEntity<Object>(FAIL, HttpStatus.OK);
         }
         return new ResponseEntity<Object>("refresh 토큰이 없습니다. ", HttpStatus.OK);
 
@@ -127,7 +127,7 @@ public class UserController {
 
             return new ResponseEntity<Object>(user, HttpStatus.OK);
         } catch(Exception e) {
-            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+            return new ResponseEntity<Object>(FAIL, HttpStatus.OK);
         }
     }
     //아이디 중복 체크->false면 해당 아이디 사용 가능
@@ -155,7 +155,7 @@ public class UserController {
         try{
             service.update(user);
         }catch(Exception e){
-            return new ResponseEntity<String>("update fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
     }
@@ -172,9 +172,9 @@ public class UserController {
             if(userToken.getUser_id().equals(user_id))
                 service.deleteUser(user_id);
             else
-                return new ResponseEntity<String>("비정상적인 접근", HttpStatus.OK);
+                return new ResponseEntity<String>("비정상적인 접근- 본인이 아닌것 같습니다..", HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<String>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
     }
@@ -221,11 +221,12 @@ public class UserController {
 
 
     @PostMapping("/setProfileImg")
-    public void setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
+    public ResponseEntity<String> setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
         try{
             service.setProfileImg(user_id,profile_img);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.INTERNAL_SERVER_ERROR);
         }catch (Exception e){
-
+            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
