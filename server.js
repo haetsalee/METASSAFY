@@ -1,18 +1,18 @@
 // server.js
-const express = require("express");
-const http = require("http");
-const port = 5000; // 서버를 열 포트 번호
+const express = require('express');
+const http = require('http');
+const port = 8090; // 서버를 열 포트 번호
 const app = express();
 
 const server = http.createServer(app);
 
-app.get("/", function (req, res) {
-  res.send("<h1>Welcome to Metassafy</h1>");
+app.get('/', function (req, res) {
+  res.send('<h1>Welcome to Metassafy</h1>');
 });
 
-const io = require("socket.io")(server, {
+const io = require('socket.io')(server, {
   cors: {
-    origin: "*",
+    origin: '*',
     // methods: ["GET", "POST"],
     // allowedHeaders: ["my-custom-header"],
     // credentials: true,
@@ -21,17 +21,17 @@ const io = require("socket.io")(server, {
 
 const clients = {};
 
-io.on("connection", (client) => {
+io.on('connection', (client) => {
   // socket.io에 누군가 새 접속을 했다는 이벤트(connection)를 들으면,
   // client라는 데이터가 넘어오는데(이름 변경 가능. socket으로 쓰는 경우도 많은듯),
   // 그걸 함수에서 어떻게 사용할 것인가?
 
   console.log(
-    "User " +
+    'User ' +
       client.id +
-      " connected, there are " +
+      ' connected, there are ' +
       io.engine.clientsCount +
-      " clients connected"
+      ' clients connected'
   );
   // 새 사람이 들어오면, client라는 데이터에 들어있는 정보값 id를
   // console창에 출력한다.
@@ -48,7 +48,7 @@ io.on("connection", (client) => {
 
   //Make sure to send the client it's ID
   client.emit(
-    "introduction",
+    'introduction',
     client.id,
     io.engine.clientsCount,
     Object.keys(clients)
@@ -58,7 +58,7 @@ io.on("connection", (client) => {
 
   //Update everyone that the number of users has changed
   io.sockets.emit(
-    "newUserConnected",
+    'newUserConnected',
     io.engine.clientsCount,
     client.id,
     Object.keys(clients)
@@ -68,7 +68,7 @@ io.on("connection", (client) => {
   // 그리고 현재의 접속자수와 지금 접속한 client의 id 그리고 현재 clients의 key 배열을
   // 데이터로 전달한다.
 
-  client.on("move", (posrot) => {
+  client.on('move', (posrot) => {
     // client로부터 move라는 이벤트를 들으면
     // pos라는 데이터를 함께 받아오는데, 이걸 어떻게 쓰는가...
 
@@ -84,19 +84,23 @@ io.on("connection", (client) => {
     //에서는 현재 clients 오브젝트의 전체 client의
     // position과 rotation을 확인할 수 있다.
 
-    io.sockets.emit("userPositions", clients);
+    io.sockets.emit('userPositions', clients);
     // 이후 io를 통해 sockets(접속자들)에게 전체 emit한다. 무엇을?
     // console.log(clients, 'clientssss')
     // userPositions라는 이벤트를.
     // 그리고 clients라는 오브젝트를 데이터로 전달한다.
   });
 
-  client.on("chat", (text) => {
-    console.log(text)
-  })
+  client.on('chat', (text) => {
+    const chating = {
+      name: client.id,
+      text: text,
+    };
+    io.sockets.emit('chating', chating);
+  });
 
-  //Handle the disconnection
-  client.on("disconnect", () => {
+  //Handle the disconnection - 수정
+  client.on('disconnect', () => {
     // client로부터 떠났다는 disconnect 이벤트를 들으면,
 
     //Delete this client from the object
@@ -105,7 +109,7 @@ io.on("connection", (client) => {
     // 그렇게 되면 떠난 client를 제외한 접속자들의 데이터만 오브젝트에 남게 될 것.
 
     io.sockets.emit(
-      "userDisconnected",
+      'userDisconnected',
       io.engine.clientsCount,
       client.id,
       Object.keys(clients)
@@ -116,18 +120,18 @@ io.on("connection", (client) => {
     // 데이터로 전달한다.
 
     console.log(
-      "User " +
+      'User ' +
         client.id +
-        " dissconeted, there are " +
+        ' dissconeted, there are ' +
         io.engine.clientsCount +
-        " clients connected"
+        ' clients connected'
     );
     // console에 떠난 client의 id를 출력하며 떠났음을 고지한다.
     // 동시에 남은 client의 수를 알려준다.
   });
 });
 
-server.on("error", (err) => {
-  console.error("Server error: ", err);
+server.on('error', (err) => {
+  console.error('Server error: ', err);
 });
 server.listen(port, () => console.log(`Listening on port ${port}`));
