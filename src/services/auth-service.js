@@ -1,5 +1,5 @@
 import API from '../utils/api';
-import { setTokens } from '../utils/token';
+import { setTokens, setUserInfo } from '../utils/local-storage';
 
 export const fetchLogin = async ({ id, password }) => {
   const requestBody = {
@@ -9,8 +9,10 @@ export const fetchLogin = async ({ id, password }) => {
 
   try {
     const response = await API.post('/user/login', requestBody);
-    setTokens(response.headers); // 토큰 저장
     const { data, status } = response;
+    if (data === 'Success') {
+      setTokens(response.headers); // 토큰 저장
+    }
     console.log('login', data, status);
     return { data, status, error: null };
   } catch (error) {
@@ -50,6 +52,17 @@ export const fetchIsExistId = async (id) => {
   try {
     const { data, status } = await API.get(`/user/isExist/${id}`);
     console.log('id check', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchUserInfo = async () => {
+  try {
+    const { data, status } = await API.get(`/user/auth/getUser`);
+    setUserInfo(data);
+    console.log('userinfo', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };

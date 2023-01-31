@@ -3,11 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Login from '../components/auth/login/Login';
+import { fetchUserInfo } from '../services/auth-service';
+import { setUserInfo } from '../utils/local-storage';
 
-import { getAuthToken, removeTokens } from '../utils/token';
+import {
+  getAccessToken,
+  getUserInfo,
+  removeTokens,
+} from '../utils/local-storage';
 
 const Home = () => {
-  const [token, setToken] = useState(getAuthToken());
+  const [token, setToken] = useState(getAccessToken());
+  const [user, setUser] = useState(getUserInfo());
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +24,8 @@ const Home = () => {
 
   const hideLoginHandler = () => {
     setLoginShown(false);
-    setToken(getAuthToken());
+    setToken(getAccessToken());
+    setUser(getUserInfo());
   };
 
   const registerHandler = () => {
@@ -26,7 +34,14 @@ const Home = () => {
 
   const logoutHandler = () => {
     removeTokens();
-    setToken(getAuthToken());
+    setToken(null);
+    setUser(null);
+  };
+
+  const userHandler = async () => {
+    const { data, status } = await fetchUserInfo();
+    setUserInfo(data);
+    setUser(getUserInfo());
   };
 
   return (
@@ -35,7 +50,10 @@ const Home = () => {
       {loginShown && <Login onClose={hideLoginHandler} />}
       <button onClick={registerHandler}>회원가입</button>
       <button onClick={logoutHandler}>로그아웃</button>
-      {token}
+      <button onClick={userHandler}>로그인 후 유저정보</button>
+      <div style={{ wordBreak: 'break-all' }}>{token}</div>
+      <br />
+      <div style={{ wordBreak: 'break-all' }}>{user}</div>
     </SectionStyle>
   );
 };
@@ -44,5 +62,6 @@ export default Home;
 
 const SectionStyle = styled.section`
   background-color: antiquewhite;
+  width: 100vw;
   height: 100vh;
 `;

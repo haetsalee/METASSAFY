@@ -30,7 +30,6 @@ const LoginBottom = (props) => {
         <Kakao />
         <Naver />
       </DivStyle>
-
       <PStyle>
         <AStyle href="https://www.ssafy.com">도움이 필요하신가요?</AStyle>
       </PStyle>
