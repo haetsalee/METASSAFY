@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendRequestItem from './FriendRequestItem';
+// import axios from 'axios';
 
 const FriendRequest = () => {
-  const [friends, setFriends] = useState(FriendData);
+  const [requests, setRequests] = useState(FriendData);
   const onDelete = (id) => {
-    setFriends(friends.filter((friend) => friend.id !== id));
+    setRequests(requests.filter((friend) => friend.id !== id));
   };
+
+  // const getNotifyList = async () => {
+  //   try {
+  //     const response = await API.get('/friend/getNotifyList/', {
+  //       params: {
+  //         user_id: 'test',
+  //       },
+  //     });
+  //     setRequests(response.data);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getNotifyList();
+  // }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get('http://i8d211.p.ssafy.io:8088/metassafy//friend/getNotifyList/test')
+  //     .then((response) => {
+  //       setRequests(response.data.user_id);
+  //     });
+  // }, []);
 
   return (
     <FriendRequestStyle>
-      {friends.map((friend) => (
-        <FriendRequestItem
-          key={friend.id}
-          friend={friend}
-          onDelete={onDelete}
-        />
+      {requests.map((friend) => (
+        <FriendRequestItem key={friend.id} friend={friend} />
       ))}
     </FriendRequestStyle>
   );
@@ -45,7 +68,6 @@ const FriendData = [
 export default FriendRequest;
 
 const FriendRequestStyle = styled.div`
-  width: 90%;
   padding: 1rem;
   border-radius: 1rem 1rem 1rem 0rem;
 `;

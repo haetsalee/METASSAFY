@@ -1,9 +1,12 @@
-import { TbUsers, TbUserPlus, TbUserCheck, TbUserSearch } from 'react-icons/tb';
 import styled from 'styled-components';
+import UserButton from '../friend/UserButton';
+import UserPlusButton from '../friend/UserPlusButton';
+import UserCheckButton from '../friend/UserCheckButton';
+import UserSearchButton from '../friend/UserSearchButton';
 
 const ButtonBarStyle = styled.div`
   border-radius: 20px;
-  width: 18rem;
+  width: 17rem;
   height: 2rem;
   position: relative;
   margin-top: 5px;
@@ -16,10 +19,10 @@ const ButtonBarStyle = styled.div`
 const FriendButtonBar = () => {
   return (
     <ButtonBarStyle>
-      <TbUsers color="#617485" />
-      <TbUserPlus color="#617485" />
-      <TbUserCheck color="#617485" />
-      <TbUserSearch color="#617485" />
+      <UserButton />
+      <UserPlusButton />
+      <UserCheckButton />
+      <UserSearchButton />
     </ButtonBarStyle>
   );
 };

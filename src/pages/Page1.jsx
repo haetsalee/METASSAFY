@@ -4,6 +4,8 @@
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 import PhoneFriendRequest from './phone_pages/PhoneFriendRequest';
+import PhoneFriendSearch from './phone_pages/PhoneFriendSearch';
+import PhoneFriendSendRequest from './phone_pages/PhoneFriendSendRequest';
 
 function Page1() {
   return (
@@ -15,6 +17,8 @@ function Page1() {
       <PhoneUserProfile></PhoneUserProfile>
       <PhoneFriendPage />
       <PhoneFriendRequest />
+      <PhoneFriendSendRequest />
+      <PhoneFriendSearch />
       {/* 프로필 사진
       활동중 뱃지
       이름

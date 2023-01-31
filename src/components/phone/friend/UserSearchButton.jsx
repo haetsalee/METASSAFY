@@ -1,15 +1,15 @@
-import { TbUsers } from 'react-icons/tb';
+import { TbUserSearch } from 'react-icons/tb';
 import styled from 'styled-components';
 
-const UserButton = () => {
+const UserSearchButton = () => {
   return (
     <IconButtonStyle>
-      <TbUsers color="#617485" />
+      <TbUserSearch color="#617485" />
     </IconButtonStyle>
   );
 };
 
-export default UserButton;
+export default UserSearchButton;
 
 const IconButtonStyle = styled.div`
   background-color: #e0f4ff;
