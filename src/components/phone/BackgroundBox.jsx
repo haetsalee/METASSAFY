@@ -23,7 +23,7 @@ const BackgroundBoxStyle = styled.div`
   background-color: #e0f4ff;
   border-radius: 20px;
   box-shadow: inset 0 0.2rem 0.2rem rgba(0, 0, 0, 0.0500000007);
-  width: 18rem;
+  width: 20rem;
   height: 10rem;
   position: relative;
   margin-top: 15px;
