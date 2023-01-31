@@ -11,7 +11,7 @@ const MyChatMessageStyle = styled.div`
   word-break: break-all;
   background-color: #f9f6fc;
   width: auto;
-  max-width: 10rem;
+  max-width: 13rem;
   padding: 1rem;
-  border-radius: 1rem 1rem 0rem 1rem;
+  border-radius: 1rem 0rem 1rem 1rem;
 `;

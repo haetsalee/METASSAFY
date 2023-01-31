@@ -13,7 +13,7 @@ const FriendChatMessageStyle = styled.div`
   word-break: break-all;
   background-color: #e0f4ff;
   width: auto;
-  max-width: 10rem;
+  max-width: 13rem;
   padding: 1rem;
-  border-radius: 1rem 1rem 1rem 0rem;
+  border-radius: 0rem 1rem 1rem 1rem;
 `;

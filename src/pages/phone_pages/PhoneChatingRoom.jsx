@@ -4,6 +4,7 @@ import Phone from '../../components/UI/Phone';
 import styled from 'styled-components';
 import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
 import MyChatBox from '../../components/phone/chat/MyChatBox';
+import ChatRoomForm from '../../components/phone/chat/ChatRoomForm';
 
 const Chats = {};
 
@@ -23,6 +24,7 @@ function PhoneChatingRoom() {
         <MyChatBox />
         <MyChatBox />
       </PhoneChatingRoomStyle>
+      <ChatRoomForm />
     </Phone>
   );
 }

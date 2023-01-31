@@ -15,7 +15,7 @@ function MyChatBox() {
 export default MyChatBox;
 
 const ChatBoxStyle = styled.div`
-  display: flex;
   padding: 0.5rem;
   justify-self: right;
+  display: flex;
 `;
