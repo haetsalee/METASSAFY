@@ -96,7 +96,7 @@ public class UserController {
     }
 
     //refresh 토큰으로 새로운 액세스 토큰을 발급받는다.
-    @ApiOperation(value = "액세스 토큰 만료시 새 토큰 발급", notes = "헤더에 refresh 토큰을 넣으면 새 액세스 토큰을 발급해줍니다.", response = Object.class)
+    @ApiOperation(value = "액세스 토큰 만료시 새 토큰 발급(postman)", notes = "헤더에 refresh 토큰을 넣으면 새 액세스 토큰을 발급해줍니다.", response = Object.class)
     @GetMapping("/getNewAccessToken")
     public ResponseEntity<Object> getNewAccess(HttpServletResponse response,HttpServletRequest request) {
         try{
@@ -114,7 +114,7 @@ public class UserController {
 
     }
 
-    @ApiOperation(value = "유저 토큰", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다. (postman)", response = Object.class)
+    @ApiOperation(value = "유저 정보 읽기(postman 테스트하기)", notes = "유저 토큰. 그리고 DB입력 성공하면 Object가 json형태로 반환된다. (postman)", response = Object.class)
     @GetMapping("/auth/getUser") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
     public ResponseEntity<Object> getUser(HttpServletRequest request) {
         try {
@@ -149,7 +149,7 @@ public class UserController {
     }
 
     //회원 정보 수정(auth)
-    @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
+    @ApiOperation(value = "유저 정보 수정(postman 테스트)", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
     @PostMapping("/auth/update")
     public ResponseEntity<String> update(@RequestBody @ApiParam(value = "업데이트할 유저 정보(*)", required = true) User user){
         try{
@@ -161,7 +161,7 @@ public class UserController {
     }
 
     //회원 탈퇴
-    @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
+    @ApiOperation(value = "유저 정보 삭제(postman에서 테스트하기)", notes = "유저 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
     @GetMapping("/auth/delete/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable @ApiParam(value = "삭제할 유저 아이디(user_id)", required = true) String user_id,HttpServletRequest request){
         try{
@@ -219,7 +219,7 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
+    @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
     @PostMapping("/setProfileImg")
     public ResponseEntity<String> setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
         try{
