@@ -28,4 +28,8 @@ public interface ChatMapper {
     public int updateNotRead(ChatParameterDto chatParameterDto) throws SQLException;
     public int renewLastReadChatId(ParticipantDto participantDto) throws SQLException;
     public int getChatNo(ChatDto chatDto) throws SQLException;
+    public int getUserLastReadChatId(ChatParameterDto chatParameterDto) throws SQLException;
+    public int getLowChatNo(ChatParameterDto chatParameterDto) throws SQLException;
+    public int getStartNo(ChatParameterDto chatParameterDto) throws SQLException;
+    public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws  SQLException;
 }

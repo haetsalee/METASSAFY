@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,9 +42,49 @@ public class ChatServiceImpl implements ChatService{
         return sqlSession.getMapper(ChatMapper.class).deleteChatRoom(chatParameterDto) == 1;
     }
 
+    @Override
+    @Transactional
+    public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws Exception {
+
+        chatParameterDto.setCur_no(chatParameterDto.getStart_no());
+
+        int num = sqlSession.getMapper(ChatMapper.class).getLowChatNo(chatParameterDto);
+
+        if(num == 0) return null;
+
+        if(num > 10){
+            int start_no = sqlSession.getMapper(ChatMapper.class).getStartNo(chatParameterDto);
+            System.out.println(start_no + "  start_no");
+            chatParameterDto.setStart_no(start_no);
+        }else{
+            chatParameterDto.setStart_no(0);
+        }
+
+        return sqlSession.getMapper(ChatMapper.class).upScroll(chatParameterDto);
+    }
+
     //not_read를 갱신 해줘야한다.
     @Override
+    @Transactional
     public List<ChatDto> findAllChat(ChatParameterDto chatParameterDto) throws Exception {
+
+        if(chatParameterDto.getStart_no() == 0){
+            // user_id, croom_no를 이용해서 last_read_chat_id 가 필요
+            int cur_no = sqlSession.getMapper(ChatMapper.class).getUserLastReadChatId(chatParameterDto);
+            chatParameterDto.setCur_no(cur_no);
+
+            // 현재 cur_no 보다 값이 작은 채팅의 개수가 10개 보다 많은지 적은지 알 수 있었으면 좋겠다.
+            int num = sqlSession.getMapper(ChatMapper.class).getLowChatNo(chatParameterDto);
+
+            if(num > 10){
+                int start_no = sqlSession.getMapper(ChatMapper.class).getStartNo(chatParameterDto);
+                System.out.println(start_no + "  start_no");
+                chatParameterDto.setStart_no(start_no);
+            }else{
+                chatParameterDto.setStart_no(0);
+            }
+        }
+
         return sqlSession.getMapper(ChatMapper.class).findAllChat(chatParameterDto);
     }
     @Override
@@ -60,6 +101,7 @@ public class ChatServiceImpl implements ChatService{
         System.out.println(chatDto + "  getChatNo");
         return sqlSession.getMapper(ChatMapper.class).getChatNo(chatDto);
     }
+
 
     //룸 마지막 대화 업데이트
     public void updateLastChat(ChatDto chatDto) throws Exception{
