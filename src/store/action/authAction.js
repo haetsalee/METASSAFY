@@ -9,10 +9,8 @@ export const loginAction = createAsyncThunk(
 
     // 에러 발생했거나 로그인 실패한 경우
     if (error || data === 'FAIL') {
-      console.log('fail');
       return { data, status, error: 'FAIL' };
     }
-    console.log('suces');
     return { data, status, error };
   }
 );
@@ -28,7 +26,7 @@ export const registerAction = createAsyncThunk(
     generation,
     area,
   }) => {
-    const response = await fetchRegister(
+    const { data, status, error } = await fetchRegister(
       id,
       password,
       name,
@@ -37,25 +35,10 @@ export const registerAction = createAsyncThunk(
       generation,
       area
     );
-    console.log('action', response);
-    return response;
+    // 에러 발생했거나 로그인 실패한 경우
+    if (error || data === 'FAIL') {
+      return { data, status, error: 'FAIL' };
+    }
+    return { data, status, error };
   }
-
-  //   const { data, status, error } = await fetchRegister(
-  //     id,
-  //     password,
-  //     name,
-  //     email,
-  //     studentId,
-  //     generation,
-  //     area
-  //   );
-  //   // 에러 발생했거나 로그인 실패한 경우
-  //   if (error || data === 'FAIL') {
-  //     console.log('fail');
-  //     return { data, status, error: 'FAIL' };
-  //   }
-  //   console.log('suces');
-  //   return { data, status, error };
-  // }
 );

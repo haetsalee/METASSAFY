@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
+import { fetchIsExistId } from '../../../services/auth-service';
+
 const ExistCheckButton = (props) => {
-  const checkHandler = () => {
+  const checkHandler = async () => {
     if (!props.value) {
-      console.log('입력하쇼');
       return;
     }
-    console.log(props.value);
+    const { data, status } = await fetchIsExistId(props.value);
+    props.setExist(data);
   };
 
   return <ButtonStyle onClick={checkHandler}>중복 확인</ButtonStyle>;

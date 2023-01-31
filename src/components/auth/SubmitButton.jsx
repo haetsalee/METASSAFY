@@ -2,7 +2,11 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const SubmitButton = (props) => {
-  return <ButtonStyle {...props}>{props.children}</ButtonStyle>;
+  return (
+    <ButtonStyle {...props} onClick={props.move}>
+      {props.children}
+    </ButtonStyle>
+  );
 };
 
 export default SubmitButton;

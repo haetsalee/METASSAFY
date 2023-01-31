@@ -1,28 +1,28 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { registerAction } from '../../../store/action/authAction';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
 import ExistCheckButton from './ExistCheckButton';
 import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
+import { fetchRegister } from '../../../services/auth-service';
 
 const isNotEmpty = (value) => value.trim() !== '';
+const isValidId = (isExist, value) => {
+  return value && value.trim() !== '' && !isExist;
+};
 const isSamePassword = (value, copy) =>
   value.trim() !== '' && value.trim() === copy.trim();
 const isEmailType = (value) => value.trim() !== '' && value.includes('@');
 
 const RegisterForm = (props) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
   const [generation, setGeneration] = useState('');
   const [area, setArea] = useState('');
+  const [isExistId, setIsExistId] = useState(true);
 
   const {
     value: userIdValue,
@@ -31,7 +31,7 @@ const RegisterForm = (props) => {
     valueChangeHandler: userIdChangeHandler,
     inputBlurHandler: userIdBlurHandler,
     reset: resetUserId,
-  } = useInput(isNotEmpty);
+  } = useInput(isValidId.bind(null, isExistId));
 
   const {
     value: userPasswordValue,
@@ -92,7 +92,7 @@ const RegisterForm = (props) => {
     formIsValid = true;
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!formIsValid) {
@@ -100,31 +100,32 @@ const RegisterForm = (props) => {
     }
 
     // 로그인 API
-    dispatch(
-      registerAction({
-        userIdValue,
-        userPasswordValue,
-        userNameValue,
-        userEmailValue,
-        userStudentIdValue,
-        generation,
-        area,
-      })
-    );
-
-    console.log('등러ㅗㄱ', auth);
-    // console.log(auth.data, auth.status, auth.error);
+    const { data, status, error } = await fetchRegister({
+      id: userIdValue,
+      password: userPasswordValue,
+      name: userNameValue,
+      email: userEmailValue,
+      studentId: userStudentIdValue,
+      generation,
+      area,
+    });
 
     // 회원가입 성공 시 메인으로 이동
+    if (data === 'Success') {
+      resetUserId();
+      resetUserPassword();
+      resetUserRetryPassword();
+      resetUserName();
+      resetUserEmail();
+      resetUserStudentId();
+      navigate('/');
+      return;
+    }
 
-    navigate('/');
-
-    resetUserId();
-    resetUserPassword();
-    resetUserRetryPassword();
-    resetUserName();
-    resetUserEmail();
-    resetUserStudentId();
+    // 실패
+    else if (data === 'Fail' || error) {
+      alert('회원가입에 실패했습니다.');
+    }
   };
 
   return (
@@ -139,11 +140,11 @@ const RegisterForm = (props) => {
           onChange={userIdChangeHandler}
           onBlur={userIdBlurHandler}
           hasError={userIdHasError}
-          errorText="필수 입력입니다."
+          errorText="아이디 중복 체크가 필요합니다."
           marginBottom="0.1rem"
           color="#617485"
         />
-        <ExistCheckButton value={userIdValue} />
+        <ExistCheckButton value={userIdValue} setExist={setIsExistId} />
         <AuthInput
           label="비밀번호"
           type="password"

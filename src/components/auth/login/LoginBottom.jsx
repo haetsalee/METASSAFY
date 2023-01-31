@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import SubmitButton from '../SubmitButton';
@@ -7,12 +8,19 @@ import { ReactComponent as Kakao } from '../../../assets/icons/kakao.svg';
 import { ReactComponent as Naver } from '../../../assets/icons/naver.svg';
 
 const LoginBottom = (props) => {
+  const navigate = useNavigate();
+
+  const goRegisterHandler = () => {
+    navigate('/register');
+  };
+
   return (
     <Fragment>
       <SubmitButton
         color="black"
         borderColor="#D9D9D9"
         backgroundColor="#F1F3F5"
+        move={goRegisterHandler}
       >
         처음이신가요? <span style={{ color: '#799FC0' }}>회원가입</span>하기
       </SubmitButton>
@@ -22,7 +30,10 @@ const LoginBottom = (props) => {
         <Kakao />
         <Naver />
       </DivStyle>
-      <PStyle>도움이 필요하신가요?</PStyle>
+
+      <PStyle>
+        <AStyle href="https://www.ssafy.com">도움이 필요하신가요?</AStyle>
+      </PStyle>
     </Fragment>
   );
 };
@@ -49,4 +60,9 @@ const PStyle = styled.p`
   color: #799fc0;
   font-family: korail_bold;
   margin-top: 13px;
+`;
+
+const AStyle = styled.a`
+  text-decoration: none;
+  color: #799fc0;
 `;

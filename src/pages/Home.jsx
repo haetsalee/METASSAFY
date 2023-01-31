@@ -4,11 +4,10 @@ import styled from 'styled-components';
 
 import Login from '../components/auth/login/Login';
 
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { getAuthToken, removeTokens } from '../utils/token';
 
 const Home = () => {
-  const auth = useSelector((state) => state.auth);
+  const [token, setToken] = useState(getAuthToken());
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
 
@@ -18,24 +17,25 @@ const Home = () => {
 
   const hideLoginHandler = () => {
     setLoginShown(false);
+    setToken(getAuthToken());
   };
 
   const registerHandler = () => {
     navigate('/register');
   };
 
-  useEffect(() => {
-    console.log('useeffect', auth);
-    if (auth.error !== 'FAIL') {
-      console.log('register success', auth);
-    }
-  }, []);
+  const logoutHandler = () => {
+    removeTokens();
+    setToken(getAuthToken());
+  };
 
   return (
     <SectionStyle>
       <button onClick={showLoginHandler}>로그인</button>
       {loginShown && <Login onClose={hideLoginHandler} />}
       <button onClick={registerHandler}>회원가입</button>
+      <button onClick={logoutHandler}>로그아웃</button>
+      {token}
     </SectionStyle>
   );
 };

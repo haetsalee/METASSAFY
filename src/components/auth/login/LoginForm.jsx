@@ -1,17 +1,14 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../../../store/action/authAction';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
 import SubmitButton from '../SubmitButton';
 
+import { fetchLogin } from '../../../services/auth-service';
+
 const isNotEmpty = (value) => value.trim() !== '';
 
 const LoginForm = (props) => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-
   const {
     value: userIdValue,
     isValid: userIdIsValid,
@@ -35,7 +32,7 @@ const LoginForm = (props) => {
     formIsValid = true;
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!formIsValid) {
@@ -43,16 +40,19 @@ const LoginForm = (props) => {
     }
 
     // 로그인 API
-    dispatch(loginAction({ userIdValue, userPasswordValue }));
+    const { data, status, error } = await fetchLogin({
+      id: userIdValue,
+      password: userPasswordValue,
+    });
 
     // 로그인 성공 시 모달 닫기
-    if (!auth.error) {
+    if (data === 'Success') {
       props.onClose();
-      console.log('modal success');
+    } else {
+      resetuserId();
+      resetuserPassword();
+      alert('로그인 실패: 아이디와 비밀번호를 확인해주세요.');
     }
-
-    resetuserId();
-    resetuserPassword();
   };
 
   return (

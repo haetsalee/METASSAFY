@@ -4,11 +4,11 @@ export const setTokens = (headers) => {
 };
 
 export const getAuthToken = () => {
-  localStorage.getItem('auth');
+  return localStorage.getItem('auth');
 };
 
 export const getRefreshToken = () => {
-  localStorage.getItem('refresh');
+  return localStorage.getItem('refresh');
 };
 
 export const removeTokens = () => {
