@@ -1,27 +1,26 @@
-import ChatMessage from './ChatMessage';
+import FriendChatMessage from './FriendChatMessage';
 import ChatFromTime from './ChatFromTime';
 
 import styled from 'styled-components';
 
-function ChatBox() {
+function FriendChatBox() {
   return (
     <ChatBoxStyle>
       <ChatImgDivStyle>
-        {/* { chat.id === user && <ProfileImg></ProfileImg>} */}
         <ChatImgStyle
           src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
           alt=""
         />
       </ChatImgDivStyle>
       <div>
-        <ChatMessage chat="하이요" />
+        <FriendChatMessage chat="하이요" />
         <ChatFromTime />
       </div>
     </ChatBoxStyle>
   );
 }
 
-export default ChatBox;
+export default FriendChatBox;
 
 const ChatImgStyle = styled.img`
   width: 1.5rem;
