@@ -3,7 +3,7 @@ import FriendChatMessage from './FriendChatMessage';
 import styled from 'styled-components';
 import ChatTime from './ChatTime';
 
-function FriendChatBox() {
+function FriendChatBox(props) {
   return (
     <ChatBoxStyle>
       <ChatImgDivStyle>

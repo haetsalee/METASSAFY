@@ -3,7 +3,7 @@ import ChatTime from './ChatTime';
 
 import styled from 'styled-components';
 
-function MyChatBox() {
+function MyChatBox(props) {
   return (
     <ChatBoxStyle>
       <ChatTime />

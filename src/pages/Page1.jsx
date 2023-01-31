@@ -3,6 +3,7 @@ import TextGroupComponent from '../components/phone/TextGroupComponent';
 import Phone from '../components/UI/Phone';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import PhoneChatingRoom from './phone_pages/PhoneChatingRoom';
+import PhoneChatingList from './phone_pages/PhoneChatingList';
 
 function Page1() {
   return (
@@ -13,6 +14,7 @@ function Page1() {
       {/* <Phone > */}
       <PhoneUserProfile></PhoneUserProfile>
       <PhoneChatingRoom />
+      <PhoneChatingList />
       {/* 프로필 사진
       활동중 뱃지
       이름

@@ -6,13 +6,20 @@ import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
 import MyChatBox from '../../components/phone/chat/MyChatBox';
 import ChatRoomForm from '../../components/phone/chat/ChatRoomForm';
 
-const Chats = {};
+const chats = [];
 
 function PhoneChatingRoom() {
   return (
     <Phone>
       <ChatRoomNav />
       <PhoneChatingRoomStyle>
+        {chats.map((chat) => {
+          if (chat.user_id === localStorage.user_id) {
+            return <MyChatBox chat={chat} key={chat.chat_no} />;
+          } else {
+            return <FriendChatBox chat={chat} key={chat.chat_no} />;
+          }
+        })}
         <FriendChatBox chat="여기 chat데이터 들어가야함" />
         <MyChatBox />
         <FriendChatBox chat="여기 chat데이터 들어가야함" />
