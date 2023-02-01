@@ -35,6 +35,11 @@
 		select * from Friend where to_user_id=#{to_user_id} and from_user_id=#{from_user_id};
 	    ]]>
     </select>
+    <select id="getSendList" resultType="com.ssafy.metassafy.dto.friend.FriendDto">
+        <![CDATA[
+		select * from Friend where from_user_id=#{from_user_id} and accept=false;
+	    ]]>
+    </select>
 
     <insert id="addNotify"  >
         Insert Into Friend(from_user_id,to_user_id,accept) Values(#{from_user_id},#{to_user_id},false);

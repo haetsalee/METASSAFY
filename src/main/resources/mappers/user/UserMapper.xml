@@ -47,7 +47,7 @@
             <if test="interest != null">interest=#{interest},</if>
             <if test="profile_img != null">profile_img=#{profile_img},</if>
             <if test="profile_txt != null">profile_txt=#{profile_txt},</if>
-            <if test="frist_semester != null">frist_semester=#{frist_semester},</if>
+            <if test="first_semester != null">first_semester=#{first_semester},</if>
 
             <if test="common != null">common=#{common},</if>
             <if test="special != null">special=#{special},</if>
