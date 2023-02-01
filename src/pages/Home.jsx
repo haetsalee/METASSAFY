@@ -50,7 +50,7 @@ const Home = () => {
       <button onClick={registerHandler}>회원가입</button>
       <button onClick={logoutHandler}>로그아웃</button>
       <button onClick={userHandler}>로그인 후 유저정보</button>
-      <button onClick={() => navigate('/profile-modify')}>
+      <button onClick={() => navigate('/profile/modify')}>
         프로필 수정 페이지로
       </button>
       <div style={{ wordBreak: 'break-all' }}>{token}</div>
