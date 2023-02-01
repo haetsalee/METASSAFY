@@ -1,479 +1,97 @@
-// import { useHistory } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
-
 import * as THREE from 'three';
-
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-
-// import { AnimationClip, AnimationMixer } from "three";
-
-import Stats from 'three/examples/jsm/libs/stats.module';
-
-import { socket, connectSocket } from '../Socket';
-import Card from '../components/UI/Card';
-import Chat from '../modules/chat/Chat';
+// console.log(THREE);
 
 function Page3() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
 
   useEffect(() => {
-    connectSocket();
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     setCanvasTag(canvas);
 
-    let id;
-    // let instances = [];
-    let clients = new Object();
-    console.log(clients);
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color('white');
-
-    const camera = new THREE.PerspectiveCamera(
-      50,
-      window.innerWidth / window.innerHeight,
-      1,
-      1000
-    );
-    // camera.position.z = 96;
-    camera.position.y = 5;
-    camera.position.z = 5;
-    camera.position.x = 5;
-
-    // canvas가 하나뿐이면 아래처럼 id 설렉트 후 render에 넣지 않아도
-    // 3D 오브젝트가 알아서 canvas 안에 들어가는 것 같음.
-    // 다만 지정 했을 때 안 했을 때 렌더 되는 위치가 다르다(이유는 잘...)
-
-    // const canvas = document.getElementById("myThreeJsCanvas");
+    // const canvas = document.querySelector('#three-canvas');
+    // object를 생성하여 canvas속성의 값에 canvas 대입 - 속성과 값이 같은 경우 canvas만 적어도 무방
     const renderer = new THREE.WebGLRenderer({
-      canvas,
+      canvas: canvas,
       antialias: true,
     });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 창 크기 조절한다고 자동적으로 바뀌지 않기 때문에 주의가 필요할 것으로 보임
 
-    renderer.setSize(window.innerWidth * 0.5, window.innerHeight * 0.5);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    // renderer.shadowMap.enabled = true;
-    // ㄴ 이게 무엇인지는 확인이 필요
-    // document.body.appendChild(renderer.domElement);
-    //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
+    // Scene
+    // 장면 생성
+    const scene = new THREE.Scene();
 
-    const orbitControls = new OrbitControls(camera, renderer.domElement);
-    orbitControls.enableDamping = true;
-    // orbitControls.minDistance = 5;
-    // orbitControls.maxDistance = 15;
-    orbitControls.enablePan = false;
-    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    orbitControls.update();
+    // Camera
+    // 주로 2가지 카메라를 많이 사용 - PerspectiveCamera
+    // 1. PerspectiveCamera (원근 카메라)
+    // fov 시야각 (카메라 절두체 수직 시야) aspect (카메라 절두체 종횡비) near (카메라 절두체 근평면) far (카메라 절두체 원평면)
+    // const camera = new THREE.PerspectiveCamera(
+    //     75, // 시야각 (field of view)
+    //     window.innerWidth / window.innerHeight, // 종횡비(aspect)
+    //     0.1, // near
+    //     1000 // far
+    // )
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    ambientLight.castShadow = true;
-    scene.add(ambientLight);
-
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.castShadow = true;
-    spotLight.position.set(0, 64, 32);
-    scene.add(spotLight);
-
-    // const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    // const boxMaterial = new THREE.MeshNormalMaterial();
-    // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-    // scene.add(boxMesh);
-
-    let loaders = new GLTFLoader();
-    const dracoLoader = new DRACOLoader();
-
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-    loaders.setDRACOLoader(dracoLoader);
-
-    loaders.load(
-      // 'build/model/map/map.gltf',
-      'model/map2/scene.gltf',
-      function (gltf) {
-        gltf.scene.scale.set(1, 1, 1);
-        // gltf.scene.position.y = 0.5;
-        gltf.scene.position.z = 5;
-        scene.add(gltf.scene);
-      },
-      // called while loading is progressing
-      function (xhr) {
-        // console.log(xhr)
-        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
-      },
-      // called when loading has errors
-      function (error) {
-        console.log(error);
-      }
+    // 2. OrthographicCamera (직교 카메라)
+    // 멀어도 크기가 똑같이 보인다. 하늘에서 기울여서 보는 듯한 게임은 orthograpic camera를 많이 사용한다.
+    // left 카메라 절두체 좌평면, right - 카메라 절두체 우평면, top - 카메라 절두체 삼평면, bottom - 카메라 절두체 하평면, near - 카메라 절두체 근평면, far - 카메라 절두체 원평면
+    const camera = new THREE.OrthographicCamera(
+      -(window.innerWidth / window.innerHeight), //left
+      window.innerWidth / window.innerHeight, // right
+      1, // top
+      -1, // bottom
+      0.1,
+      1000
     );
 
-    // animation 관련
-    let mixer;
+    // 카메라를 살짝 뒤로 해야 잘 보인다. z축 멀어지는거 +
+    camera.position.x = 2;
+    camera.position.y = 10;
+    camera.position.z = 1;
+    // 원하는 좌표를 바라보도록 한다.
+    camera.lookAt(0, 0, 0);
 
-    loaders.load(
-      // "build/model/toon_cat_free/scene.gltf",
-      'model/people/ilbuni.glb',
-      function (gltf) {
-        // console.log('-------------')
-        // console.log(gltf.scene.children);
-        // console.log(gltf);
-        // console.log(gltf.animations[0]);
-        // console.log(gltf.animations[1]);
-        // console.log(gltf.animations[2]);
+    // zoom만 하면 안됨 - 카메라 설정을 건드리고 나면 updateProjectionMatrix()사용해주어야 함
+    camera.zoom = 0.5;
+    camera.updateProjectionMatrix();
 
-        mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
-        const actions = [];
-        actions[0] = mixer.clipAction(gltf.animations[0]);
-        actions[0].play();
-        animate();
+    // 무대 위에 카메라를 올려 주어야 한다.
+    scene.add(camera);
+    // 위치설정을 안하면 0,0,0
 
-        // console.log('-------------')
-        // gltf.scene.scale.x = 0.01;
-        // gltf.scene.scale.y = 0.01;
-        // gltf.scene.scale.z = 0.01;
-        gltf.scene.scale.x = 10;
-        gltf.scene.scale.y = 10;
-        gltf.scene.scale.z = 10;
-        gltf.scene.position.y += 2;
-        scene.add(gltf.scene);
-        // console.log(gltf.scene.rotation)
-
-        document.addEventListener('keydown', onDocumentKeyDown, false);
-        function onDocumentKeyDown(event) {
-          var keyCode = event.which;
-          if (keyCode === 87) {
-            gltf.scene.position.z += 0.3;
-            socket.emit('move', {
-              pos: [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ],
-              rot: [
-                gltf.scene.rotation.x,
-                gltf.scene.rotation.y,
-                gltf.scene.rotation.z,
-              ],
-            });
-          } else if (keyCode === 83) {
-            gltf.scene.position.z -= 0.3;
-            socket.emit('move', {
-              pos: [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ],
-              rot: [
-                gltf.scene.rotation.x,
-                gltf.scene.rotation.y,
-                gltf.scene.rotation.z,
-              ],
-            });
-          } else if (keyCode === 65) {
-            gltf.scene.position.x += 0.3;
-            socket.emit('move', {
-              pos: [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ],
-              rot: [
-                gltf.scene.rotation.x,
-                gltf.scene.rotation.y,
-                gltf.scene.rotation.z,
-              ],
-            });
-          } else if (keyCode === 68) {
-            gltf.scene.position.x -= 0.3;
-            socket.emit('move', {
-              pos: [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ],
-              rot: [
-                gltf.scene.rotation.x,
-                gltf.scene.rotation.y,
-                gltf.scene.rotation.z,
-              ],
-            });
-          } else if (keyCode === 32) {
-            gltf.scene.position.set(0, 0, 0);
-            socket.emit('move', {
-              pos: [
-                gltf.scene.position.x,
-                gltf.scene.position.y,
-                gltf.scene.position.z,
-              ],
-              rot: [
-                gltf.scene.rotation.x,
-                gltf.scene.rotation.y,
-                gltf.scene.rotation.z,
-              ],
-            });
-          }
-          animate();
-        }
-      },
-      // called while loading is progressing
-      function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded me');
-      },
-      // called when loading has errors
-      function (error) {
-        console.log(error);
-      }
-    );
-    // ㄴ 내 모델
-
-    // 남의 모델
-    function getModel() {
-      loaders.load(
-        // "ptoon_cat_free/scene.gltf",
-        'people/ilbuni.glb',
-        function (gltf) {
-          mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
-          const actions = [];
-          actions[0] = mixer.clipAction(gltf.animations[0]);
-          actions[0].play();
-          // gltf.scene.scale.x = 0.01;
-          // gltf.scene.scale.y = 0.01;
-          // gltf.scene.scale.z = 0.01;
-          gltf.scene.scale.x = 3;
-          gltf.scene.scale.y = 3;
-          gltf.scene.scale.z = 3;
-          gltf.scene.position.y += 2;
-          scene.add(gltf.scene);
-          animate();
-        },
-        // called while loading is progressing
-        function (xhr) {
-          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-        },
-        // called when loading has errors
-        function (error) {
-          console.log(error);
-        }
-      );
-    }
-
-    //On connection server sends the client his ID
-    socket.on('introduction', (_id, _clientNum, _ids) => {
-      for (let i = 0; i < _ids.length; i++) {
-        if (_ids[i] !== _id) {
-          clients[_ids[i]] = {
-            mesh: null,
-          };
-
-          loaders.load(
-            // "build/model/toon_cat_free/scene.gltf",
-            'model/people/ilbuni.glb',
-            function (gltf) {
-              mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
-              const actions = [];
-              actions[0] = mixer.clipAction(gltf.animations[0]);
-              actions[0].play();
-
-              // gltf.scene.scale.x = 0.01;
-              // gltf.scene.scale.y = 0.01;
-              // gltf.scene.scale.z = 0.01;
-              gltf.scene.scale.x = 3;
-              gltf.scene.scale.y = 3;
-              gltf.scene.scale.z = 3;
-              gltf.scene.position.y += 2;
-              animate();
-              clients[_ids[i]].mesh = gltf.scene;
-              //Add initial users to the scene
-              scene.add(clients[_ids[i]].mesh);
-              socket.emit('move', {
-                pos: [
-                  gltf.scene.position.x,
-                  gltf.scene.position.y,
-                  gltf.scene.position.z,
-                ],
-                rot: [
-                  gltf.scene.rotation.x,
-                  gltf.scene.rotation.y,
-                  gltf.scene.rotation.z,
-                ],
-              });
-            },
-            // called while loading is progressing
-            function (xhr) {
-              console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-            },
-            // called when loading has errors
-            function (error) {
-              console.log(error);
-            }
-          );
-        }
-      }
-
-      console.log(clients);
-
-      id = _id;
-      console.log('My ID is: ' + id);
+    // 무대 위에 올라가는 물체 하나를 mesh라고 하고 이 mesh는 Geometry(모양)와 material(재질)로 구성되어 있다
+    // geometry라는 것을 자주 사용하는 직육면체를 만들 수 있는 BoxGeometry -> 1,1,1로 정육면체 만들 수 있다.
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({
+      // color: 0xff0000
+      color: 'red',
     });
+    //아직 이까지만 해서는 물체가 보이지 않는다.
+    // geometry와 material을 합쳐주어야 mesh가 생성된다
+    const mesh = new THREE.Mesh(geometry, material);
+    // 생성된 mesh를 무대 위에 올려준다.
+    scene.add(mesh);
+    // 하지만 아직 안보인다. 그려주자
+    // renderer를 사용해서 render해주어야 화면에 보이기 시작할 것이다.
+    renderer.render(scene, camera);
 
-    socket.on('newUserConnected', (clientCount, _id, _ids) => {
-      console.log(clientCount + ' clients connected');
-      let alreadyHasUser = false;
-      for (let i = 0; i < Object.keys(clients).length; i++) {
-        if (Object.keys(clients)[i] === _id) {
-          alreadyHasUser = true;
-          break;
-        }
-      }
-      if (_id !== id && !alreadyHasUser) {
-        console.log('A new user connected with the id: ' + _id);
-        clients[_id] = {
-          mesh: null,
-        };
-        loaders.load(
-          // "build/model/toon_cat_free/scene.gltf",
-          'model/people/ilbuni.glb',
-          function (gltf) {
-            mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
-            const actions = [];
-            actions[0] = mixer.clipAction(gltf.animations[0]);
-            actions[0].play();
-            animate();
-            // gltf.scene.scale.x = 0.01;
-            // gltf.scene.scale.y = 0.01;
-            // gltf.scene.scale.z = 0.01;
-            gltf.scene.scale.x = 3;
-            gltf.scene.scale.y = 3;
-            gltf.scene.scale.z = 3;
-            gltf.scene.position.y += 2;
-            clients[_id].mesh = gltf.scene;
-            console.log(clients);
-            console.log(clients[_id].mesh, 'mesh 보이는지 확인하는 용도');
-            //Add initial users to the scene
-            scene.add(clients[_id].mesh);
-          },
-          // called while loading is progressing
-          function (xhr) {
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-          },
-          // called when loading has errors
-          function (error) {
-            console.log(error);
-          }
-        );
-      }
-    });
-
-    socket.on('userDisconnected', (clientCount, _id, _ids) => {
-      //Update the data from the server
-      // document.getElementById("numUsers").textContent = clientCount;
-
-      if (_id !== id) {
-        console.log('A user disconnected with the id: ' + _id);
-        scene.remove(clients[_id].mesh);
-        delete clients[_id];
-      }
-    });
-
-    socket.on('connect', () => {});
-
-    //Update when one of the users moves in space
-    socket.on('userPositions', (_clientProps) => {
-      // console.log('Positions of all users are ', _clientProps, id);
-      // console.log(Object.keys(_clientProps)[0] == id);
-      for (let i = 0; i < Object.keys(_clientProps).length; i++) {
-        if (Object.keys(_clientProps)[i] !== id) {
-          //Store the values
-          let oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
-          let newPos = _clientProps[Object.keys(_clientProps)[i]].position;
-
-          // console.log(newPos)
-
-          let newRot = _clientProps[Object.keys(_clientProps)[i]].rotation;
-          // console.log(newRot)
-
-          //Create a vector 3 and lerp the new values with the old values
-          let lerpedPos = new THREE.Vector3();
-          lerpedPos.x = THREE.MathUtils.lerp(oldPos.x, newPos[0], 0.3);
-          lerpedPos.y = THREE.MathUtils.lerp(oldPos.y, newPos[1], 0.3);
-          lerpedPos.z = THREE.MathUtils.lerp(oldPos.z, newPos[2], 0.3);
-
-          //Set the position
-          // clients[Object.keys(_clientProps)[i]].mesh.position.set(
-          //   lerpedPos.x,
-          //   lerpedPos.y,
-          //   lerpedPos.z
-          // );
-          clients[Object.keys(_clientProps)[i]].mesh.position.x = newPos[0];
-          clients[Object.keys(_clientProps)[i]].mesh.position.y = newPos[1];
-          clients[Object.keys(_clientProps)[i]].mesh.position.z = newPos[2];
-
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.x = newRot[0];
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.y = newRot[1];
-          clients[Object.keys(_clientProps)[i]].mesh.rotation.z = newRot[2];
-        }
-      }
-    });
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-
-    const stats = Stats();
-    // document.body.appendChild(stats.dom);
-
-    // var xSpeed = 0.0001;
-    // var ySpeed = 0.0001;
-
-    // document.addEventListener("keydown", onDocumentKeyDown, false);
-    // function onDocumentKeyDown(event) {
-    //   var keyCode = event.which;
-    //   if (keyCode === 87) {
-    //     boxMesh.position.y += ySpeed;
-    //   } else if (keyCode === 83) {
-    //     boxMesh.position.y -= ySpeed;
-    //   } else if (keyCode === 65) {
-    //     boxMesh.position.x -= xSpeed;
-    //   } else if (keyCode === 68) {
-    //     boxMesh.position.x += xSpeed;
-    //   } else if (keyCode === 32) {
-    //     boxMesh.position.set(0, 0, 0);
-    //   }
-    //   animate();
-    // }
-
-    // 애니메이션
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      // boxMesh.rotation.x += 0.01;
-      // boxMesh.rotation.y += 0.01;
-
-      // 애니메이션을 위한 것
-      const delta = clock.getDelta();
-      if (mixer) mixer.update(delta);
-
-      stats.update();
-      controls.update();
-      renderer.render(scene, camera);
-      window.requestAnimationFrame(animate);
-    };
-
-    animate();
+    // 기본적으로 perspective camera이다가(1인칭 느낌) 메뉴 이동시 orthographic camera 사용(3인칭 느낌)
   }, []);
 
   return (
     <section>
       <h1>Page3</h1>
-      <Chat />
       <div className="canvas_Wrap">
         {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
-        <Card>
-          <canvas className="meta-ssafy" ref={canvasRef}></canvas>
-          <h1>Canvas</h1>
-        </Card>
+        {/* <Card> */}
+        <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
+        <h1>Canvas</h1>
+        {/* </Card> */}
       </div>
     </section>
   );
