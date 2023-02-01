@@ -7,6 +7,11 @@
     <select id="getAllUser"  resultType="com.ssafy.metassafy.dto.user.User">
         select * from User;
     </select>
+
+
+    <select id="searchUserList" parameterType="string" resultType="com.ssafy.metassafy.dto.user.User">
+        SELECT * FROM User WHERE name LIKE CONCAT('%', #{search}, '%') or user_id LIKE CONCAT('%', #{search}, '%') ;
+    </select>
     <insert id="regist" parameterType="com.ssafy.metassafy.dto.user.User">
         INSERT INTO User(user_id, user_pwd,name,area,email,regtime)
         VALUES (#{user_id}, #{user_pwd}, #{name},#{area},#{email},now());

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/team")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Api("친구 컨트롤러  API V1")
+@Api("팀구 컨트롤러  API V1")
 public class TeamController {
     private static final Logger logger = LoggerFactory.getLogger(FriendController.class);
     private static final String SUCCESS = "Success";

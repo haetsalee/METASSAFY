@@ -40,4 +40,6 @@ public interface UserMapper {
     User getUserWithRefresh(String refresh_token);
 
     void setProfileImg(String user_id, String profile_img);
+
+    List<User> searchUserList(String search);
 }
