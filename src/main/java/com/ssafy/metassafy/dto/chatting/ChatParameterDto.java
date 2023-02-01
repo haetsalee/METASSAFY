@@ -13,6 +13,7 @@ public class ChatParameterDto {
     private int chat_no;
     private int croom_no;
     private String croom_name;
+    private String chatroom_img;
     private String user_id;
     private String name;
     private int start_no;

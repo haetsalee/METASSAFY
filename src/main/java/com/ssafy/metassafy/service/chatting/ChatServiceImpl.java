@@ -28,8 +28,8 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public boolean createChatRoom(String croom_name) throws Exception {
-        return sqlSession.getMapper(ChatMapper.class).createChatRoom(croom_name) == 1;
+    public boolean createChatRoom(ChatParameterDto chatParameterDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto) == 1;
     }
 
     @Override

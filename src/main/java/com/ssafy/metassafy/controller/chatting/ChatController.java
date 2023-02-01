@@ -3,13 +3,17 @@ package com.ssafy.metassafy.controller.chatting;
 import com.ssafy.metassafy.dto.chatting.ChatDto;
 import com.ssafy.metassafy.dto.chatting.ChatParameterDto;
 import com.ssafy.metassafy.dto.chatting.ChatRoomDto;
+import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.service.chatting.ChatService;
+import com.ssafy.metassafy.service.file.FileService;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
+    private final FileService fileService;
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -33,9 +38,15 @@ public class ChatController {
 
     //채팅방 생성
     @PostMapping(value = "/room")
-    public ResponseEntity<String> createRoom(ChatParameterDto chatParameterDto) throws Exception{
+    public ResponseEntity<String> createRoom(@RequestPart("chatParameterDto") ChatParameterDto chatParameterDto, @RequestPart("croom_img") MultipartFile croom_img) throws Exception{
         logger.info("createRoom - 호출");
-        if(chatService.createChatRoom(chatParameterDto.getCroom_name())){
+
+        if(!croom_img.isEmpty()){
+            FileDto file = fileService.saveFile(croom_img);
+            chatParameterDto.setChatroom_img(file.getPath());
+        }
+
+        if(chatService.createChatRoom(chatParameterDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
 
