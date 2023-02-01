@@ -10,7 +10,7 @@ function Phone(props) {
 export default Phone;
 
 const PhoneStyle = styled.div`
-  background-color: rgb(247, 254, 255);
+  background-color: white;
   border-radius: 1rem;
   /* border: 10px rgb(121, 190, 232) solid; */
   width: 22rem;
