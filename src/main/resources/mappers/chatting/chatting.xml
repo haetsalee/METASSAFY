@@ -68,7 +68,7 @@
 	<select id="upScroll" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
 		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
 		FROM chat c
-				 LEFT JOIN user u
+				 LEFT JOIN User u
 						   ON c.user_id = u.user_id
 		WHERE c.croom_no = #{croom_no} AND chat_no BETWEEN #{start_no} AND (#{cur_no} - 1)
 	</select>
@@ -76,7 +76,7 @@
 	<select id="findAllChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
 		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
 		FROM chat c
-		LEFT JOIN user u
+		LEFT JOIN User u
 		ON c.user_id = u.user_id
 		WHERE c.croom_no = #{croom_no} AND chat_no >= #{start_no}
 	</select>
@@ -163,8 +163,8 @@
 
 	<!-- 친구 추가시 participant 등록  -->
 	<insert id="registParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
-		INSERT INTO participant (user_id, croom_no, croom_name, not_read_chat, last_read_chat_id)
-		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, 0)
+		INSERT INTO participant (user_id, croom_no, croom_name, not_read_chat, last_read_chat_id, regtime)
+		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, 0, now())
 	</insert>
 
 	<delete id="deleteParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
