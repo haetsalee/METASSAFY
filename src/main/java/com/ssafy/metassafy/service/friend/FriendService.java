@@ -22,4 +22,6 @@ public interface FriendService {
     void rejectFriend(FriendDto friend);
 
     void deleteFriend(String user_id1, String user_id2);
+
+    List<FriendDto> getSendList(String user_id);
 }

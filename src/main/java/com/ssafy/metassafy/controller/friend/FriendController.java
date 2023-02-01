@@ -51,6 +51,13 @@ public class FriendController {
     public List<FriendDto> getNotifyList(@PathVariable("user_id") String user_id){
         return service.getNotifyList(user_id);
     }
+
+    //user_id가 보낸 친구 신청 중 수락 안된거 보여줌
+    @ApiOperation(value = "user_id가 보낸 모든 친구 신청 보여줌", notes = "친구 신청은 누가 누구에게 보냈고 수락여부는 어떤지를 포함합니다." )
+    @GetMapping("/getSendList/{user_id}")
+    public List<FriendDto> getSendList(@PathVariable("user_id") String user_id){
+        return service.getSendList(user_id);
+    }
     //user_id가 알림창 입장해 있는 경우 실시간 알림
     @ApiOperation(value = "user_id가 알림창 입장해 있는 경우 실시간 알림", notes = "sse를 이용해 새로고침 없이 알림을 띄워줍니다." )
     //알림창에 입장한 걸로 connect 판단.
