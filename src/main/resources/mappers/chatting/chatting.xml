@@ -66,7 +66,7 @@
 <!--	private int not_read;-->
 <!--	private String regtime;-->
 	<select id="upScroll" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
-		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
+		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime, u.profile_img
 		FROM chat c
 				 LEFT JOIN User u
 						   ON c.user_id = u.user_id
@@ -74,7 +74,7 @@
 	</select>
 
 	<select id="findAllChat" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatDto">
-		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime
+		SELECT c.chat_no, c.croom_no, c.user_id, u.name, c.message, c.not_read, c.regtime, u.profile_img
 		FROM chat c
 		LEFT JOIN User u
 		ON c.user_id = u.user_id

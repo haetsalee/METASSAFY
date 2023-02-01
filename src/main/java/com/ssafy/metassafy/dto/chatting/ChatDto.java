@@ -17,6 +17,7 @@ public class ChatDto {
     private String message;
     private int not_read;
     private int last_read_chat_id;
+    private String profile_img;
     private String regtime;
 }
 
