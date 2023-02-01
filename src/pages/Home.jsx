@@ -3,18 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Login from '../components/auth/login/Login';
-import { fetchUserInfo } from '../services/auth-service';
-import { setUserInfo } from '../utils/local-storage';
-
+import { fetchUserInfo, logoutProcess } from '../services/auth-service';
 import {
-  getAccessToken,
-  getUserInfo,
-  removeTokens,
+  setLocalUserInfo,
+  getLocalUserInfo,
+  getLocalAccessToken,
 } from '../utils/local-storage';
 
 const Home = () => {
-  const [token, setToken] = useState(getAccessToken());
-  const [user, setUser] = useState(getUserInfo());
+  const [token, setToken] = useState(getLocalAccessToken());
+  const [user, setUser] = useState(getLocalUserInfo());
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
 
@@ -24,8 +22,8 @@ const Home = () => {
 
   const hideLoginHandler = () => {
     setLoginShown(false);
-    setToken(getAccessToken());
-    setUser(getUserInfo());
+    setToken(getLocalAccessToken());
+    setUser(getLocalUserInfo());
   };
 
   const registerHandler = () => {
@@ -33,15 +31,16 @@ const Home = () => {
   };
 
   const logoutHandler = () => {
-    removeTokens();
     setToken(null);
     setUser(null);
+    logoutProcess();
   };
 
   const userHandler = async () => {
-    const { data, status } = await fetchUserInfo();
-    setUserInfo(data);
-    setUser(getUserInfo());
+    const { error } = await fetchUserInfo();
+    if (!error) {
+      setUser(getLocalUserInfo());
+    }
   };
 
   return (

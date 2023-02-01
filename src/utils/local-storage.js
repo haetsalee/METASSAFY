@@ -1,32 +1,32 @@
-export const setTokens = (headers) => {
+export const setLocalTokens = (headers) => {
   localStorage.setItem('ACCESS_TOKEN', headers['jwt-auth-token']);
   localStorage.setItem('REFRESH_TOKEN', headers['jwt-refresh-token']);
 };
 
-export const removeTokens = () => {
+export const removeAllLocal = () => {
   localStorage.clear();
 };
 
-export const getAccessToken = () => {
+export const getLocalAccessToken = () => {
   return localStorage.getItem('ACCESS_TOKEN');
 };
 
-export const setAccessToken = (accessToken) => {
+export const setLocalAccessToken = (accessToken) => {
   localStorage.setItem('ACCESS_TOKEN', accessToken);
 };
 
-export const getRefreshToken = () => {
+export const getLocalRefreshToken = () => {
   return localStorage.getItem('REFRESH_TOKEN');
 };
 
-export const setRefreshToken = (refreshToken) => {
+export const setLocalRefreshToken = (refreshToken) => {
   localStorage.setItem('REFRESH_TOKEN', refreshToken);
 };
 
-export const getUserInfo = () => {
+export const getLocalUserInfo = () => {
   return localStorage.getItem('USER');
 };
 
-export const setUserInfo = (userInfo) => {
+export const setLocalUserInfo = (userInfo) => {
   localStorage.setItem('USER', JSON.stringify(userInfo));
 };
