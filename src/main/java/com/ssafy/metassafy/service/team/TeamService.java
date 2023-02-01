@@ -6,7 +6,7 @@ import com.ssafy.metassafy.dto.user.User;
 import java.util.List;
 
 public interface TeamService {
-    public void makeTeam(Team team,String user_id);
+    public void makeTeam(Team team );
     public void deleteTeam(int team_no);
     public boolean isAlone(int team_no); //팀 삭제 전 혼자 남았는지 체크
 

@@ -2,15 +2,23 @@ package com.ssafy.metassafy.service.team;
 
 import com.ssafy.metassafy.dto.team.Team;
 import com.ssafy.metassafy.dto.user.User;
+import com.ssafy.metassafy.mapper.friend.FriendMapper;
+import com.ssafy.metassafy.mapper.team.TeamMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TeamServiceImpl implements TeamService{
-    @Override
-    public void makeTeam(Team team, String user_id) {
 
+    @Autowired
+    TeamMapper mapper;
+
+    @Override
+    public void makeTeam(Team team) {
+
+        //mapper.makeTeam(team);
     }
 
     @Override
