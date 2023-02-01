@@ -60,10 +60,17 @@
             <if test="special_team!= null">special_team=#{special_team},</if>
             <if test="free_team != null">free_team=#{free_team},</if>
 
-
             <if test="x!= null">x=#{x},</if>
             <if test="y != null">y=#{y},</if>
             <if test="z != null">z=#{z},</if>
+
+            <if test="generation != null">generation=#{generation},</if>
+            <if test="major != null">major=#{major},</if>
+
+            <if test="free_jo != null">free_jo=#{free_jo},</if>
+            <if test="common_jo!= null">common_jo=#{common_jo},</if>
+            <if test="special_jo!= null">special_jo=#{special_jo},</if>
+            
         </set>
         where user_id=#{user_id};
     </update>
