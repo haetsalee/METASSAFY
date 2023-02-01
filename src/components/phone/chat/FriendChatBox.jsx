@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import ChatTime from './ChatTime';
 
 function FriendChatBox(props) {
-  console.log(props.chat);
   return (
     <ChatBoxStyle>
       <ChatImgDivStyle>
@@ -14,7 +13,7 @@ function FriendChatBox(props) {
         <UserIdStyle>{props.chat.name}</UserIdStyle>
         <FriendChatMessage chat={props.chat.message} />
       </div>
-      <ChatTime />
+      <ChatTime time={props.chat.regtime} />
     </ChatBoxStyle>
   );
 }

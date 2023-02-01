@@ -14,14 +14,17 @@ import { useState, useEffect } from 'react';
 import API from '../../utils/api';
 
 const room = 1;
-const user = 'ssafy';
+let user = 'annonymous';
+if (window.localStorage.getItem('USER')) {
+  user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+}
+
 let stompClient;
 
 function PhoneChatingRoom() {
   const [chatList, setChatList] = useState([]);
   const [chatRoom, setRoomList] = useState({});
   const [chat, setChat] = useState('');
-  console.log(chatList);
 
   const connect = () => {
     const socket = new SockJS('http://i8d211.p.ssafy.io:8088/metassafy/ws');
@@ -40,27 +43,37 @@ function PhoneChatingRoom() {
           content.user_id = user;
 
           // last_read_chat_id 최신화
-          await fetch(
-            `http://i8d211.p.ssafy.io:8088/metassafy/participant/last_read_chat_id`,
-            {
-              method: 'put',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(content),
-            }
-          );
+          await API.put(
+            `/participant/last_read_chat_id`,
+            JSON.stringify(content)
+          )
+            .then((res) => {})
+            .catch((err) => console.log(err));
+          // await fetch(
+          //   `http://i8d211.p.ssafy.io:8088/metassafy/participant/last_read_chat_id`,
+          //   {
+          //     method: 'put',
+          //     headers: {
+          //       'Content-Type': 'application/json',
+          //     },
+          //     body: JSON.stringify(content),
+          //   }
+          // );
 
           console.log(1);
 
           // not_read 최신화
-          await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
-            method: 'put',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(content),
-          });
+          await API.put(`/chat`, JSON.stringify(content))
+            .then((res) => {})
+            .catch((err) => console.log(err));
+
+          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
+          //   method: 'put',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(content),
+          // });
 
           console.log(2);
 
@@ -68,14 +81,27 @@ function PhoneChatingRoom() {
 
           // chat 리스트 다시 불러오기
           // 대화목록 가져오기
-          await fetch(
-            `http://i8d211.p.ssafy.io:8088/metassafy/chat?start_no=0&user_id=ssafy&croom_no=${room}`
-          )
-            .then((res) => res.json())
-            .then((data) => (temp = data));
+          await API.get(`/chat`, {
+            params: {
+              start_no: 0,
+              user_id: user,
+              croom_no: room,
+            },
+          })
+            .then((res) => {
+              temp = res.data;
+              console.log(res.data);
+            })
+            .catch((err) => console.log(err));
+
+          // await fetch(
+          //   `http://i8d211.p.ssafy.io:8088/metassafy/chat?start_no=0&user_id=ssafy&croom_no=${room}`
+          // )
+          //   .then((res) => res.json())
+          //   .then((data) => (temp = data));
           console.log(temp);
           setChatList(temp);
-          //setChatList((_chat_list) => [..._chat_list, content]);
+          // setChatList((_chat_list) => [..._chat_list, content]);
 
           console.log(3);
         });
@@ -139,15 +165,13 @@ function PhoneChatingRoom() {
       .catch((err) => console.log(err));
   }, []);
 
-  const currentUser = JSON.parse(window.localStorage.getItem('USER')).user_id;
-
   return (
     <Phone>
       <ChatRoomNav chatRoom={chatRoom} />
       <ChatRoomDiv>
         <PhoneChatingRoomStyle>
           {chatList.map((chat) => {
-            if (chat.user_id === currentUser) {
+            if (chat.user_id === user) {
               return <MyChatBox chat={chat} key={chat.chat_no} />;
             } else {
               return <FriendChatBox chat={chat} key={chat.chat_no} />;

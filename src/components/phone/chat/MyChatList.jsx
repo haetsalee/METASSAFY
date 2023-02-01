@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 function MyChatList(props) {
+  console.log(props.room);
   return (
     <div>
       <ChatRoomListStyle>
@@ -9,10 +10,10 @@ function MyChatList(props) {
           alt=""
         />
         <ChatTextBoxDiv>
-          <ChatRoomNameStyle>김싸피와 채팅채팅</ChatRoomNameStyle>
+          <ChatRoomNameStyle>{props.room.croom_name}</ChatRoomNameStyle>
           <ChatTextStyle>
-            <span>마지막메시지</span>
-            <ChatTimeSpanStyle>시간</ChatTimeSpanStyle>
+            <span>{props.room.last_chat}</span>
+            <ChatTimeSpanStyle>{props.room.last_chat_time}</ChatTimeSpanStyle>
           </ChatTextStyle>
         </ChatTextBoxDiv>
       </ChatRoomListStyle>

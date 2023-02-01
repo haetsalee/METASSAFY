@@ -11,29 +11,48 @@ import { useState, useEffect } from 'react';
 
 import API from '../../utils/api';
 
+let user = 'annonymous';
+if (window.localStorage.getItem('USER')) {
+  user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+}
+
 function PhoneChatingList() {
   const [search, setSearch] = useState('');
   const [searchList, setSearchList] = useState([]);
+  const [roomList, setRoomList] = useState([]);
   const [inviteList, setInviteList] = useState([]);
 
   useEffect(() => {
     API.get(`/user/searchUser/${search}`)
       .then((res) => {
-        console.log(res);
         setSearchList(res.data);
-        console.log(searchList);
       })
       .catch((err) => console.log(err));
   }, [search]);
+
+  useEffect(() => {
+    API.get(`/chat/rooms`, {
+      params: {
+        user_id: user,
+      },
+    })
+      .then((res) => {
+        setRoomList(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <Phone>
       <ChatRoomNav />
       <PhoneChatingListStyle>
-        <ChatInviteList setInviteList={setInviteList} />
+        <ChatInviteList />
         <ChatRoomSearch setSearch={setSearch} />
-        <ChatRoomSearchResult setSearchList={searchList} />
-        <MyChatRoomList />
+        <ChatRoomSearchResult
+          setSearchList={searchList}
+          setInviteList={setInviteList}
+        />
+        <MyChatRoomList roomList={roomList} />
       </PhoneChatingListStyle>
     </Phone>
   );

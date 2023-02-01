@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-function ChatInviteItem() {
+function ChatInviteItem(props) {
   return (
     <InvitedPeopleDiv>
       <InvitedImgStyle
         src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
         alt=""
       />
-      <InvitedP>초대된이름</InvitedP>
+      <InvitedP>{props.name}</InvitedP>
     </InvitedPeopleDiv>
   );
 }

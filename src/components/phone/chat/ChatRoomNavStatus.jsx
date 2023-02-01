@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 function ChatRoomNavStatus(props) {
+  console.log(props);
   return (
     <ChatRoomNavStatusStyle>
-      <ChatRoomNameStyle>김싸피와 채팅채팅</ChatRoomNameStyle>
+      <ChatRoomNameStyle>{props.chatRoom?.croom_name}</ChatRoomNameStyle>
       <ChatRoomMemberStyle>ㅇㅅㅇ...</ChatRoomMemberStyle>
     </ChatRoomNavStatusStyle>
   );

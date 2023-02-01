@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-function ChatTime() {
+function ChatTime(props) {
   return (
     <ChatTextBox>
-      <ChatText>오후 13:10</ChatText>
+      <ChatText>{props.time}</ChatText>
     </ChatTextBox>
   );
 }

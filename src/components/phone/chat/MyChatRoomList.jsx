@@ -1,20 +1,15 @@
 import styled from 'styled-components';
 import MyChatList from './MyChatList';
 
-function MyChatRoomList() {
+function MyChatRoomList(props) {
   return (
     <div>
       <ChatRoomFormStyle>
         <MyChatListStyle>채팅 목록</MyChatListStyle>
       </ChatRoomFormStyle>
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
-      <MyChatList />
+      {props.roomList.map((room) => {
+        return <MyChatList room={room} />;
+      })}
     </div>
   );
 }

@@ -1,20 +1,33 @@
 import styled from 'styled-components';
+import API from '../../../utils/api';
 import ChatInviteItem from './ChatInviteItem';
 
+const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
+
 function ChatInviteList(props) {
+  function makeChatRoom() {
+    API.post(``, {
+      chatParameterDto: {
+        croom_name: '살려줘요',
+        participants: tempInviteList,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div>
       <ChatInviteDiv>
         <ChatInviteText>초대된 목록</ChatInviteText>
-        <ChatInviteBtn>💬</ChatInviteBtn>
+        <ChatInviteBtn onClick={makeChatRoom}>💬</ChatInviteBtn>
       </ChatInviteDiv>
       <ChatInviteListDiv>
-        <ChatInviteItem />
-        <ChatInviteItem />
-        <ChatInviteItem />
-        <ChatInviteItem />
-        <ChatInviteItem />
-        <ChatInviteItem />
+        {tempInviteList.map((item) => {
+          return <ChatInviteItem name={item} />;
+        })}
       </ChatInviteListDiv>
     </div>
   );
