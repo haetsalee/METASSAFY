@@ -18,6 +18,9 @@ function MainNavigation() {
           <LiStyle>
             <NavLink to="/page2">Canvas</NavLink>
           </LiStyle>
+          <LiStyle>
+            <NavLink to="/page3">Metaverse Test</NavLink>
+          </LiStyle>
         </UlStyle>
       </nav>
     </HeaderStyle>
