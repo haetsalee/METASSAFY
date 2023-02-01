@@ -53,7 +53,7 @@ public class FriendController {
     }
 
     //user_id가 보낸 친구 신청 중 수락 안된거 보여줌
-    @ApiOperation(value = "user_id가 보낸 모든 친구 신청 보여줌", notes = "친구 신청은 누가 누구에게 보냈고 수락여부는 어떤지를 포함합니다." )
+    @ApiOperation(value = "user_id가 보낸 친구 신청 중 수락 안된거 보여줌", notes = "친구 신청은 누가 누구에게 보냈고 수락여부는 어떤지를 포함합니다." )
     @GetMapping("/getSendList/{user_id}")
     public List<FriendDto> getSendList(@PathVariable("user_id") String user_id){
         return service.getSendList(user_id);
