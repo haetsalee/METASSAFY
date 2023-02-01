@@ -10,7 +10,7 @@ import java.util.List;
 public interface ChatService {
 
     public List<ChatRoomDto> findAllRooms(ChatParameterDto chatParameterDto) throws Exception;
-    public boolean createChatRoom(String croom_name) throws  Exception;
+    public boolean createChatRoom(ChatParameterDto chatParameterDto) throws  Exception;
     public boolean editChatRoom(ChatParameterDto chatParameterDto) throws Exception;
     public boolean deleteChatRoom(ChatParameterDto chatParameterDto) throws Exception;
     public List<ChatDto> findAllChat(ChatParameterDto chatParameterDto) throws Exception;

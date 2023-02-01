@@ -12,19 +12,19 @@
 
 
 	<select id="findAllRooms" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatRoomDto">
-		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat, c.regtime
+		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat, c.croom_img, c.regtime
 		FROM chatroom c
 		WHERE c.croom_no in (SELECT croom_no FROM participant WHERE user_id = #{user_id})
 	</select>
 
-	<insert id="createChatRoom" parameterType="string">
-		INSERT INTO chatroom (croom_name)
-		VALUES (#{croom_name})
+	<insert id="createChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+		INSERT INTO chatroom (croom_name, croom_img)
+		VALUES (#{croom_name}, #{croom_img})
 	</insert>
 
 	<update id="editChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
 		UPDATE chatroom
-		SET croom_name = #{croom_name}
+		SET croom_name = #{croom_name} AND croom_img = #{croom_img}
 		WHERE croom_no = #{croom_no}
 	</update>
 
