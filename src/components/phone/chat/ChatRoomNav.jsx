@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ChatRoomNavStatus from './ChatRoomNavStatus';
 
-function ChatRoomNav() {
+function ChatRoomNav(props) {
   return (
     <ChatRoomNavStyle>
       {/* <ChatRoomNavImgStyle

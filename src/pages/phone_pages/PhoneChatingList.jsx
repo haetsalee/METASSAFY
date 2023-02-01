@@ -1,16 +1,19 @@
 import Phone from '../../components/UI/Phone';
 
 import styled from 'styled-components';
-import ChatListNav from '../../components/phone/chat/ChatListNav';
+import ChatRoomSearch from '../../components/phone/chat/ChatRoomSearch';
+import ChatRoomSearchResult from '../../components/phone/chat/ChatRoomSearchResult';
+import MyChatRoomList from '../../components/phone/chat/MyChatRoomList';
+import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
 
 function PhoneChatingList() {
   return (
     <Phone>
-      <ChatListNav />
+      <ChatRoomNav />
       <PhoneChatingListStyle>
-        <div>여기는 새 채팅 검색</div>
-        <div>여기는 검색하면 나올 결과창 if 랜더링</div>
-        <div>여기는 채팅방 목록</div>
+        <ChatRoomSearch />
+        <ChatRoomSearchResult />
+        <MyChatRoomList />
       </PhoneChatingListStyle>
     </Phone>
   );
@@ -20,8 +23,6 @@ export default PhoneChatingList;
 
 const PhoneChatingListStyle = styled.div`
   padding: 0.5rem;
-  display: block;
-  display: grid;
   width: 100%;
   height: 100%;
   overflow-y: auto;
