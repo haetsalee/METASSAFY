@@ -5,11 +5,6 @@ import axios from 'axios';
 
 const FriendRequest = () => {
   const [requests, setRequests] = useState([]);
-  const onDelete = (from_user_id) => {
-    setRequests(
-      requests.filter((friend) => friend.from_user_id !== from_user_id)
-    );
-  };
 
   const onRejectFriend = (friend_no) => {
     axios
@@ -39,8 +34,7 @@ const FriendRequest = () => {
           'ssafy'
       )
       .then((response) => {
-        setRequests(response.data);
-        console.log(response.data);
+        setRequests(response.data.filter((item) => item.accept === false));
       });
   }, []);
 
@@ -49,9 +43,8 @@ const FriendRequest = () => {
       <p>받은 친구 요청</p>
       {requests.map((friend) => (
         <FriendRequestItem
-          key={friend.id}
+          key={friend.friend_no}
           friend={friend}
-          onDelete={onDelete}
           onRejectFriend={onRejectFriend}
           onAcceptFriend={onAcceptFriend}
         />

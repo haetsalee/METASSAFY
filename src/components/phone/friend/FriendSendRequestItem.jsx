@@ -5,30 +5,30 @@ import { VscChromeClose } from 'react-icons/vsc';
 const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
   return (
     <>
-      <GroutStyle>
-        <FriendImgDivStyle>
-          <FriendImgStyle
-            img
-            src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
-            alt={friend.name}
-          ></FriendImgStyle>
-        </FriendImgDivStyle>
+      <GroupStyle>
         <FriendItemStyle>
-          <TextGroutStyle>
+          <FriendImgDivStyle>
+            <FriendImgStyle
+              img
+              src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
+              alt={friend.name}
+            ></FriendImgStyle>
+          </FriendImgDivStyle>
+          <TextGroupStyle>
             <NameTextStyle>{friend.to_user_id}</NameTextStyle>
-            {/* <StateTextStyle>{friend.state}</StateTextStyle> */}
-          </TextGroutStyle>
-          <IconStyle>
-            <VscChromeClose
-              color="#212121"
-              disabled={friend.accept}
-              onClick={() => {
-                onDeleteRequest(friend.friend_no);
-              }}
-            />
-          </IconStyle>
+            <StateTextStyle>아직 친구가 아닙니다.</StateTextStyle>
+          </TextGroupStyle>
         </FriendItemStyle>
-      </GroutStyle>
+        <IconStyle>
+          <VscChromeClose
+            color="#212121"
+            disabled={friend.accept}
+            onClick={() => {
+              onDeleteRequest(friend.friend_no);
+            }}
+          />
+        </IconStyle>
+      </GroupStyle>
       <HrStyle></HrStyle>
     </>
   );
@@ -41,18 +41,18 @@ const FriendImgStyle = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 70%;
-  overflow: hidden;
 `;
 
 const FriendImgDivStyle = styled.div`
-  display: inline-block;
+  display: 'flex';
   padding: 0.5rem;
 `;
 
-const TextGroutStyle = styled.div`
-  display: inline-block;
+const TextGroupStyle = styled.div`
+  display: 'flex';
   flex-direction: 'row';
   text-align: 'center';
+  margin: auto;
 `;
 
 const NameTextStyle = styled.div`
@@ -61,27 +61,27 @@ const NameTextStyle = styled.div`
   text-align: 'center';
 `;
 
-const FriendItemStyle = styled.div`
-  display: inline-block;
-  justify-content: space-between;
-  vertical-align: middle;
-  padding: 5px;
+const StateTextStyle = styled.div`
+  padding-top: 0.5rem;
+  font-size: 0.5rem;
 `;
 
-const GroutStyle = styled.div`
-  display: inline-block;
+const FriendItemStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+`;
+
+const GroupStyle = styled.div`
+  display: flex;
+  flex-direction: 'row';
+  justify-content: space-between;
 `;
 
 const IconStyle = styled.div`
-  position: absolute;
-  display: inline-block;
-  right: 2rem;
+  display: flex;
+  align-items: center;
   padding: 5px;
-`;
-
-const StateTextStyle = styled.div`
-  font-size: 0.6rem;
-  padding-top: 5px;
 `;
 
 const HrStyle = styled.hr`

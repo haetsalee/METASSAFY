@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const UserCheckButton = () => {
+const RecommendButton = () => {
   return (
     <RecommendStyle>
       <StyledP>추천 친구</StyledP>
@@ -8,14 +8,14 @@ const UserCheckButton = () => {
   );
 };
 
-export default UserCheckButton;
+export default RecommendButton;
 
 const RecommendStyle = styled.div`
   background-color: #e0f4ff;
   border-radius: 3.6rem;
-  display: inline-block;
+  margin-top: 1rem;
+  display: flex;
   height: 2rem;
-  width: 17rem;
   position: relative;
   text-align: center;
   line-height: 2rem;

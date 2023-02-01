@@ -12,7 +12,6 @@ const FriendSearch = () => {
       .get('http://i8d211.p.ssafy.io:8088/metassafy/user/allUser')
       .then((response) => {
         setAllUserList(response.data);
-        console.log(response.data);
       });
   }, []);
 
@@ -40,11 +39,9 @@ const FriendSearch = () => {
   const searched = allUserList.filter((item) => item.name.includes(userInput));
 
   return (
-    <SearchListStyle>
-      <div>
-        <p>유저 검색</p>
-        <input onChange={getValue} />
-      </div>
+    <FriendListStyle>
+      <span>유저 검색</span>
+      <input onChange={getValue} />
       {searched.map((item) => (
         <FriendSearchItem
           key={item.user_id}
@@ -52,14 +49,25 @@ const FriendSearch = () => {
           onAddFriend={onAddFriend}
         />
       ))}
-    </SearchListStyle>
+    </FriendListStyle>
   );
 };
 
 export default FriendSearch;
 
-const SearchListStyle = styled.div`
-  padding-top: 1rem;
-  top: 11rem;
-  height: 18rem;
+const FriendListStyle = styled.div`
+  padding: 1rem;
+  border-radius: 1rem 1rem 1rem 0rem;
+  height: 23rem;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e0f4ff;
+    border-radius: 6px;
+  }
 `;

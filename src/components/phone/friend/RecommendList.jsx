@@ -6,13 +6,11 @@ const RecommendList = () => {
   const [friends, setFriends] = useState(FriendData);
 
   return (
-    <ul>
-      <FriendListStyle>
-        {friends.map((friend) => (
-          <RecommendListItem key={friend.id} friend={friend} />
-        ))}
-      </FriendListStyle>
-    </ul>
+    <FriendListStyle>
+      {friends.map((friend) => (
+        <RecommendListItem key={friend.id} friend={friend} />
+      ))}
+    </FriendListStyle>
   );
 };
 
@@ -28,6 +26,6 @@ const FriendData = [
 export default RecommendList;
 
 const FriendListStyle = styled.div`
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 1rem 1rem 1rem 0rem;
 `;

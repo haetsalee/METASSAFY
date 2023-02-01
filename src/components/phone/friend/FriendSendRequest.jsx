@@ -20,12 +20,9 @@ const FriendSendRequest = () => {
 
   useEffect(() => {
     axios
-      .get(
-        'http://i8d211.p.ssafy.io:8088/metassafy//friend/getSendList/' + 'ssafy'
-      )
+      .get('http://i8d211.p.ssafy.io:8088/metassafy//friend/getSendList/ssafy')
       .then((response) => {
         setSendRequests(response.data);
-        console.log(response.data);
       });
   }, []);
 
@@ -34,7 +31,7 @@ const FriendSendRequest = () => {
       <p>보낸 친구 요청</p>
       {sendRequests.map((friend) => (
         <FriendSendRequestItem
-          key={friend.id}
+          key={friend.friend_no}
           friend={friend}
           onDeleteRequest={onDeleteRequest}
         />

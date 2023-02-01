@@ -35,7 +35,7 @@ const FriendListBar = ({
 }) => {
   return (
     <ButtonBarStyle>
-      <IconButtonStyle width="9rem">
+      <IconButtonStyle width="2rem">
         <TbUsers onClick={onClickPage} color="#617485" />
       </IconButtonStyle>
       <IconButtonStyle width="2rem">

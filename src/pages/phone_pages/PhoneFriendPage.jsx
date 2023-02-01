@@ -1,16 +1,15 @@
+import { useState } from 'react';
 import Phone from '../../components/UI/Phone';
-
 import styled from 'styled-components';
+
 import FriendList from '../../components/phone/friend/FriendList';
 import MyProfile from '../../components/phone/friend/MyProfile';
 import FriendButtonBar from '../../components/phone/friend/FriendButtonBar';
 import FriendRequest from '../../components/phone/friend/FriendRequest';
 import FriendSendRequest from '../../components/phone/friend/FriendSendRequest';
 import FriendSearch from '../../components/phone/friend/FriendSearch';
-import FriendSearchItem from '../../components/phone/friend/FriendSearchItem';
 import RecommendButton from '../../components/phone/friend/RecommendButton';
 import RecommendList from '../../components/phone/friend/RecommendList';
-import { useState } from 'react';
 
 function PhoneFriendPage() {
   const [show, setShow] = useState({
@@ -55,6 +54,7 @@ function PhoneFriendPage() {
       Search: true,
     });
   };
+
   return (
     <Phone>
       <PhoneFriendPageStyle>
@@ -72,7 +72,6 @@ function PhoneFriendPage() {
         {show.Search && (
           <>
             <FriendSearch />
-            <FriendSearchItem />
             <RecommendButton />
             <RecommendList />
           </>
@@ -86,4 +85,5 @@ export default PhoneFriendPage;
 
 const PhoneFriendPageStyle = styled.div`
   padding: 1rem;
+  height: 100%;
 `;
