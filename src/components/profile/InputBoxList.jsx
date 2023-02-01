@@ -186,6 +186,5 @@ export default InputBoxList;
 
 const InputListStyle = styled.div`
   width: 20rem;
-  background-color: red;
   padding: 0.3rem;
 `;

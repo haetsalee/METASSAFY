@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 
-const Dropdown = ({ list, title, setInfo }) => {
+const Dropdown = ({ list, title, setInfo, width }) => {
   const [active, setActive] = useState(false); // 리스트가 열려있는지 확인
   const [selected, setSelected] = useState(title); // 선택된 값을 selected에 담아 컴포넌트 간에 공유
 
   return (
-    <SelectBoxStyle>
-      <SelectLabelStyle value={selected} onClick={() => setActive(!active)}>
+    <SelectBoxStyle width={width}>
+      <SelectLabelStyle
+        width={width}
+        value={selected}
+        onClick={() => setActive(!active)}
+      >
         {selected}
         {!active && <BsChevronDown className="icon" />}
         {active && <BsChevronUp className="icon" />}
@@ -38,7 +42,7 @@ export default Dropdown;
 
 const SelectBoxStyle = styled.div`
   position: relative;
-  width: 6.5rem;
+  width: ${(props) => props.width || '6.5rem'};
   height: 100%;
   cursor: pointer;
 `;
@@ -54,6 +58,7 @@ const SelectLabelStyle = styled.button`
   cursor: pointer;
   background-color: transparent;
   color: #868e96;
+  border: none;
   border-radius: 5px;
   border: 1px solid #ced4da;
 
@@ -89,6 +94,10 @@ export const OptionListStyle = styled.ul`
     // scrollbar의 상하단 위/아래 이동 버튼
     width: 0;
     height: 0;
+  }
+
+  &:not(:focus) {
+    //
   }
 `;
 

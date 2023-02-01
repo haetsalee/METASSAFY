@@ -1,18 +1,8 @@
-import styled from 'styled-components';
+import Dropdown from '../../auth/Dropdown';
 
 const DropdownInput = ({ title, data }) => {
-  return (
-    <DropdownInputStyle>
-      {title}
-      {data}
-    </DropdownInputStyle>
-  );
+  console.log(title, data);
+  return <Dropdown list={data} title={title} width="100%"></Dropdown>;
 };
 
 export default DropdownInput;
-
-const DropdownInputStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: orange;
-`;

@@ -12,7 +12,13 @@ const InputBox = ({ list, width }) => {
           // console.log(type);
           switch (type.type) {
             case 'Dropdown':
-              return <DropdownInput type={type} key={index} />;
+              return (
+                <DropdownInput
+                  key={index}
+                  title={type.title}
+                  data={type.data}
+                />
+              );
             case 'Radio':
               return (
                 <RadioInput
