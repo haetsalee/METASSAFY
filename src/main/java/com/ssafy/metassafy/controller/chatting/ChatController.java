@@ -46,11 +46,13 @@ public class ChatController {
     //채팅방 생성
     @PostMapping(value = "/room")
     public ResponseEntity<String> createRoom(@RequestPart("chatParameterDto") ChatParameterDto chatParameterDto, @RequestPart("croom_img") MultipartFile croom_img) throws Exception{
-        logger.info("createRoom - 호출");
+        logger.info("createRoom - 호출 #{croom_name}, #{croom_img}, user_id 리스트로");
 
         if(!croom_img.isEmpty()){
             FileDto file = fileService.saveFile(croom_img);
             chatParameterDto.setCroom_img(file.getPath());
+        }else{
+            chatParameterDto.setCroom_img("https://st2.depositphotos.com/1005738/6994/i/600/depositphotos_69949201-stock-photo-wild-grass-at-summer-sunset.jpg");
         }
 
         List<String> participants = chatParameterDto.getParticipants();
