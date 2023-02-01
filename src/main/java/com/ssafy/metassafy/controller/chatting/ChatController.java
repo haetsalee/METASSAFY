@@ -32,7 +32,7 @@ public class ChatController {
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
     public ResponseEntity<List<ChatRoomDto>> findAllRooms(ChatParameterDto chatParameterDto) throws Exception{
-        logger.info("findAllRooms - 호출 user_id, croom_no 보내주시면 됩니다.");
+        logger.info("findAllRooms - 호출 user_id만 보내주시면 됩니다.");
         return new ResponseEntity<List<ChatRoomDto>>(chatService.findAllRooms(chatParameterDto), HttpStatus.OK);
     }
 

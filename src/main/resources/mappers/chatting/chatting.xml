@@ -31,7 +31,7 @@
 	</select>
 
 	<select id="findAllRooms" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatRoomDto">
-		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat,(select regtime from chat where croom_no = #{croom_no} ORDER BY chat_no DESC) last_chat_time ,c.croom_img, c.regtime
+		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat,(select MAX(regtime) from chat where croom_no = c.croom_no ORDER BY chat_no DESC) last_chat_time ,c.croom_img, c.regtime
 		FROM chatroom c
 		WHERE c.croom_no in (SELECT croom_no FROM participant WHERE user_id = #{user_id})
 	</select>
