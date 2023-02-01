@@ -34,14 +34,20 @@ public class TeamServiceImpl implements TeamService{
         mapper.makeTeam(team);
         Team myTeam=mapper.getMyTeam(leader.getUser_id(),team.getTeam_type());
         mapper.addUserTeam(leader.getUser_id(),myTeam.getTeam_no());
+        updateUserTeam(leader,myTeam);
         return true;
+    }
+    public void updateUserTeam(User user,Team team){
+        if(team.getTeam_type().equals("common")) user.setCommon_team(team.getTeam_no());
+        if(team.getTeam_type().equals("special")) user.setSpecial_team(team.getTeam_no());
+        if(team.getTeam_type().equals("free")) user.setFree_team(team.getTeam_no());
+        usermapper.update(user);
     }
     @Override
     public boolean checkIsHaveTeam(User user, String type) {
-        Integer team=-1;
+        int team=0;
         if(type.equals("common")){
             team=user.getCommon_team();
-            //if(user.getCommon_team().get) return true;
         }
         else if(type.equals("special")){
             team=user.getSpecial_team();
@@ -49,10 +55,24 @@ public class TeamServiceImpl implements TeamService{
         else if(type.equals("free")) {
             team=user.getFree_team();
         }
-        if(team==null) return false;
-        return true;
+        if(team!=0) return true;
+        return false;
+    }
+    @Override
+    public Team getTeamInfo(int team_no) {
+        return null;
     }
 
+    @Override
+    public List<User> getTeamUser(int team_no) {
+        return null;
+    }
+    @Override
+    public void applyTeam(int team_no, String user_id) {
+        User user=usermapper.getUser(user_id);
+        //Team team=mapper.getTeam();
+        //if(checkIsHaveTeam(user,))
+    }
     @Override
     public void deleteTeam(int team_no) {
 
@@ -63,10 +83,7 @@ public class TeamServiceImpl implements TeamService{
         return false;
     }
 
-    @Override
-    public void applyTeam(int team_no, String user_id) {
 
-    }
 
 
 
@@ -95,13 +112,5 @@ public class TeamServiceImpl implements TeamService{
 
     }
 
-    @Override
-    public Team getTeamInfo(int team_no) {
-        return null;
-    }
 
-    @Override
-    public List<User> getTeamUser(int team_no) {
-        return null;
-    }
 }

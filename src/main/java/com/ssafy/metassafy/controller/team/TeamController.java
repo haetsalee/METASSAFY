@@ -26,7 +26,12 @@ public class TeamController {
 
     //team_type은 꼭 common, special, free 중 하나!
     @PostMapping("/makeTeam")
-    @ApiOperation(value = "user_id의 친구 목록 조회", notes = "user_id의 친구 목록을 조회한다." )
+    @ApiOperation(value = "user_id의 친구 목록 조회. 타입은 type은 꼭 common,special,free 중 하나!", notes = "user_id의 친구 목록을 조회한다. \n {\n" +
+            "\"team_name\": \"sdf\",\n" +
+            "\"team_type\":\"common\",\n" +
+            "\"team_track\":\"웹디자인\",\n" +
+            "\"leader\":\"ssafy\"\n" +
+            "}" )
     public ResponseEntity<String> makeTeam(@RequestBody Team team){
         if(!service.makeTeam(team))  {
             return new ResponseEntity<String>("이미 팀이 있습니다.", HttpStatus.OK);

@@ -11,5 +11,5 @@ public interface TeamMapper {
     void addUserTeam(String user_id, int team_no);
     void makeTeam(Team team);
 
-    Team getMyTeam(String user_id,String team_track);
+    Team getMyTeam(String user_id,String team_type);
 }
