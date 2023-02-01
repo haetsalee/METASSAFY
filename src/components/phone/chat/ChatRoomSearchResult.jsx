@@ -23,7 +23,7 @@ const ChatRoomSearchResultDivStyle = styled.div`
   padding: 0.5rem;
   display: flex;
   width: 100%;
-  height: 7rem;
+  height: 7.5rem;
   white-space: nowrap;
   &::-webkit-scrollbar {
     height: 0.2rem;

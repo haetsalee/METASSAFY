@@ -5,12 +5,14 @@ import ChatRoomSearch from '../../components/phone/chat/ChatRoomSearch';
 import ChatRoomSearchResult from '../../components/phone/chat/ChatRoomSearchResult';
 import MyChatRoomList from '../../components/phone/chat/MyChatRoomList';
 import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
+import ChatInviteList from '../../components/phone/chat/ChatInviteList';
 
 function PhoneChatingList() {
   return (
     <Phone>
       <ChatRoomNav />
       <PhoneChatingListStyle>
+        <ChatInviteList />
         <ChatRoomSearch />
         <ChatRoomSearchResult />
         <MyChatRoomList />

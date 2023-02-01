@@ -1,13 +1,22 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 function ChatRoomStartBox(props) {
+  const [isCheck, setCheck] = useState(false);
+
+  function handleClick() {
+    setCheck((e) => !e);
+  }
+
   return (
-    <ChatRoomStartBoxDivStyle>
+    <ChatRoomStartBoxDivStyle onClick={handleClick}>
       <ChatResultImgStyle
         src="https://images.ctfassets.net/hrltx12pl8hq/5GaLeZJlLyOiQC4gOA0qUM/a0398c237e9744ade8b072f99349e07a/shutterstock_152461202_thumb.jpg"
         alt=""
       />
       <ChatResultNameStyle>상대이름</ChatResultNameStyle>
+      <ChatResultIDStyle>상대아이디</ChatResultIDStyle>
+      {isCheck && <ChatResultNameStyle>✔</ChatResultNameStyle>}
     </ChatRoomStartBoxDivStyle>
   );
 }
@@ -28,4 +37,8 @@ const ChatResultImgStyle = styled.img`
 
 const ChatResultNameStyle = styled.p`
   font-size: 0.8rem;
+`;
+
+const ChatResultIDStyle = styled.p`
+  font-size: 0.3rem;
 `;
