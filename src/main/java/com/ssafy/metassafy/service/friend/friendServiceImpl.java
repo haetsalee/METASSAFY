@@ -61,6 +61,11 @@ public class friendServiceImpl implements  FriendService{
     }
 
     @Override
+    public List<FriendDto> getSendList(String user_id) {
+        return mapper.getSendList(user_id);
+    }
+
+    @Override
     public void setUserEmitter(String user_id, SseEmitter sseEmitter) {
         connectedUser.put(user_id, sseEmitter);
 

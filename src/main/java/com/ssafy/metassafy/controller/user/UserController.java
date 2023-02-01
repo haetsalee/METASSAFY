@@ -51,10 +51,12 @@ public class UserController {
 
 
     @ApiOperation(value = "검색어를 아이디나 이름에 포함하는 유저 목록 반환", notes = "모든 유저의 목록을 출력한다. 성공하면 success 반환", response = String.class)
-    @GetMapping("/searchUser/{search}")
-    public List<User> searchUserList(@PathVariable String search){
+    @GetMapping(value = {"/searchUser/{search}", "/searchUser"})
+    public List<User> searchUserList(@PathVariable(required = false) String search ){
+        if(search==null) return service.getAllUser();
         return service.searchUserList(search);
     }
+
 
     //회원 가입
     @ApiOperation(value = "유저 등록", notes = "새로운 유저 정보를 입력한다. 성공하면 success 반환 예시: \n {\n" +
