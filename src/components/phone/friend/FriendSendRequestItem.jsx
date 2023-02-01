@@ -26,7 +26,7 @@ const FriendSendRequestItem = ({ friend, onDelete }) => {
           </IconStyle>
         </FriendItemStyle>
       </GroutStyle>
-      <hr />
+      <HrStyle></HrStyle>
     </>
   );
 };
@@ -79,4 +79,10 @@ const IconStyle = styled.div`
 const StateTextStyle = styled.div`
   font-size: 0.6rem;
   padding-top: 5px;
+`;
+
+const HrStyle = styled.hr`
+  margin: 0px;
+  background: #d9d9d9;
+  border: 0.1px solid #d9d9d9;
 `;

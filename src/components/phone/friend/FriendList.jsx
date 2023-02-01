@@ -1,44 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendListItem from './FriendListItem';
+import axios from 'axios';
 
 const FriendList = () => {
-  const [friends, setFriends] = useState(FriendData);
-  const onDelete = (id) => {
-    setFriends(friends.filter((friend) => friend.id !== id));
+  const [friends, setFriends] = useState([]);
+
+  const onDelete = (user_id) => {
+    setFriends(friends.filter((friend) => friend.user_id !== user_id));
   };
+
+  useEffect(() => {
+    axios
+      .get(
+        'http://i8d211.p.ssafy.io:8088/metassafy/friend/getFriendList/' +
+          'ssafy'
+      )
+      .then((response) => {
+        setFriends(response.data);
+      });
+  }, []);
 
   return (
     <ul>
       <FriendListStyle>
+        <p>친구 목록</p>
         {friends.map((friend) => (
-          <FriendListItem key={friend.id} friend={friend} onDelete={onDelete} />
+          <FriendListItem
+            key={friend.user_id}
+            friend={friend}
+            onDelete={onDelete}
+          />
         ))}
       </FriendListStyle>
     </ul>
   );
 };
-
-const FriendData = [
-  {
-    id: 1,
-    name: '김싸피',
-    state: '접속중 : 회의실',
-    image: `https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`,
-  },
-  {
-    id: 2,
-    name: '이싸피',
-    state: '자리비움 : 로비',
-    image: `https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`,
-  },
-  {
-    id: 3,
-    name: '박싸피',
-    state: '미접속',
-    image: `https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`,
-  },
-];
 
 export default FriendList;
 

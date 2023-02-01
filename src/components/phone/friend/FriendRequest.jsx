@@ -1,44 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendRequestItem from './FriendRequestItem';
-// import axios from 'axios';
+import axios from 'axios';
 
 const FriendRequest = () => {
-  const [requests, setRequests] = useState(FriendData);
-  const onDelete = (id) => {
-    setRequests(requests.filter((friend) => friend.id !== id));
+  const [requests, setRequests] = useState([]);
+  const onDelete = (from_user_id) => {
+    setRequests(
+      requests.filter((friend) => friend.from_user_id !== from_user_id)
+    );
   };
 
-  // const getNotifyList = async () => {
-  //   try {
-  //     const response = await API.get('/friend/getNotifyList/', {
-  //       params: {
-  //         user_id: 'test',
-  //       },
-  //     });
-  //     setRequests(response.data);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const onRejectFriend = (friend_no) => {
+    axios
+      .post('http://i8d211.p.ssafy.io:8088/metassafy/friend/rejectFriend', {
+        friend_no: friend_no,
+      })
+      .then(function () {
+        setRequests(requests.filter((item) => item.friend_no !== friend_no));
+      });
+  };
 
-  // useEffect(() => {
-  //   getNotifyList();
-  // }, []);
+  const onAcceptFriend = (friend_no) => {
+    console.log('수락');
+    axios
+      .post('http://i8d211.p.ssafy.io:8088/metassafy/friend/acceptFriend', {
+        friend_no: friend_no,
+      })
+      .then(function () {
+        setRequests(requests.filter((item) => item.friend_no !== friend_no));
+      });
+  };
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://i8d211.p.ssafy.io:8088/metassafy//friend/getNotifyList/test')
-  //     .then((response) => {
-  //       setRequests(response.data.user_id);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        'http://i8d211.p.ssafy.io:8088/metassafy/friend/getNotifyList/' +
+          'ssafy'
+      )
+      .then((response) => {
+        setRequests(response.data);
+        console.log(response.data);
+      });
+  }, []);
 
   return (
     <FriendRequestStyle>
+      <p>받은 친구 요청</p>
       {requests.map((friend) => (
-        <FriendRequestItem key={friend.id} friend={friend} />
+        <FriendRequestItem
+          key={friend.id}
+          friend={friend}
+          onDelete={onDelete}
+          onRejectFriend={onRejectFriend}
+          onAcceptFriend={onAcceptFriend}
+        />
       ))}
     </FriendRequestStyle>
   );

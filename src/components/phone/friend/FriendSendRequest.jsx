@@ -10,6 +10,7 @@ const FriendSendRequest = () => {
 
   return (
     <FriendRequestStyle>
+      <p>보낸 친구 요청</p>
       {friends.map((friend) => (
         <FriendSendRequestItem
           key={friend.id}

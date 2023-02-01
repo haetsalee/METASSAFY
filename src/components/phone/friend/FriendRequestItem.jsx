@@ -1,32 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import { VscCheck } from 'react-icons/vsc';
+import { VscCheck, VscChromeClose } from 'react-icons/vsc';
 
-const FriendRequestItem = ({ friend }) => {
+const FriendRequestItem = ({
+  friend,
+  onRejectFriend,
+  onAcceptFriend,
+}) => {
   return (
     <>
       <GroutStyle>
         <FriendImgDivStyle>
           <FriendImgStyle
             img
-            src={friend.image}
+            src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
             alt={friend.name}
           ></FriendImgStyle>
         </FriendImgDivStyle>
         <FriendItemStyle>
           <TextGroutStyle>
-            <NameTextStyle>{friend.name}</NameTextStyle>
-            <StateTextStyle>{friend.state}</StateTextStyle>
+            <NameTextStyle>{friend.from_user_id}</NameTextStyle>
+            <StateTextStyle>{friend.accept}</StateTextStyle>
           </TextGroutStyle>
           <IconStyle>
             <VscCheck
               color="#212121"
-              onClick={() => console.log('친구요청 수락')}
+              onClick={() => {
+                onAcceptFriend(friend.friend_no);
+                // list[index].accept = true;
+                friend.accept = true;
+              }}
+              disabled={friend.accept}
+            />
+            <VscChromeClose
+              color="#212121"
+              disabled={friend.accept}
+              onClick={() => {
+                onRejectFriend(friend.friend_no);
+              }}
             />
           </IconStyle>
         </FriendItemStyle>
       </GroutStyle>
-      <hr />
+      <HrStyle></HrStyle>
     </>
   );
 };
@@ -79,4 +95,10 @@ const IconStyle = styled.div`
 const StateTextStyle = styled.div`
   font-size: 0.6rem;
   padding-top: 5px;
+`;
+
+const HrStyle = styled.hr`
+  margin: 0px;
+  background: #d9d9d9;
+  border: 0.1px solid #d9d9d9;
 `;

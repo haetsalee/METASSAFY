@@ -26,8 +26,8 @@ export default MyProfile;
 
 const MyProfileImgStyle = styled.img`
   vertical-align: middle;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 1.8rem;
+  height: 1.8rem;
   border-radius: 70%;
   overflow: hidden;
 `;

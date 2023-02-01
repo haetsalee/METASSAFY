@@ -9,7 +9,7 @@ const FriendItem = ({ friend, onDelete }) => {
         <FriendImgDivStyle>
           <FriendImgStyle
             img
-            src={friend.image}
+            src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
             alt={friend.name}
           ></FriendImgStyle>
         </FriendImgDivStyle>
@@ -19,18 +19,18 @@ const FriendItem = ({ friend, onDelete }) => {
             <StateTextStyle>{friend.state}</StateTextStyle>
           </TextGroutStyle>
           <IconStyle>
-            <VscComment
+            {/* <VscComment
               color="#212121"
               onClick={() => console.log('채팅방 이동')}
-            />
+            /> */}
             <VscChromeClose
               color="#212121"
-              onClick={() => onDelete(friend.id)}
+              onClick={() => onDelete(friend.user_id)}
             />
           </IconStyle>
         </FriendItemStyle>
       </GroutStyle>
-      <hr />
+      <HrStyle></HrStyle>
     </>
   );
 };
@@ -83,4 +83,10 @@ const IconStyle = styled.div`
 const StateTextStyle = styled.div`
   font-size: 0.6rem;
   padding-top: 5px;
+`;
+
+const HrStyle = styled.hr`
+  margin: 0px;
+  background: #d9d9d9;
+  border: 0.1px solid #d9d9d9;
 `;
