@@ -1,5 +1,27 @@
 import API from '../utils/api';
-import { setTokens, setUserInfo } from '../utils/local-storage';
+import {
+  getLocalAccessToken,
+  setLocalTokens,
+  setLocalUserInfo,
+  removeAllLocal,
+  getLocalRefreshToken,
+} from '../utils/local-storage';
+
+const loginProcess = async (headers) => {
+  // localStorage에 토큰 저장 && 헤더에 토큰 저장
+  setLocalTokens(headers);
+  API.defaults.headers['jwt-auth-token'] = getLocalAccessToken();
+  API.defaults.headers['jwt-refresh-token'] = getLocalRefreshToken();
+  // localStorage에 유저 정보 저장
+  await fetchUserInfo();
+};
+
+export const logoutProcess = () => {
+  // localStorage 삭제 && 헤더에 토큰 삭제
+  removeAllLocal();
+  delete API.defaults.headers['jwt-auth-token'];
+  delete API.defaults.headers['jwt-refresh-token'];
+};
 
 export const fetchLogin = async ({ id, password }) => {
   const requestBody = {
@@ -11,7 +33,7 @@ export const fetchLogin = async ({ id, password }) => {
     const response = await API.post('/user/login', requestBody);
     const { data, status } = response;
     if (data === 'Success') {
-      setTokens(response.headers); // 토큰 저장
+      await loginProcess(response.headers); // 토큰 저장
     }
     console.log('login', data, status);
     return { data, status, error: null };
@@ -26,7 +48,7 @@ export const fetchRegister = async ({
   name,
   email,
   studentId,
-  generation,
+  // generation,
   area,
 }) => {
   const requestBody = {
@@ -61,10 +83,13 @@ export const fetchIsExistId = async (id) => {
 export const fetchUserInfo = async () => {
   try {
     const { data, status } = await API.get(`/user/auth/getUser`);
-    setUserInfo(data);
-    console.log('userinfo', data, status);
-    return { data, status, error: null };
+    if (status === 200) {
+      setLocalUserInfo(data);
+      console.log('userinfo', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
   } catch (error) {
-    return { data: error.message, status: error.response.status, error };
+    return { data: error.message, status: error.response?.status, error };
   }
 };

@@ -5,7 +5,7 @@ import AuthInput from '../AuthInput';
 import SubmitButton from '../SubmitButton';
 
 import { fetchLogin, fetchUserInfo } from '../../../services/auth-service';
-import { setUserInfo } from '../../../utils/local-storage';
+import { setLocalUserInfo } from '../../../utils/local-storage';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
@@ -48,8 +48,6 @@ const LoginForm = (props) => {
 
     // 로그인 성공 시 모달 닫기
     if (data === 'Success') {
-      const { data, status } = await fetchUserInfo();
-      setUserInfo(data);
       props.onClose();
     } else {
       resetuserId();
