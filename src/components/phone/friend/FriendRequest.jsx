@@ -1,42 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendRequestItem from './FriendRequestItem';
-import axios from 'axios';
+import API from '../../../utils/api';
 
 const FriendRequest = () => {
   const [requests, setRequests] = useState([]);
 
-  const onRejectFriend = (friend_no) => {
-    axios
-      .post('http://i8d211.p.ssafy.io:8088/metassafy/friend/rejectFriend', {
-        friend_no: friend_no,
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+  }
+
+  useEffect(() => {
+    API.get('/friend/getNotifyList/' + user)
+      .then((res) => {
+        setRequests(res.data.filter((request) => request.accept === false));
       })
-      .then(function () {
-        setRequests(requests.filter((item) => item.friend_no !== friend_no));
-      });
+      .catch((err) => console.log(err));
+  }, []);
+
+  const onRejectFriend = (friend_no) => {
+    API.post('friend/rejectFriend', {
+      friend_no: friend_no,
+    })
+      .then(() => {
+        setRequests(
+          requests.filter((request) => request.friend_no !== friend_no)
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   const onAcceptFriend = (friend_no) => {
     console.log('수락');
-    axios
-      .post('http://i8d211.p.ssafy.io:8088/metassafy/friend/acceptFriend', {
-        friend_no: friend_no,
+    API.post('friend/acceptFriend', {
+      friend_no: friend_no,
+    })
+      .then(() => {
+        setRequests(
+          requests.filter((request) => request.friend_no !== friend_no)
+        );
       })
-      .then(function () {
-        setRequests(requests.filter((item) => item.friend_no !== friend_no));
-      });
+      .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    axios
-      .get(
-        'http://i8d211.p.ssafy.io:8088/metassafy/friend/getNotifyList/' +
-          'ssafy'
-      )
-      .then((response) => {
-        setRequests(response.data.filter((item) => item.accept === false));
-      });
-  }, []);
 
   return (
     <FriendRequestStyle>

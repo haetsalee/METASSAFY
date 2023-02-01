@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendListItem from './FriendListItem';
 import axios from 'axios';
+import API from '../../../utils/api';
 
-const FriendList = () => {
+const FriendList = (props) => {
   const [friends, setFriends] = useState([]);
-
-  // const onDelete = (user_id) => {
-  //   setFriends(friends.filter((friend) => friend.user_id !== user_id));
-  // };
 
   const onDeleteFriend = (user_id) => {
     axios
@@ -26,15 +23,17 @@ const FriendList = () => {
       });
   };
 
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+  }
+
   useEffect(() => {
-    axios
-      .get(
-        'http://i8d211.p.ssafy.io:8088/metassafy/friend/getFriendList/' +
-          'ssafy'
-      )
-      .then((response) => {
-        setFriends(response.data);
-      });
+    API.get('/friend/getFriendList/' + user)
+      .then((res) => {
+        setFriends(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

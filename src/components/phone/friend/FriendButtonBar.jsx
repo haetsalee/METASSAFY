@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { TbUsers, TbUserPlus, TbUserCheck, TbUserSearch } from 'react-icons/tb';
-// import UserButton from '../friend/UserButton';
-// import UserPlusButton from '../friend/UserPlusButton';
-// import UserCheckButton from '../friend/UserCheckButton';
-// import UserSearchButton from '../friend/UserSearchButton';
+import { useState } from 'react';
 
 const ButtonBarStyle = styled.div`
   border-radius: 20px;
@@ -35,17 +32,17 @@ const FriendListBar = ({
 }) => {
   return (
     <ButtonBarStyle>
-      <IconButtonStyle width="2rem">
-        <TbUsers onClick={onClickPage} color="#617485" />
+      <IconButtonStyle onClick={onClickPage} width="9rem">
+        <TbUsers color="#617485" />
       </IconButtonStyle>
-      <IconButtonStyle width="2rem">
-        <TbUserPlus onClick={onClickRequest} color="#617485" />
+      <IconButtonStyle onClick={onClickRequest} width="2rem">
+        <TbUserPlus color="#617485" />
       </IconButtonStyle>
-      <IconButtonStyle width="2rem">
-        <TbUserCheck onClick={onClickSendRequest} color="#617485" />
+      <IconButtonStyle onClick={onClickSendRequest} width="2rem">
+        <TbUserCheck color="#617485" />
       </IconButtonStyle>
-      <IconButtonStyle width="2rem">
-        <TbUserSearch onClick={onClickSearch} color="#617485" />
+      <IconButtonStyle onClick={onClickSearch} width="2rem">
+        <TbUserSearch color="#617485" />
       </IconButtonStyle>
     </ButtonBarStyle>
   );

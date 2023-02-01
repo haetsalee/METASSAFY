@@ -1,42 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import FriendSearchItem from './FriendSearchItem';
 import styled from 'styled-components';
-import axios from 'axios';
+import API from '../../../utils/api';
 
 const FriendSearch = () => {
   const [userInput, setUserInput] = useState('');
-  const [allUserList, setAllUserList] = useState([]);
+  const [allUser, setAllUser] = useState([]);
+
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+  }
 
   useEffect(() => {
-    axios
-      .get('http://i8d211.p.ssafy.io:8088/metassafy/user/allUser')
-      .then((response) => {
-        setAllUserList(response.data);
-      });
+    API.get('/user/allUser')
+      .then((res) => {
+        console.log(res.data);
+        setAllUser(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const onAddFriend = (to_user_id) => {
-    axios({
-      method: 'get',
-      url:
-        'http://i8d211.p.ssafy.io:8088/metassafy/friend/call/notify/' +
-        'ssafy/' +
-        to_user_id,
-    }).then(function (response) {
-      console.log(response.data);
-      if (response.data === true) {
-        alert('신청 보냄');
-      } else {
-        alert('이미 친구거나 방치한 친구요청이 있습니다.');
-      }
-    });
+    API.get('friend/call/notify/' + user + '/' + to_user_id)
+      .then((res) => {
+        setAllUser(res.data);
+        if (res.data === true) {
+          alert('신청 보냄');
+        } else {
+          alert('이미 친구거나 방치한 친구요청이 있습니다.');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const getValue = (event) => {
     setUserInput(event.target.value);
   };
 
-  const searched = allUserList.filter((item) => item.name.includes(userInput));
+  const searched = allUser.filter((user) => user.name.includes(userInput));
 
   return (
     <FriendListStyle>

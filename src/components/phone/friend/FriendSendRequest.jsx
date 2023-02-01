@@ -1,30 +1,33 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FriendSendRequestItem from './FriendSendRequestItem';
+import API from '../../../utils/api';
 
 const FriendSendRequest = () => {
   const [sendRequests, setSendRequests] = useState([]);
 
-  const onDeleteRequest = (friend_no) => {
-    axios
-      .post('http://i8d211.p.ssafy.io:8088/metassafy/friend/rejectFriend', {
-        friend_no: friend_no,
-      })
-      .then(function () {
-        setSendRequests(
-          sendRequests.filter((item) => item.friend_no !== friend_no)
-        );
-      });
-  };
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+  }
 
   useEffect(() => {
-    axios
-      .get('http://i8d211.p.ssafy.io:8088/metassafy//friend/getSendList/ssafy')
-      .then((response) => {
-        setSendRequests(response.data);
-      });
+    API.get('/friend/getSendList/' + user)
+      .then((res) => {
+        setSendRequests(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
+
+  const onDeleteRequest = (friend_no) => {
+    API.post('/friend/rejectFriend/', { friend_no: friend_no })
+      .then((res) => {
+        setSendRequests(
+          res.data.filter((item) => item.friend_no !== friend_no)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <FriendRequestStyle>
