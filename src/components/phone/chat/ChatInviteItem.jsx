@@ -3,11 +3,8 @@ import styled from 'styled-components';
 function ChatInviteItem(props) {
   return (
     <InvitedPeopleDiv>
-      <InvitedImgStyle
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-        alt=""
-      />
-      <InvitedP>{props.name}</InvitedP>
+      <InvitedImgStyle src={props.name[2]} alt="" />
+      <InvitedP>{props.name[0]}</InvitedP>
     </InvitedPeopleDiv>
   );
 }

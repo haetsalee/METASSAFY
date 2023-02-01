@@ -5,7 +5,7 @@ function ChatRoomNavStatus(props) {
   return (
     <ChatRoomNavStatusStyle>
       <ChatRoomNameStyle>{props.chatRoom?.croom_name}</ChatRoomNameStyle>
-      <ChatRoomMemberStyle>ㅇㅅㅇ...</ChatRoomMemberStyle>
+      <ChatRoomMemberStyle>{props.chatRoom?.participants}</ChatRoomMemberStyle>
     </ChatRoomNavStatusStyle>
   );
 }

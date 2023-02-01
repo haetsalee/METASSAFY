@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function MyChatList(props) {
-  console.log(props.room);
+  // console.log(props.room);
   return (
     <div>
       <ChatRoomListStyle>

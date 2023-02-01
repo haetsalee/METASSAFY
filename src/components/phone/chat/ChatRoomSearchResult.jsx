@@ -13,6 +13,7 @@ function ChatRoomSearchResult(props) {
             result={result}
             key={result.user_id}
             setTempList={setTempList}
+            tempList={tempList}
           />
         );
       })}

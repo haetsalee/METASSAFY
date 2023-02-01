@@ -22,6 +22,8 @@ function PhoneChatingList() {
   const [roomList, setRoomList] = useState([]);
   const [inviteList, setInviteList] = useState([]);
 
+  const chatRoom = { croom_name: '채팅방' };
+
   useEffect(() => {
     API.get(`/user/searchUser/${search}`)
       .then((res) => {
@@ -44,9 +46,9 @@ function PhoneChatingList() {
 
   return (
     <Phone>
-      <ChatRoomNav />
+      <ChatRoomNav chatRoom={chatRoom} />
       <PhoneChatingListStyle>
-        <ChatInviteList />
+        <ChatInviteList inviteList={inviteList} />
         <ChatRoomSearch setSearch={setSearch} />
         <ChatRoomSearchResult
           setSearchList={searchList}

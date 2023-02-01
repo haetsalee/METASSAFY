@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import MyChatList from './MyChatList';
 
 function MyChatRoomList(props) {
+  // console.log(props.roomList);
   return (
     <div>
       <ChatRoomFormStyle>
         <MyChatListStyle>채팅 목록</MyChatListStyle>
       </ChatRoomFormStyle>
       {props.roomList.map((room) => {
-        return <MyChatList room={room} />;
+        return <MyChatList room={room} key={room.croom_no} />;
       })}
     </div>
   );

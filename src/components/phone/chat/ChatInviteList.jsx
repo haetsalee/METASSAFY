@@ -2,14 +2,17 @@ import styled from 'styled-components';
 import API from '../../../utils/api';
 import ChatInviteItem from './ChatInviteItem';
 
-const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
+// const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
 
 function ChatInviteList(props) {
+  // console.log(props.inviteList);
+  const tempInviteList = props.inviteList.map((item) => item[1]);
+  // console.log(tempInviteList);
   function makeChatRoom() {
     API.post(``, {
       chatParameterDto: {
         croom_name: '살려줘요',
-        participants: tempInviteList,
+        participants: props.inviteList,
       },
     })
       .then((res) => {
@@ -25,8 +28,8 @@ function ChatInviteList(props) {
         <ChatInviteBtn onClick={makeChatRoom}>💬</ChatInviteBtn>
       </ChatInviteDiv>
       <ChatInviteListDiv>
-        {tempInviteList.map((item) => {
-          return <ChatInviteItem name={item} />;
+        {props.inviteList.map((item) => {
+          return <ChatInviteItem name={item} key={item[1]} />;
         })}
       </ChatInviteListDiv>
     </div>

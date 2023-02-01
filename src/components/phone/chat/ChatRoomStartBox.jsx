@@ -3,9 +3,22 @@ import styled from 'styled-components';
 
 function ChatRoomStartBox(props) {
   const [isCheck, setCheck] = useState(false);
+  const result = [
+    props.result.name,
+    props.result.user_id,
+    props.result.profile_img,
+  ];
 
   function handleClick() {
-    setCheck((e) => !e);
+    if (isCheck) {
+      setCheck((e) => !e);
+      const list = [...props.tempList];
+      list.splice(list.indexOf(result), 1);
+      props.setTempList([...list]);
+    } else {
+      setCheck((e) => !e);
+      props.setTempList([...props.tempList, result]);
+    }
   }
 
   return (
