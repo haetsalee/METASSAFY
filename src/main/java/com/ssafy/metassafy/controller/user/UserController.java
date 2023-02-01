@@ -43,10 +43,17 @@ public class UserController {
     @Autowired
     JwtService jwtService; //jwt 인증이 필요한 api는 경로에 /auth 붙이기
 
-    @ApiOperation(value = "유저 목록 조회", notes = "모든 유저의 목록을 출력한다. 성공하면 success 반환", response = String.class)
+    @ApiOperation(value = "유저 목록 조회", notes = "모든 유저의 목록을 출력한다. ", response = String.class)
     @GetMapping("/allUser")
     public List<User> getAllUser(){
         return service.getAllUser();
+    }
+
+
+    @ApiOperation(value = "검색어를 아이디나 이름에 포함하는 유저 목록 반환", notes = "모든 유저의 목록을 출력한다. 성공하면 success 반환", response = String.class)
+    @GetMapping("/searchUser/{search}")
+    public List<User> searchUserList(@PathVariable String search){
+        return service.searchUserList(search);
     }
 
     //회원 가입
@@ -230,8 +237,10 @@ public class UserController {
         }catch (Exception e){
             return new ResponseEntity<String>(FAIL, HttpStatus.OK);
         }
-
     }
+
+
+
 
 
 
