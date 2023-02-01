@@ -75,4 +75,11 @@ public class User {
     int generation;
     @ApiModelProperty(value = "전공")
     String major;
+
+    @ApiModelProperty(value = "공식 공통 조")
+    String common_jo;
+    @ApiModelProperty(value = "공식 특화 조")
+    String special_jo;
+    @ApiModelProperty(value = "공식 자율 조")
+    String free_jo;
 }
