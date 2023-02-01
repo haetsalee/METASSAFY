@@ -16,6 +16,7 @@ public class ChatRoomDto {
     private int croom_no;
     private String croom_name;
     private String last_chat;
+    private String last_chat_time;
     private int not_read_chat;
     private String chatroom_img;
     private List<String> participants;
