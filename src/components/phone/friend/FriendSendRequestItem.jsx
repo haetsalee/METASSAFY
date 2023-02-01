@@ -2,26 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscChromeClose } from 'react-icons/vsc';
 
-const FriendSendRequestItem = ({ friend, onDelete }) => {
+const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
   return (
     <>
       <GroutStyle>
         <FriendImgDivStyle>
           <FriendImgStyle
             img
-            src={friend.image}
+            src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
             alt={friend.name}
           ></FriendImgStyle>
         </FriendImgDivStyle>
         <FriendItemStyle>
           <TextGroutStyle>
-            <NameTextStyle>{friend.name}</NameTextStyle>
-            <StateTextStyle>{friend.state}</StateTextStyle>
+            <NameTextStyle>{friend.to_user_id}</NameTextStyle>
+            {/* <StateTextStyle>{friend.state}</StateTextStyle> */}
           </TextGroutStyle>
           <IconStyle>
             <VscChromeClose
               color="#212121"
-              onClick={() => onDelete(friend.id)}
+              disabled={friend.accept}
+              onClick={() => {
+                onDeleteRequest(friend.friend_no);
+              }}
             />
           </IconStyle>
         </FriendItemStyle>
