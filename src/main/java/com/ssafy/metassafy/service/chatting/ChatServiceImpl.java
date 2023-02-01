@@ -28,6 +28,11 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
+    public ChatRoomDto getRoom(ChatParameterDto chatParameterDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).getRoom(chatParameterDto);
+    }
+
+    @Override
     public boolean createChatRoom(ChatParameterDto chatParameterDto) throws Exception {
         return sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto) == 1;
     }

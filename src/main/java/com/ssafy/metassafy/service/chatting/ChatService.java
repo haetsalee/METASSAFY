@@ -10,6 +10,7 @@ import java.util.List;
 public interface ChatService {
 
     public List<ChatRoomDto> findAllRooms(ChatParameterDto chatParameterDto) throws Exception;
+    public ChatRoomDto getRoom(ChatParameterDto chatParameterDto) throws Exception;
     public boolean createChatRoom(ChatParameterDto chatParameterDto) throws  Exception;
     public boolean editChatRoom(ChatParameterDto chatParameterDto) throws Exception;
     public boolean deleteChatRoom(ChatParameterDto chatParameterDto) throws Exception;
@@ -25,4 +26,5 @@ public interface ChatService {
     public boolean renewLastReadChatId(ParticipantDto participantDto) throws Exception;
     public int getChatNo(ChatDto chatDto) throws Exception;
     public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws Exception;
+
 }

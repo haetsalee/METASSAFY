@@ -8,13 +8,38 @@
 <!--	private String croom_name;-->
 <!--	private String last_chat;-->
 <!--	private int not_read_chat;-->
+<!--	private String chatroom_img;-->
 <!--	private String regtime;-->
 
+	<resultMap id="chatroom"  type="com.ssafy.metassafy.dto.chatting.ChatRoomDto" autoMapping="true">
+		<result property="croom_no" column="croom_no"/>
+		<result property="croom_name" column="croom_name"/>
+		<result property="last_chat" column="last_chat"/>
+		<result property="not_read_chat" column="not_read_chat"/>
+		<result property="regtime" column="regtime"/>
+		<collection property="participants" column="{croom_no = croom_no}" ofType="string" select="selectParticipant" />
+	</resultMap>
+
+	<select id="selectParticipant" resultType="string">
+		SELECT u.name
+		FROM `chatroom` c
+	 	LEFT JOIN `participant` p
+	    ON c.croom_no = p.croom_no
+		LEFT JOIN `User` u
+		ON p.user_id = u.user_id
+		WHERE c.croom_no= #{croom_no}
+	</select>
 
 	<select id="findAllRooms" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatRoomDto">
 		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat, c.croom_img, c.regtime
 		FROM chatroom c
 		WHERE c.croom_no in (SELECT croom_no FROM participant WHERE user_id = #{user_id})
+	</select>
+
+	<select id="getRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultMap="chatroom">
+		SELECT *
+		FROM `chatroom`
+		WHERE croom_no = #{croom_no}
 	</select>
 
 	<insert id="createChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">

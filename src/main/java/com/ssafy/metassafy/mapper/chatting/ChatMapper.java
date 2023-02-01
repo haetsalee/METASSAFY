@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper
 public interface ChatMapper {
     public List<ChatRoomDto> findAllRooms(ChatParameterDto chatParameterDto) throws SQLException;
+    public ChatRoomDto getRoom(ChatParameterDto chatParameterDto) throws SQLException;
     public int createChatRoom(ChatParameterDto chatParameterDto) throws SQLException;
     public int editChatRoom(ChatParameterDto chatParameterDto) throws SQLException;
     public int deleteChatRoom(ChatParameterDto chatParameterDto) throws SQLException;
@@ -32,4 +33,5 @@ public interface ChatMapper {
     public int getLowChatNo(ChatParameterDto chatParameterDto) throws SQLException;
     public int getStartNo(ChatParameterDto chatParameterDto) throws SQLException;
     public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws  SQLException;
+
 }

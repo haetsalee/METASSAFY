@@ -36,6 +36,13 @@ public class ChatController {
         return new ResponseEntity<List<ChatRoomDto>>(chatService.findAllRooms(chatParameterDto), HttpStatus.OK);
     }
 
+    //채팅방 안에 있는 모든 인원
+    @GetMapping(value = "/room")
+    public ResponseEntity<ChatRoomDto> getRoom(ChatParameterDto chatParameterDto) throws Exception{
+        logger.info("getRoom - 호출");
+        return new ResponseEntity<ChatRoomDto>(chatService.getRoom(chatParameterDto), HttpStatus.OK);
+    }
+
     //채팅방 생성
     @PostMapping(value = "/room")
     public ResponseEntity<String> createRoom(@RequestPart("chatParameterDto") ChatParameterDto chatParameterDto, @RequestPart("croom_img") MultipartFile croom_img) throws Exception{
