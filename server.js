@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const http = require('http');
-const port = 5000; // 서버를 열 포트 번호
+const port = 8090; // 서버를 열 포트 번호
 const app = express();
 // 서버 코드
 
@@ -93,10 +93,14 @@ io.on('connection', (client) => {
   });
 
   client.on('chat', (text) => {
-    console.log(text);
+    const chating = {
+      name: client.id,
+      text: text,
+    };
+    io.sockets.emit('chating', chating);
   });
 
-  //Handle the disconnection
+  //Handle the disconnection - 수정
   client.on('disconnect', () => {
     // client로부터 떠났다는 disconnect 이벤트를 들으면,
 

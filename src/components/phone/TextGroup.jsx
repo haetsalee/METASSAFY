@@ -14,11 +14,12 @@ function TextGroup(props) {
 export default TextGroup;
 
 const TextGroupStyle = styled.div`
-  display: 'flex';
-  flex-direction: 'column';
-  text-align: 'center';
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 `;
 const NameTextStyle = styled.div`
   color: #8b9cd9;
   font-family: Korail Round Gothic Medium, 'Source Sans Pro';
+  margin-bottom: 5px;
 `;

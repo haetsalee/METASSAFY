@@ -25,7 +25,7 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
-      {/* </Phone> */}
+      </Phone>
     </section>
   );
 }

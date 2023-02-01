@@ -5,12 +5,13 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 // import { AnimationClip, AnimationMixer } from "three";
 
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { socket } from '../Socket';
+import { socket, connectSocket } from '../Socket';
 import Card from '../components/UI/Card';
 import Chat from '../modules/chat/Chat';
 
@@ -19,6 +20,7 @@ function Page2() {
   const [canvasTag, setCanvasTag] = useState([]);
 
   useEffect(() => {
+    connectSocket();
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -84,15 +86,18 @@ function Page2() {
     // scene.add(boxMesh);
 
     let loaders = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    loaders.setDRACOLoader(dracoLoader);
 
     loaders.load(
-      'model/cartoon_lowpoly_small_city_free_pack/scene.gltf',
+      // 'build/model/map/map.gltf',
+      'build/model/map/ssafyMap.glb',
       function (gltf) {
-        gltf.scene.scale.x = 0.1;
-        gltf.scene.scale.y = 0.1;
-        gltf.scene.scale.z = 0.1;
-        gltf.scene.position.y = 12;
-        gltf.scene.position.x = 50;
+        gltf.scene.scale.set(10, 10, 10);
+        // gltf.scene.position.y = 0.5;
+        gltf.scene.position.z = 5;
         scene.add(gltf.scene);
       },
       // called while loading is progressing
@@ -110,8 +115,8 @@ function Page2() {
     let mixer;
 
     loaders.load(
-      // "model/toon_cat_free/scene.gltf",
-      'model/people/ilbuni.glb',
+      // "build/model/toon_cat_free/scene.gltf",
+      'build/model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -265,8 +270,8 @@ function Page2() {
           };
 
           loaders.load(
-            // "model/toon_cat_free/scene.gltf",
-            'model/people/ilbuni.glb',
+            // "build/model/toon_cat_free/scene.gltf",
+            'build/model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -330,8 +335,8 @@ function Page2() {
           mesh: null,
         };
         loaders.load(
-          // "model/toon_cat_free/scene.gltf",
-          'model/people/ilbuni.glb',
+          // "build/model/toon_cat_free/scene.gltf",
+          'build/model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
