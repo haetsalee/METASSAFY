@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class JwtService {
     private String secretKey = "myKey"; // 서명에 사용할 secretKey
-    private long exp = 1000L * 60 * 60 * 24; // 토큰 사용가능 시간, 1시간(1분*60)
+    private long exp = 1000L * 60 * 60 * 24; // 토큰 사용가능 시간, 1시간(1분*60)*24
 
 
     // 토큰 생성하는 메서드

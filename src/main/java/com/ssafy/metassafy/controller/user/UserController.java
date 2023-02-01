@@ -105,6 +105,7 @@ public class UserController {
             if(user!=null){
                 String newToken=jwtService.createToken(new JwtInfoDto(user.getUser_id(),user.getEmail()),"access");
                 response.setHeader("jwt-auth-token", newToken);
+                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token,jwt-refresh-token,cookie");
                 return new ResponseEntity<Object>(SUCCESS, HttpStatus.OK);
             }
         }catch(Exception e){
@@ -155,7 +156,7 @@ public class UserController {
         try{
             service.update(user);
         }catch(Exception e){
-            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
     }
@@ -207,7 +208,7 @@ public class UserController {
        if(service.addTech(map)) {
            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
        }
-       return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+       return new ResponseEntity<String>(FAIL, HttpStatus.OK);
     }
 
     //특정 유저의 기술 스택 하나 삭제
@@ -217,7 +218,7 @@ public class UserController {
         if(service.deleteTech(map)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
-        return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<String>(FAIL, HttpStatus.OK);
     }
 
     @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
@@ -225,9 +226,9 @@ public class UserController {
     public ResponseEntity<String> setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
         try{
             service.setProfileImg(user_id,profile_img);
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
         }
 
     }
