@@ -21,7 +21,7 @@ public interface ChatMapper {
     public int getMemberNum(ChatDto chatDto) throws SQLException;
     public int createChat(ChatDto chatDto) throws SQLException;
     public int updateLastChat(ChatDto chatDto) throws SQLException;
-    public int registParticipant(ChatDto chatDto) throws SQLException;
+    public int registParticipants(ChatParameterDto ChatParameterDto) throws SQLException;
     public int deleteParticipant(ChatDto chatDto) throws  SQLException;
     public int getLastReadChatId(int croom_no) throws SQLException;
     public List<ParticipantDto> findAllParticipants(ChatParameterDto chatParameterDto) throws SQLException;
@@ -33,5 +33,4 @@ public interface ChatMapper {
     public int getLowChatNo(ChatParameterDto chatParameterDto) throws SQLException;
     public int getStartNo(ChatParameterDto chatParameterDto) throws SQLException;
     public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws  SQLException;
-
 }

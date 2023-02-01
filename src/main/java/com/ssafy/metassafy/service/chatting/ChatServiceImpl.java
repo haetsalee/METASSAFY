@@ -33,8 +33,18 @@ public class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public boolean createChatRoom(ChatParameterDto chatParameterDto) throws Exception {
-        return sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto) == 1;
+    @Transactional
+    public boolean createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws Exception {
+        sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto);
+        System.out.println(chatParameterDto.getCroom_no());
+
+        for(String user_id : participants){
+            chatParameterDto.setUser_id(user_id);
+            sqlSession.getMapper(ChatMapper.class).registParticipants(chatParameterDto);
+        }
+
+
+        return true;
     }
 
     @Override
@@ -114,10 +124,10 @@ public class ChatServiceImpl implements ChatService{
     }
 
     //친구 채팅방에 초대
-    @Override
-    public void registParticipant(ChatDto chatDto) throws Exception {
-        sqlSession.getMapper(ChatMapper.class).registParticipant(chatDto);
-    }
+//    @Override
+//    public void registParticipant(ChatDto chatDto) throws Exception {
+//        sqlSession.getMapper(ChatMapper.class).registParticipant(chatDto);
+//    }
 
     @Override
     public void deleteParticipant(ChatDto chatDto) throws Exception {

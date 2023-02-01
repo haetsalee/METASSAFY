@@ -32,7 +32,7 @@ public class ChatController {
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
     public ResponseEntity<List<ChatRoomDto>> findAllRooms(ChatParameterDto chatParameterDto) throws Exception{
-        logger.info("findAllRooms - 호출");
+        logger.info("findAllRooms - 호출 user_id만 보내주시면 됩니다.");
         return new ResponseEntity<List<ChatRoomDto>>(chatService.findAllRooms(chatParameterDto), HttpStatus.OK);
     }
 
@@ -50,10 +50,14 @@ public class ChatController {
 
         if(!croom_img.isEmpty()){
             FileDto file = fileService.saveFile(croom_img);
-            chatParameterDto.setChatroom_img(file.getPath());
+            chatParameterDto.setCroom_img(file.getPath());
         }
 
-        if(chatService.createChatRoom(chatParameterDto)){
+        List<String> participants = chatParameterDto.getParticipants();
+        System.out.println(participants);
+        chatParameterDto.setParticipants(null);
+
+        if(chatService.createChatRoom(chatParameterDto, participants)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
 

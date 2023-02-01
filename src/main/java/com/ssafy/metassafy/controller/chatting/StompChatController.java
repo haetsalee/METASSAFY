@@ -40,20 +40,20 @@ public class StompChatController {
     }
 
     //"/pub/chat/room/enter"
-    @MessageMapping(value = "/chat/room/enter")
-    public void enterRoom(ChatDto message) throws Exception{
-        message.setMessage(message.getName() + "님이 채팅방에 참여하였습니다.");
-
-        // 마지막 채팅 no 가져오기
-        int last_read_chat_id = chatService.getLastReadChatId(message.getCroom_no());
-
-        message.setLast_read_chat_id(last_read_chat_id);
-
-        // 채팅 방에서 해당 인원 추가
-        chatService.registParticipant(message);
-
-        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
-    }
+//    @MessageMapping(value = "/chat/room/enter")
+//    public void enterRoom(ChatDto message) throws Exception{
+//        message.setMessage(message.getName() + "님이 채팅방에 참여하였습니다.");
+//
+//        // 마지막 채팅 no 가져오기
+//        int last_read_chat_id = chatService.getLastReadChatId(message.getCroom_no());
+//
+//        message.setLast_read_chat_id(last_read_chat_id);
+//
+//        // 채팅 방에서 해당 인원 추가
+//        //chatService.registParticipant(message);
+//
+//        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
+//    }
 
     @MessageMapping(value = "/chat/room/leave")
     public void leaveRoom(ChatDto message) throws Exception{
@@ -67,7 +67,6 @@ public class StompChatController {
     //"/pub/chat/room/message"
     @MessageMapping(value = "/chat/room/message")
     public void message(ChatDto message) throws  Exception{
-        message.setMessage(message.getName() + " : " + message.getMessage());
 
         //대화 저장
         chatService.createChat(message);

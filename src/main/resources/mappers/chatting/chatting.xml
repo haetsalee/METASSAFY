@@ -42,7 +42,7 @@
 		WHERE croom_no = #{croom_no}
 	</select>
 
-	<insert id="createChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+	<insert id="createChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" useGeneratedKeys="true" keyProperty="croom_no">
 		INSERT INTO chatroom (croom_name, croom_img)
 		VALUES (#{croom_name}, #{croom_img})
 	</insert>
@@ -142,12 +142,15 @@
 
 
 
-<!--	private String user_id;-->
+<!--	private int chat_no;-->
 <!--	private int croom_no;-->
 <!--	private String croom_name;-->
-<!--	private int not_read_chat;-->
-<!--	private int last_read_chat_id;-->
-<!--	private String regtime;-->
+<!--	private String chatroom_img;-->
+<!--	private String user_id;-->
+<!--	private String name;-->
+<!--	private int start_no;-->
+<!--	private int cur_no;-->
+<!--	private List<String> participants;-->
 
 	<!-- 모든 participant 리스트 -->
 	<select id="findAllParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ParticipantDto">
@@ -159,9 +162,9 @@
 	</select>
 
 	<!-- 친구 추가시 participant 등록  -->
-	<insert id="registParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+	<insert id="registParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
 		INSERT INTO participant (user_id, croom_no, croom_name, not_read_chat, last_read_chat_id)
-		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, #{last_read_chat_id})
+		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, 0)
 	</insert>
 
 	<delete id="deleteParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
