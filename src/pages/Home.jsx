@@ -30,6 +30,10 @@ const Home = () => {
     navigate('/register');
   };
 
+  const boardHandler = () => {
+    navigate('/board');
+  };
+
   const logoutHandler = () => {
     setToken(null);
     setUser(null);
@@ -56,6 +60,8 @@ const Home = () => {
       <div style={{ wordBreak: 'break-all' }}>{token}</div>
       <br />
       <div style={{ wordBreak: 'break-all' }}>{user}</div>
+
+      <button onClick={boardHandler}>게시판 테스트</button>
     </SectionStyle>
   );
 };
