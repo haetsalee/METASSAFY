@@ -41,8 +41,10 @@ const FriendSearch = () => {
 
   return (
     <SearchListStyle>
-      <p>유저 검색</p>
-      <input onChange={getValue} />
+      <div>
+        <p>유저 검색</p>
+        <input onChange={getValue} />
+      </div>
       {searched.map((item) => (
         <FriendSearchItem
           key={item.user_id}
@@ -57,6 +59,7 @@ const FriendSearch = () => {
 export default FriendSearch;
 
 const SearchListStyle = styled.div`
-  top: 10rem;
+  padding-top: 1rem;
+  top: 11rem;
   height: 18rem;
 `;

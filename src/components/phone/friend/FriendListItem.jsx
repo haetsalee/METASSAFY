@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscChromeClose, VscComment } from 'react-icons/vsc';
 
-const FriendItem = ({ friend, onDelete }) => {
+const FriendItem = ({ friend, onDeleteFriend }) => {
   return (
     <>
       <GroutStyle>
@@ -25,7 +25,7 @@ const FriendItem = ({ friend, onDelete }) => {
             /> */}
             <VscChromeClose
               color="#212121"
-              onClick={() => onDelete(friend.user_id)}
+              onClick={() => onDeleteFriend(friend.user_id)}
             />
           </IconStyle>
         </FriendItemStyle>

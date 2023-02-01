@@ -6,8 +6,24 @@ import axios from 'axios';
 const FriendList = () => {
   const [friends, setFriends] = useState([]);
 
-  const onDelete = (user_id) => {
-    setFriends(friends.filter((friend) => friend.user_id !== user_id));
+  // const onDelete = (user_id) => {
+  //   setFriends(friends.filter((friend) => friend.user_id !== user_id));
+  // };
+
+  const onDeleteFriend = (user_id) => {
+    axios
+      .post(
+        'http://i8d211.p.ssafy.io:8088/metassafy/friend/deleteFriend/' +
+          'ssafy/' +
+          user_id,
+        {
+          user_id: user_id,
+        }
+      )
+      .then(function () {
+        console.log(user_id);
+        setFriends(friends.filter((item) => item.user_id !== user_id));
+      });
   };
 
   useEffect(() => {
@@ -29,7 +45,7 @@ const FriendList = () => {
           <FriendListItem
             key={friend.user_id}
             friend={friend}
-            onDelete={onDelete}
+            onDeleteFriend={onDeleteFriend}
           />
         ))}
       </FriendListStyle>
