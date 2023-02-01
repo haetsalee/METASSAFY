@@ -21,4 +21,5 @@ const ChatRoomNameStyle = styled.p`
 
 const ChatRoomMemberStyle = styled.p`
   font-size: 0.3rem;
+  margin-top: 0.2rem;
 `;

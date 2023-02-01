@@ -6,7 +6,7 @@ function MyChatList(props) {
       <ChatRoomNameStyle>김싸피와 채팅채팅</ChatRoomNameStyle>
       <ChatTextStyle>
         <span>마지막메시지</span>
-        <span>시간</span>
+        <ChatTimeSpanStyle>시간</ChatTimeSpanStyle>
       </ChatTextStyle>
       <hr />
     </ChatRoomListStyle>
@@ -27,4 +27,10 @@ const ChatTextStyle = styled.p`
   font-size: 0.3rem;
   display: flex;
   justify-content: space-between;
+  margin: 0.3rem;
+  padding-left: 0.5rem;
+`;
+
+const ChatTimeSpanStyle = styled.span`
+  color: #00000066;
 `;
