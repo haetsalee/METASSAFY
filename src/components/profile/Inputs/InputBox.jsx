@@ -1,25 +1,34 @@
 import styled from 'styled-components';
-import CalendarInput from './CalenderInput';
-import CheckBoxInput from './CheckBoxInput';
+import RadioInput from './RadioInput';
 import DropdownInput from './DropdownInput';
 import NormalInput from './NormalInput';
 
-const InputBox = ({ list }) => {
+const InputBox = ({ list, width }) => {
   return (
     <InputBoxStyle>
-      <label htmlFor="input">{list.label}</label>
-      {list.inputList.map((type, index) => {
-        switch (type.type) {
-          case 'Calendar':
-            return <CalendarInput type={type} key={index} />;
-          case 'Dropdown':
-            return <DropdownInput type={type} key={index} />;
-          case 'CheckBox':
-            return <CheckBoxInput type={type} key={index} />;
-          default:
-            return <NormalInput type={type} key={index} />;
-        }
-      })}
+      <LabelStyle htmlFor="input">{list.label}</LabelStyle>
+      <InputLineStyle>
+        {list.inputList.map((type, index) => {
+          // console.log(type);
+          switch (type.type) {
+            case 'Dropdown':
+              return <DropdownInput type={type} key={index} />;
+            case 'Radio':
+              return (
+                <RadioInput
+                  title={type.title} // 보여질 값
+                  value={type.value} // 저장값
+                  name={type.name} // 연결할 인풋들 이름 같게
+                  id={type.id} // label 연결할 각각 인풋 아이디
+                  key={index} // 배열용 키
+                  width={width}
+                />
+              );
+            default:
+              return <NormalInput type={type} key={index} />;
+          }
+        })}
+      </InputLineStyle>
     </InputBoxStyle>
   );
 };
@@ -29,4 +38,18 @@ export default InputBox;
 const InputBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-bottom: 0.8rem;
+`;
+
+const LabelStyle = styled.label`
+  font-size: 0.8rem;
+  color: #617485;
+  margin-bottom: 0.2rem;
+`;
+
+const InputLineStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
