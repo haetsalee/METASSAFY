@@ -71,4 +71,8 @@ public class User {
     @ApiModelProperty(value = "유저 현재 직무")
     String current_role; //현재 팀내에서 맡은 직무
 
+    @ApiModelProperty(value = "기수")
+    int generation;
+    @ApiModelProperty(value = "전공")
+    String major;
 }
