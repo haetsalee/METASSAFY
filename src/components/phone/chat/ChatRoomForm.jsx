@@ -1,10 +1,42 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
-function ChatRoomForm() {
+function ChatRoomForm({ setChat, send }) {
+  const [chatText, setChatText] = useState('');
+
+  function onChange(e) {
+    setChatText(e.target.value);
+    setChat(e.target.value);
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      submitText();
+    }
+  }
+
+  function onClickHandler() {
+    submitText();
+  }
+
+  function submitText() {
+    // 제출
+    send();
+    setChatText('');
+  }
+
   return (
     <ChatRoomFormStyle>
-      <ChatRoomInputStyle type="text" placeholder="메시지를 입력해주세요" />
-      <ChatRoomButtonStyle>
+      <ChatRoomInputStyle
+        type="text"
+        placeholder="메시지를 입력해주세요"
+        onChange={onChange}
+        value={chatText}
+        onKeyPress={handleKeyPress}
+      />
+      <ChatRoomButtonStyle onClick={onClickHandler}>
         <ChatRoomSendImgStyle
           width="1rem"
           height="1rem"

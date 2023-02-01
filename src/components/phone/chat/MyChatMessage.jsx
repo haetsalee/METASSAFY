@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function MyChatMessage(props) {
-  return <MyChatMessageStyle>chat.message{props.chat}</MyChatMessageStyle>;
+  return <MyChatMessageStyle>{props.chat}</MyChatMessageStyle>;
 }
 
 export default MyChatMessage;

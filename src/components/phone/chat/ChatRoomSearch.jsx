@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
-function ChatRoomSearch() {
+function ChatRoomSearch({ setSearch }) {
+  const [inputData, setData] = useState('');
+  const onChange = (e) => {
+    setData(e.target.value);
+    setSearch(e.target.value);
+  };
   return (
     <ChatRoomFormStyle>
       <ChatRoomButtonStyle>
@@ -27,7 +33,12 @@ function ChatRoomSearch() {
           />
         </ChatRoomSvgStyle>
       </ChatRoomButtonStyle>
-      <ChatRoomInputStyle type="text" placeholder="새로운 채팅 시작하기" />
+      <ChatRoomInputStyle
+        onChange={onChange}
+        type="text"
+        placeholder="새로운 채팅 시작하기"
+        value={inputData}
+      />
     </ChatRoomFormStyle>
   );
 }

@@ -8,7 +8,7 @@ function ChatRoomNav(props) {
         src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg"
         alt=""
       />
-      <ChatRoomNavStatus />
+      <ChatRoomNavStatus chatRoom={props.chatRoom} />
       <ChatSettingButtonStyle>
         <ChatRoomSettingSvg
           width="24"

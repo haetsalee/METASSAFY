@@ -11,11 +11,11 @@ function Page1() {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <h1>Page1</h1>
-      {/* <Phone > */}
-      <PhoneUserProfile></PhoneUserProfile>
-      <PhoneChatingRoom />
-      <PhoneChatingList />
-      {/* 프로필 사진
+      <Phone>
+        <PhoneUserProfile></PhoneUserProfile>
+        <PhoneChatingRoom />
+        <PhoneChatingList />
+        {/* 프로필 사진
       활동중 뱃지
       이름
       반

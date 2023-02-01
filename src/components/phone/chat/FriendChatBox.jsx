@@ -4,17 +4,15 @@ import styled from 'styled-components';
 import ChatTime from './ChatTime';
 
 function FriendChatBox(props) {
+  console.log(props.chat);
   return (
     <ChatBoxStyle>
       <ChatImgDivStyle>
-        <ChatImgStyle
-          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          alt=""
-        />
+        <ChatImgStyle src={props.chat.profile_img} alt="" />
       </ChatImgDivStyle>
       <div>
-        <UserIdStyle>user_nameㅇㅇ아</UserIdStyle>
-        <FriendChatMessage chat="하이요aaasdgddddddddddddddddddddddgageedfㅏ" />
+        <UserIdStyle>{props.chat.name}</UserIdStyle>
+        <FriendChatMessage chat={props.chat.message} />
       </div>
       <ChatTime />
     </ChatBoxStyle>

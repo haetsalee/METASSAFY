@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function ChatRoomNavStatus() {
+function ChatRoomNavStatus(props) {
   return (
     <ChatRoomNavStatusStyle>
       <ChatRoomNameStyle>김싸피와 채팅채팅</ChatRoomNameStyle>

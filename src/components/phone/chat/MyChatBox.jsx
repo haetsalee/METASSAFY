@@ -4,10 +4,11 @@ import ChatTime from './ChatTime';
 import styled from 'styled-components';
 
 function MyChatBox(props) {
+  console.log(props.chat);
   return (
     <ChatBoxStyle>
       <ChatTime />
-      <MyChatMessage chat="하이용asdfadfdadafa dfdfadfdfsdfsaaa aaaaaaaaa" />
+      <MyChatMessage chat={props.chat.message} />
     </ChatBoxStyle>
   );
 }

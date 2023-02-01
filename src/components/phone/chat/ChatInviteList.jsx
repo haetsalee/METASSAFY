@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ChatInviteItem from './ChatInviteItem';
 
-function ChatInviteList() {
+function ChatInviteList(props) {
   return (
     <div>
       <ChatInviteDiv>

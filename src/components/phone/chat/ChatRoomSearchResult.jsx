@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 import ChatRoomStartBox from './ChatRoomStartBox';
 
-function ChatRoomSearchResult() {
-  const chatResult = [];
-
+function ChatRoomSearchResult(props) {
   return (
     <ChatRoomSearchResultDivStyle>
-      <ChatRoomStartBox />
-      <ChatRoomStartBox />
-      <ChatRoomStartBox />
-      <ChatRoomStartBox />
-      <ChatRoomStartBox />
+      {props.setSearchList.map((result) => {
+        return <ChatRoomStartBox result={result} key={result.user_id} />;
+      })}
     </ChatRoomSearchResultDivStyle>
   );
 }

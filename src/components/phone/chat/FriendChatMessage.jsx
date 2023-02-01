@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 function FriendChatMessage(props) {
-  return (
-    <FriendChatMessageStyle>chat.message{props.chat}</FriendChatMessageStyle>
-  );
+  return <FriendChatMessageStyle>{props.chat}</FriendChatMessageStyle>;
 }
 
 export default FriendChatMessage;

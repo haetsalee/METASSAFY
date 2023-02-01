@@ -11,11 +11,11 @@ function ChatRoomStartBox(props) {
   return (
     <ChatRoomStartBoxDivStyle onClick={handleClick}>
       <ChatResultImgStyle
-        src="https://images.ctfassets.net/hrltx12pl8hq/5GaLeZJlLyOiQC4gOA0qUM/a0398c237e9744ade8b072f99349e07a/shutterstock_152461202_thumb.jpg"
-        alt=""
+        src={props.result.profile_img}
+        alt={props.result.name}
       />
-      <ChatResultNameStyle>상대이름</ChatResultNameStyle>
-      <ChatResultIDStyle>상대아이디</ChatResultIDStyle>
+      <ChatResultNameStyle>{props.result.name}</ChatResultNameStyle>
+      <ChatResultIDStyle>{props.result.user_id}</ChatResultIDStyle>
       {isCheck && <ChatResultNameStyle>✔</ChatResultNameStyle>}
     </ChatRoomStartBoxDivStyle>
   );
