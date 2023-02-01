@@ -93,6 +93,7 @@ public class UserService {
 
     }
 
-
-
+    public List<User> searchUserList(String search) {
+        return mapper.searchUserList(search);
+    }
 }
