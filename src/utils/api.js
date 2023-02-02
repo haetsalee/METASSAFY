@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { setLocalAccessToken } from './local-storage';
+import {
+  setLocalAccessToken,
+  getLocalAccessToken,
+  getLocalRefreshToken,
+} from './local-storage';
 
 const API = axios.create({
   baseURL: 'http://i8d211.p.ssafy.io:8088/metassafy',
@@ -14,13 +18,19 @@ API.interceptors.request.use(
     console.log(config.url);
     // 인증 관련 요청일 경우
     if (config.url.includes('/auth')) {
-      if (!API.defaults.headers['jwt-auth-token']) {
-        if (window.confirm('로그인이 필요한 서비스입니다.')) {
+      // 로그인 안한 상태
+      if (!getLocalAccessToken()) {
+        if (window.alert('로그인이 필요한 서비스입니다.')) {
           window.location.href = '/';
-          return;
         }
         return;
       }
+      // 헤더에 토큰이 없는 상태
+      if (!API.defaults.headers['jwt-auth-token']) {
+        API.defaults.headers['jwt-auth-token'] = getLocalAccessToken();
+        API.defaults.headers['jwt-refresh-token'] = getLocalRefreshToken();
+      }
+      return config;
     }
     return config;
   },

@@ -1,6 +1,8 @@
 import { TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { fetchUserInfo } from '../../services/auth-service';
+import { getLocalUserInfo } from '../../utils/local-storage';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
@@ -64,16 +66,25 @@ const InputBoxList = () => {
   });
   const [techList, setTechList] = useState([]); // tech_id 기술스택
 
+  useEffect(() => {
+    const setUser = async () => {
+      const { error } = await fetchUserInfo();
+      if (!error) {
+        console.log(getLocalUserInfo());
+      }
+    };
+    setUser();
+  }, []);
+
+  console.log(info);
   const handleChange = (e, key) => {
     setInfo((preState) => {
       const state = { ...preState };
       state[key] = e.target.value;
       return state;
     });
-    console.log(e, key, info[key]);
   };
 
-  console.log(info);
   return (
     <InputListStyle>
       {/* 이름 */}
