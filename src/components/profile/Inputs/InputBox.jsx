@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import RadioInput from './RadioInput';
 import DropdownInput from './DropdownInput';
 import NormalInput from './NormalInput';
+import RowRadioButtonsGroup from './RowRadioButtonGroup';
 
 const InputBox = ({ list, width }) => {
   return (
     <InputBoxStyle>
       <LabelStyle htmlFor="input">{list.label}</LabelStyle>
       <InputLineStyle>
-        {list.inputList.map((type, index) => {
-          // console.log(type);
-          switch (type.type) {
+        {/* {
+         switch (list.type) {
             case 'Dropdown':
               return (
                 <DropdownInput
@@ -21,19 +21,18 @@ const InputBox = ({ list, width }) => {
               );
             case 'Radio':
               return (
-                <RadioInput
-                  title={type.title} // 보여질 값
+                <RowRadioButtonsGroup
+                  label={type.label} // 보여질 값
                   value={type.value} // 저장값
                   name={type.name} // 연결할 인풋들 이름 같게
                   id={type.id} // label 연결할 각각 인풋 아이디
                   key={index} // 배열용 키
-                  width={width}
                 />
               );
             default:
               return <NormalInput type={type} key={index} />;
-          }
-        })}
+          } 
+        } */}
       </InputLineStyle>
     </InputBoxStyle>
   );
