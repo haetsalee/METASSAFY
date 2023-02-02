@@ -23,6 +23,10 @@ export const setLocalRefreshToken = (refreshToken) => {
   localStorage.setItem('REFRESH_TOKEN', refreshToken);
 };
 
+export const getJsonLocalUserInfo = () => {
+  return JSON.parse(localStorage.getItem('USER'));
+};
+
 export const getLocalUserInfo = () => {
   return localStorage.getItem('USER');
 };

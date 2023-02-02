@@ -14,10 +14,14 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { socket, connectSocket } from '../Socket';
 import Card from '../components/UI/Card';
 import Chat from '../modules/chat/Chat';
+import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function Page2() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+
+  // const user = getJsonLocalUserInfo()['name'] || 'annonymous';
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   useEffect(() => {
     connectSocket();
@@ -379,7 +383,13 @@ function Page2() {
       }
     });
 
-    socket.on('connect', () => {});
+    socket.on('connect', (d) => {
+      // console.log(d);
+      const userData = {
+        user,
+      };
+      socket.emit('user', userData);
+    });
 
     //Update when one of the users moves in space
     socket.on('userPositions', (_clientProps) => {
@@ -388,7 +398,7 @@ function Page2() {
       for (let i = 0; i < Object.keys(_clientProps).length; i++) {
         if (Object.keys(_clientProps)[i] !== id) {
           //Store the values
-          let oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
+          let oldPos = clients[Object.keys(_clientProps)[i]].mesh?.position;
           let newPos = _clientProps[Object.keys(_clientProps)[i]].position;
 
           // console.log(newPos)

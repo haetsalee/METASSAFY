@@ -7,12 +7,13 @@
 // });
 
 import { io } from 'socket.io-client';
+import { getJsonLocalUserInfo } from './utils/local-storage';
 
 export let socket = null;
 
 export function connectSocket() {
-  socket = io.connect('http://i8d211.p.ssafy.io:8090/', {
-    // socket = io.connect('http://localhost:8090/', {
+  // socket = io.connect('http://i8d211.p.ssafy.io:8090/', {
+  socket = io.connect('http://localhost:8090/', {
     path: '/socket.io',
     transports: ['websocket'],
   });
