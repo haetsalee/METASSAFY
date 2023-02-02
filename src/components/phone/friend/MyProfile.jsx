@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const MyProfile = () => {
-  const [profile, setProfile] = useState(MyProfileData);
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER'));
+  }
+
   return (
     <MyProfileDivStyle>
       <MyProfileImgDivStyle>
         <MyProfileImgStyle
           img
-          src={profile.image}
-          alt={profile.name}
+          src={user.profile_img}
+          alt={user.name}
         ></MyProfileImgStyle>
       </MyProfileImgDivStyle>
-      <NameTextStyle>{profile.name}</NameTextStyle>
+      <NameTextStyle>{user.name}</NameTextStyle>
     </MyProfileDivStyle>
   );
-};
-
-const MyProfileData = {
-  name: '이싸피',
-  image: `https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`,
 };
 
 export default MyProfile;
 
 const MyProfileImgStyle = styled.img`
   vertical-align: middle;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.9rem;
+  height: 1.9rem;
   border-radius: 70%;
   overflow: hidden;
 `;

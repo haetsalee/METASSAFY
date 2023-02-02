@@ -5,18 +5,23 @@ import API from '../../../utils/api';
 
 const FriendSearch = () => {
   const [userInput, setUserInput] = useState('');
-  const [allUser, setAllUser] = useState([]);
+  const [searchUser, setSearchUser] = useState([]);
 
   let user = 'annonymous';
   if (window.localStorage.getItem('USER')) {
     user = JSON.parse(window.localStorage.getItem('USER')).user_id;
   }
 
+  // const onChange = (event) => {
+  //   setUserInput(event.target.value);
+  //   setSearchUser(event.target.value);
+  //   console.log(event.target.value);
+  // };
+
   useEffect(() => {
     API.get('/user/allUser')
       .then((res) => {
-        console.log(res.data);
-        setAllUser(res.data);
+        setSearchUser(res.data.filter((item) => item.user_id !== user));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -24,7 +29,6 @@ const FriendSearch = () => {
   const onAddFriend = (to_user_id) => {
     API.get('friend/call/notify/' + user + '/' + to_user_id)
       .then((res) => {
-        setAllUser(res.data);
         if (res.data === true) {
           alert('신청 보냄');
         } else {
@@ -38,8 +42,7 @@ const FriendSearch = () => {
     setUserInput(event.target.value);
   };
 
-  const searched = allUser.filter((user) => user.name.includes(userInput));
-
+  const searched = searchUser.filter((item) => item.name.includes(userInput));
   return (
     <FriendListStyle>
       <span>유저 검색</span>

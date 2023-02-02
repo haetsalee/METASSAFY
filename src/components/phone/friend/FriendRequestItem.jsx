@@ -1,8 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VscCheck, VscChromeClose } from 'react-icons/vsc';
+import { useState, useEffect } from 'react';
+import API from '../../../utils/api';
 
 const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
+  const [friendInfo, setFriendInfo] = useState('');
+
+  useEffect(() => {
+    API.get('user/searchUser/' + friend.from_user_id)
+      .then((res) => {
+        console.log(res.data[0]);
+        setFriendInfo(res.data[0]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <GroupStyle>
@@ -10,7 +23,7 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
           <FriendImgDivStyle>
             <FriendImgStyle
               img
-              src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
+              src={friendInfo.profile_img}
               alt={friend.name}
             ></FriendImgStyle>
           </FriendImgDivStyle>

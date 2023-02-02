@@ -21,9 +21,9 @@ const FriendSendRequest = () => {
 
   const onDeleteRequest = (friend_no) => {
     API.post('/friend/rejectFriend/', { friend_no: friend_no })
-      .then((res) => {
+      .then(() => {
         setSendRequests(
-          res.data.filter((item) => item.friend_no !== friend_no)
+          sendRequests.filter((item) => item.friend_no !== friend_no)
         );
       })
       .catch((err) => console.log(err));

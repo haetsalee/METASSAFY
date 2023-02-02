@@ -10,7 +10,7 @@ const FriendSearchItem = (props) => {
           <FriendImgDivStyle>
             <FriendImgStyle
               img
-              src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
+              src={props.profile_img}
               alt={props.name}
             ></FriendImgStyle>
           </FriendImgDivStyle>

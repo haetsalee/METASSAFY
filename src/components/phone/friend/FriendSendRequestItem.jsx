@@ -1,8 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VscChromeClose } from 'react-icons/vsc';
+import { useState, useEffect } from 'react';
+import API from '../../../utils/api';
 
 const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
+  const [friendInfo, setFriendInfo] = useState('');
+
+  useEffect(() => {
+    API.get('user/searchUser/' + friend.to_user_id)
+      .then((res) => {
+        setFriendInfo(res.data[0]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <GroupStyle>
@@ -10,7 +22,7 @@ const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
           <FriendImgDivStyle>
             <FriendImgStyle
               img
-              src={`https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`}
+              src={friendInfo.profile_img}
               alt={friend.name}
             ></FriendImgStyle>
           </FriendImgDivStyle>
