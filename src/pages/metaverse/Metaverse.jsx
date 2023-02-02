@@ -19,6 +19,14 @@ function Metaverse() {
     canvas.height = window.innerHeight - 1000;
 
     setCanvasTag(canvas);
+
+    // Texture - 바닥 텍스쳐
+    const textureLoader = new THREE.TextureLoader();
+    const floorTexture = textureLoader.load('images/grid.png');
+    floorTexture.wrapS = THREE.RepeatWrapping;
+    floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat.x = 10;
+    floorTexture.repeat.y = 10;
   }, []);
 
   return (
