@@ -18,8 +18,8 @@ let stompClient;
 
 function PhoneChatingRoom(props) {
   const room = props.croom;
-  console.log(props.croom, '==================');
-  console.log(room, '------------------');
+  // console.log(props.croom, '==================');
+  // console.log(room, '------------------');
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   const [chatList, setChatList] = useState([]);
@@ -47,7 +47,9 @@ function PhoneChatingRoom(props) {
             `/participant/last_read_chat_id`,
             JSON.stringify(content)
           )
-            .then((res) => {})
+            .then((res) => {
+              console.log('최신화 중');
+            })
             .catch((err) => console.log(err));
           // await fetch(
           //   `http://i8d211.p.ssafy.io:8088/metassafy/participant/last_read_chat_id`,
@@ -134,9 +136,17 @@ function PhoneChatingRoom(props) {
   };
 
   useEffect(() => {
+    API.put(
+      `/participant/last_read_chat_id`,
+      JSON.stringify({ user_id: user, croom_no: room })
+    )
+      .then((res) => {
+        console.log('최신화 중');
+      })
+      .catch((err) => console.log(err));
     connect();
 
-    // return () => disconnect();
+    return () => stompClient.disconnect();
   }, []);
 
   useEffect(() => {

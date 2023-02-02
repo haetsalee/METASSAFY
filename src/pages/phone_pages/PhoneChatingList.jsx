@@ -37,13 +37,13 @@ function PhoneChatingList(props) {
       temp = res.data;
       API.put(`/participant/not_read_chat`, JSON.stringify(temp)).then(
         (res) => {
-          console.log(res);
           API.get(`/chat/rooms`, {
             params: {
               user_id: user,
             },
           })
             .then((res) => {
+              console.log(res.data);
               setRoomList(res.data);
             })
             .catch((err) => console.log(err));
