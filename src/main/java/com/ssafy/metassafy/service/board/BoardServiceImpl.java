@@ -127,4 +127,5 @@ public class BoardServiceImpl implements  BoardService{
         return sqlSession.getMapper(BoardMapper.class).uploadFile(fileDto) == 1;
     }
 
+
 }
