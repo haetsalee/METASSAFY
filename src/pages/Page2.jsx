@@ -471,7 +471,7 @@ function Page2() {
       <div className="canvas_Wrap">
         {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
         <Card>
-          <canvas className="meta-ssafy" ref={canvasRef}></canvas>
+          {/* <canvas className="meta-ssafy" ref={canvasRef}></canvas> */}
           <h1>Canvas</h1>
         </Card>
       </div>
