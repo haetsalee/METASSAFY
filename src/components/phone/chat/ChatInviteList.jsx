@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import API from '../../../utils/api';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 import ChatInviteItem from './ChatInviteItem';
 
 // const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
 
 function ChatInviteList(props) {
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+
   // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
   let newChatRoomName = '';
@@ -12,7 +15,7 @@ function ChatInviteList(props) {
     newChatRoomName += item[0] + ', ';
   });
   newChatRoomName = newChatRoomName.substring(0, newChatRoomName.length - 2);
-  // console.log(newChatRoomName);
+  console.log(newChatRoomName);
 
   const frm = new FormData();
 
@@ -57,7 +60,9 @@ function ChatInviteList(props) {
       </ChatInviteDiv>
       <ChatInviteListDiv>
         {props.inviteList.map((item) => {
-          return <ChatInviteItem name={item} key={item[1]} />;
+          if (item[1] !== user) {
+            return <ChatInviteItem name={item} key={item[1]} />;
+          }
         })}
       </ChatInviteListDiv>
     </div>

@@ -3,21 +3,40 @@ import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
 
 import styled from 'styled-components';
-import { useState } from 'react';
 
-function PhoneNav() {
-  const [userCheck, setUserCheck] = useState(false);
-  const [usersCheck, setUsersCheck] = useState(false);
-  const [messageCheck, setMessageCheck] = useState(false);
+function PhoneNav(props) {
   return (
     <NavDiv>
       <NavInnerDiv>
-        <User stroke="#617485" />
-        <User stroke="#AEC6D7" />
-        <Users stroke="#617485" />
-        <Users stroke="#AEC6D7" />
-        <CircleMessage stroke="#617485" />
-        <CircleMessage stroke="#AEC6D7" />
+        {props.status === 'profile' && <User stroke="#617485" />}
+        {props.status !== 'profile' && (
+          <User
+            stroke="#AEC6D7"
+            onClick={() => {
+              props.setPage('profile');
+            }}
+          />
+        )}
+        {props.status === 'friend' && <Users stroke="#617485" />}
+        {props.status !== 'friend' && (
+          <Users
+            stroke="#AEC6D7"
+            onClick={() => {
+              props.setPage('friend');
+            }}
+          />
+        )}
+        {(props.status === 'chatroom' || props.status === 'chatlist') && (
+          <CircleMessage stroke="#617485" />
+        )}
+        {props.status !== 'chatroom' && props.status !== 'chatlist' && (
+          <CircleMessage
+            stroke="#AEC6D7"
+            onClick={() => {
+              props.setPage('chatlist');
+            }}
+          />
+        )}
       </NavInnerDiv>
     </NavDiv>
   );

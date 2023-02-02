@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 
 import API from '../../utils/api';
 
-function PhoneChatingList() {
+function PhoneChatingList(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   const [search, setSearch] = useState('');
@@ -64,7 +64,11 @@ function PhoneChatingList() {
           setSearchList={searchList}
           setInviteList={setInviteList}
         />
-        <MyChatRoomList roomList={roomList} />
+        <MyChatRoomList
+          roomList={roomList}
+          setPage={props.setPage}
+          setCroom={props.setCroom}
+        />
       </PhoneChatingListStyle>
     </Phone>
   );

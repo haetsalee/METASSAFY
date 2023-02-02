@@ -9,6 +9,8 @@ import { fetchUserInfo } from '../services/auth-service';
 import PhoneChatingRoom from './phone_pages/PhoneChatingRoom';
 import PhoneChatingList from './phone_pages/PhoneChatingList';
 import PhoneFriendPage from './phone_pages/PhoneFriendPage';
+import { useState } from 'react';
+import PhoneNav from '../components/phone/phoneNav/PhoneNav';
 
 function Page1() {
   useEffect(() => {
@@ -19,14 +21,26 @@ function Page1() {
 
     getUserInfo();
   }, []);
+
+  const [page, setPage] = useState('profile');
+  const [croom, setCroom] = useState('');
+
   return (
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <Phone>
         {/* <PhoneUserProfile></PhoneUserProfile> */}
-        <PhoneChatingRoom />
-        <PhoneChatingList />
+        {page === 'profile' && <PhoneUserProfile />}
+        {page === 'chatroom' && (
+          <PhoneChatingRoom setPage={setPage} croom={croom} />
+        )}
+        {page === 'chatlist' && (
+          <PhoneChatingList setPage={setPage} setCroom={setCroom} />
+        )}
+        {page === 'friend' && <PhoneFriendPage />}
+        <PhoneNav status={page} setPage={setPage} />
+
         {/* 프로필 사진
       활동중 뱃지
       이름
@@ -38,8 +52,6 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
-
-        <PhoneFriendPage />
       </Phone>
       <GetUserStack></GetUserStack>
     </section>

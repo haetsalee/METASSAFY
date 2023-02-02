@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 import ChatRoomStartBox from './ChatRoomStartBox';
 
 function ChatRoomSearchResult(props) {
-  const [tempList, setTempList] = useState([]);
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+  const name = getJsonLocalUserInfo()['name'] || 'annonymous';
+  const profile_img = getJsonLocalUserInfo()['profile_img'] || 'annonymous';
+  const result = [name, user, profile_img];
+
+  const [tempList, setTempList] = useState([result]);
   useEffect(() => {
     props.setInviteList(tempList);
   }, [tempList]);
@@ -11,14 +17,16 @@ function ChatRoomSearchResult(props) {
   return (
     <ChatRoomSearchResultDivStyle>
       {props.setSearchList.map((result) => {
-        return (
-          <ChatRoomStartBox
-            result={result}
-            key={result.user_id}
-            setTempList={setTempList}
-            tempList={tempList}
-          />
-        );
+        if (result.user_id !== user) {
+          return (
+            <ChatRoomStartBox
+              result={result}
+              key={result.user_id}
+              setTempList={setTempList}
+              tempList={tempList}
+            />
+          );
+        }
       })}
     </ChatRoomSearchResultDivStyle>
   );

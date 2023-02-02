@@ -14,11 +14,12 @@ import { useState, useEffect } from 'react';
 import API from '../../utils/api';
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
-const room = 1;
-
 let stompClient;
 
-function PhoneChatingRoom() {
+function PhoneChatingRoom(props) {
+  const room = props.croom;
+  console.log(props.croom, '==================');
+  console.log(room, '------------------');
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   const [chatList, setChatList] = useState([]);
@@ -175,7 +176,7 @@ function PhoneChatingRoom() {
 
   return (
     <Phone>
-      <ChatRoomNav chatRoom={chatRoom} />
+      <ChatRoomNav chatRoom={chatRoom} setPage={props.setPage} />
       <ChatRoomDiv>
         <PhoneChatingRoomStyle>
           {chatList.map((chat) => {

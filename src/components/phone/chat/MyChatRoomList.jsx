@@ -9,7 +9,14 @@ function MyChatRoomList(props) {
         <MyChatListStyle>채팅 목록</MyChatListStyle>
       </ChatRoomFormStyle>
       {props.roomList.map((room) => {
-        return <MyChatList room={room} key={room.croom_no} />;
+        return (
+          <MyChatList
+            room={room}
+            key={room.croom_no}
+            setPage={props.setPage}
+            setCroom={props.setCroom}
+          />
+        );
       })}
     </div>
   );
