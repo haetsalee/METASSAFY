@@ -80,5 +80,6 @@
 		where article_no = #{article_no} and saved_name = #{saved_name}
 	</delete>
 
+
 </mapper>
 

@@ -35,7 +35,6 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<String> writeArticle(@RequestPart("boardDto") @ApiParam(value = "게시글 정보(user_id, title, content, thumbnail)", required = true) BoardDto boardDto, @RequestPart("thumbnail") @ApiParam(value = "썸내일 정보.", required = false) MultipartFile thumbnail, @RequestPart("files") @ApiParam(value = "업로드 파일 정보.", required = false) List<MultipartFile> files) throws Exception {
          logger.info("writeArticle - 호출");
-
         if (boardService.writeArticle(boardDto,thumbnail,files)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
@@ -98,4 +97,8 @@ public class BoardController {
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
+
+
+
+
 }
