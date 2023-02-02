@@ -22,4 +22,6 @@ public interface BoardService {
     public boolean uploadFile(FileDto fileDto, MultipartFile file) throws Exception;
 
     String uploadAndgetLink(MultipartFile image) throws IOException;
+
+    boolean writeArticle(BoardDto boardDto);
 }

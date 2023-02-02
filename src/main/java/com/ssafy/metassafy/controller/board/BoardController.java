@@ -101,9 +101,19 @@ public class BoardController {
     }
 
     @PostMapping("/uploadAndgetLink")
-    public String uploadAndgetLink(@ApiParam(value = "이미지 올리면 링크를 준다.", required = false) MultipartFile image) throws IOException {
-        return boardService.uploadAndgetLink(image);
+    public ResponseEntity<String> uploadAndgetLink(@ApiParam(value = "이미지 올리면 링크를 준다.", required = false) MultipartFile image) throws IOException {
+        return  new ResponseEntity<String>(boardService.uploadAndgetLink(image), HttpStatus.OK);
     }
+    @PostMapping("/writeSimple")
+    public ResponseEntity<String> writeSimple(@RequestBody @ApiParam(value = "게시글 정보", required = true) BoardDto boardDto){
+        logger.info(boardDto.toString());
+        if (boardService.writeArticle(boardDto)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+
 
 
 }
