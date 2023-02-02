@@ -10,6 +10,7 @@ import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
 import Register from './pages/Register';
 import Profile from './components/profile/Profile';
+import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* <Route path='/' element={ <MainPage/> } /> */}
         <Route path="/Page1" element={<Page1 />} />
+        <Route path="/user-profile-page" element={<UserProfilePage />} />
         <Route path="/Page2" element={<Page2 />} />
         <Route path="/Page3" element={<Page3 />} />
         <Route path="/profile-modify" element={<Profile />} />
