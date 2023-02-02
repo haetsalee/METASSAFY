@@ -135,7 +135,7 @@ function Page2() {
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
     // local test
-    const floorTexture = textureLoader.load('/images/grid.png');
+    const floorTexture = textureLoader.load('build/images/grid.png');
     // server test
     // const floorTexture = textureLoader.load('build/images/grid.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
