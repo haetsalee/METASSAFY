@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -99,7 +100,10 @@ public class BoardController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-
+    @PostMapping("/uploadAndgetLink")
+    public String uploadAndgetLink(@ApiParam(value = "이미지 올리면 링크를 준다.", required = false) MultipartFile image) throws IOException {
+        return boardService.uploadAndgetLink(image);
+    }
 
 
 }
