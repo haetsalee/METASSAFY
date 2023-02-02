@@ -24,7 +24,7 @@ function Page1() {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <Phone>
-        <PhoneUserProfile></PhoneUserProfile>
+        {/* <PhoneUserProfile></PhoneUserProfile> */}
         <PhoneChatingRoom />
         <PhoneChatingList />
         {/* 프로필 사진

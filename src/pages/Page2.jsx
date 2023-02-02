@@ -472,6 +472,10 @@ function Page2() {
     };
 
     animate();
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
