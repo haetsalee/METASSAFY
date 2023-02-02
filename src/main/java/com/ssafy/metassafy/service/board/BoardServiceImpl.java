@@ -130,10 +130,17 @@ public class BoardServiceImpl implements  BoardService{
 
     @Override
     public String uploadAndgetLink(MultipartFile img) throws IOException {
-
         FileDto file = fileService.saveFile(img);
         return file.getPath();
+    }
 
+    @Override
+    public boolean writeArticle(BoardDto boardDto) {
+        try{
+            return sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto)==1;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 
