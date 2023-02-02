@@ -64,7 +64,8 @@ function PhoneUserProfile(props) {
       />
       {/* 기술스택 자기소개 생일 */}
       <RoundBox text={userInfo.introduce}></RoundBox>
-      {/* <TechStackBox stack="android"></TechStackBox> */}
+      <div>여기에</div>
+      <TechStackBox stack="android"></TechStackBox>
       <div
         style={{
           display: 'flex',
