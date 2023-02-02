@@ -6,6 +6,7 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.like.LikeDto;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -20,4 +21,5 @@ public interface BoardService {
     public boolean deleteFile(FileDto fileDto) throws Exception;
     public boolean uploadFile(FileDto fileDto, MultipartFile file) throws Exception;
 
+    String uploadAndgetLink(MultipartFile image) throws IOException;
 }
