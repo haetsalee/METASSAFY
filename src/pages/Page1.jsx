@@ -28,8 +28,8 @@ function Page1() {
       자기소개
       생일 */}
 
+        <PhoneFriendPage />
       </Phone>
-      <PhoneFriendPage />
     </section>
   );
 }
