@@ -1,24 +1,39 @@
-import TextField from '@mui/material/TextField';
+import * as React from 'react';
 import { useState } from 'react';
+import { styled } from '@mui/material/styles';
+import dayjs from 'dayjs';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const CalendarInput = () => {
-  const dateNow = new Date();
-  const today = dateNow.toISOString().slice(0, 10);
-  const [saleStartDate, setSaleStartDate] = useState(today);
+  const [value, setValue] = useState(dayjs('1999-12-01T21:11:54'));
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
 
   return (
-    <TextField
-      id="date"
-      label="생일"
-      type="date"
-      defaultValue={today}
-      onChange={(e) => setSaleStartDate(e.target.value)}
-      inputProps={{ min: today }}
-      InputLabelProps={{
-        shrink: true,
-      }}
-    />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DesktopDatePickerStyle
+        label="생일"
+        inputFormat="YYYY/MM/DD"
+        value={value}
+        onChange={handleChange}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
   );
 };
-
 export default CalendarInput;
+
+const DesktopDatePickerStyle = styled(DesktopDatePicker)(({ theme }) => ({
+  width: '11rem',
+
+  '& input': {
+    // backgroundColor: '#2196f3',
+    padding: '0.7rem',
+    fontSize: '0.9rem',
+  },
+}));

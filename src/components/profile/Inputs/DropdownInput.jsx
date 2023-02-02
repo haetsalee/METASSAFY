@@ -1,6 +1,5 @@
 import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
 import { useState } from 'react';
 
 const DropdownInput = ({ data, width }) => {
@@ -38,27 +37,34 @@ const DropdownInput = ({ data, width }) => {
 
 export default DropdownInput;
 
-const FormControlStyle = styled(FormControl)(({ theme }) => ({
-  fontSize: '0.6rem',
+const FormControlStyle = styled(FormControl)(({}) => ({
   margin: '0.2rem',
 }));
 
-const LabelStyle = styled(InputLabel)(({ theme }) => ({
-  fontSize: '0.6rem',
+const LabelStyle = styled(InputLabel)(({}) => ({
+  fontSize: '0.7rem',
   padding: '0 0.5rem',
 }));
 
-const SelectStyle = styled(Select)(({ theme }) => ({
-  fontSize: '0.6rem',
+const SelectStyle = styled(Select)(({}) => ({
+  fontSize: '0.8rem',
+  paddingLeft: '0.3rem',
+  '&::focus': {
+    backgroundColor: 'red',
+  },
+  '&::after': {
+    backgroundColor: 'blue',
+  },
 }));
 
-const MenuItemStyle = styled(MenuItem)(({ theme }) => ({
+const MenuItemStyle = styled(MenuItem)(({}) => ({
   // fontSize: '0.6rem',
   minHeight: '2rem',
+  minWidth: '3.3rem',
   padding: '0 0.5rem 0 0',
   margin: '0.3rem 0.6rem 0 0.6rem',
   display: 'flex',
   justifyContent: 'end',
   borderBottom: '1px solid #D9D9D9',
-  fontSize: '0.6rem',
+  fontSize: '0.7rem',
 }));
