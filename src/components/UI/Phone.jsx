@@ -18,6 +18,7 @@ const PhoneStyle = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
+  overflow: auto;
   flex-direction: column;
   align-items: center;
 `;

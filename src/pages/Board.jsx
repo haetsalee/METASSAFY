@@ -12,6 +12,7 @@ const Board = () => {
   const loginUser = JSON.parse(user);
   const [mode, setMode] = useState('list');
   const [data, setData] = useState();
+  const [isUpdate, setIsUpdate] = useState(false);
   let components;
   const changeMode = (x) => {
     setMode(x);
@@ -21,13 +22,18 @@ const Board = () => {
     setData(data);
     //console.log(data);
   };
+  const setUpdate = (isUpdate) => {
+    setIsUpdate(isUpdate);
+  };
   const clickWriteBtn = () => {
     if (loginUser == null) alert('로그인 먼저!');
     else setMode('write');
   };
 
   if (mode == 'item') {
-    components = <BoardItem changeMode={changeMode} data={data} />;
+    components = (
+      <BoardItem changeMode={changeMode} data={data} setIsUpdate={setUpdate} />
+    );
   } else if (mode == 'write') {
     components = <BoardWrite changeMode={changeMode} />;
   } else {

@@ -17,15 +17,29 @@ const BoardList = ({ changeMode, setArticle }) => {
     });
   };
   const boardItemHandler = (value) => {
-    setArticle(value);
-    changeMode('item');
+    API.get('/board/' + value).then(function (response) {
+      setArticle(response.data);
+      changeMode('item');
+    });
   };
 
   return (
     <div>
       <BoardListDiv>
         {list.map((value, index) => (
-          <BoardItemDiv key={index} onClick={() => boardItemHandler(value)}>
+          <BoardItemDiv
+            key={index}
+            onClick={() => boardItemHandler(value.article_no)}
+          >
+            <img
+              src={value.thumbnail}
+              style={{
+                height: '40px',
+                width: '60px',
+                float: 'right',
+                display: 'block',
+              }}
+            />
             <p>{value.title}</p>
             <p style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
               {value.user_id} {value.regtime} 조회: {value.hit}
@@ -39,13 +53,20 @@ const BoardList = ({ changeMode, setArticle }) => {
 
 export default BoardList;
 const BoardItemDiv = styled.div`
-  width: 22rem;
+  width: 21rem;
   height: 65px;
-  display: flex;
+
   flex-direction: column;
   border-bottom: 1px solid gray;
   padding: 0.51rem;
 `;
 const BoardListDiv = styled.div`
   margin: 2rem;
+  height: 30rem;
+  overflow: auto;
+`;
+const Thumbnail = styled.image`
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
 `;
