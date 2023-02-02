@@ -10,7 +10,10 @@ function MyChatList(props) {
           alt=""
         />
         <ChatTextBoxDiv>
-          <ChatRoomNameStyle>{props.room.croom_name}</ChatRoomNameStyle>
+          <FlexDiv>
+            <ChatRoomNameStyle>{props.room.croom_name}</ChatRoomNameStyle>
+            <NotReadSpanStyle>{props.room.not_read_chat}</NotReadSpanStyle>
+          </FlexDiv>
           <ChatTextStyle>
             <span>{props.room.last_chat}</span>
             <ChatTimeSpanStyle>{props.room.last_chat_time}</ChatTimeSpanStyle>
@@ -30,7 +33,7 @@ const ChatRoomListStyle = styled.div`
   border-bottom: 1px solid #d9d9d9;
 `;
 
-const ChatRoomNameStyle = styled.p`
+const ChatRoomNameStyle = styled.span`
   font-size: 1.1rem;
 `;
 
@@ -50,9 +53,19 @@ const ChatTimeSpanStyle = styled.span`
   color: #00000066;
 `;
 
+const NotReadSpanStyle = styled.span`
+  font-size: 0.3rem;
+  color: #00d9ff;
+`;
+
 const ChatRoomNavImgStyle = styled.img`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
   margin-right: 0.5rem;
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

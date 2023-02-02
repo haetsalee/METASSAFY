@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function ChatRoomNavStatus(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <ChatRoomNavStatusStyle>
       <ChatRoomNameStyle>{props.chatRoom?.croom_name}</ChatRoomNameStyle>

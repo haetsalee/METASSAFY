@@ -139,18 +139,27 @@ function PhoneChatingRoom() {
     // return () => disconnect();
   }, []);
 
-  useEffect(async () => {
-    await API.get('/chat', {
-      params: {
-        start_no: 0,
-        user_id: 'ssafy',
-        croom_no: room,
-      },
-    })
-      .then((res) => {
-        setChatList(res.data);
-      })
-      .catch((err) => console.log(err));
+  useEffect(() => {
+    const data = {
+      croom_no: room,
+      user_id: user,
+    };
+    // not_read 갱신하기
+    API.put('/chat', JSON.stringify(data))
+      .then((res) => console.log(res))
+      .then(() => {
+        API.get('/chat', {
+          params: {
+            start_no: 0,
+            user_id: 'ssafy',
+            croom_no: room,
+          },
+        })
+          .then((res) => {
+            setChatList(res.data);
+          })
+          .catch((err) => console.log(err));
+      });
   }, []);
 
   useEffect(() => {

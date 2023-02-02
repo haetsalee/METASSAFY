@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ChatRoomStartBox from './ChatRoomStartBox';
 
 function ChatRoomSearchResult(props) {
   const [tempList, setTempList] = useState([]);
-  props.setInviteList(tempList);
+  useEffect(() => {
+    props.setInviteList(tempList);
+  }, [tempList]);
+  // props.setInviteList(tempList);
   return (
     <ChatRoomSearchResultDivStyle>
       {props.setSearchList.map((result) => {

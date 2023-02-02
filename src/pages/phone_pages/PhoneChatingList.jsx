@@ -33,15 +33,26 @@ function PhoneChatingList() {
   }, [search]);
 
   useEffect(() => {
-    API.get(`/chat/rooms`, {
-      params: {
-        user_id: user,
-      },
-    })
-      .then((res) => {
-        setRoomList(res.data);
-      })
-      .catch((err) => console.log(err));
+    let temp = [];
+    API.get(`/participant`, { params: { user_id: user } }).then((res) => {
+      temp = res.data;
+      API.put(`/participant/not_read_chat`, JSON.stringify(temp)).then(
+        (res) => {
+          console.log(res);
+          API.get(`/chat/rooms`, {
+            params: {
+              user_id: user,
+            },
+          })
+            .then((res) => {
+              setRoomList(res.data);
+            })
+            .catch((err) => console.log(err));
+        }
+      );
+    });
+    console.log(temp);
+    //Participant의 not_read_chat을 갱신
   }, []);
 
   return (
