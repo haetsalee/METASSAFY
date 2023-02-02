@@ -41,7 +41,7 @@ public class BoardServiceImpl implements  BoardService{
         if (!thumbnail.isEmpty()) {
             logger.info("thumbnail - 업로드");
             file = fileService.saveFile(thumbnail);
-            boardDto.setThumbnail(file.getSaved_name());
+            boardDto.setThumbnail(file.getPath());
         }
 
         sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
