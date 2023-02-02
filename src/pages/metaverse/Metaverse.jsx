@@ -24,7 +24,10 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/grid.png');
+    // local test
+    // const floorTexture = textureLoader.load('/images/grid.png');
+    // server test
+    const floorTexture = textureLoader.load('build/images/grid.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 10;
@@ -161,6 +164,9 @@ function Metaverse() {
     const house = new House({
       gltfLoader,
       scene,
+      // local test용
+      // modelSrc: 'models/house.glb',
+      // build용
       modelSrc: 'build/models/house.glb',
       x: 5,
       y: -1.3,
@@ -169,7 +175,9 @@ function Metaverse() {
 
     // 지도 로드
     gltfLoader.load(
-      // 'build/model/map/map.gltf',
+      // local test용
+      // 'model/map/map_floorx.glb',
+      // build용
       'build/models/map_floorx.glb',
       function (gltf) {
         gltf.scene.scale.set(1, 1, 1);
@@ -193,6 +201,9 @@ function Metaverse() {
       scene,
       meshes,
       gltfLoader,
+      // local test용
+      // modelSrc: 'models/people.glb',
+      // build용
       modelSrc: 'build/models/people.glb',
     });
 
