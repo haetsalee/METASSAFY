@@ -92,8 +92,8 @@ function Page2() {
     loaders.setDRACOLoader(dracoLoader);
 
     loaders.load(
-      // 'build/model/map/map.gltf',
-      'model/map2/scene.gltf',
+      'build/model/map/map.gltf',
+      // 'model/map2/scene.gltf',
       function (gltf) {
         gltf.scene.scale.set(1, 1, 1);
         // gltf.scene.position.y = 0.5;
@@ -115,8 +115,8 @@ function Page2() {
     let mixer;
 
     loaders.load(
-      // "build/model/toon_cat_free/scene.gltf",
-      'model/people/ilbuni.glb',
+      'build/model/toon_cat_free/scene.gltf',
+      // 'model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -234,7 +234,8 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        'people/ilbuni.glb',
+        // 'people/ilbuni.glb',
+        'build/people/ilbuni.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -270,8 +271,8 @@ function Page2() {
           };
 
           loaders.load(
-            // "build/model/toon_cat_free/scene.gltf",
-            'model/people/ilbuni.glb',
+            'build/model/toon_cat_free/scene.gltf',
+            // 'model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -335,8 +336,8 @@ function Page2() {
           mesh: null,
         };
         loaders.load(
-          // "build/model/toon_cat_free/scene.gltf",
-          'model/people/ilbuni.glb',
+          'build/model/toon_cat_free/scene.gltf',
+          // 'model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
