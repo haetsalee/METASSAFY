@@ -189,7 +189,7 @@ function Page2() {
 
     loaders.load(
       // "build/model/toon_cat_free/scene.gltf",
-      'build/model/people/ilbuni.glb',
+      'build/model/people/people.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -344,7 +344,7 @@ function Page2() {
 
           loaders.load(
             // "build/model/toon_cat_free/scene.gltf",
-            'build/model/people/ilbuni.glb',
+            'build/model/people/people.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -409,7 +409,7 @@ function Page2() {
         };
         loaders.load(
           // "build/model/toon_cat_free/scene.gltf",
-          'build/model/people/ilbuni.glb',
+          'build/model/people/people.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
