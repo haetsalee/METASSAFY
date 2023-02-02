@@ -2,8 +2,19 @@ import { useHistory } from 'react-router-dom';
 import TextGroupComponent from '../components/phone/TextGroupComponent';
 import Phone from '../components/UI/Phone';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
+import GetUserStack from '../components/phone/GetUserStack';
+import { useEffect } from 'react';
+import { fetchUserInfo } from '../services/auth-service';
 
 function Page1() {
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const userInfo = await fetchUserInfo();
+      console.log(userInfo);
+    };
+
+    getUserInfo();
+  }, []);
   return (
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
@@ -23,6 +34,7 @@ function Page1() {
       자기소개
       생일 */}
       </Phone>
+      <GetUserStack></GetUserStack>
     </section>
   );
 }
