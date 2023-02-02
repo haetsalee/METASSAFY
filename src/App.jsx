@@ -8,6 +8,7 @@ import MainPage from './pages/MainPage';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Register from './pages/Register';
+import Board from './pages/Board';
 import Profile from './components/profile/Profile';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/board" element={<Board />} />
         {/* <Route path='/' element={ <MainPage/> } /> */}
         <Route path="/Page1" element={<Page1 />} />
         <Route path="/Page2" element={<Page2 />} />

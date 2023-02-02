@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const port = 8090; // 서버를 열 포트 번호
 const app = express();
+// 서버 코드
 
 const server = http.createServer(app);
 

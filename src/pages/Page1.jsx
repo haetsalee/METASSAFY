@@ -1,16 +1,17 @@
-import { useHistory } from 'react-router-dom';
-import TextGroupComponent from '../components/phone/TextGroupComponent';
+// import { useHistory } from 'react-router-dom';
+// import TextGroupComponent from '../components/phone/TextGroupComponent';
 import Phone from '../components/UI/Phone';
+import React from 'react';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import PhoneChatingRoom from './phone_pages/PhoneChatingRoom';
 import PhoneChatingList from './phone_pages/PhoneChatingList';
+import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 
 function Page1() {
   return (
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <h1>Page1</h1>
       <Phone>
         <PhoneUserProfile></PhoneUserProfile>
         <PhoneChatingRoom />
@@ -26,7 +27,9 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
+
       </Phone>
+      <PhoneFriendPage />
     </section>
   );
 }
