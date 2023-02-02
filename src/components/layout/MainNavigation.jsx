@@ -13,6 +13,9 @@ function MainNavigation() {
             <NavLink to="/">MainPage</NavLink>
           </LiStyle>
           <LiStyle>
+            <NavLink to="/user-profile-page">UserProfilePage</NavLink>
+          </LiStyle>
+          <LiStyle>
             <NavLink to="/page1">Test Page1</NavLink>
           </LiStyle>
           <LiStyle>
