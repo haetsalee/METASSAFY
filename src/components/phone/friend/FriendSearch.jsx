@@ -12,12 +12,6 @@ const FriendSearch = () => {
     user = JSON.parse(window.localStorage.getItem('USER')).user_id;
   }
 
-  // const onChange = (event) => {
-  //   setUserInput(event.target.value);
-  //   setSearchUser(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
   useEffect(() => {
     API.get('/user/allUser')
       .then((res) => {
@@ -46,7 +40,13 @@ const FriendSearch = () => {
   return (
     <FriendListStyle>
       <span>유저 검색</span>
-      <input onChange={getValue} />
+      <input
+        onChange={getValue}
+        style={{
+          marginLeft: '4rem',
+          width: '7rem',
+        }}
+      />
       {searched.map((item) => (
         <FriendSearchItem
           key={item.user_id}

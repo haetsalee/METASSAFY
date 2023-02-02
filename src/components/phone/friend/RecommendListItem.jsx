@@ -16,7 +16,7 @@ const RecommendListItem = ({ friend }) => {
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{friend.name}</NameTextStyle>
-            <StateTextStyle>{friend.id}</StateTextStyle>
+            <StateTextStyle>{friend.user_id}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>
