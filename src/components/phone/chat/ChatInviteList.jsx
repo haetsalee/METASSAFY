@@ -7,13 +7,35 @@ import ChatInviteItem from './ChatInviteItem';
 function ChatInviteList(props) {
   // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
+
+  const frm = new FormData();
+
+  const chatParameterDto = {
+    croom_name: '진짜제발제바류22re',
+    // participants: ['ssafy', 'ssafy3', 'ssafy4', 'ssafy5'],
+    participants: tempInviteList,
+  };
+
+  frm.append(
+    'chatParameterDto',
+    new Blob([JSON.stringify(chatParameterDto)], {
+      type: 'application/json',
+    })
+  );
+
+  frm.append(
+    'croom_img',
+    new Blob([JSON.stringify(null)], {
+      type: 'application/json',
+    })
+  );
+
+  // frm.append('croom_img', null);
+
   // console.log(tempInviteList);
   function makeChatRoom() {
-    API.post(``, {
-      chatParameterDto: {
-        croom_name: '살려줘요',
-        participants: props.inviteList,
-      },
+    API.post(`/chat/room`, frm, {
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((res) => {
         console.log(res);

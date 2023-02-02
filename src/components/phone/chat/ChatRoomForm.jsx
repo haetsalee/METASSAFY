@@ -47,16 +47,16 @@ function ChatRoomForm({ setChat, send }) {
           <path
             d="M22 2L11 13"
             stroke="#617485"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M15 22L22 2L2 9L11 13L15 22Z"
             stroke="#617485"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </ChatRoomSendImgStyle>
       </ChatRoomButtonStyle>

@@ -106,14 +106,14 @@ function PhoneChatingRoom() {
           console.log(3);
         });
 
-        const data = {
-          croom_no: room.croom_no,
-          user_id: user,
-          name: 'seok',
-          message: chat,
-        };
-        // send(destination,헤더,페이로드)
-        stompClient.send('/pub/chat/room/message', {}, JSON.stringify(data));
+        // const data = {
+        //   croom_no: room,
+        //   user_id: user,
+        //   name: 'seok',
+        //   message: chat,
+        // };
+        // // send(destination,헤더,페이로드)
+        // stompClient.send('/pub/chat/room/message', {}, JSON.stringify(data));
       },
       function (e) {
         alert('에러발생!!!!!!');
@@ -144,7 +144,7 @@ function PhoneChatingRoom() {
       params: {
         start_no: 0,
         user_id: 'ssafy',
-        croom_no: 1,
+        croom_no: room,
       },
     })
       .then((res) => {
@@ -156,7 +156,7 @@ function PhoneChatingRoom() {
   useEffect(() => {
     API.get(`/chat/room`, {
       params: {
-        croom_no: 1,
+        croom_no: room,
       },
     })
       .then((res) => {

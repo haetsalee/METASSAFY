@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -13,13 +14,28 @@ function ChatRoomStartBox(props) {
     if (isCheck) {
       setCheck((e) => !e);
       const list = [...props.tempList];
-      list.splice(list.indexOf(result), 1);
-      props.setTempList([...list]);
+      const newList = list.filter((temp) => {
+        return temp[1] !== result[1];
+      });
+      // list.splice(list.indexOf(result), 1);
+      props.setTempList([...newList]);
     } else {
       setCheck((e) => !e);
       props.setTempList([...props.tempList, result]);
     }
   }
+
+  useEffect(() => {
+    const newList = props.tempList.filter((temp) => {
+      return (
+        temp[0] === result[0] && temp[1] === result[1] && temp[2] === result[2]
+      );
+    });
+    // console.log(props.tempList, '작업중??');
+    // console.log(result);
+    // console.log(props.tempList.includes(result));
+    setCheck(newList.length || false);
+  }, [props]);
 
   return (
     <ChatRoomStartBoxDivStyle onClick={handleClick}>
