@@ -200,7 +200,7 @@ public class UserController {
 
     //특정 유저의 기술 스택 보기
     @ApiOperation(value = "특정 유저의 기술 스택 반환", notes = "user_id의 기술스택 목록 반환", response = TechStack.class)
-    @GetMapping("/techList/{user_id}")
+    @GetMapping("/auth/techList/{user_id}")
     public List<TechStack> getAllTechList(@PathVariable @ApiParam(value = "유저 아이디", required = true) String user_id){
         List <TechStack> list=service.getTechList(user_id);
         return list;
@@ -231,7 +231,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
-    @PostMapping("/setProfileImg")
+    @PostMapping("/auth/setProfileImg")
     public ResponseEntity<String> setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
         try{
             service.setProfileImg(user_id,profile_img);
@@ -241,7 +241,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getUserById/{user_id}")
+    @GetMapping("/auth/getUserById/{user_id}")
     public User getInfo(@PathVariable String user_id){
         return service.getUser(user_id);
     }
