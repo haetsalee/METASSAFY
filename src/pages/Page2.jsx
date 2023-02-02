@@ -92,10 +92,10 @@ function Page2() {
     loaders.setDRACOLoader(dracoLoader);
 
     loaders.load(
-      'build/model/map/map.gltf',
-      // 'model/map2/scene.gltf',
+      // 'build/model/map/map.gltf',
+      'build/model/map/ssafyMap.glb',
       function (gltf) {
-        gltf.scene.scale.set(1, 1, 1);
+        gltf.scene.scale.set(10, 10, 10);
         // gltf.scene.position.y = 0.5;
         gltf.scene.position.z = 5;
         scene.add(gltf.scene);
@@ -115,8 +115,8 @@ function Page2() {
     let mixer;
 
     loaders.load(
-      'build/model/toon_cat_free/scene.gltf',
-      // 'model/people/ilbuni.glb',
+      // "build/model/toon_cat_free/scene.gltf",
+      'build/model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -135,9 +135,9 @@ function Page2() {
         // gltf.scene.scale.x = 0.01;
         // gltf.scene.scale.y = 0.01;
         // gltf.scene.scale.z = 0.01;
-        gltf.scene.scale.x = 10;
-        gltf.scene.scale.y = 10;
-        gltf.scene.scale.z = 10;
+        gltf.scene.scale.x = 3;
+        gltf.scene.scale.y = 3;
+        gltf.scene.scale.z = 3;
         gltf.scene.position.y += 2;
         scene.add(gltf.scene);
         // console.log(gltf.scene.rotation)
@@ -234,8 +234,7 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        // 'people/ilbuni.glb',
-        'build/people/ilbuni.glb',
+        'people/ilbuni.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -271,8 +270,8 @@ function Page2() {
           };
 
           loaders.load(
-            'build/model/toon_cat_free/scene.gltf',
-            // 'model/people/ilbuni.glb',
+            // "build/model/toon_cat_free/scene.gltf",
+            'build/model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -336,8 +335,8 @@ function Page2() {
           mesh: null,
         };
         loaders.load(
-          'build/model/toon_cat_free/scene.gltf',
-          // 'model/people/ilbuni.glb',
+          // "build/model/toon_cat_free/scene.gltf",
+          'build/model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
