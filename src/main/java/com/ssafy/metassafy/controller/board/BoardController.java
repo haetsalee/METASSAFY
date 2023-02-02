@@ -22,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/board")
 @Api("게시판 컨트롤러  API V1")
 public class BoardController {
