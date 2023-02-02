@@ -168,7 +168,8 @@ function Metaverse() {
       function (gltf) {
         gltf.scene.scale.set(1, 1, 1);
         // gltf.scene.position.y = 0.1;
-        gltf.scene.position.z = 10;
+        gltf.scene.position.z = 15;
+        gltf.scene.rotation.y = Math.PI;
         scene.add(gltf.scene);
       },
       // called while loading is progressing
