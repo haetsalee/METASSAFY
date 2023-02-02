@@ -1,16 +1,13 @@
 import API from '../utils/api';
+import { setLocalUserInfo } from '../utils/local-storage';
 
 export const fetchProfileModify = async (userInfo) => {
-  const requestBody = {
-    user_id: id,
-    user_pwd: password,
-  };
-
   try {
-    const response = await API.post('/user/auth/update', requestBody);
+    const response = await API.post('/user/auth/update', userInfo);
     const { data, status } = response;
     if (data === 'Success') {
-      //   await loginProcess(response.headers); // 토큰 저장
+      console.log('Success');
+      setLocalUserInfo(userInfo);
     }
     console.log('profile_modify', data, status);
     return { data, status, error: null };

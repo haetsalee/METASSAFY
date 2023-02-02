@@ -1,7 +1,8 @@
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { fetchUserInfo } from '../../services/auth-service';
+import { fetchProfileModify } from '../../services/profile-service';
 import { getLocalUserInfo } from '../../utils/local-storage';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
@@ -41,12 +42,12 @@ const majorList = {
 const positionList = {
   label: '희망 포지션',
   data: [
-    { label: 'BE', value: 'BE', name: 'position', id: 'BE' },
-    { label: 'FE', value: 'FE', name: 'position', id: 'FE' },
+    { label: 'BE', value: 'BE', name: 'interest', id: 'BE' },
+    { label: 'FE', value: 'FE', name: 'interest', id: 'FE' },
     {
       label: '기타',
       value: '기타',
-      name: 'position',
+      name: 'interest',
       id: 'posNull',
     },
   ],
@@ -67,22 +68,31 @@ const InputBoxList = () => {
   const [techList, setTechList] = useState([]); // tech_id 기술스택
 
   useEffect(() => {
-    const setUser = async () => {
-      const { error } = await fetchUserInfo();
-      if (!error) {
-        console.log(getLocalUserInfo());
-      }
+    const fetchUser = async () => {
+      // const { error } = await fetchUserInfo();
+      // if (!error) {
+      // setInfo(JSON.parse(getLocalUserInfo()));
+      // }
+      console.log(JSON.parse(getLocalUserInfo()));
+      setInfo(JSON.parse(getLocalUserInfo()));
     };
-    setUser();
+    fetchUser();
   }, []);
 
   console.log(info);
+
   const handleChange = (e, key) => {
     setInfo((preState) => {
       const state = { ...preState };
       state[key] = e.target.value;
       return state;
     });
+  };
+
+  const onSubmitHandler = () => {
+    // submit
+    console.log(info);
+    fetchProfileModify(info);
   };
 
   return (
@@ -107,9 +117,19 @@ const InputBoxList = () => {
             data={genderList}
             width="30%"
             value={info.gender}
+            defaultValue={info.gender}
             onChange={(e) => handleChange(e, 'gender')}
           />
-          <CalendarInput />
+          <CalendarInput
+            value={info.birthday}
+            onChange={(e) =>
+              setInfo((preState) => {
+                const state = { ...preState };
+                state['birthday'] = e['$d'];
+                return state;
+              })
+            }
+          />
         </InputsStyle>
       </InputLineStyle>
       {/* SSAFY */}
@@ -120,24 +140,28 @@ const InputBoxList = () => {
             data={generationList}
             width="25%"
             value={info.generation}
+            defaultValue={info.generation}
             onChange={(e) => handleChange(e, 'generation')}
           />
           <DropdownInput
             data={areaList}
             width="25%"
             value={info.area}
+            defaultValue={info.area}
             onChange={(e) => handleChange(e, 'area')}
           />
           <DropdownInput
             data={trackList}
             width="25%"
             value={info.first_semester}
+            defaultValue={info.first_semester}
             onChange={(e) => handleChange(e, 'first_semester')}
           />
           <DropdownInput
             data={majorList}
             width="25%"
             value={info.major}
+            defaultValue={info.major}
             onChange={(e) => handleChange(e, 'major')}
           />
         </InputsStyle>
@@ -147,9 +171,10 @@ const InputBoxList = () => {
         <LabelStyle>희망 포지션</LabelStyle>
         <InputsStyle>
           <RowRadioButtonsGroup
+            defaultValue={info.interest}
             data={positionList}
-            value={info.position}
-            onChange={(e) => handleChange(e, 'position')}
+            value={info.interest}
+            onChange={(e) => handleChange(e, 'interest')}
           />
         </InputsStyle>
       </InputLineStyle>
@@ -168,6 +193,9 @@ const InputBoxList = () => {
           />
         </InputsStyle>
       </InputLineStyle>
+      <Button variant="outlined" onClick={onSubmitHandler}>
+        submit
+      </Button>
     </InputListStyle>
   );
 };

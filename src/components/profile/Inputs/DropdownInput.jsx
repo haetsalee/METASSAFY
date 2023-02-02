@@ -1,8 +1,14 @@
 import { styled } from '@mui/material/styles';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  NativeSelect,
+} from '@mui/material';
 import { useState } from 'react';
 
-const DropdownInput = ({ data, width, value, onChange }) => {
+const DropdownInput = ({ data, width, value, defaultValue, onChange }) => {
   const options = data.data.map((item, index) => {
     return (
       <MenuItemStyle value={item} key={index}>
@@ -29,6 +35,7 @@ const DropdownInput = ({ data, width, value, onChange }) => {
         value={result}
         onChange={handleChange}
         label={data.label}
+        defaultValue={defaultValue}
         autoWidth
       >
         {options}
