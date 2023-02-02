@@ -66,8 +66,8 @@ const FriendListStyle = styled.div`
   height: 23rem;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 10px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
   }

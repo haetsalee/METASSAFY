@@ -1,7 +1,7 @@
 // import { useHistory } from 'react-router-dom';
 // import TextGroupComponent from '../components/phone/TextGroupComponent';
 import Phone from '../components/UI/Phone';
-import React, { useState } from 'react';
+import React from 'react';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 

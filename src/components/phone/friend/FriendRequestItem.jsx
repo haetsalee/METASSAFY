@@ -10,7 +10,6 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
   useEffect(() => {
     API.get('user/searchUser/' + friend.from_user_id)
       .then((res) => {
-        console.log(res.data[0]);
         setFriendInfo(res.data[0]);
       })
       .catch((err) => console.log(err));
@@ -24,12 +23,12 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
             <FriendImgStyle
               img
               src={friendInfo.profile_img}
-              alt={friend.name}
+              alt={friendInfo.name}
             ></FriendImgStyle>
           </FriendImgDivStyle>
           <TextGroutStyle>
-            <NameTextStyle>{friend.from_user_id}</NameTextStyle>
-            <StateTextStyle>아직 친구가 아닙니다.</StateTextStyle>
+            <NameTextStyle>{friendInfo.name}</NameTextStyle>
+            <StateTextStyle>{`@${friendInfo.user_id}`}</StateTextStyle>
           </TextGroutStyle>
         </FriendItemStyle>
         <IconDivStyle>

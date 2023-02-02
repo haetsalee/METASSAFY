@@ -5,6 +5,7 @@ import API from '../../../utils/api';
 
 const FriendRequest = () => {
   const [requests, setRequests] = useState([]);
+  const [newRequests, setNewRequests] = useState([]);
 
   let user = 'annonymous';
   if (window.localStorage.getItem('USER')) {
@@ -15,6 +16,16 @@ const FriendRequest = () => {
     API.get('/friend/getNotifyList/' + user)
       .then((res) => {
         setRequests(res.data.filter((request) => request.accept === false));
+      })
+      .catch((err) => console.log(err));
+  }, [newRequests]);
+
+  useEffect(() => {
+    API.get('/friend/receive/notify/' + user)
+      .then((res) => {
+        console.log(res.data);
+        setNewRequests(res.data);
+        console.log(newRequests);
       })
       .catch((err) => console.log(err));
   }, []);

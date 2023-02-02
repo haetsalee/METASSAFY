@@ -16,7 +16,7 @@ const FriendItem = ({ friend, onDeleteFriend }) => {
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{friend.name}</NameTextStyle>
-            <StateTextStyle>{friend.user_id}</StateTextStyle>
+            <StateTextStyle>{`@${friend.user_id}`}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>

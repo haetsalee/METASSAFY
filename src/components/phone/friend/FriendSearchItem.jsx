@@ -16,7 +16,7 @@ const FriendSearchItem = (props) => {
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{props.name}</NameTextStyle>
-            <StateTextStyle>{props.user_id}</StateTextStyle>
+            <StateTextStyle>{`@${props.user_id}`}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>

@@ -10,19 +10,8 @@ import FriendSendRequest from '../../components/phone/friend/FriendSendRequest';
 import FriendSearch from '../../components/phone/friend/FriendSearch';
 import RecommendButton from '../../components/phone/friend/RecommendButton';
 import RecommendList from '../../components/phone/friend/RecommendList';
-import { getLocalUserInfo } from '../../utils/local-storage';
-import { fetchUserInfo } from '../../services/auth-service';
 
 function PhoneFriendPage() {
-  const [user, setUser] = useState(getLocalUserInfo());
-
-  const userHandler = async () => {
-    const { error } = await fetchUserInfo();
-    if (!error) {
-      setUser(getLocalUserInfo());
-    }
-  };
-
   const [show, setShow] = useState({
     Page: true,
     Request: false,
@@ -37,7 +26,6 @@ function PhoneFriendPage() {
       SendRequest: false,
       Search: false,
     });
-    userHandler();
   };
 
   const onClickRequest = () => {
@@ -72,7 +60,7 @@ function PhoneFriendPage() {
       <PhoneFriendPageStyle>
         <MyProfile />
         <FriendButtonBar
-          onClickPage={onClickPage} user={user}
+          onClickPage={onClickPage}
           onClickRequest={onClickRequest}
           onClickSearch={onClickSearch}
           onClickSendRequest={onClickSendRequest}

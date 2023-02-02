@@ -25,14 +25,13 @@ export default MyProfile;
 
 const MyProfileImgStyle = styled.img`
   vertical-align: middle;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 70%;
-  overflow: hidden;
 `;
 
 const MyProfileImgDivStyle = styled.div`
-  display: inline-block;
+  display: flex;
   padding: 0.5rem;
 `;
 
@@ -42,9 +41,12 @@ const MyProfileDivStyle = styled.div`
   height: 3rem;
   position: relative;
   margin-top: 5px;
+  display: flex;
 `;
 
 const NameTextStyle = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.1rem;
 `;

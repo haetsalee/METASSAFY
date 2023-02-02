@@ -93,7 +93,7 @@ function Page2() {
 
     loaders.load(
       // 'build/model/map/map.gltf',
-      'build/model/map/ssafyMap.glb',
+      'model/map/ssafyMap.glb',
       function (gltf) {
         gltf.scene.scale.set(10, 10, 10);
         // gltf.scene.position.y = 0.5;
@@ -116,7 +116,7 @@ function Page2() {
 
     loaders.load(
       // "build/model/toon_cat_free/scene.gltf",
-      'build/model/people/ilbuni.glb',
+      'model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -234,7 +234,7 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        'people/ilbuni.glb',
+        'model/people/ilbuni.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -271,7 +271,7 @@ function Page2() {
 
           loaders.load(
             // "build/model/toon_cat_free/scene.gltf",
-            'build/model/people/ilbuni.glb',
+            'model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -336,7 +336,7 @@ function Page2() {
         };
         loaders.load(
           // "build/model/toon_cat_free/scene.gltf",
-          'build/model/people/ilbuni.glb',
+          'model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
