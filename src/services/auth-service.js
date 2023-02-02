@@ -93,3 +93,17 @@ export const fetchUserInfo = async () => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+export const fetchUserInfoById = async (id) => {
+  try {
+    const { data, status } = await API.get(`/user/auth/getUserById/${id}`);
+    if (status === 200) {
+      setLocalUserInfo(data);
+      console.log('userinfo', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
