@@ -1,10 +1,14 @@
-import { useHistory } from 'react-router-dom';
-import TextGroupComponent from '../components/phone/TextGroupComponent';
+// import { useHistory } from 'react-router-dom';
+// import TextGroupComponent from '../components/phone/TextGroupComponent';
 import Phone from '../components/UI/Phone';
+import React from 'react';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
 import GetUserStack from '../components/phone/GetUserStack';
 import { useEffect } from 'react';
 import { fetchUserInfo } from '../services/auth-service';
+import PhoneChatingRoom from './phone_pages/PhoneChatingRoom';
+import PhoneChatingList from './phone_pages/PhoneChatingList';
+import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 
 function Page1() {
   useEffect(() => {
@@ -19,9 +23,10 @@ function Page1() {
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <h1>Page1</h1>
       <Phone>
         <PhoneUserProfile></PhoneUserProfile>
+        <PhoneChatingRoom />
+        <PhoneChatingList />
         {/* 프로필 사진
       활동중 뱃지
       이름
@@ -33,6 +38,8 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
+
+        <PhoneFriendPage />
       </Phone>
       <GetUserStack></GetUserStack>
     </section>
