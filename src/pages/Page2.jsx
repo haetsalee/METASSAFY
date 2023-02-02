@@ -186,7 +186,7 @@ function Page2() {
 
     // animation 관련
     let mixer;
-
+    //왜 적용이 안될까
     loaders.load(
       // "build/model/toon_cat_free/scene.gltf",
       'build/model/people/people.glb',
