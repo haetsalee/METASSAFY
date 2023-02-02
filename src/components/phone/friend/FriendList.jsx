@@ -4,7 +4,7 @@ import FriendListItem from './FriendListItem';
 import axios from 'axios';
 import API from '../../../utils/api';
 
-const FriendList = (props) => {
+const FriendList = () => {
   const [friends, setFriends] = useState([]);
 
   const onDeleteFriend = (user_id) => {

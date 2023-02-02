@@ -25,7 +25,6 @@ const FriendRequest = () => {
       .then((res) => {
         console.log(res.data);
         setNewRequests(res.data);
-        console.log(newRequests);
       })
       .catch((err) => console.log(err));
   }, []);
