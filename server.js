@@ -49,9 +49,12 @@ io.on('connection', (client) => {
   //Make sure to send the client it's ID
   client.emit(
     'introduction',
-    client.id,
+    // 내가 들어갔을 때
+    client.id, // 새로 사람들어오면 모든 사람에게 새로운 유저가 들어왔따고 알려주는것
+    // 몇명 들어왔는지
     io.engine.clientsCount,
-    Object.keys(clients)
+
+    Object.keys(clients) // 모든 클라이언트 id를 오브젝트로 - 기존에 키에 없으면 새로 불러서 그려라
   );
   // 클라이언트(접속자)에게 'introduction'이라는 이벤트를 보내며
   // 동시에 client의 id와 현재 접속자 수와, clients라는 오브젝트의 key를 배열로 전달
@@ -84,6 +87,7 @@ io.on('connection', (client) => {
     //에서는 현재 clients 오브젝트의 전체 client의
     // position과 rotation을 확인할 수 있다.
 
+    // 모든 사람들에게 위치 바뀐 오브젝트는 이거야 하고 보내주는거
     io.sockets.emit('userPositions', clients);
     // 이후 io를 통해 sockets(접속자들)에게 전체 emit한다. 무엇을?
     // console.log(clients, 'clientssss')
@@ -91,6 +95,7 @@ io.on('connection', (client) => {
     // 그리고 clients라는 오브젝트를 데이터로 전달한다.
   });
 
+  // 채팅 메세지 보내는거
   client.on('chat', (text) => {
     const chating = {
       name: client.id,
