@@ -40,12 +40,7 @@ function GetUserStack() {
   return (
     <section>
       <h1>All TechStack</h1>
-      {/* { [<li>Item1</li>, <li>Item2</li>] } */}
-      {/* { DUMMY_DATA.map((meetup) => {
-        return (
-          <li key={meetup.id}>{meetup.title}</li>
-          )
-      })} */}
+
       <TechStackList stacks={loadedStacks} />
     </section>
   );
