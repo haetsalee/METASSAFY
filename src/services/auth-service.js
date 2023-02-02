@@ -5,6 +5,7 @@ import {
   setLocalUserInfo,
   removeAllLocal,
   getLocalRefreshToken,
+  setLocalUserStack,
 } from '../utils/local-storage';
 
 const loginProcess = async (headers) => {
@@ -86,6 +87,35 @@ export const fetchUserInfo = async () => {
     if (status === 200) {
       setLocalUserInfo(data);
       console.log('userinfo', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchUserInfoById = async (id) => {
+  try {
+    const { data, status } = await API.get(`/user/auth/getUserById/${id}`);
+    if (status === 200) {
+      setLocalUserInfo(data);
+      console.log('userinfo', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+/// ?????
+export const fetchUserStackById = async (id) => {
+  try {
+    const { data, status } = await API.get(`/user/auth/techList/${id}`);
+    if (status === 200) {
+      setLocalUserStack(data);
+      console.log('userStack', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };

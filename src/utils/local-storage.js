@@ -30,3 +30,8 @@ export const getLocalUserInfo = () => {
 export const setLocalUserInfo = (userInfo) => {
   localStorage.setItem('USER', JSON.stringify(userInfo));
 };
+
+// ????/
+export const setLocalUserStack = (userStack) => {
+  localStorage.setItem('USER_TECH', JSON.stringify(userStack));
+};

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function BackgroundBox() {
+function BackgroundBox(props) {
   return (
     <WrapperStyle>
       <BackgroundBoxStyle>
         <CircleBackgroundStyle>
-          <CircleImgStyle></CircleImgStyle>
+          <CircleImgStyle src={props.image}></CircleImgStyle>
         </CircleBackgroundStyle>
       </BackgroundBoxStyle>
     </WrapperStyle>
@@ -43,7 +43,7 @@ const CircleBackgroundStyle = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 `;
 
-const CircleImgStyle = styled.div`
+const CircleImgStyle = styled.img`
   width: 90%;
   height: 90%;
   background-color: white;
