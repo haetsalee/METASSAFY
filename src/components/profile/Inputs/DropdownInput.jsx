@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 
-const DropdownInput = ({ data, width }) => {
+const DropdownInput = ({ data, width, value, onChange }) => {
   const options = data.data.map((item, index) => {
     return (
       <MenuItemStyle value={item} key={index}>
@@ -14,6 +14,8 @@ const DropdownInput = ({ data, width }) => {
   const [result, setResult] = useState('');
   const handleChange = (event) => {
     setResult(event.target.value);
+    onChange(event);
+    console.log(event.target.value);
   };
 
   return (

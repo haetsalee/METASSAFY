@@ -64,20 +64,40 @@ const InputBoxList = () => {
   });
   const [techList, setTechList] = useState([]); // tech_id 기술스택
 
+  const handleChange = (e, key) => {
+    setInfo((preState) => {
+      const state = { ...preState };
+      state[key] = e.target.value;
+      return state;
+    });
+    console.log(e, key, info[key]);
+  };
+
+  console.log(info);
   return (
     <InputListStyle>
       {/* 이름 */}
       <InputLineStyle>
         <LabelStyle>이름</LabelStyle>
         <InputsStyle>
-          <TextField id="standard-basic" variant="standard" />
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            value={info.name}
+            onChange={(e) => handleChange(e, 'name')}
+          />
         </InputsStyle>
       </InputLineStyle>
       {/* 개인정보 */}
       <InputLineStyle>
         <LabelStyle>개인정보</LabelStyle>
         <InputsStyle>
-          <DropdownInput data={genderList} width="30%" />
+          <DropdownInput
+            data={genderList}
+            width="30%"
+            value={info.gender}
+            onChange={(e) => handleChange(e, 'gender')}
+          />
           <CalendarInput />
         </InputsStyle>
       </InputLineStyle>
@@ -85,17 +105,41 @@ const InputBoxList = () => {
       <InputLineStyle>
         <LabelStyle>SSAFY</LabelStyle>
         <InputsStyle>
-          <DropdownInput data={generationList} width="25%" />
-          <DropdownInput data={areaList} width="25%" />
-          <DropdownInput data={trackList} width="25%" />
-          <DropdownInput data={majorList} width="25%" />
+          <DropdownInput
+            data={generationList}
+            width="25%"
+            value={info.generation}
+            onChange={(e) => handleChange(e, 'generation')}
+          />
+          <DropdownInput
+            data={areaList}
+            width="25%"
+            value={info.area}
+            onChange={(e) => handleChange(e, 'area')}
+          />
+          <DropdownInput
+            data={trackList}
+            width="25%"
+            value={info.first_semester}
+            onChange={(e) => handleChange(e, 'first_semester')}
+          />
+          <DropdownInput
+            data={majorList}
+            width="25%"
+            value={info.major}
+            onChange={(e) => handleChange(e, 'major')}
+          />
         </InputsStyle>
       </InputLineStyle>
       {/* 희망 포지션 */}
       <InputLineStyle>
         <LabelStyle>희망 포지션</LabelStyle>
         <InputsStyle>
-          <RowRadioButtonsGroup data={positionList} />
+          <RowRadioButtonsGroup
+            data={positionList}
+            value={info.position}
+            onChange={(e) => handleChange(e, 'position')}
+          />
         </InputsStyle>
       </InputLineStyle>
       {/* 자기소개 */}
@@ -108,6 +152,8 @@ const InputBoxList = () => {
             variant="standard"
             multiline
             maxRows={4}
+            value={info.profile_txt}
+            onChange={(e) => handleChange(e, 'profile_txt')}
           />
         </InputsStyle>
       </InputLineStyle>
