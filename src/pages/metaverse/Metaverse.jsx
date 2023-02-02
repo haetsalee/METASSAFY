@@ -8,10 +8,12 @@ import { House } from './House';
 // import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
+import Stats from 'three/examples/jsm/libs/stats.module';
 
 function Metaverse() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+  const [statsTag, setStatsTag] = useState([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -101,6 +103,10 @@ function Metaverse() {
     // orbitControls.enablePan = false;
     // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
     // orbitControls.update();
+
+    // 프레임 확인
+    const stats = Stats();
+    document.body.appendChild(stats.dom);
 
     // Mesh
     const meshes = [];
@@ -201,7 +207,7 @@ function Metaverse() {
 
     function draw() {
       const delta = clock.getDelta();
-
+      stats.update();
       if (player.mixer) player.mixer.update(delta);
 
       if (player.modelMesh) {
