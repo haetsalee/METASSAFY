@@ -161,7 +161,7 @@ function Metaverse() {
     const house = new House({
       gltfLoader,
       scene,
-      modelSrc: '/models/house.glb',
+      modelSrc: 'build/models/house.glb',
       x: 5,
       y: -1.3,
       z: 2,
@@ -170,7 +170,7 @@ function Metaverse() {
     // 지도 로드
     gltfLoader.load(
       // 'build/model/map/map.gltf',
-      'models/map_floorx.glb',
+      'build/models/map_floorx.glb',
       function (gltf) {
         gltf.scene.scale.set(1, 1, 1);
         // gltf.scene.position.y = 0.1;
@@ -193,7 +193,7 @@ function Metaverse() {
       scene,
       meshes,
       gltfLoader,
-      modelSrc: '/models/people.glb',
+      modelSrc: 'build/models/people.glb',
     });
 
     const raycaster = new THREE.Raycaster();
