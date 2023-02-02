@@ -7,16 +7,15 @@ import MyChatRoomList from '../../components/phone/chat/MyChatRoomList';
 import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
 import ChatInviteList from '../../components/phone/chat/ChatInviteList';
 
+import { getJsonLocalUserInfo } from '../../utils/local-storage';
+
 import { useState, useEffect } from 'react';
 
 import API from '../../utils/api';
 
-let user = 'annonymous';
-if (window.localStorage.getItem('USER')) {
-  user = JSON.parse(window.localStorage.getItem('USER')).user_id;
-}
-
 function PhoneChatingList() {
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+
   const [search, setSearch] = useState('');
   const [searchList, setSearchList] = useState([]);
   const [roomList, setRoomList] = useState([]);
@@ -76,7 +75,7 @@ export default PhoneChatingList;
 const PhoneChatingListStyle = styled.div`
   padding: 0.5rem;
   width: 100%;
-  height: 90%;
+  height: 84%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0.2rem;

@@ -7,11 +7,17 @@ import ChatInviteItem from './ChatInviteItem';
 function ChatInviteList(props) {
   // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
+  let newChatRoomName = '';
+  props.inviteList.map((item) => {
+    newChatRoomName += item[0] + ', ';
+  });
+  newChatRoomName = newChatRoomName.substring(0, newChatRoomName.length - 2);
+  // console.log(newChatRoomName);
 
   const frm = new FormData();
 
   const chatParameterDto = {
-    croom_name: '진짜제발제바류22re',
+    croom_name: newChatRoomName,
     // participants: ['ssafy', 'ssafy3', 'ssafy4', 'ssafy5'],
     participants: tempInviteList,
   };

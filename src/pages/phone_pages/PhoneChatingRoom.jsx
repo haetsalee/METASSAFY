@@ -12,16 +12,15 @@ import SockJS from 'sockjs-client';
 import { useState, useEffect } from 'react';
 
 import API from '../../utils/api';
+import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
 const room = 1;
-let user = 'annonymous';
-if (window.localStorage.getItem('USER')) {
-  user = JSON.parse(window.localStorage.getItem('USER')).user_id;
-}
 
 let stompClient;
 
 function PhoneChatingRoom() {
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+
   const [chatList, setChatList] = useState([]);
   const [chatRoom, setRoomList] = useState({});
   const [chat, setChat] = useState('');
@@ -203,7 +202,7 @@ const PhoneChatingRoomStyle = styled.div`
 
 const ChatRoomDiv = styled.div`
   width: 100%;
-  height: 82%;
+  height: 75%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0.2rem;

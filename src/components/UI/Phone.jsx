@@ -2,9 +2,15 @@ import BackgroundBox from '../phone/BackgroundBox';
 import MajorPositionClass from '../phone/MajorPositionClass';
 import TextGroupComponent from '../phone/TextGroupComponent';
 import styled from 'styled-components';
+import PhoneNav from '../phone/phoneNav/PhoneNav';
 
 function Phone(props) {
-  return <PhoneStyle>{props.children}</PhoneStyle>;
+  return (
+    <PhoneStyle>
+      {props.children}
+      <PhoneNav />
+    </PhoneStyle>
+  );
 }
 
 export default Phone;
