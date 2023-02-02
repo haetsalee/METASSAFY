@@ -12,9 +12,10 @@ function UserProfilePage() {
     >
       <h1>UserProfilePage</h1>
       <Phone>
-        <PhoneUserProfileById name="admin"></PhoneUserProfileById>
+        <PhoneUserProfileById name="ssafy"></PhoneUserProfileById>
       </Phone>
-      <GetUserStack></GetUserStack>
+      {/* ???? */}
+      <GetUserStack name="ssafy"></GetUserStack>
     </section>
   );
 }
