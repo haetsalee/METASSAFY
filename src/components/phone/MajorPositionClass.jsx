@@ -7,7 +7,7 @@ function MajorPositionClass(props) {
     <MajorPositionClassStyle>
       <TextGroup name={props.major} class="전공" />
       <TextGroup name={props.position} class="포지션" />
-      <TextGroup name={props.track} class="공통" />
+      <TextGroup name={props.track} class="반" />
     </MajorPositionClassStyle>
   );
 }
