@@ -70,6 +70,7 @@ function Page2() {
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
+      alpha: true,
     });
     //resize
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -127,17 +128,42 @@ function Page2() {
     // spotLight.position.set(0, 64, 32);
     // scene.add(spotLight);
 
-    // const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    // const boxMaterial = new THREE.MeshNormalMaterial();
+    // canvasTexture
+    // const texCanvas = document.createElement('canvas');
+    // const texContext = texCanvas.getContext('2d');
+    // texCanvas.width = 500;
+    // texCanvas.height = 500;
+    // const canvasTexture = new THREE.CanvasTexture(texCanvas);
+
+    // const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+    // const boxMaterial = new THREE.MeshBasicMaterial({ map: canvasTexture });
     // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+    // boxMesh.position.z = 3;
+    // boxMesh.position.y = 4;
     // scene.add(boxMesh);
+
+    // 이름
+    const nameTagCanvas = document.createElement('canvas');
+    const nameTagContext = nameTagCanvas.getContext('2d');
+    nameTagCanvas.width = 500;
+    nameTagCanvas.height = 500;
+    const nameTagTexture = new THREE.CanvasTexture(nameTagCanvas);
+
+    const nameTagGeometry = new THREE.PlaneGeometry(1, 1);
+    const nameTagMaterial = new THREE.MeshBasicMaterial({
+      map: nameTagTexture,
+    });
+    const nameTagMesh = new THREE.Mesh(nameTagGeometry, nameTagMaterial);
+    nameTagMesh.position.z = 10;
+    nameTagMesh.position.y = 10;
+    scene.add(nameTagMesh);
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
     // local test
-    const floorTexture = textureLoader.load('build/images/grid.png');
+    const floorTexture = textureLoader.load('images/grid.png');
     // server test
-    // const floorTexture = textureLoader.load('build/images/grid.png');
+    // const floorTexture = textureLoader.load('images/grid.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 10;
@@ -165,8 +191,8 @@ function Page2() {
 
     // Map loader
     // loaders.load(
-    //   // 'build/model/map/map.gltf',
-    //   'build/model/map/ssafyMap.glb',
+    //   // 'model/map/map.gltf',
+    //   'model/map/ssafyMap.glb',
     //   function (gltf) {
     //     gltf.scene.scale.set(10, 10, 10);
     //     // gltf.scene.position.y = 0.5;
@@ -188,8 +214,8 @@ function Page2() {
     let mixer;
     //왜 적용이 안될까
     loaders.load(
-      // "build/model/toon_cat_free/scene.gltf",
-      'build/model/people/people.glb',
+      // "model/toon_cat_free/scene.gltf",
+      'model/people/people.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -307,7 +333,7 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        'build/models/people.glb',
+        'models/people.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -343,8 +369,8 @@ function Page2() {
           };
 
           loaders.load(
-            // "build/model/toon_cat_free/scene.gltf",
-            'build/model/people/people.glb',
+            // "model/toon_cat_free/scene.gltf",
+            'model/people/people.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -408,8 +434,8 @@ function Page2() {
           mesh: null,
         };
         loaders.load(
-          // "build/model/toon_cat_free/scene.gltf",
-          'build/model/people/people.glb',
+          // "model/toon_cat_free/scene.gltf",
+          'model/people/people.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
@@ -521,6 +547,17 @@ function Page2() {
     const clock = new THREE.Clock();
 
     const animate = () => {
+      // canvasText
+      // texContext.fillRect(0, 0, 400, 400);
+      // texContext.fillStyle = 'white';
+      // texContext.font = 'bold 50px sans-serif';
+      // texContext.fillText('캐릭터 이름', 200, 200);
+
+      nameTagContext.fillStyle = 'white';
+      nameTagContext.font = 'bold 60px sans-serif';
+
+      nameTagContext.fillText('캐릭터 이름', 50, 100);
+
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
 
