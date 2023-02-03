@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const port = 8090; // 서버를 열 포트 번호
 const app = express();
+// 서버 코드
 
 const server = http.createServer(app);
 
@@ -71,6 +72,11 @@ io.on('connection', (client) => {
   // 그리고 현재의 접속자수와 지금 접속한 client의 id 그리고 현재 clients의 key 배열을
   // 데이터로 전달한다.
 
+  client.on('user', (userData) => {
+    // console.log(userData.user, 'userData', client.id);
+    clients[client.id] = { userName: userData.user };
+  });
+
   client.on('move', (posrot) => {
     // client로부터 move라는 이벤트를 들으면
     // pos라는 데이터를 함께 받아오는데, 이걸 어떻게 쓰는가...
@@ -97,8 +103,9 @@ io.on('connection', (client) => {
 
   // 채팅 메세지 보내는거
   client.on('chat', (text) => {
+    // console.log(clients[client.id].userName, '--------');
     const chating = {
-      name: client.id,
+      name: clients[client.id].userName,
       text: text,
     };
     io.sockets.emit('chating', chating);
