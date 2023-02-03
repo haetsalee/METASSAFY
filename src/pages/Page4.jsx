@@ -1,97 +1,86 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { SoftShadows } from '@react-three/drei';
-import { useControls } from 'leva';
-import { Perf } from 'r3f-perf';
+import * as THREE from 'three';
+import { useMemo } from 'react';
+import { Canvas } from '@react-three/fiber';
+import {
+  ContactShadows,
+  Environment,
+  Float,
+  Html,
+  OrbitControls,
+} from '@react-three/drei';
+import { MathUtils } from 'three';
 
-const easeInOutCubic = (t) =>
-  t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-function Sphere({ position = [0, 0, 0], ...props }) {
-  const ref = useRef();
-  const factor = useMemo(() => 0.5 + Math.random(), []);
-  useFrame((state) => {
-    const t = easeInOutCubic(
-      (1 + Math.sin(state.clock.getElapsedTime() * factor)) / 2
-    );
-    ref.current.position.y = position[1] + t * 4;
-    ref.current.scale.y = 1 + t * 3;
+import { useEffect } from 'react';
+
+export default function Page2() {
+  useEffect(() => {
+    const material = new THREE.MeshStandardMaterial();
+    const geometries = [
+      { geometry: new THREE.TetrahedronGeometry(2) },
+      { geometry: new THREE.CylinderGeometry(0.8, 0.8, 2, 32) },
+      { geometry: new THREE.ConeGeometry(1.1, 1.7, 32) },
+      { geometry: new THREE.SphereGeometry(1.5, 32, 32) },
+      { geometry: new THREE.IcosahedronGeometry(2) },
+      { geometry: new THREE.TorusGeometry(1.1, 0.35, 16, 32) },
+      { geometry: new THREE.OctahedronGeometry(2) },
+      { geometry: new THREE.SphereGeometry(1.5, 32, 32) },
+      { geometry: new THREE.BoxGeometry(2.5, 2.5, 2.5) },
+    ];
+
+    function Geometries() {
+      const n = 40;
+      const randProps = useMemo(
+        () =>
+          Array.from(
+            { length: n },
+            () => geometries[Math.floor(Math.random() * geometries.length)]
+          ),
+        []
+      );
+      return randProps.map((prop) => {
+        return (
+          <Float>
+            <mesh
+              scale={MathUtils.randFloat(0.25, 0.5)}
+              position={[
+                MathUtils.randFloat(-8, 8),
+                MathUtils.randFloat(-8, 8),
+                MathUtils.randFloat(-8, 8),
+              ]}
+              geometry={prop.geometry}
+              material={material}
+            />
+          </Float>
+        );
+      });
+    }
   });
   return (
-    <mesh ref={ref} position={position} {...props} castShadow receiveShadow>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshLambertMaterial color="white" roughness={0} metalness={0.1} />
-    </mesh>
-  );
-}
-
-function Spheres({ number = 20 }) {
-  const ref = useRef();
-  const positions = useMemo(
-    () =>
-      [...new Array(number)].map(() => [
-        3 - Math.random() * 6,
-        Math.random() * 4,
-        3 - Math.random() * 6,
-      ]),
-    []
-  );
-  useFrame(
-    (state) =>
-      (ref.current.rotation.y =
-        Math.sin(state.clock.getElapsedTime() / 2) * Math.PI)
-  );
-  return (
-    <group ref={ref}>
-      {positions.map((pos, index) => (
-        <Sphere key={index} position={pos} />
-      ))}
-    </group>
-  );
-}
-
-export default function Page4() {
-  const { enabled, ...config } = useControls({
-    enabled: true,
-    frustum: { value: 3.75, min: 1.5, max: 4.5 },
-    size: { value: 0.005, min: 0.001, max: 0.01, step: 0.001 },
-    near: { value: 9.5, min: 1.5, max: 9.5 },
-    samples: { value: 10, min: 1, max: 20, step: 1 },
-    rings: { value: 11, min: 1, max: 20, step: 1 },
-  });
-  return (
-    <Canvas shadows camera={{ position: [-5, 2, 10], fov: 60 }}>
-      {enabled && <SoftShadows {...config} />}
-      <fog attach="fog" args={['white', 0, 40]} />
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        castShadow
-        position={[2.5, 8, 5]}
-        intensity={1.5}
-        shadow-mapSize={1024}
-      >
-        <orthographicCamera
-          attach="shadow-camera"
-          args={[-10, 10, -10, 10, 0.1, 50]}
-        />
-      </directionalLight>
-      <pointLight position={[-10, 0, -20]} color="white" intensity={1} />
-      <pointLight position={[0, -10, 0]} intensity={1} />
-      <group position={[0, -3.5, 0]}>
-        <mesh receiveShadow castShadow>
-          <boxGeometry args={[4, 1, 1]} />
-          <meshLambertMaterial />
-        </mesh>
-        <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.5, 0]}
+    <div style={{ width: '50vw', height: '50vh' }}>
+      <Canvas camera={{ position: [0, 0, 22.5] }}>
+        <hemisphereLight groundColor="blue" />
+        <Html
+          castShadow
           receiveShadow
+          occlude="blending"
+          transform
+          style={{ padding: '0' }}
         >
-          <planeGeometry args={[100, 100]} />
-          <shadowMaterial transparent opacity={0.4} />
-        </mesh>
-        <Spheres />
-      </group>
-      {/*<Perf position="top-left" />*/}
-    </Canvas>
+          <iframe
+            title="embed"
+            width={700}
+            height={500}
+            src="https://www.youtube.com/embed/l2DElZeiiYA"
+            // src="http://threejs.org/"
+            // scrolling="no"
+            // style="border:0"
+          />
+        </Html>
+        {/* <Geometries /> */}
+        <Environment background preset="dawn" blur={0.8} />
+        {/* <ContactShadows position={[0, -9, 0]} opacity={0.7} scale={40} blur={1} /> */}
+        <OrbitControls />
+      </Canvas>
+    </div>
   );
 }

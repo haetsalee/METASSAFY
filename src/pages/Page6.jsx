@@ -1,9 +1,3 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { SoftShadows } from '@react-three/drei';
-import { useControls } from 'leva';
-import { Perf } from 'r3f-perf';
-
 const easeInOutCubic = (t) =>
   t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
 function Sphere({ position = [0, 0, 0], ...props }) {
@@ -49,7 +43,7 @@ function Spheres({ number = 20 }) {
   );
 }
 
-export default function Page5() {
+export default function Page6() {
   const { enabled, ...config } = useControls({
     enabled: true,
     frustum: { value: 3.75, min: 1.5, max: 4.5 },
