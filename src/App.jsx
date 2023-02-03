@@ -11,7 +11,7 @@ import Page3 from './pages/Page3';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
 import Board from './pages/Board';
-import Profile from './pages/Profile';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/board" element={<Board />} />
         {/* <Route path='/' element={ <MainPage/> } /> */}
         <Route path="/Page1" element={<Page1 />} />
-        <Route path="/profile" element={<Profile user_id="ssafy" />} />
+        <Route path="/profile" element={<ProfilePage user_id="ssafy" />} />
         <Route path="/Page2" element={<Page2 />} />
         <Route path="/profile/modify" element={<ProfileModify />} />
         <Route path="/Page3" element={<Page3 />} />

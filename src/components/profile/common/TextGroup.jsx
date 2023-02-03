@@ -20,6 +20,6 @@ const TextGroupStyle = styled.div`
 `;
 const NameTextStyle = styled.div`
   color: #8b9cd9;
-  font-family: Korail Round Gothic Medium, 'Source Sans Pro';
+  fontfamily: 'korail_bold';
   margin-bottom: 5px;
 `;

@@ -26,8 +26,7 @@ const BackgroundBoxStyle = styled.div`
   width: 20rem;
   height: 10rem;
   position: relative;
-  margin-top: 15px;
-  margin-bottom: 60px;
+  margin-bottom: 3.3rem;
 `;
 
 const CircleBackgroundStyle = styled.div`

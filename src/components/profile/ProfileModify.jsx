@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BackgroundBox from '../phone/BackgroundBox';
+import BackgroundBox from './common/BackgroundBox';
 import Phone from '../UI/Phone';
 import ModifyInputBoxList from './ModifyInputBoxList';
 

@@ -4,21 +4,19 @@ import styled from 'styled-components';
 
 function InfoBox(props) {
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderBottom: '2px solid lightgray',
-          width: '18rem',
-        }}
-      >
-        <div style={{ margin: '5px' }}>{props.icon}</div>
-        <div>{props.text}</div>
-      </div>
-    </>
+    <InfoDivStyle>
+      <div style={{ width: '10%', margin: '0 0.5rem' }}>{props.icon}</div>
+      <div>{props.text}</div>
+    </InfoDivStyle>
   );
 }
 
 export default InfoBox;
+
+const InfoDivStyle = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid lightgray;
+  margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
+`;

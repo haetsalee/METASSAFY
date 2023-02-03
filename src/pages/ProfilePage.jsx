@@ -1,11 +1,11 @@
 import Phone from '../components/UI/Phone';
-import PhoneUserProfileById from './phone_pages/PhoneUserProfileById';
+import Profile from '../components/profile/Profile';
 // import GetUserStack from '../components/phone/GetUserStack';
 
 import useMyFetch from '../hooks/use-my-fetch';
 import useOtherFetch from '../hooks/use-other-fetch';
 
-function Profile({ user_id }) {
+function ProfilePage({ user_id }) {
   const my = useMyFetch();
   const other = useOtherFetch(user_id);
   const user = user_id ? other : my;
@@ -13,10 +13,10 @@ function Profile({ user_id }) {
 
   return (
     <Phone>
-      <PhoneUserProfileById user={user}></PhoneUserProfileById>
+      <Profile user={user}></Profile>
       {/* <GetUserStack name="ssafy"></GetUserStack> */}
     </Phone>
   );
 }
 
-export default Profile;
+export default ProfilePage;
