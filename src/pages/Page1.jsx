@@ -8,10 +8,10 @@ function Page1() {
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      {/* <h1>Page1</h1> */}
-      {/* <Phone > */}
-      <PhoneUserProfile></PhoneUserProfile>
-      {/* 프로필 사진
+      <h1>Page1</h1>
+      <Phone>
+        <PhoneUserProfile></PhoneUserProfile>
+        {/* 프로필 사진
       활동중 뱃지
       이름
       반
@@ -22,7 +22,7 @@ function Page1() {
       기술스택
       자기소개
       생일 */}
-      {/* </Phone> */}
+      </Phone>
     </section>
   );
 }
