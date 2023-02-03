@@ -9,6 +9,7 @@ import TechStackBox from '../../components/phone/TechStackBox';
 import InfoBox from '../../components/phone/InfoBox';
 import { useEffect } from 'react';
 import { fetchUserInfoById } from '../../services/auth-service';
+import GetUserStack from '../../components/phone/GetUserStack';
 
 function PhoneUserProfile(props) {
   const [count, setCount] = useState(0);
@@ -30,7 +31,7 @@ function PhoneUserProfile(props) {
   //   getUserInfo();
   // });
 
-  const [userInfo, setUserInfo] = useState({});
+  // const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
     const user_id = props.name;
     console.log('--------');
@@ -40,12 +41,49 @@ function PhoneUserProfile(props) {
       console.log('--------');
       console.log(userData);
       console.log('-----!!!!!!!---');
-      setUserInfo(userData);
-      setUserInfo(userData.data);
+      // setUserInfo(userData);
+      // setUserInfo(userData.data);
     };
 
     getUserInfo(user_id);
   }, []);
+
+  const [userInfo, setStacks] = useState({
+    age: 0,
+    area: '구미',
+    birthday: null,
+    common: null,
+    common_class: '구미2반',
+    common_jo: '미정',
+    common_team: 13,
+    current_role: null,
+    email: 'ssafy@naver.com',
+    first_semester: 'python',
+    first_semester_class: 0,
+    free: null,
+    free_class: 0,
+    free_jo: '미정',
+    free_team: 0,
+    gender: '\u0000',
+    generation: 0,
+    interest: 'FE',
+    major: '전공',
+    name: 'kim',
+    profile_img:
+      'https://kr.object.ncloudstorage.com/metassafy/1e149903-44a1-40ef-8720-067916b22390aaaa.png',
+    profile_txt: '자기소개',
+    regtime: 1675096243000,
+    special: null,
+    special_class: 0,
+    special_jo: '미정',
+    special_team: 0,
+    student_no: null,
+    user_id: 'ssafy',
+    user_pwd: '1234',
+    x: 0,
+    y: 0,
+    z: 0,
+  });
 
   return (
     <PhoneUserProfileStyle>
@@ -55,17 +93,17 @@ function PhoneUserProfile(props) {
       </div>
       <BackgroundBox image={userInfo.profile_img} />
       {/* <img src="https://kr.object.ncloudstorage.com/metassafy/1e149903-44a1-40ef-8720-067916b22390aaaa.png"></img> */}
-      <TextGroupComponent name={userInfo.name} class={userInfo.class} />
+      <TextGroupComponent name={userInfo.name} class={userInfo.common_class} />
       {/* 전공, 포지션, 공통 */}
       <MajorPositionClass
         major={userInfo.major}
-        position={userInfo.position}
-        track={userInfo.track}
+        position={userInfo.interest}
+        track={userInfo.first_semester}
       />
       {/* 기술스택 자기소개 생일 */}
-      <RoundBox text={userInfo.introduce}></RoundBox>
-      <div>여기에</div>
-      <TechStackBox stack="android"></TechStackBox>
+      <RoundBox text={userInfo.profile_txt}></RoundBox>
+      {/* <div>여기에</div> */}
+      {/* <TechStackBox stack="android"></TechStackBox> */}
       <div
         style={{
           display: 'flex',
@@ -77,7 +115,11 @@ function PhoneUserProfile(props) {
       >
         {/* {stackDivs} */}
       </div>
-      <InfoBox icon={<box-icon name="smile"></box-icon>} text="?????"></InfoBox>
+      <GetUserStack name="ssafy"></GetUserStack>
+      <InfoBox
+        icon={<box-icon name="smile"></box-icon>}
+        text="안녕하세요 저는 소현이에용"
+      ></InfoBox>
     </PhoneUserProfileStyle>
   );
 }

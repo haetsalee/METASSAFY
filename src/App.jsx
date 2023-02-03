@@ -22,7 +22,7 @@ function App() {
         <Route path="/board" element={<Board />} />
         {/* <Route path='/' element={ <MainPage/> } /> */}
         <Route path="/Page1" element={<Page1 />} />
-        <Route path="/user-profile-page" element={<UserProfilePage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/Page2" element={<Page2 />} />
         <Route path="/profile/modify" element={<ProfileModify />} />
         <Route path="/Page3" element={<Page3 />} />

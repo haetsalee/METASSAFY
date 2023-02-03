@@ -14,7 +14,7 @@ const CalendarInput = ({ value, onChange }) => {
     setResult(e);
     onChange(e);
   };
-  console.log(result);
+  // console.log(result);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

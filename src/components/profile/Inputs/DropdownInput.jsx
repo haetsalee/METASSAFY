@@ -21,9 +21,10 @@ const DropdownInput = ({ data, width, value, defaultValue, onChange }) => {
   const handleChange = (event) => {
     setResult(event.target.value);
     onChange(event);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
+  // console.log(defaultValue);
   return (
     <FormControlStyle variant="standard" sx={{ minWidth: 40, width: width }}>
       <LabelStyle id="demo-simple-select-autowidth-label">

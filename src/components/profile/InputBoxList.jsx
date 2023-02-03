@@ -54,9 +54,19 @@ const positionList = {
 };
 
 const InputBoxList = () => {
+  // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
+  // "student_no":"2222","name":"zzzzz",
+  // "area":"구미","email":"zz@z","gender":"w",
+  // "birthday":"2023-02-03T04:09:23.840Z","age":10,"interest":"BE",
+  // "regtime":1675121266000,
+  // "profile_img":"https://kr.object.ncloudstorage.com/metassafy/06c4fb8f-7409-40c0-a2b7-6e83f0ca0cebdefault.png",
+  // "profile_txt":"앙뇽~~~~~~~~~~~~~~~~!!!!",
+  // "first_semester":"파이썬","common":null,"special":null,"free":null,"first_semester_class":0,"common_class":0,"special_class":0,"free_class":0,"x":0,"y":0,"z":0,"common_team":0,"special_team":0,"free_team":0,"current_role":null,
+  // "generation":8,"major":"비전공",
+  // "common_jo":"미정","special_jo":"미정","free_jo":"미정"};
   const [info, setInfo] = useState({
     name: '',
-    gender: '', // w, m
+    genderF: '', // w, m
     birthday: '',
     generation: 0, // 기수
     area: '', // 지역
@@ -69,17 +79,34 @@ const InputBoxList = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      // const { error } = await fetchUserInfo();
-      // if (!error) {
-      // setInfo(JSON.parse(getLocalUserInfo()));
-      // }
-      console.log(JSON.parse(getLocalUserInfo()));
-      setInfo(JSON.parse(getLocalUserInfo()));
+      const { error } = await fetchUserInfo();
+      if (!error) {
+        setInfo(JSON.parse(getLocalUserInfo()));
+      }
+      const localInfo = JSON.parse(getLocalUserInfo());
+      console.log(localInfo.name, localInfo);
+      const initInfo = {
+        name: localInfo.name || '',
+        genderF: localInfo.gender || '', // w, m
+        birthday: localInfo.birthday || '',
+        generation: localInfo.generation || '', // 기수
+        area: localInfo.area || '', // 지역
+        first_semester: localInfo.first_semester || '', // 트랙
+        major: localInfo.major || '', // 전공
+        interest: localInfo.interest || '', // 희망 포지션
+        profile_txt: localInfo.profile_txt || '', // 자기소개
+      };
+      console.log(initInfo);
+      setInfo(initInfo);
+      console.log(info);
     };
     fetchUser();
+    console.log('?');
   }, []);
 
-  console.log(info);
+  useEffect(() => {
+    console.log('inco c!!!', info);
+  }, [info]);
 
   const handleChange = (e, key) => {
     setInfo((preState) => {
@@ -104,7 +131,7 @@ const InputBoxList = () => {
           <TextField
             id="standard-basic"
             variant="standard"
-            value={info.name}
+            value={info.name || ''}
             onChange={(e) => handleChange(e, 'name')}
           />
         </InputsStyle>
@@ -116,12 +143,13 @@ const InputBoxList = () => {
           <DropdownInput
             data={genderList}
             width="30%"
-            value={info.gender}
-            defaultValue={info.gender}
-            onChange={(e) => handleChange(e, 'gender')}
+            value={info.genderF || ''}
+            defaultValue={info.genderF || ''}
+            onChange={(e) => handleChange(e, 'genderF')}
           />
           <CalendarInput
-            value={info.birthday}
+            // value={info.birthday}
+            value="2023-02-03T04:09:23.840Z"
             onChange={(e) =>
               setInfo((preState) => {
                 const state = { ...preState };
@@ -139,29 +167,29 @@ const InputBoxList = () => {
           <DropdownInput
             data={generationList}
             width="25%"
-            value={info.generation}
-            defaultValue={info.generation}
+            value={info.generation || ''}
+            defaultValue={info.generation || ''}
             onChange={(e) => handleChange(e, 'generation')}
           />
           <DropdownInput
             data={areaList}
             width="25%"
-            value={info.area}
-            defaultValue={info.area}
+            value={info.area || ''}
+            defaultValue={info.area || ''}
             onChange={(e) => handleChange(e, 'area')}
           />
           <DropdownInput
             data={trackList}
             width="25%"
-            value={info.first_semester}
-            defaultValue={info.first_semester}
+            value={info.first_semester || ''}
+            defaultValue={info.first_semester || ''}
             onChange={(e) => handleChange(e, 'first_semester')}
           />
           <DropdownInput
             data={majorList}
             width="25%"
-            value={info.major}
-            defaultValue={info.major}
+            value={info.major || ''}
+            defaultValue={info.major || ''}
             onChange={(e) => handleChange(e, 'major')}
           />
         </InputsStyle>
@@ -188,13 +216,13 @@ const InputBoxList = () => {
             variant="standard"
             multiline
             maxRows={4}
-            value={info.profile_txt}
+            value={info.profile_txt || ''}
             onChange={(e) => handleChange(e, 'profile_txt')}
           />
         </InputsStyle>
       </InputLineStyle>
       <Button variant="outlined" onClick={onSubmitHandler}>
-        submit
+        저장하기
       </Button>
     </InputListStyle>
   );

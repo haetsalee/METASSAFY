@@ -13,9 +13,9 @@ function UserProfilePage() {
       <h1>UserProfilePage</h1>
       <Phone>
         <PhoneUserProfileById name="ssafy"></PhoneUserProfileById>
+        {/* <GetUserStack name="ssafy"></GetUserStack> */}
       </Phone>
       {/* ???? */}
-      <GetUserStack name="ssafy"></GetUserStack>
     </section>
   );
 }
