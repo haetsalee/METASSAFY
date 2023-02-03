@@ -2,15 +2,21 @@ import BackgroundBox from '../phone/BackgroundBox';
 import MajorPositionClass from '../phone/MajorPositionClass';
 import TextGroupComponent from '../phone/TextGroupComponent';
 import styled from 'styled-components';
+// import PhoneNav from '../phone/phoneNav/PhoneNav';
 
 function Phone(props) {
-  return <PhoneStyle>{props.children}</PhoneStyle>;
+  return (
+    <PhoneStyle>
+      {props.children}
+      {/* <PhoneNav /> */}
+    </PhoneStyle>
+  );
 }
 
 export default Phone;
 
 const PhoneStyle = styled.div`
-  background-color: rgb(247, 254, 255);
+  background-color: white;
   border-radius: 1rem;
   /* border: 10px rgb(121, 190, 232) solid; */
   width: 22rem;
