@@ -11,7 +11,6 @@ import Page3 from './pages/Page3';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
 import Board from './pages/Board';
-import Profile from './components/profile/Profile';
 import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
         <Route path="/Page2" element={<Page2 />} />
         <Route path="/profile/modify" element={<ProfileModify />} />
         <Route path="/Page3" element={<Page3 />} />
-        <Route path="/profile-modify" element={<Profile />} />
       </Routes>
     </Layout>
   );
