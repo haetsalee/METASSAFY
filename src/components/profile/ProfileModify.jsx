@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import BackgroundBox from '../phone/BackgroundBox';
 import Phone from '../UI/Phone';
-import InputBoxList from './InputBoxList';
+import ModifyInputBoxList from './ModifyInputBoxList';
 
 const ProfileModify = () => {
   return (
     <Phone style={{ margin: '0' }}>
       <ProfileContainer>
         <BackgroundBox />
-        <InputBoxList />
+        <ModifyInputBoxList />
       </ProfileContainer>
     </Phone>
   );

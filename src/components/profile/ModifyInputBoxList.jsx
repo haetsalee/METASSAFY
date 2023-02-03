@@ -7,6 +7,7 @@ import { getLocalUserInfo } from '../../utils/local-storage';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
+import dayjs from 'dayjs';
 
 const nameList = {
   label: '이름',
@@ -65,6 +66,7 @@ const InputBoxList = () => {
   // "generation":8,"major":"비전공",
   // "common_jo":"미정","special_jo":"미정","free_jo":"미정"};
   const [info, setInfo] = useState({
+    user_id: '',
     name: '',
     genderF: '', // w, m
     birthday: '',
@@ -86,9 +88,10 @@ const InputBoxList = () => {
       const localInfo = JSON.parse(getLocalUserInfo());
       console.log(localInfo.name, localInfo);
       const initInfo = {
+        user_id: localInfo.user_id,
         name: localInfo.name || '',
-        genderF: localInfo.gender || '', // w, m
-        birthday: localInfo.birthday || '',
+        genderF: localInfo.genderF || '', // w, m
+        birthday: dayjs(localInfo.birthday) || '',
         generation: localInfo.generation || '', // 기수
         area: localInfo.area || '', // 지역
         first_semester: localInfo.first_semester || '', // 트랙
@@ -97,7 +100,7 @@ const InputBoxList = () => {
         profile_txt: localInfo.profile_txt || '', // 자기소개
       };
       console.log(initInfo);
-      setInfo(initInfo);
+      setInfo({ ...initInfo });
       console.log(info);
     };
     fetchUser();
@@ -148,12 +151,12 @@ const InputBoxList = () => {
             onChange={(e) => handleChange(e, 'genderF')}
           />
           <CalendarInput
-            // value={info.birthday}
-            value="2023-02-03T04:09:23.840Z"
+            value={info.birthday}
+            // value="2023-02-03T04:09:23.840Z"
             onChange={(e) =>
               setInfo((preState) => {
                 const state = { ...preState };
-                state['birthday'] = e['$d'];
+                state['birthday'] = String(e['$d']);
                 return state;
               })
             }

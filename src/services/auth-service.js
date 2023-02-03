@@ -99,8 +99,7 @@ export const fetchUserInfoById = async (id) => {
   try {
     const { data, status } = await API.get(`/user/auth/getUserById/${id}`);
     if (status === 200) {
-      setLocalUserInfo(data);
-      console.log('userinfo', data);
+      console.log('userinfo by id', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
