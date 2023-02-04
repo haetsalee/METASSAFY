@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B484E566-EC3D-9017-D41A-F09F4FAA6249}</ProjectGuid>
+    <ProjectGuid>{4FA1E1E2-BE63-7C46-3DF6-048914F19A04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,10 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
-    <Compile Include="Assets\Script\Player.cs" />
-    <Compile Include="Assets\Script\SmoothFollow.cs" />
-    <Compile Include="Assets\Script\Launcher.cs" />
-    <Compile Include="Assets\Script\CamController.cs" />
+    <Compile Include="Assets\Script\Player\Player.cs" />
+    <Compile Include="Assets\Script\Camera\SmoothFollow.cs" />
+    <Compile Include="Assets\Script\Network\Launcher.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
     <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\SimpleSampleCharacterControl.cs" />
@@ -788,43 +787,43 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonChat.csproj">
-      <Project>{5FE1C4B7-ED85-7365-654B-D4C4CC485290}</Project>
+      <Project>{CCD710D1-6574-515E-BF12-A133B0C8513D}</Project>
       <Name>PhotonChat</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
-      <Project>{310CB39F-EDF4-A991-5827-8B2BF4D83BFD}</Project>
+      <Project>{F76993AA-C602-C7F3-2339-F7D54E94F4D6}</Project>
       <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
-      <Project>{171F087A-78AF-F672-AD2A-532BEEE77372}</Project>
+      <Project>{6E2FA855-58D8-5901-3E17-A371F3F786CC}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj">
-      <Project>{1B859EDF-65B9-3235-8615-D26782C76932}</Project>
+      <Project>{A7837696-51D8-5DDB-961A-E2B79C45ED89}</Project>
       <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{77D7D8F1-C8BF-519D-751C-FD553CD8ABC7}</Project>
+      <Project>{DAB075FE-86FC-0CF3-E7A1-7D67701131E8}</Project>
       <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{33BA4F1E-38C1-8959-429B-3CC318326719}</Project>
+      <Project>{0AAFE839-DA72-5A36-A0D1-F6B74AB9F7B8}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{08307441-127F-A04B-1DE6-B8197F6EC8AE}</Project>
+      <Project>{A6EF95D6-C40A-B277-026F-7833926A4EA1}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{FAB55724-AC93-60DF-6528-FEC11F993463}</Project>
+      <Project>{45EA1EF7-12E6-F1B7-DC07-8A2CD4AD9AEC}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Demos.csproj">
-      <Project>{A52DFC87-962A-3EC2-E335-8E663E7F9736}</Project>
+      <Project>{683B87DD-55D6-BEC9-02A3-C5BBEFD0F0E8}</Project>
       <Name>PhotonUnityNetworking.Demos</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoSlotcarEditor.csproj">
-      <Project>{FBE020E4-1E8C-1861-A538-B5804AAA80A7}</Project>
+      <Project>{08E8641E-5164-F2AD-720D-CA79D07B1E9D}</Project>
       <Name>PunDemos.DemoSlotcarEditor</Name>
     </ProjectReference>
   </ItemGroup>
