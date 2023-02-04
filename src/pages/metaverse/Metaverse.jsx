@@ -22,7 +22,7 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v4.png');
+    const floorTexture = textureLoader.load('images/map_v5.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -161,7 +161,7 @@ function Metaverse() {
     const spotMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(3, 3),
       new THREE.MeshStandardMaterial({
-        color: 'yellow',
+        color: 'green',
         transparent: true,
         opacity: 0.5,
       })
@@ -175,7 +175,7 @@ function Metaverse() {
     const spotMesh2 = new THREE.Mesh(
       new THREE.PlaneGeometry(3, 3),
       new THREE.MeshStandardMaterial({
-        color: 'yellow',
+        color: 'purple',
         transparent: true,
         opacity: 0.5,
       })
@@ -277,16 +277,22 @@ function Metaverse() {
           }
 
           if (
-            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
-            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
+            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
+              1.5 &&
+            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
           ) {
             // redirection
             window.location.href = 'http://localhost:3000/page4';
+          }
+          if (
+            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
+            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
+          ) {
             if (!house.visible) {
               console.log('나와');
               house.visible = true;
               // naver로이동
-              // window.open('https://naver.com');
+              window.open('https://naver.com');
               spotMesh.material.color.set('seagreen');
               gsap.to(house.modelMesh.position, {
                 duration: 1,
