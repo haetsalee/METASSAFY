@@ -22,7 +22,7 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v3.png');
+    const floorTexture = textureLoader.load('images/map_v4.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -103,6 +103,22 @@ function Metaverse() {
 
     // Mesh
     const meshes = [];
+    const startMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        // map: 'floorTexture',
+        color: 'red',
+      })
+    );
+    startMesh.name = 'floor';
+    startMesh.position.y = 0.01;
+    startMesh.rotation.x = -Math.PI / 2;
+    startMesh.receiveShadow = true;
+    scene.add(startMesh);
+    meshes.push(startMesh);
+
+    // 3d 텍스트
+
     const floorMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(50, 50),
       new THREE.MeshStandardMaterial({
