@@ -238,13 +238,13 @@ const InputListStyle = styled.div`
   padding: 0.3rem;
   overflow: auto;
   &::-webkit-scrollbar {
-    width: 0.3rem;
+    width: 0.2rem;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #e0f4ff;
     border-radius: 10px;
     background-clip: padding-box;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
   }
   &::-webkit-scrollbar-track {
     background-color: #617485;
