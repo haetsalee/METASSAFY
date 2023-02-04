@@ -4,8 +4,13 @@ import MajorPositionClass from '../phone/MajorPositionClass';
 import TextGroupComponent from './common/TextGroupComponent';
 import BackgroundBox from './common/BackgroundBox';
 import RoundBox from './common/RoundBox';
-import InfoBox from '../phone/InfoBox';
-import { FaRegSmile, FaBirthdayCake } from 'react-icons/fa';
+import InfoBox from './common/InfoBox';
+import {
+  FaRegSmile,
+  FaBirthdayCake,
+  FaCreativeCommonsBy,
+} from 'react-icons/fa';
+import { HiOutlineMail } from 'react-icons/hi';
 import TechStackList from './TechStackList';
 
 const user = {
@@ -43,11 +48,17 @@ function Profile() {
         position={user.interest}
         track={user.first_semester}
       />
-      {/* 기술스택 자기소개 생일 */}
+      {/* 기술스택 자기소개 */}
       <TechStackList user_id={user.user_id}></TechStackList>
       <RoundBox text="자기소개"></RoundBox>
-      <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
-      <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
+      <InfoListStyle>
+        <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
+        <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
+        {user.gender !== '미정' && (
+          <InfoBox icon={<FaCreativeCommonsBy />} text={user.gender}></InfoBox>
+        )}
+        <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
+      </InfoListStyle>
     </PhoneUserProfileStyle>
   );
 }
@@ -63,5 +74,26 @@ const PhoneUserProfileStyle = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 2rem 1rem;
+`;
+
+const InfoListStyle = styled.div`
+  padding: 0 1rem;
+  width: 100%;
+  max-height: 7rem;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e0f4ff;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #617485;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 `;

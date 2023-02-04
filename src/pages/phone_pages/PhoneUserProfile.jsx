@@ -6,7 +6,7 @@ import TextGroupComponent from '../../components/profile/common/TextGroupCompone
 import BackgroundBox from '../../components/profile/common/BackgroundBox';
 import RoundBox from '../../components/profile/common/RoundBox';
 import TechStackBox from '../../components/phone/TechStackBox';
-import InfoBox from '../../components/phone/InfoBox';
+import InfoBox from '../../components/profile/common/InfoBox';
 import { useEffect } from 'react';
 import { fetchUserInfo } from '../../services/auth-service';
 

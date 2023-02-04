@@ -8,7 +8,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const CalendarInput = ({ value, onChange }) => {
-  const [result, setResult] = useState(dayjs('1999-12-01T21:11:54'));
+  // const [result, setResult] = useState(dayjs(value));
+  const [result, setResult] = useState(
+    dayjs('Thu Dec 30 1999 21:11:54 GMT+0900 (한국 표준시)')
+  );
 
   const handleChange = (e) => {
     setResult(e);
