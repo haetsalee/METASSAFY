@@ -8,7 +8,7 @@ import useOtherFetch from '../hooks/use-other-fetch';
 function ProfilePage({ user_id }) {
   const my = useMyFetch();
   const other = useOtherFetch(user_id);
-  const user = user_id ? other : my;
+  const user = my.user_id === user_id ? my : other;
   console.log('profile', user);
 
   return (

@@ -5,8 +5,8 @@ import TextGroupComponent from './common/TextGroupComponent';
 import BackgroundBox from './common/BackgroundBox';
 import RoundBox from './common/RoundBox';
 import InfoBox from '../phone/InfoBox';
-import GetUserStack from '../phone/GetUserStack';
 import { FaRegSmile, FaBirthdayCake } from 'react-icons/fa';
+import TechStackList from './TechStackList';
 
 const user = {
   age: 25,
@@ -44,7 +44,7 @@ function Profile() {
         track={user.first_semester}
       />
       {/* 기술스택 자기소개 생일 */}
-      <GetUserStack id={user.user_id}></GetUserStack>
+      <TechStackList user_id={user.user_id}></TechStackList>
       <RoundBox text="자기소개"></RoundBox>
       <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
       <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
@@ -55,12 +55,8 @@ function Profile() {
 export default Profile;
 
 const PhoneUserProfileStyle = styled.div`
-  /* background-color: rgb(247, 254, 255); */
   border-radius: 1rem;
-  /* border: 10px rgb(121, 190, 232) solid; */
   width: 22rem;
-  /* height: 40rem; */
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); */
   position: relative;
   display: flex;
   flex-direction: column;
