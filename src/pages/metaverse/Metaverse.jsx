@@ -22,7 +22,7 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v1.png');
+    const floorTexture = textureLoader.load('images/map_v3.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -104,7 +104,7 @@ function Metaverse() {
     // Mesh
     const meshes = [];
     const floorMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, 100),
+      new THREE.PlaneGeometry(50, 50),
       new THREE.MeshStandardMaterial({
         map: floorTexture,
       })
@@ -114,6 +114,8 @@ function Metaverse() {
     floorMesh.receiveShadow = true;
     scene.add(floorMesh);
     meshes.push(floorMesh);
+
+    ////////////////////
 
     // 캐릭터 위치 나타낼 포인터 메쉬
     const pointerMeshTexture = textureLoader.load('/images/sta3r.png');
@@ -152,6 +154,20 @@ function Metaverse() {
     spotMesh.rotation.x = -Math.PI / 2;
     spotMesh.receiveShadow = true;
     scene.add(spotMesh);
+
+    // 스팟매쉬 - 여기들어가면 집 나와
+    const spotMesh2 = new THREE.Mesh(
+      new THREE.PlaneGeometry(3, 3),
+      new THREE.MeshStandardMaterial({
+        color: 'yellow',
+        transparent: true,
+        opacity: 0.5,
+      })
+    );
+    spotMesh2.position.set(10, 0.005, 5);
+    spotMesh2.rotation.x = -Math.PI / 2;
+    spotMesh2.receiveShadow = true;
+    scene.add(spotMesh2);
 
     // gltf로더 로드
     let gltfLoader = new GLTFLoader();
@@ -248,11 +264,13 @@ function Metaverse() {
             Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
           ) {
+            // redirection
+            window.location.href = 'http://localhost:3000/page4';
             if (!house.visible) {
               console.log('나와');
               house.visible = true;
               // naver로이동
-              window.open('https://naver.com');
+              // window.open('https://naver.com');
               spotMesh.material.color.set('seagreen');
               gsap.to(house.modelMesh.position, {
                 duration: 1,
@@ -375,6 +393,7 @@ function Metaverse() {
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
+      <video id="video"></video>
       {/* </Card> */}
     </div>
   );
