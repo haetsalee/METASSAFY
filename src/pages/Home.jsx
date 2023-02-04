@@ -10,18 +10,31 @@ import {
   getLocalAccessToken,
 } from '../utils/local-storage';
 
+import PhoneTest from '../components/phone/PhoneTest';
+import { width } from '@mui/system';
+
 const Home = () => {
   const [token, setToken] = useState(getLocalAccessToken());
   const [user, setUser] = useState(getLocalUserInfo());
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
-
   const showLoginHandler = () => {
     setLoginShown(true);
   };
 
   const hideLoginHandler = () => {
     setLoginShown(false);
+    setToken(getLocalAccessToken());
+    setUser(getLocalUserInfo());
+  };
+
+  const [phoneShown, setPhoneShown] = useState(false);
+  const showPhoneHandler = () => {
+    setPhoneShown(true);
+  };
+
+  const hidePhoneHandler = () => {
+    setPhoneShown(false);
     setToken(getLocalAccessToken());
     setUser(getLocalUserInfo());
   };
@@ -49,8 +62,10 @@ const Home = () => {
 
   return (
     <SectionStyle>
+      <h1>MainPage</h1>
       <button onClick={showLoginHandler}>로그인</button>
       {loginShown && <Login onClose={hideLoginHandler} />}
+
       <button onClick={registerHandler}>회원가입</button>
       <button onClick={logoutHandler}>로그아웃</button>
       <button onClick={userHandler}>로그인 후 유저정보</button>
@@ -62,6 +77,14 @@ const Home = () => {
       <div style={{ wordBreak: 'break-all' }}>{user}</div>
 
       <button onClick={boardHandler}>게시판 테스트</button>
+
+      <button onClick={showPhoneHandler}>
+        <img
+          style={{ width: 50 }}
+          src="https://wimg.mk.co.kr/news/cms/202301/18/news-p.v1.20230118.5720aed139884d96930126fde7d581e1_P1.jpg"
+        />
+      </button>
+      {phoneShown && <PhoneTest onClose={hidePhoneHandler} />}
     </SectionStyle>
   );
 };
