@@ -346,15 +346,18 @@
 -r:"Library/Bee/artifacts/2000b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Asset_DownLoad/Supercyan Character Pack Free Sample/Scripts/DemoFree.cs"
+"Assets/Asset_DownLoad/Supercyan Character Pack Free Sample/Scripts/FreeCameraLogic.cs"
+"Assets/Asset_DownLoad/Supercyan Character Pack Free Sample/Scripts/SimpleSampleCharacterControl.cs"
 "Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs"
 "Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs"
 "Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs"
 "Assets/Script/Camera/SmoothFollow.cs"
+"Assets/Script/Lobby/Campus.cs"
 "Assets/Script/Network/Launcher.cs"
+"Assets/Script/Network/LobbyLauncher.cs"
 "Assets/Script/Player/Player.cs"
-"Assets/Supercyan Character Pack Free Sample/Scripts/DemoFree.cs"
-"Assets/Supercyan Character Pack Free Sample/Scripts/FreeCameraLogic.cs"
-"Assets/Supercyan Character Pack Free Sample/Scripts/SimpleSampleCharacterControl.cs"
+"Assets/Script/SelectObjectManager.cs"
 -langversion:9.0
 
 /deterministic

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 
 public class SmoothFollow : MonoBehaviourPunCallbacks
@@ -16,10 +17,18 @@ public class SmoothFollow : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        
-         
+        //로비는 좀 더 가까운 카메라로 설정
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            distance = 5.0f;
+            height = 2.0f;
+        }
+
+
+
+
     }
-    
+
 
     void LateUpdate()
     {

@@ -61,23 +61,26 @@
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Camera\SmoothFollow.cs" />
     <Compile Include="Assets\Script\Network\Launcher.cs" />
+    <Compile Include="Assets\Script\Network\LobbyLauncher.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\SimpleSampleCharacterControl.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\FreeCameraLogic.cs" />
+    <Compile Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
+    <Compile Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Scripts\SimpleSampleCharacterControl.cs" />
+    <Compile Include="Assets\Script\SelectObjectManager.cs" />
+    <Compile Include="Assets\Script\Lobby\Campus.cs" />
+    <Compile Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Scripts\FreeCameraLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
-    <None Include="Assets\Supercyan Character Pack Free Sample\Shaders\Legacy\CelShader.shader" />
+    <None Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Shaders\Legacy\CelShader.shader" />
     <None Include="Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
-    <None Include="Assets\Supercyan Character Pack Free Sample\Shaders\SupercyanShader.shader" />
+    <None Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Shaders\SupercyanShader.shader" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.dll" />
     <None Include="Assets\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
-    <None Include="Assets\Supercyan Character Pack Free Sample\Shaders\SupercyanShaderLighting.cginc" />
+    <None Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Shaders\SupercyanShaderLighting.cginc" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
   </ItemGroup>

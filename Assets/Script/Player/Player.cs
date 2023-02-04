@@ -40,9 +40,7 @@ public class Player : MonoBehaviourPunCallbacks
         float z = Input.GetAxis("Vertical") * 5f * Time.deltaTime;
         
         transform.Translate(x, 0, z);
-       
-
-
+ 
     }
    
 }
