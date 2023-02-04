@@ -79,7 +79,7 @@ export default function Page2() {
         {/* <Geometries /> */}
         <Environment background preset="dawn" blur={0.8} />
         {/* <ContactShadows position={[0, -9, 0]} opacity={0.7} scale={40} blur={1} /> */}
-        {/* <OrbitControls /> */}
+        <OrbitControls />
       </Canvas>
     </div>
   );
