@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 function TechStackItem(props) {
   return (
-    <ListStyle>
+    <ListStyle key={props.id}>
       <ImgStyle src={props.image} alt={props.title} />
     </ListStyle>
   );

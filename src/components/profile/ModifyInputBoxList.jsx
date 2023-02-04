@@ -1,18 +1,13 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { fetchUserInfo } from '../../services/auth-service';
 import { fetchProfileModify } from '../../services/profile-service';
-import { getLocalUserInfo } from '../../utils/local-storage';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
 import dayjs from 'dayjs';
-
-const nameList = {
-  label: '이름',
-  key: 'name',
-};
+import useInfo from '../../hooks/use-info';
+import { BiSave } from 'react-icons/bi';
 
 const genderList = {
   label: '성별',
@@ -55,6 +50,7 @@ const positionList = {
 };
 
 const InputBoxList = () => {
+  const user = useInfo();
   // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
   // "student_no":"2222","name":"zzzzz",
   // "area":"구미","email":"zz@z","gender":"w",
@@ -80,35 +76,23 @@ const InputBoxList = () => {
   const [techList, setTechList] = useState([]); // tech_id 기술스택
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { error } = await fetchUserInfo();
-      if (!error) {
-        setInfo(JSON.parse(getLocalUserInfo()));
-      }
-      const localInfo = JSON.parse(getLocalUserInfo());
-      console.log(localInfo.name, localInfo);
-      const initInfo = {
-        user_id: localInfo.user_id,
-        name: localInfo.name || '',
-        genderF: localInfo.genderF || '', // w, m
-        birthday: dayjs(localInfo.birthday) || '',
-        generation: localInfo.generation || '', // 기수
-        area: localInfo.area || '', // 지역
-        first_semester: localInfo.first_semester || '', // 트랙
-        major: localInfo.major || '', // 전공
-        interest: localInfo.interest || '', // 희망 포지션
-        profile_txt: localInfo.profile_txt || '', // 자기소개
-      };
-      console.log(initInfo);
-      setInfo({ ...initInfo });
-      console.log(info);
+    const initInfo = {
+      user_id: user.user_id,
+      name: user.name || '',
+      genderF: user.genderF || '', // w, m
+      birthday: dayjs(user.birthday) || '',
+      generation: user.generation || '', // 기수
+      area: user.area || '', // 지역
+      first_semester: user.first_semester || '', // 트랙
+      major: user.major || '', // 전공
+      interest: user.interest || '', // 희망 포지션
+      profile_txt: user.profile_txt || '', // 자기소개
     };
-    fetchUser();
-    console.log('?');
-  }, []);
+    setInfo({ ...initInfo });
+  }, [user]);
 
   useEffect(() => {
-    console.log('inco c!!!', info);
+    console.log('변화 정보!!!', info);
   }, [info]);
 
   const handleChange = (e, key) => {
@@ -224,9 +208,10 @@ const InputBoxList = () => {
           />
         </InputsStyle>
       </InputLineStyle>
-      <Button variant="outlined" onClick={onSubmitHandler}>
-        저장하기
-      </Button>
+      <ButtonStyle onClick={onSubmitHandler}>
+        저장
+        <BiSave />
+      </ButtonStyle>
     </InputListStyle>
   );
 };
@@ -234,6 +219,9 @@ const InputBoxList = () => {
 export default InputBoxList;
 
 const InputListStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 20rem;
   padding: 0.3rem;
   overflow: auto;
@@ -270,4 +258,18 @@ const InputLineStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+`;
+
+const ButtonStyle = styled.button`
+  width: 5rem;
+  height: 2rem;
+  background-color: #799fc1;
+  border: 1px solid #799fc0;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  font-family: 'korail_bold';
 `;

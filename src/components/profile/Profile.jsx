@@ -32,7 +32,7 @@ const user = {
   user_id: 'ssafy',
 };
 
-// function PhoneUserProfileById({ user }) {
+// function Profile({ user }) {
 function Profile() {
   return (
     <PhoneUserProfileStyle>

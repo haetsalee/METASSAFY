@@ -4,12 +4,16 @@ import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
 import SubmitButton from '../SubmitButton';
 
-import { fetchLogin, fetchUserInfo } from '../../../services/auth-service';
-import { setLocalUserInfo } from '../../../utils/local-storage';
+import { fetchLogin } from '../../../services/auth-service';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
+import { useDispatch } from 'react-redux';
+import { loginSlice } from '../../../store/slice/authSlice';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch();
+
   const {
     value: userIdValue,
     isValid: userIdIsValid,
@@ -48,6 +52,8 @@ const LoginForm = (props) => {
 
     // 로그인 성공 시 모달 닫기
     if (data === 'Success') {
+      // 리덕스에도 저장
+      dispatch(loginSlice(getJsonLocalUserInfo()));
       props.onClose();
     } else {
       resetuserId();

@@ -30,7 +30,7 @@ function App() {
         </Route>
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
           <Route path="profile/modify" element={<ProfileModify />} />
         </Route>
         {/* <Route path="/" element={<Home />} /> */}

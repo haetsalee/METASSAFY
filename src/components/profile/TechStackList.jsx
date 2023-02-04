@@ -8,21 +8,21 @@ const TechStackList = ({ user_id }) => {
 
   useEffect(() => {
     const getTechStack = async () => {
-      const { data } = await fetchUserStackById(user_id);
-      setStacks(data);
+      if (user_id) {
+        const { data } = await fetchUserStackById(user_id);
+        setStacks(data);
+      }
     };
     getTechStack();
-  }, []);
-  // 의존성 고려
+  }, [user_id]);
 
   return (
     <TechListStyle>
-      {stacks.map((stack) => (
+      {stacks.map((stack, index) => (
         <TechStackItem
-          key={stack.id}
-          id={stack.tech_id}
+          key={index}
+          id={index}
           image={stack.tech_logo}
-          name={stack.tech_name}
           title={stack.tech_id}
         />
       ))}
