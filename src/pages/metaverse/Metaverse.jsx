@@ -22,11 +22,11 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/grid.png');
+    const floorTexture = textureLoader.load('images/map_v1.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.x = 10;
-    floorTexture.repeat.y = 10;
+    floorTexture.repeat.x = 1;
+    floorTexture.repeat.y = 1;
 
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
@@ -93,13 +93,13 @@ function Metaverse() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    // const orbitControls = new OrbitControls(camera, renderer.domElement);
-    // orbitControls.enableDamping = true;
-    // // orbitControls.minDistance = 5;
-    // // orbitControls.maxDistance = 15;
-    // orbitControls.enablePan = false;
-    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    // orbitControls.update();
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
+    orbitControls.enablePan = false;
+    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    orbitControls.update();
 
     // Mesh
     const meshes = [];
@@ -116,11 +116,21 @@ function Metaverse() {
     meshes.push(floorMesh);
 
     // 캐릭터 위치 나타낼 포인터 메쉬
+    const pointerMeshTexture = textureLoader.load('/images/sta3r.png');
+
     const pointerMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({
-        color: 'crimson',
+        // color: 'skyblue',
+        // transparent: true,
+        // opacity: 0.5,
+        map: pointerMeshTexture,
+        size: 0.1,
         transparent: true,
+        alphaMap: pointerMeshTexture,
+        // depthWrite: false,
+        // vertexColors: true,
+        color: 'skyblue',
         opacity: 0.5,
       })
     );
