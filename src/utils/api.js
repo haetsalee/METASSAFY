@@ -6,8 +6,7 @@ import {
 } from './local-storage';
 
 const API = axios.create({
-  baseURL: 'https://www.metassafy.store/api',
-  // baseURL: 'http://i8d211.p.ssafy.io:8088/metassafy',
+  baseURL: 'http://i8d211.p.ssafy.io:8088/metassafy',
   // baseURL: 'http://192.168.100.124:9999/metassafy',
   // baseURL: 'http://172.30.1.65:9999/metassafy',
   headers: {

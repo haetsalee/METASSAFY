@@ -11,7 +11,6 @@ import MainPage from './pages/MainPage';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
-import Page4 from './pages/Page4';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
 import Board from './pages/Board';
@@ -35,14 +34,10 @@ function App() {
           <Route path="profile/modify" element={<ProfileModify />} />
         </Route>
         {/* <Route path="/" element={<Home />} /> */}
-
         <Route path="/board" element={<Board />} />
-        {/* 여기서부터 무언가... */}
         <Route path="/Page1" element={<Page1 />} />
-        {/* <Route path="/Page2" element={<Page2 />} /> */}
+        <Route path="/Page2" element={<Page2 />} />
         <Route path="/Page3" element={<Page3 />} />
-        <Route path="/Page4" element={<Page4 />} />
-        {/* <Route path="/profile-modify" element={<Profile />} /> */}
       </Routes>
     </Layout>
   );
