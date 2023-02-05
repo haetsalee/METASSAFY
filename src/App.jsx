@@ -18,7 +18,7 @@ import ProfilePage from './pages/ProfilePage';
 import useInfo from './hooks/use-info';
 
 function App() {
-  const user = useInfo();
+  useInfo();
 
   return (
     <Layout>

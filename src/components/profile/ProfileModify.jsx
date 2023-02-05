@@ -1,17 +1,21 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
 import Phone from '../UI/Phone';
 import ModifyInputBoxList from './ModifyInputBoxList';
-import useInfo from '../../hooks/use-info';
 import BackgroundModifyBox from './common/BackgroundModifyBox';
+import { useEffect } from 'react';
 
 const ProfileModify = () => {
-  const user = useInfo();
-  console.log(user);
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <Phone style={{ margin: '0' }}>
       <ProfileContainer>
-        {/* <BackgroundModifyBox image={user.profile_img} /> */}
         <BackgroundModifyBox user_id={user.user_id} image={user.profile_img} />
         <ModifyInputBoxList />
       </ProfileContainer>
