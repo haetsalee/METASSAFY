@@ -162,6 +162,9 @@ public class UserController {
     @ApiOperation(value = "유저 정보 수정(postman 테스트)", notes = "유저 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 에러를 반환한다. (postman)", response = String.class)
     @PostMapping("/auth/update")
     public ResponseEntity<String> update(@RequestBody @ApiParam(value = "업데이트할 유저 정보(*)", required = true) User user){
+
+        System.out.println(user +"User-------------------------------------");
+
         try{
             service.update(user);
         }catch(Exception e){

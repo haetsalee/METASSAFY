@@ -17,6 +17,8 @@
 		<result property="last_chat" column="last_chat"/>
 		<result property="not_read_chat" column="not_read_chat"/>
 		<result property="regtime" column="regtime"/>
+		<result property="croom_img" column="croom_img"/>
+		<result property="start_no" column="start_no"/>
 		<collection property="participants" column="{croom_no = croom_no}" ofType="string" select="selectParticipant" />
 	</resultMap>
 
@@ -31,14 +33,14 @@
 	</select>
 
 	<select id="findAllRooms" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ChatRoomDto">
-		SELECT c.croom_no, c.croom_name, c.last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = c.croom_no) not_read_chat,(select MAX(regtime) from chat where croom_no = c.croom_no ORDER BY chat_no DESC) last_chat_time ,c.croom_img, c.regtime
+		SELECT c.croom_no, c.croom_name, c.last_chat, (SELECT not_read_chat FROM participant WHERE user_id = #{user_id} AND croom_no = c.croom_no) not_read_chat,(SELECT MAX(regtime) FROM chat WHERE croom_no = c.croom_no ORDER BY chat_no DESC) last_chat_time ,c.croom_img, c.regtime, (SELECT MIN(chat_no) FROM chat WHERE croom_no = c.croom_no) start_no
 		FROM chatroom c
 		WHERE c.croom_no in (SELECT croom_no FROM participant WHERE user_id = #{user_id})
 		ORDER BY last_chat_time DESC
 	</select>
 
 	<select id="getRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultMap="chatroom">
-		SELECT *
+		SELECT croom_no, croom_name, last_chat, (select not_read_chat from participant where user_id = #{user_id} and croom_no = #{croom_no}) not_read_chat,(select MAX(regtime) from chat where croom_no = #{croom_no} ORDER BY chat_no DESC) last_chat_time, croom_img, regtime, (SELECT MIN(chat_no) FROM chat WHERE croom_no = #{croom_no}) start_no
 		FROM `chatroom`
 		WHERE croom_no = #{croom_no}
 	</select>

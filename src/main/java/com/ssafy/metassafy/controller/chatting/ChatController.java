@@ -100,6 +100,8 @@ public class ChatController {
     @GetMapping
     public ResponseEntity<List<ChatDto>> findAllChat(ChatParameterDto chatParameterDto) throws Exception{
         logger.info("findAllChat start_no 방에 들어갈 때는 0으로 넣어주세요 그 외에는 현재 chat_no 중에 가장 작은 값, user_id, croom_no - 호출");
+        System.out.println(chatParameterDto.getUser_id() + "findAllChat user_id-----");
+        System.out.println(chatParameterDto.getCroom_no() + "findAllChat croom_no-----");
         return new ResponseEntity<List<ChatDto>>(chatService.findAllChat(chatParameterDto), HttpStatus.OK);
     }
 

@@ -35,7 +35,7 @@
 
     <update id="update" parameterType="com.ssafy.metassafy.dto.user.User">
         update User
-        <set>
+        <trim prefix="set" suffixOverrides=",">
             <if test="user_pwd != null">user_pwd=#{user_pwd},</if>
             <if test="student_no != null">student_no=#{student_no},</if>
             <if test="name != null">name=#{name},</if>
@@ -70,8 +70,7 @@
             <if test="free_jo != null">free_jo=#{free_jo},</if>
             <if test="common_jo!= null">common_jo=#{common_jo},</if>
             <if test="special_jo!= null">special_jo=#{special_jo},</if>
-            
-        </set>
+        </trim>
         where user_id=#{user_id};
     </update>
 

@@ -86,10 +86,18 @@ public class ChatServiceImpl implements ChatService{
         if(chatParameterDto.getStart_no() == 0){
             // user_id, croom_no를 이용해서 last_read_chat_id 가 필요
             int cur_no = sqlSession.getMapper(ChatMapper.class).getUserLastReadChatId(chatParameterDto);
+
+
+            System.out.println(cur_no + " last_read_chat_id(cur_no) ---------------------------------------------------");
+
+
             chatParameterDto.setCur_no(cur_no);
 
             // 현재 cur_no 보다 값이 작은 채팅의 개수가 10개 보다 많은지 적은지 알 수 있었으면 좋겠다.
             int num = sqlSession.getMapper(ChatMapper.class).getLowChatNo(chatParameterDto);
+
+            System.out.println(num + " num ---------------------------------------------------");
+
 
             if(num > 10){
                 int start_no = sqlSession.getMapper(ChatMapper.class).getStartNo(chatParameterDto);

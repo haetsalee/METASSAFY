@@ -26,16 +26,19 @@ public class User {
     String area;
     @ApiModelProperty(value = "유저 이메일")
     String email;
+
+    @ApiModelProperty(value = "유저 성별 프론트")
+    String genderF; //w 혹은 m
     @ApiModelProperty(value = "유저 성별")
     char gender; //w 혹은 m
     @ApiModelProperty(value = "유저 생일")
-    Date birthday;
+    String birthday;
     @ApiModelProperty(value = "유저 나이")
     int age;
     @ApiModelProperty(value = "유저 관심직무")
     String interest; //관심 직무(백,프론트,미정 등등)
     @ApiModelProperty(value = "유저 가입시간")
-    Timestamp regtime; //가입 시간
+    String regtime; //가입 시간
     @ApiModelProperty(value = "유저 프로필 이미지")
     String profile_img; //프로필 이미지 url
     @ApiModelProperty(value = "유저 자기소개")

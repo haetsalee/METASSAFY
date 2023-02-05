@@ -44,10 +44,24 @@ public class UserService {
     }
 
     public User getUser(String user_id) {
-        return mapper.getUser(user_id);
+        User user = mapper.getUser(user_id);
+        if(user.getGender() == 'w'){
+            user.setGenderF("남성");
+        }else if(user.getGender() == 'f'){
+            user.setGenderF("여성");
+        }else{
+            user.setGenderF("미정");
+        }
+        return user;
     }
 
     public void update(User user) {
+        if(user.getGenderF().equals("남성")){
+            user.setGender('m');
+        }else if(user.getGenderF().equals("여성")){
+            user.setGender('w');
+        }
+
         mapper.update(user);
     }
 
@@ -76,7 +90,9 @@ public class UserService {
     }
 
     public List<User> getAllUser() {
-        return mapper.getAllUser();
+        List<User> users = mapper.getAllUser();
+        setGenderFList(users);
+        return users;
     }
 
     public void setRefresh(String user_id, String refresh_token) {
@@ -84,7 +100,17 @@ public class UserService {
     }
 
     public User getUserWithRefresh(String refresh_token) {
-        return mapper.getUserWithRefresh(refresh_token);
+        User user = mapper.getUserWithRefresh(refresh_token);
+
+        if(user.getGender() == 'w'){
+            user.setGenderF("남성");
+        }else if(user.getGender() == 'f'){
+            user.setGenderF("여성");
+        }else{
+            user.setGenderF("미정");
+        }
+
+        return user;
     }
 
     public void setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
@@ -94,6 +120,20 @@ public class UserService {
     }
 
     public List<User> searchUserList(String search) {
-        return mapper.searchUserList(search);
+        List<User> users = mapper.searchUserList(search);
+        setGenderFList(users);
+        return users;
+    }
+
+    private void setGenderFList(List<User> users){
+        for(User user : users){
+            if(user.getGender() == 'w'){
+                user.setGenderF("남성");
+            }else if(user.getGender() == 'f'){
+                user.setGenderF("여성");
+            }else{
+                user.setGenderF("미정");
+            }
+        }
     }
 }

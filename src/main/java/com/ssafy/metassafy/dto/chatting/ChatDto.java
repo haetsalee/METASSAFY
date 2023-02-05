@@ -19,6 +19,7 @@ public class ChatDto {
     private int last_read_chat_id;
     private String profile_img;
     private String regtime;
+
 }
 
 // 구독을 하고 있다가 구독을 끊이면 이제 안보고 있는 것...
