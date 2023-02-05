@@ -9,25 +9,13 @@ import Login from '../components/auth/login/Login';
 
 import styled from 'styled-components';
 
-import { loginSlice } from '../store/slice/authSlice';
-import { logoutProcess } from '../services/auth-service';
-import Login from '../components/auth/login/Login';
-import { fetchUserInfo, logoutProcess } from '../services/auth-service';
-import {
-  setLocalUserInfo,
-  getLocalUserInfo,
-  getLocalAccessToken,
-} from '../utils/local-storage';
-
-import PhoneTest from '../components/phone/PhoneTest';
-import { width } from '@mui/system';
-
 const Home = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const [loginShown, setLoginShown] = useState(false);
   const navigate = useNavigate();
+
   const showLoginHandler = () => {
     setLoginShown(true);
   };
@@ -37,76 +25,26 @@ const Home = () => {
   };
 
   const logout = () => {
-    const [phoneShown, setPhoneShown] = useState(false);
-    const showPhoneHandler = () => {
-      setPhoneShown(true);
-    };
+    logoutProcess();
+    // 리덕스에서 삭제
+    dispatch(loginSlice(null));
+  };
 
-    const hidePhoneHandler = () => {
-      setPhoneShown(false);
-      setToken(getLocalAccessToken());
-      setUser(getLocalUserInfo());
-    };
-
-    const registerHandler = () => {
-      navigate('/register');
-    };
-
-    const boardHandler = () => {
-      navigate('/board');
-    };
-
-    const logoutHandler = () => {
-      setToken(null);
-      setUser(null);
-
-      logoutProcess();
-      // 리덕스에서 삭제
-      dispatch(loginSlice(null));
-    };
-
-    return (
-      <SectionStyle>
-        {!user && <button onClick={showLoginHandler}>로그인</button>}
-        {loginShown && <Login onClose={hideLoginHandler} />}
-        {!user && (
-          <button onClick={() => navigate('/register')}>회원가입</button>
-        )}
-        <button onClick={logout}>로그아웃</button>
-        <button onClick={() => navigate('/profile/modify')}>
-          프로필 수정 페이지로
-        </button>
-        {user && (
-          <div style={{ wordBreak: 'break-all' }}>{JSON.stringify(user)}</div>
-        )}
-        <button onClick={() => navigate('/board')}>게시판 테스트</button>
-
-        {/* <h1>MainPage</h1>
-      <button onClick={showLoginHandler}>로그인</button>
+  return (
+    <SectionStyle>
+      {!user && <button onClick={showLoginHandler}>로그인</button>}
       {loginShown && <Login onClose={hideLoginHandler} />}
-
-      <button onClick={registerHandler}>회원가입</button>
-      <button onClick={logoutHandler}>로그아웃</button>
-      <button onClick={userHandler}>로그인 후 유저정보</button>
-      <button onClick={() => navigate('/profile-modify')}>
+      {!user && <button onClick={() => navigate('/register')}>회원가입</button>}
+      <button onClick={logout}>로그아웃</button>
+      <button onClick={() => navigate('/profile/modify')}>
         프로필 수정 페이지로
       </button>
-      <div style={{ wordBreak: 'break-all' }}>{token}</div>
-      <br />
-      <div style={{ wordBreak: 'break-all' }}>{user}</div>
-
-      <button onClick={boardHandler}>게시판 테스트</button>
-
-      <button onClick={showPhoneHandler}>
-        <img
-          style={{ width: 50 }}
-          src="https://wimg.mk.co.kr/news/cms/202301/18/news-p.v1.20230118.5720aed139884d96930126fde7d581e1_P1.jpg"
-        />
-      </button>
-      {phoneShown && <PhoneTest onClose={hidePhoneHandler} />} */}
-      </SectionStyle>
-    );
-  };
+      {user && (
+        <div style={{ wordBreak: 'break-all' }}>{JSON.stringify(user)}</div>
+      )}
+      <button onClick={() => navigate('/board')}>게시판 테스트</button>
+    </SectionStyle>
+  );
 };
 
 export default Home;
