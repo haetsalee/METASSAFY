@@ -21,6 +21,8 @@ function PhoneChatingList(props) {
   const [roomList, setRoomList] = useState([]);
   const [inviteList, setInviteList] = useState([]);
 
+  const [forTime, setForTime] = useState(0);
+
   const chatRoom = { croom_name: '채팅방' };
 
   useEffect(() => {
@@ -32,6 +34,8 @@ function PhoneChatingList(props) {
   }, [search]);
 
   useEffect(() => {
+    const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
+
     let temp = [];
     API.get(`/participant`, { params: { user_id: user } }).then((res) => {
       temp = res.data;
@@ -43,16 +47,18 @@ function PhoneChatingList(props) {
             },
           })
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               setRoomList(res.data);
             })
             .catch((err) => console.log(err));
         }
       );
     });
-    console.log(temp);
+    // console.log(temp);
     //Participant의 not_read_chat을 갱신
-  }, []);
+
+    return () => clearTimeout(timeout);
+  }, [forTime]);
 
   return (
     <Phone>
@@ -79,7 +85,7 @@ export default PhoneChatingList;
 const PhoneChatingListStyle = styled.div`
   padding: 0.5rem;
   width: 100%;
-  height: 84%;
+  height: 82%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0.2rem;

@@ -21,7 +21,9 @@ function MyChatList(props) {
           </FlexDiv>
           <ChatTextStyle>
             <span>{props.room.last_chat}</span>
-            <ChatTimeSpanStyle>{props.room.last_chat_time}</ChatTimeSpanStyle>
+            <ChatTimeSpanStyle>
+              {props.room.last_chat_time?.substring(11, 16)}
+            </ChatTimeSpanStyle>
           </ChatTextStyle>
         </ChatTextBoxDiv>
       </ChatRoomListStyle>
@@ -40,6 +42,11 @@ const ChatRoomListStyle = styled.div`
 
 const ChatRoomNameStyle = styled.span`
   font-size: 1.1rem;
+  display: inline-block;
+  width: 13.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ChatTextBoxDiv = styled.div`
