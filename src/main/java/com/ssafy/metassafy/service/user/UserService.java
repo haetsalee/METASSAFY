@@ -87,13 +87,15 @@ public class UserService {
         return mapper.getUserWithRefresh(refresh_token);
     }
 
-    public String setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
+    public String uploadProfileImg(MultipartFile profile_img) throws Exception{
         FileDto img=fileService.saveFile(profile_img);
 
-        mapper.setProfileImg(user_id,img.getPath());
         return img.getPath();
     }
 
+    public void setProfileImg(String user_id,String url){
+        mapper.setProfileImg(user_id,url);
+    }
     public List<User> searchUserList(String search) {
         return mapper.searchUserList(search);
     }
