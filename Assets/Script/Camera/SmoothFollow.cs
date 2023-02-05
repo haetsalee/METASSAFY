@@ -24,15 +24,14 @@ public class SmoothFollow : MonoBehaviourPunCallbacks
             height = 2.0f;
         }
 
-
-
-
     }
 
 
     void LateUpdate()
     {
-         
+
+        if (target == null) return;
+        
 
         var wantedRotationAngle = target.eulerAngles.y;
         var wantedHeight = target.position.y + height;
