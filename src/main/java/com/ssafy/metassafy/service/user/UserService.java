@@ -4,7 +4,6 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
-import com.ssafy.metassafy.mapper.board.BoardMapper;
 import com.ssafy.metassafy.mapper.user.UserMapper;
 import com.ssafy.metassafy.service.file.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +80,10 @@ public class UserService {
         return mapper.getTechStack(user_id);
     }
 
-    public boolean addTech(HashMap<String, String> map) {
-        return mapper.addTech(map);
+    public void addTech(HashMap<String, String> map) {
+        if(mapper.checkTechDuplicate(map)==0){
+            mapper.addTech(map);
+        }
     }
 
     public boolean deleteTech(HashMap<String, String> map) {
@@ -113,18 +114,21 @@ public class UserService {
         return user;
     }
 
-    public String setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
+    public String uploadProfileImg(MultipartFile profile_img) throws Exception{
         FileDto img=fileService.saveFile(profile_img);
 
-        mapper.setProfileImg(user_id,img.getPath());
         return img.getPath();
     }
 
+    public void setProfileImg(String user_id,String url){
+        mapper.setProfileImg(user_id,url);
+    }
     public List<User> searchUserList(String search) {
         List<User> users = mapper.searchUserList(search);
         setGenderFList(users);
         return users;
     }
+
 
     private void setGenderFList(List<User> users){
         for(User user : users){
@@ -135,6 +139,30 @@ public class UserService {
             }else{
                 user.setGenderF("미정");
             }
+        }
+    }
+
+
+    public void addTechList(String user_id, int [] tech_list) {
+        deleteAllUserTech(user_id);
+        addAllUserTech(user_id,tech_list);
+
+    }
+    public void deleteAllUserTech(String user_id ){
+        List<TechStack> list= mapper.getTechStack(user_id);
+        for(TechStack tech:list){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("user_id",user_id );
+            map.put("tech_id",Integer.toString(tech.getTech_id()));
+            mapper.deleteTech(map);
+        }
+    }
+    public void addAllUserTech(String user_id, int [] tech_list){
+        for(int tech_id:tech_list){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("user_id",user_id );
+            map.put("tech_id",Integer.toString(tech_id));
+            mapper.addTech(map);
         }
     }
 }

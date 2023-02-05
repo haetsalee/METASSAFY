@@ -2,9 +2,7 @@ package com.ssafy.metassafy.controller.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.metassafy.controller.board.BoardController;
-import com.ssafy.metassafy.dto.user.JwtInfoDto;
-import com.ssafy.metassafy.dto.user.TechStack;
-import com.ssafy.metassafy.dto.user.User;
+import com.ssafy.metassafy.dto.user.*;
 import com.ssafy.metassafy.service.user.JwtService;
 import com.ssafy.metassafy.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -13,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -217,10 +216,26 @@ public class UserController {
             "} ")
     @PostMapping("/addTech")
     public ResponseEntity<String> addTech(@RequestBody HashMap<String, String> map){
-       if(service.addTech(map)) {
+       try{
+           service.addTech(map);
            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+       }catch(Exception e){
+           return new ResponseEntity<String>(FAIL, HttpStatus.OK);
        }
-       return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+
+    }
+    @ApiOperation(value = "유저의 기술스택 리스트로 추가", notes = "기술스택을 리스트로 추가. 기존 기술 스택은 다 없애고 새 기술 스택으로 갈아끼운다.", response = String.class)
+    @PostMapping("/addTechList/{user_id}")
+    //기술 스택 리스트 받아서 그 유저에게 추가
+    public ResponseEntity<String> addTechList(@RequestBody int [] tech_list, @PathVariable String user_id){
+        try{
+
+            service.addTechList(user_id,tech_list);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }catch(Exception e){
+            logger.info(e.toString());
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+        }
     }
 
     //특정 유저의 기술 스택 하나 삭제
@@ -233,15 +248,28 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
-    @PostMapping("/auth/setProfileImg")
-    public String setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
+    @ApiOperation(value = "프사 올림", notes = "프사를 스토리지에 올리고 url 받기.", response = String.class)
+    @PostMapping("/uploadProfileImg")
+    public String uploadProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img ){
+        logger.info("setProfileImg");
         try{
-            return service.setProfileImg(user_id,profile_img);
-            //return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+            return service.uploadProfileImg(profile_img);
         }catch (Exception e){
             return FAIL;
         }
+    }
+
+    @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
+    @PostMapping("/auth/setProfileImg")
+    public ResponseEntity<String> setProfileImg(@RequestBody UserProfile data){
+        try{
+            service.setProfileImg(data.getUser_id(),data.getUrl());
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+
+        }catch (Exception e){
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+        }
+
     }
 
     @GetMapping("/auth/getUserById/{user_id}")
