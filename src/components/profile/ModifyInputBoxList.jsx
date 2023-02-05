@@ -1,13 +1,17 @@
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { fetchProfileModify } from '../../services/profile-service';
+import {
+  fetchProfileModify,
+  fetchTechSave,
+} from '../../services/profile-service';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
 import dayjs from 'dayjs';
 import useInfo from '../../hooks/use-info';
 import { BiSave } from 'react-icons/bi';
+import MultipleSelectChip from './Inputs/MultipleSelectChip';
 
 const genderList = {
   label: '성별',
@@ -105,8 +109,11 @@ const InputBoxList = () => {
 
   const onSubmitHandler = () => {
     // submit
-    console.log(info);
+    console.log('제출!!', info, techList);
     fetchProfileModify(info);
+    techList.forEach((tech) => {
+      fetchTechSave(user.user_id, tech);
+    });
   };
 
   return (
@@ -206,6 +213,13 @@ const InputBoxList = () => {
             value={info.profile_txt || ''}
             onChange={(e) => handleChange(e, 'profile_txt')}
           />
+        </InputsStyle>
+      </InputLineStyle>
+      {/* 기술스택 */}
+      <InputLineStyle>
+        <LabelStyle>기술스택</LabelStyle>
+        <InputsStyle>
+          <MultipleSelectChip setTechList={setTechList}></MultipleSelectChip>
         </InputsStyle>
       </InputLineStyle>
       <ButtonStyle onClick={onSubmitHandler}>

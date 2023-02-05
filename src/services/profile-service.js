@@ -33,3 +33,33 @@ export const fetchUserStackById = async (id) => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+export const fetchAllStacks = async (id) => {
+  try {
+    const { data, status } = await API.get('/user/allTechList');
+    if (status === 200) {
+      // console.log('AllStacks', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchTechSave = async (user_id, tech) => {
+  const requestBody = {
+    user_id: user_id,
+    tech_id: tech.tech_id,
+  };
+  try {
+    const { data, status } = await API.post('/user/addTech', requestBody);
+    if (status === 200) {
+      // console.log('save tech', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
