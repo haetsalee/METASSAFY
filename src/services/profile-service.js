@@ -63,3 +63,18 @@ export const fetchTechSave = async (user_id, tech) => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+export const fetchProfileImage = async (formData) => {
+  try {
+    API.defaults.headers['Content-Type'] = 'multipart/form-data';
+    const { data, status } = await API.post('/user/uploadProfileImg', formData);
+    API.defaults.headers['Content-Type'] = 'application/json';
+    if (status === 200) {
+      console.log('save tech', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};

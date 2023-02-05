@@ -32,6 +32,7 @@ const BoardWrite = ({ changeMode }) => {
   const setImgUrl = (file) => {
     const frm = new FormData();
     frm.append('image', file);
+    console.log(frm);
     API.post('board/uploadAndgetLink', frm, {
       headers,
     }).then(function (response) {

@@ -1,13 +1,10 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import Avatar from '@mui/material/Avatar';
 import { useEffect, useState } from 'react';
 import { fetchAllStacks } from '../../../services/profile-service';
 import styled from 'styled-components';

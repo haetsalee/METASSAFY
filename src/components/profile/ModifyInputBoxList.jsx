@@ -236,8 +236,8 @@ const InputListStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20rem;
-  padding: 0.3rem;
+  padding: 0.3rem 2rem;
+  width: 100%;
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0.2rem;

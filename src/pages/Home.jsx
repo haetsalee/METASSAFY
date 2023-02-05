@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import useInfo from '../hooks/use-info';
 import { loginSlice } from '../store/slice/authSlice';
 import { logoutProcess } from '../services/auth-service';
 import { getLocalUserInfo, getLocalAccessToken } from '../utils/local-storage';
@@ -12,8 +11,7 @@ import { getLocalUserInfo, getLocalAccessToken } from '../utils/local-storage';
 import Login from '../components/auth/login/Login';
 
 const Home = () => {
-  const user = useInfo();
-  console.log(user);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const [userInfo, setUser] = useState(getLocalUserInfo());
