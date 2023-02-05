@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Gumi
   - Board
+  - Selectable
   layers:
   - Default
   - TransparentFX
