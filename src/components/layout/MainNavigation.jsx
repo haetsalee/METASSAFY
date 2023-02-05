@@ -13,16 +13,28 @@ function MainNavigation() {
             <NavLink to="/">MainPage</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/profile">UserProfilePage</NavLink>
+            <NavLink to="/page1">page1</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page1">Test Page1</NavLink>
+            <NavLink to="/page2">page2</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page2">Canvas</NavLink>
+            <NavLink to="/page3">page3</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page3">Metaverse Test</NavLink>
+            <NavLink to="/intro">소개</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/board">게시판</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/profile">프로필</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/developers">개발팀</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/login">로그인</NavLink>
           </LiStyle>
         </UlStyle>
       </nav>
@@ -63,7 +75,7 @@ const LiStyle = styled.li`
 
   & > a {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
     :hover {
       color: navy;

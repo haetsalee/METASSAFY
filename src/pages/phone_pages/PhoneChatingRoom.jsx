@@ -14,11 +14,18 @@ import { useState, useEffect, useRef } from 'react';
 import API from '../../utils/api';
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
+import { useParams } from 'react-router-dom';
+
 let stompClient;
 let startNo = 0;
 
 function PhoneChatingRoom(props) {
-  const room = props.croom;
+  // // 파람스 시도
+  const params = useParams();
+  const room = params.id;
+  console.log('room', room);
+
+  // const room = props.croom_no;
   // console.log(props.croom, '==================');
   // console.log(room, '------------------');
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
@@ -262,7 +269,7 @@ function PhoneChatingRoom(props) {
 
   return (
     <Phone>
-      <ChatRoomNav chatRoom={chatRoom} setPage={props.setPage} />
+      <ChatRoomNav chatRoom={chatRoom} />
       <ChatRoomDiv ref={chatBoxRef}>
         <PhoneChatingRoomStyle>
           {!isLoading && scrollLen > 480 && <div ref={setTarget}></div>}

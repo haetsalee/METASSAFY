@@ -1,14 +1,11 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 function MyChatList(props) {
-  // console.log(props.room);
+  console.log('----------------');
+  console.log(props.room);
   return (
-    <div
-      onClick={() => {
-        props.setCroom(props.room.croom_no);
-        props.setPage('chatroom');
-      }}
-    >
+    <NavLink to={`room/${props.room.croom_no}`}>
       <ChatRoomListStyle>
         <ChatRoomNavImgStyle
           src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg"
@@ -27,7 +24,7 @@ function MyChatList(props) {
           </ChatTextStyle>
         </ChatTextBoxDiv>
       </ChatRoomListStyle>
-    </div>
+    </NavLink>
   );
 }
 

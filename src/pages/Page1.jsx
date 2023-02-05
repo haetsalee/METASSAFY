@@ -11,6 +11,7 @@ import PhoneChatingList from './phone_pages/PhoneChatingList';
 import PhoneFriendPage from './phone_pages/PhoneFriendPage';
 import { useState } from 'react';
 import PhoneNav from '../components/phone/phoneNav/PhoneNav';
+import { Outlet } from 'react-router';
 
 function Page1() {
   useEffect(() => {
@@ -30,15 +31,7 @@ function Page1() {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <Phone>
-        {/* <PhoneUserProfile></PhoneUserProfile> */}
-        {page === 'profile' && <PhoneUserProfile />}
-        {page === 'chatroom' && (
-          <PhoneChatingRoom setPage={setPage} croom={croom} />
-        )}
-        {page === 'chatlist' && (
-          <PhoneChatingList setPage={setPage} setCroom={setCroom} />
-        )}
-        {page === 'friend' && <PhoneFriendPage />}
+        <Outlet />
         <PhoneNav status={page} setPage={setPage} />
 
         {/* 프로필 사진
