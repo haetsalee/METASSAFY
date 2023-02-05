@@ -5,6 +5,7 @@ import com.ssafy.metassafy.controller.board.BoardController;
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
+import com.ssafy.metassafy.dto.user.UserProfile;
 import com.ssafy.metassafy.service.user.JwtService;
 import com.ssafy.metassafy.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -233,15 +234,28 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
-    @PostMapping("/auth/setProfileImg")
-    public String setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
+    @ApiOperation(value = "프사 올림", notes = "프사를 스토리지에 올리고 url 받기.", response = String.class)
+    @PostMapping("/uploadProfileImg")
+    public String uploadProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img ){
+        logger.info("setProfileImg");
         try{
-            return service.setProfileImg(user_id,profile_img);
-            //return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+            return service.uploadProfileImg(profile_img);
         }catch (Exception e){
             return FAIL;
         }
+    }
+
+    @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
+    @PostMapping("/auth/setProfileImg")
+    public ResponseEntity<String> setProfileImg(@RequestBody UserProfile data){
+        try{
+            service.setProfileImg(data.getUser_id(),data.getUrl());
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+
+        }catch (Exception e){
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+        }
+
     }
 
     @GetMapping("/auth/getUserById/{user_id}")
