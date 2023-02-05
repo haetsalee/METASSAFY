@@ -235,12 +235,12 @@ public class UserController {
 
     @ApiOperation(value = "특정 유저의 프사 설정", notes = "특정 유저의 프사를 추가한다.", response = String.class)
     @PostMapping("/auth/setProfileImg")
-    public ResponseEntity<String> setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
+    public String setProfileImg(@RequestPart("profile_img") @ApiParam(value = "프사", required = false) MultipartFile profile_img,@RequestPart("user_id") String user_id){
         try{
-            service.setProfileImg(user_id,profile_img);
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+            return service.setProfileImg(user_id,profile_img);
+            //return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+            return FAIL;
         }
     }
 
@@ -248,6 +248,9 @@ public class UserController {
     public User getInfo(@PathVariable String user_id){
         return service.getUser(user_id);
     }
+
+
+
 
 
 

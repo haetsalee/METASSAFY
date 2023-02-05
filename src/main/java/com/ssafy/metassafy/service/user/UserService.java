@@ -113,10 +113,11 @@ public class UserService {
         return user;
     }
 
-    public void setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
+    public String setProfileImg(String user_id,MultipartFile profile_img) throws Exception{
         FileDto img=fileService.saveFile(profile_img);
-        mapper.setProfileImg(user_id,img.getPath());
 
+        mapper.setProfileImg(user_id,img.getPath());
+        return img.getPath();
     }
 
     public List<User> searchUserList(String search) {
