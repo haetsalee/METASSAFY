@@ -410,12 +410,12 @@ function Metaverse() {
   return (
     <div
       className="canvas_Wrap"
-      style={{ display: 'flex', justifyContent: 'center' }}
+      style={{ display: 'flex', justifyContent: 'center', overflow: 'hidden' }}
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
-      <video id="video"></video>
+      {/* <video id="video"></video> */}
       {/* </Card> */}
     </div>
   );
