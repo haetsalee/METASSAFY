@@ -92,6 +92,9 @@
         VALUES (#{user_id}, #{tech_id});
     </insert>
 
+    <select id="checkTechDuplicate" parameterType="map" resultType="integer">
+        Select count(*) from User_Tech where user_id=#{user_id} and tech_id=#{tech_id};
+    </select>
     <delete id="deleteTech" parameterType="map">
         delete from User_Tech where user_id=#{user_id} and tech_id=#{tech_id};
     </delete>

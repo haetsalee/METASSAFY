@@ -81,8 +81,10 @@ public class UserService {
         return mapper.getTechStack(user_id);
     }
 
-    public boolean addTech(HashMap<String, String> map) {
-        return mapper.addTech(map);
+    public void addTech(HashMap<String, String> map) {
+        if(mapper.checkTechDuplicate(map)==0){
+            mapper.addTech(map);
+        }
     }
 
     public boolean deleteTech(HashMap<String, String> map) {
@@ -127,6 +129,7 @@ public class UserService {
         setGenderFList(users);
         return users;
     }
+
 
     private void setGenderFList(List<User> users){
         for(User user : users){
