@@ -42,4 +42,6 @@ public interface UserMapper {
     void setProfileImg(String user_id, String profile_img);
 
     List<User> searchUserList(String search);
+
+    int checkTechDuplicate(HashMap<String, String> map);
 }
