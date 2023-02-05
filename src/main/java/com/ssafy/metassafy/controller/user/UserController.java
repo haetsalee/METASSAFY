@@ -2,10 +2,7 @@ package com.ssafy.metassafy.controller.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.metassafy.controller.board.BoardController;
-import com.ssafy.metassafy.dto.user.JwtInfoDto;
-import com.ssafy.metassafy.dto.user.TechStack;
-import com.ssafy.metassafy.dto.user.User;
-import com.ssafy.metassafy.dto.user.UserProfile;
+import com.ssafy.metassafy.dto.user.*;
 import com.ssafy.metassafy.service.user.JwtService;
 import com.ssafy.metassafy.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -219,14 +216,26 @@ public class UserController {
             "} ")
     @PostMapping("/addTech")
     public ResponseEntity<String> addTech(@RequestBody HashMap<String, String> map){
-
        try{
            service.addTech(map);
            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
        }catch(Exception e){
            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
        }
- 
+
+    }
+    @ApiOperation(value = "유저의 기술스택 리스트로 추가", notes = "기술스택을 리스트로 추가. 기존 기술 스택은 다 없애고 새 기술 스택으로 갈아끼운다.", response = String.class)
+    @PostMapping("/addTechList/{user_id}")
+    //기술 스택 리스트 받아서 그 유저에게 추가
+    public ResponseEntity<String> addTechList(@RequestBody int [] tech_list, @PathVariable String user_id){
+        try{
+
+            service.addTechList(user_id,tech_list);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }catch(Exception e){
+            logger.info(e.toString());
+            return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+        }
     }
 
     //특정 유저의 기술 스택 하나 삭제

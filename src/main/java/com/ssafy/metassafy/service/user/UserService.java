@@ -4,7 +4,6 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.user.JwtInfoDto;
 import com.ssafy.metassafy.dto.user.TechStack;
 import com.ssafy.metassafy.dto.user.User;
-import com.ssafy.metassafy.mapper.board.BoardMapper;
 import com.ssafy.metassafy.mapper.user.UserMapper;
 import com.ssafy.metassafy.service.file.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +139,30 @@ public class UserService {
             }else{
                 user.setGenderF("미정");
             }
+        }
+    }
+
+
+    public void addTechList(String user_id, int [] tech_list) {
+        deleteAllUserTech(user_id);
+        addAllUserTech(user_id,tech_list);
+
+    }
+    public void deleteAllUserTech(String user_id ){
+        List<TechStack> list= mapper.getTechStack(user_id);
+        for(TechStack tech:list){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("user_id",user_id );
+            map.put("tech_id",Integer.toString(tech.getTech_id()));
+            mapper.deleteTech(map);
+        }
+    }
+    public void addAllUserTech(String user_id, int [] tech_list){
+        for(int tech_id:tech_list){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("user_id",user_id );
+            map.put("tech_id",Integer.toString(tech_id));
+            mapper.addTech(map);
         }
     }
 }
