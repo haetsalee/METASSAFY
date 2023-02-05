@@ -11,8 +11,8 @@ import SubmitButton from '../SubmitButton';
 import { fetchRegister } from '../../../services/auth-service';
 
 const isNotEmpty = (value) => value.trim() !== '';
-const isValidId = (isExist, value) => {
-  return value && value.trim() !== '' && !isExist;
+const isValidId = (isExist, preId, value) => {
+  return value && value.trim() !== '' && preId === value && !isExist;
 };
 const isSamePassword = (value, copy) =>
   value.trim() !== '' && value.trim() === copy.trim();
@@ -23,6 +23,7 @@ const RegisterForm = (props) => {
   const [generation, setGeneration] = useState('');
   const [area, setArea] = useState('');
   const [isExistId, setIsExistId] = useState(true);
+  const [preId, setPreId] = useState('');
 
   const {
     value: userIdValue,
@@ -31,7 +32,7 @@ const RegisterForm = (props) => {
     valueChangeHandler: userIdChangeHandler,
     inputBlurHandler: userIdBlurHandler,
     reset: resetUserId,
-  } = useInput(isValidId.bind(null, isExistId));
+  } = useInput(isValidId.bind(null, isExistId, preId));
 
   const {
     value: userPasswordValue,
@@ -100,7 +101,7 @@ const RegisterForm = (props) => {
     }
 
     // 로그인 API
-    const { data, status, error } = await fetchRegister({
+    const { data, error } = await fetchRegister({
       id: userIdValue,
       password: userPasswordValue,
       name: userNameValue,
@@ -144,7 +145,11 @@ const RegisterForm = (props) => {
           marginBottom="0.1rem"
           color="#617485"
         />
-        <ExistCheckButton value={userIdValue} setExist={setIsExistId} />
+        <ExistCheckButton
+          value={userIdValue}
+          setPreId={setPreId}
+          setExist={setIsExistId}
+        />
         <AuthInput
           label="비밀번호"
           type="password"

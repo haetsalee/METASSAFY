@@ -1,13 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { fetchLogin } from '../../../services/auth-service';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
+import { loginSlice } from '../../../store/slice/authSlice';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
 import SubmitButton from '../SubmitButton';
-
-import { fetchLogin } from '../../../services/auth-service';
-import { getJsonLocalUserInfo } from '../../../utils/local-storage';
-import { useDispatch } from 'react-redux';
-import { loginSlice } from '../../../store/slice/authSlice';
 
 const isNotEmpty = (value) => value.trim() !== '';
 
@@ -45,7 +45,7 @@ const LoginForm = (props) => {
     }
 
     // 로그인 API
-    const { data, status, error } = await fetchLogin({
+    const { data } = await fetchLogin({
       id: userIdValue,
       password: userPasswordValue,
     });
