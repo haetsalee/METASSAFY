@@ -7,8 +7,9 @@ const ExistCheckButton = (props) => {
     if (!props.value) {
       return;
     }
-    const { data, status } = await fetchIsExistId(props.value);
+    const { data } = await fetchIsExistId(props.value);
     props.setExist(data);
+    props.setPreId(props.value);
   };
 
   return <ButtonStyle onClick={checkHandler}>중복 확인</ButtonStyle>;

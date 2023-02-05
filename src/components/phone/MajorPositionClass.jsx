@@ -1,5 +1,5 @@
 import React from 'react';
-import TextGroup from './TextGroup';
+import TextGroup from '../profile/common/TextGroup';
 import styled from 'styled-components';
 
 function MajorPositionClass(props) {
@@ -7,7 +7,7 @@ function MajorPositionClass(props) {
     <MajorPositionClassStyle>
       <TextGroup name={props.major} class="전공" />
       <TextGroup name={props.position} class="포지션" />
-      <TextGroup name={props.track} class="반" />
+      <TextGroup name={props.track} class="트랙" />
     </MajorPositionClassStyle>
   );
 }
@@ -23,8 +23,6 @@ const MajorPositionClassStyle = styled.div`
   display: flex;
   align-content: center;
   justify-content: space-around;
-  /* width: 90%; */
   width: 20rem;
-  /* margin: 0rem 0rem 5rem 0rem; */
-  padding: 0.5rem;
+  padding: 1rem 0.5rem 0.8rem 0.5rem;
 `;

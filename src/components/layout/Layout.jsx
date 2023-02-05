@@ -13,7 +13,7 @@ function Layout(props) {
 export default Layout;
 
 const MainStyle = styled.main`
-  margin: 3rem auto;
+  // margin: 3rem auto;
   width: 100%;
-  max-width: 40rem;
+  // max-width: 40rem;
 `;

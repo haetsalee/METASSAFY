@@ -3,7 +3,7 @@
 import Phone from '../components/UI/Phone';
 import React from 'react';
 import PhoneUserProfile from './phone_pages/PhoneUserProfile';
-import GetUserStack from '../components/phone/GetUserStack';
+// import GetUserStack from '../components/phone/GetUserStack';
 import { useEffect } from 'react';
 import { fetchUserInfo } from '../services/auth-service';
 import PhoneChatingRoom from './phone_pages/PhoneChatingRoom';
@@ -53,7 +53,7 @@ function Page1() {
       자기소개
       생일 */}
       </Phone>
-      <GetUserStack></GetUserStack>
+      {/* <GetUserStack></GetUserStack> */}
     </section>
   );
 }

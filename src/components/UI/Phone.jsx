@@ -1,6 +1,6 @@
-import BackgroundBox from '../phone/BackgroundBox';
+import BackgroundBox from '../profile/common/BackgroundBox';
 import MajorPositionClass from '../phone/MajorPositionClass';
-import TextGroupComponent from '../phone/TextGroupComponent';
+import TextGroupComponent from '../profile/common/TextGroupComponent';
 import styled from 'styled-components';
 // import PhoneNav from '../phone/phoneNav/PhoneNav';
 

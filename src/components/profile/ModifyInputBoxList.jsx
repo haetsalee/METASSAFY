@@ -1,17 +1,17 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { fetchUserInfo } from '../../services/auth-service';
-import { fetchProfileModify } from '../../services/profile-service';
-import { getLocalUserInfo } from '../../utils/local-storage';
+import {
+  fetchProfileModify,
+  fetchTechSave,
+} from '../../services/profile-service';
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
-
-const nameList = {
-  label: '이름',
-  key: 'name',
-};
+import dayjs from 'dayjs';
+import useInfo from '../../hooks/use-info';
+import { BiSave } from 'react-icons/bi';
+import MultipleSelectChip from './Inputs/MultipleSelectChip';
 
 const genderList = {
   label: '성별',
@@ -54,9 +54,21 @@ const positionList = {
 };
 
 const InputBoxList = () => {
+  const user = useInfo();
+  // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
+  // "student_no":"2222","name":"zzzzz",
+  // "area":"구미","email":"zz@z","gender":"w",
+  // "birthday":"2023-02-03T04:09:23.840Z","age":10,"interest":"BE",
+  // "regtime":1675121266000,
+  // "profile_img":"https://kr.object.ncloudstorage.com/metassafy/06c4fb8f-7409-40c0-a2b7-6e83f0ca0cebdefault.png",
+  // "profile_txt":"앙뇽~~~~~~~~~~~~~~~~!!!!",
+  // "first_semester":"파이썬","common":null,"special":null,"free":null,"first_semester_class":0,"common_class":0,"special_class":0,"free_class":0,"x":0,"y":0,"z":0,"common_team":0,"special_team":0,"free_team":0,"current_role":null,
+  // "generation":8,"major":"비전공",
+  // "common_jo":"미정","special_jo":"미정","free_jo":"미정"};
   const [info, setInfo] = useState({
+    user_id: '',
     name: '',
-    gender: '', // w, m
+    genderF: '', // w, m
     birthday: '',
     generation: 0, // 기수
     area: '', // 지역
@@ -68,18 +80,24 @@ const InputBoxList = () => {
   const [techList, setTechList] = useState([]); // tech_id 기술스택
 
   useEffect(() => {
-    const fetchUser = async () => {
-      // const { error } = await fetchUserInfo();
-      // if (!error) {
-      // setInfo(JSON.parse(getLocalUserInfo()));
-      // }
-      console.log(JSON.parse(getLocalUserInfo()));
-      setInfo(JSON.parse(getLocalUserInfo()));
+    const initInfo = {
+      user_id: user.user_id,
+      name: user.name || '',
+      genderF: user.genderF || '', // w, m
+      birthday: dayjs(user.birthday) || '',
+      generation: user.generation || '', // 기수
+      area: user.area || '', // 지역
+      first_semester: user.first_semester || '', // 트랙
+      major: user.major || '', // 전공
+      interest: user.interest || '', // 희망 포지션
+      profile_txt: user.profile_txt || '', // 자기소개
     };
-    fetchUser();
-  }, []);
+    setInfo({ ...initInfo });
+  }, [user]);
 
-  console.log(info);
+  useEffect(() => {
+    console.log('변화 정보!!!', info);
+  }, [info]);
 
   const handleChange = (e, key) => {
     setInfo((preState) => {
@@ -91,8 +109,11 @@ const InputBoxList = () => {
 
   const onSubmitHandler = () => {
     // submit
-    console.log(info);
+    console.log('제출!!', info, techList);
     fetchProfileModify(info);
+    techList.forEach((tech) => {
+      fetchTechSave(user.user_id, tech);
+    });
   };
 
   return (
@@ -104,7 +125,7 @@ const InputBoxList = () => {
           <TextField
             id="standard-basic"
             variant="standard"
-            value={info.name}
+            value={info.name || ''}
             onChange={(e) => handleChange(e, 'name')}
           />
         </InputsStyle>
@@ -116,16 +137,17 @@ const InputBoxList = () => {
           <DropdownInput
             data={genderList}
             width="30%"
-            value={info.gender}
-            defaultValue={info.gender}
-            onChange={(e) => handleChange(e, 'gender')}
+            value={info.genderF || ''}
+            defaultValue={info.genderF || ''}
+            onChange={(e) => handleChange(e, 'genderF')}
           />
           <CalendarInput
             value={info.birthday}
+            // value="2023-02-03T04:09:23.840Z"
             onChange={(e) =>
               setInfo((preState) => {
                 const state = { ...preState };
-                state['birthday'] = e['$d'];
+                state['birthday'] = String(e['$d']);
                 return state;
               })
             }
@@ -139,29 +161,29 @@ const InputBoxList = () => {
           <DropdownInput
             data={generationList}
             width="25%"
-            value={info.generation}
-            defaultValue={info.generation}
+            value={info.generation || ''}
+            defaultValue={info.generation || ''}
             onChange={(e) => handleChange(e, 'generation')}
           />
           <DropdownInput
             data={areaList}
             width="25%"
-            value={info.area}
-            defaultValue={info.area}
+            value={info.area || ''}
+            defaultValue={info.area || ''}
             onChange={(e) => handleChange(e, 'area')}
           />
           <DropdownInput
             data={trackList}
             width="25%"
-            value={info.first_semester}
-            defaultValue={info.first_semester}
+            value={info.first_semester || ''}
+            defaultValue={info.first_semester || ''}
             onChange={(e) => handleChange(e, 'first_semester')}
           />
           <DropdownInput
             data={majorList}
             width="25%"
-            value={info.major}
-            defaultValue={info.major}
+            value={info.major || ''}
+            defaultValue={info.major || ''}
             onChange={(e) => handleChange(e, 'major')}
           />
         </InputsStyle>
@@ -188,14 +210,22 @@ const InputBoxList = () => {
             variant="standard"
             multiline
             maxRows={4}
-            value={info.profile_txt}
+            value={info.profile_txt || ''}
             onChange={(e) => handleChange(e, 'profile_txt')}
           />
         </InputsStyle>
       </InputLineStyle>
-      <Button variant="outlined" onClick={onSubmitHandler}>
-        submit
-      </Button>
+      {/* 기술스택 */}
+      <InputLineStyle>
+        <LabelStyle>기술스택</LabelStyle>
+        <InputsStyle>
+          <MultipleSelectChip setTechList={setTechList}></MultipleSelectChip>
+        </InputsStyle>
+      </InputLineStyle>
+      <ButtonStyle onClick={onSubmitHandler}>
+        저장
+        <BiSave />
+      </ButtonStyle>
     </InputListStyle>
   );
 };
@@ -203,17 +233,20 @@ const InputBoxList = () => {
 export default InputBoxList;
 
 const InputListStyle = styled.div`
-  width: 20rem;
-  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3rem 2rem;
+  width: 100%;
   overflow: auto;
   &::-webkit-scrollbar {
-    width: 0.3rem;
+    width: 0.2rem;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #e0f4ff;
     border-radius: 10px;
     background-clip: padding-box;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
   }
   &::-webkit-scrollbar-track {
     background-color: #617485;
@@ -239,4 +272,18 @@ const InputLineStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+`;
+
+const ButtonStyle = styled.button`
+  width: 5rem;
+  height: 2rem;
+  background-color: #799fc1;
+  border: 1px solid #799fc0;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  font-family: 'korail_bold';
 `;

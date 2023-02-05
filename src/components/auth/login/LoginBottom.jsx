@@ -7,7 +7,7 @@ import { ReactComponent as Google } from '../../../assets/icons/google.svg';
 import { ReactComponent as Kakao } from '../../../assets/icons/kakao.svg';
 import { ReactComponent as Naver } from '../../../assets/icons/naver.svg';
 
-const LoginBottom = (props) => {
+const LoginBottom = () => {
   const navigate = useNavigate();
 
   const goRegisterHandler = () => {

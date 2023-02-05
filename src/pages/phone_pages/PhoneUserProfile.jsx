@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 import MajorPositionClass from '../../components/phone/MajorPositionClass';
-import TextGroupComponent from '../../components/phone/TextGroupComponent';
-import BackgroundBox from '../../components/phone/BackgroundBox';
-import RoundBox from '../../components/phone/RoundBox';
-import TechStackBox from '../../components/phone/TechStackBox';
-import InfoBox from '../../components/phone/InfoBox';
+import TextGroupComponent from '../../components/profile/common/TextGroupComponent';
+import BackgroundBox from '../../components/profile/common/BackgroundBox';
+import RoundBox from '../../components/profile/common/RoundBox';
+import InfoBox from '../../components/profile/common/InfoBox';
 import { useEffect } from 'react';
 import { fetchUserInfo } from '../../services/auth-service';
 
