@@ -12,6 +12,13 @@ import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+//- 내가 좋아요한지, 전체 좋아요 수
+//        - 글 이미지 thumbnail
+//        - 제목 title
+//        - 조회수 hit
+//        - 작성자 (이름, 기수, 지역) user_id
+//        - 작성 날짜 regtime
+//        - 글 내용 content
 
 @Getter
 @Setter
@@ -37,8 +44,17 @@ public class BoardDto {
     private String thumbnail;
     @ApiModelProperty(value = "업로드 파일")
     private List<FileDto> files;
-
     @ApiModelProperty(value = "해당 게시글 좋아요수")
     private int like;
+    @ApiModelProperty(value = "해당 게시글의 좋아요를 내가 눌렀는지")
+    private int my_like;
+    @ApiModelProperty(value = "해당 게시글이 나의 글인지")
+    private int my_article;
+    @ApiModelProperty(value = "작성자 이름")
+    private int name;
+    @ApiModelProperty(value = "작성자 기수")
+    private int generation;
+    @ApiModelProperty(value = "작성자 지역")
+    private int area;
 
 }

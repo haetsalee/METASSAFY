@@ -68,7 +68,7 @@ public class BoardServiceImpl implements  BoardService{
         }
 
         LikeDto likeDto = new LikeDto();
-        likeDto.setLike_type(0);
+        likeDto.setLike_type(1);
         likeDto.setUser_id(boardDto.getUser_id());
         likeDto.setNo(boardDto.getArticle_no());
         System.out.println(likeDto);

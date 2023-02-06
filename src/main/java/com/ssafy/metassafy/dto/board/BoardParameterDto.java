@@ -18,4 +18,8 @@ public class BoardParameterDto {
     private String key;
     @ApiModelProperty(value = "검색어")
     private String word;
+    @ApiModelProperty(value = "인기순")
+    private String popularity;
+    @ApiModelProperty(value = "유저 아이디")
+    private String user_id;
 }

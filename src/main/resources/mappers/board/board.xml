@@ -14,6 +14,11 @@
 		<result property="modtime" column="modtime"/>
 		<result property="thumbnail" column="thumbnail"/>
 		<result property="like" column="like"/>
+		<result property="my_like" column="my_like"/>
+		<result property="my_article" column="my_article"/>
+		<result property="name" column="name"/>
+		<result property="generation" column="generation"/>
+		<result property="area" column="area"/>
 		<collection property="files" column="{article_no = article_no}" ofType="com.ssafy.metassafy.dto.file.FileDto" select="selectFile" />
 	</resultMap>
 
@@ -37,24 +42,58 @@
     </insert>
 
 	<select id="listArticle" parameterType="com.ssafy.metassafy.dto.board.BoardParameterDto" resultMap="article">
-		select article_no, user_id, title, content, hit, regtime, modtime, thumbnail, (select count(*) from `like` where like_type = 0 and article_no = no) as `like`
-		from article
-		<if test="word != null and word != ''">
-			<if test="key == 'title'">
-				and title like concat('%', #{word}, '%')
+		select a.article_no, a.user_id, a.title, a.content, a.hit, a.regtime, a.modtime, a.thumbnail, (select count(*) from `like` where like_type = 1 and `no` = a.article_no) as `like`,(select count(*) from `like` where like_type = 1 and user_id = #{user_id} and `no` = a.article_no) as `my_like`, (select a.user_id = #{user_id}) as `my_article`,u.name, u.generation, u.area
+		from article a
+		LEFT JOIN User u
+		ON a.user_id = u.user_id
+		<where>
+			<if test="word != null and word != ''">
+				<if test="key == 'title'">
+					and a.title like concat('%', #{word}, '%')
+				</if>
+				<if test="key == 'content'">
+					and a.content like concat('%', #{word}, '%')
+				</if>
+				<if test="key == 'user_id'">
+					and a.user_id = #{word}
+				</if>
+				<if test="key == 'area'">
+					<choose>
+						<when test="word == 'seoul'">
+							and u.area = 'seoul'
+						</when>
+						<when test="word == 'gumi'">
+							and u.area = 'gumi'
+						</when>
+						<when test="word == 'gwang'">
+							and u.area = 'gwang'
+						</when>
+						<when test="word == 'dae'">
+							and u.area = 'dae'
+						</when>
+						<when test="word == 'bul'">
+							and u.area = 'bul'
+						</when>
+					</choose>
+				</if>
 			</if>
-			<if test="key != 'title'">
-				and ${key} = #{word}
-			</if>
+		</where>
+		ORDER BY
+		<if test="popularity == 'true'">
+			`like` desc
 		</if>
-		order by article_no desc
+		<if test="popularity == 'false'">
+			a.article_no desc
+		</if>
 	</select>
 
 
 	<select id="getArticle" parameterType="int" resultMap="article">
-		select article_no, user_id, title, content, hit, regtime, modtime, thumbnail, (select count(*) from `like` where like_type = 0 and article_no = no) as `like`
-		from article
-		where article_no = #{article_no}
+		select a.article_no, a.user_id, a.title, a.content, a.hit, a.regtime, a.modtime, a.thumbnail, (select count(*) from `like` where like_type = 1 and `no` = a.article_no) as `like`,(select count(*) from `like` where like_type = 1 and user_id = #{user_id} and `no` = a.article_no) as `my_like`, (select a.user_id = #{user_id}) as `my_article`,u.name, u.generation, u.area
+		from article a
+				 LEFT JOIN User u
+						   ON a.user_id = u.user_id
+		where a.article_no = #{article_no}
 	</select>
 
 	<update id="updateHit" parameterType="int">
@@ -62,6 +101,7 @@
 		set hit = hit + 1
 		where article_no = #{article_no}
 	</update>
+
 
 	<update id="modifyArticle" parameterType="com.ssafy.metassafy.dto.board.BoardDto">
 		update article
