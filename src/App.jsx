@@ -24,6 +24,8 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
+import ArticlePage from './pages/ArticlePage';
+import WritePage from './pages/WritePage';
 
 function App() {
   useInfo();
@@ -45,7 +47,10 @@ function App() {
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
-          <Route path="board" element={<BoardPage />} />
+          <Route path="board/" element={<BoardPage />}>
+            <Route path=":id" element={<ArticlePage />} />
+            <Route path="write" element={<WritePage />} />
+          </Route>
           <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="developers" element={<DevelopersPage />} />
