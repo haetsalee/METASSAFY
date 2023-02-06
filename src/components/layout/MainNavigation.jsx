@@ -127,7 +127,7 @@ const UlStyle = styled.ul`
 `;
 
 const LiStyle = styled.li`
-  margin-right: 2rem;
+  margin-right: 1rem;
   @media screen and (max-width: 400px) {
     margin-left: 10px;
     margin-bottom: 5px;
