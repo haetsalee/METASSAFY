@@ -17,6 +17,7 @@ import ProfileModify from './components/profile/ProfileModify';
 import Board from './pages/Board';
 import ProfilePage from './pages/ProfilePage';
 import useInfo from './hooks/use-info';
+import UnityPage from './pages/UnityPage';
 
 function App() {
   useInfo();
@@ -43,6 +44,18 @@ function App() {
         <Route path="/Page3" element={<Page3 />} />
         <Route path="/Page4" element={<Page4 />} />
         {/* <Route path="/profile-modify" element={<Profile />} /> */}
+        <Route
+          path="/unity"
+          element={
+            <UnityPage
+              style={{
+                margin: 0,
+                width: '100vw',
+                height: '100vh',
+              }}
+            />
+          }
+        />
       </Routes>
     </Layout>
   );
