@@ -45,9 +45,9 @@ function MainNavigation() {
       </Link> */}
       <nav>
         <UlStyle>
-          <LiStyle>
+          {/* <LiStyle>
             <NavLink to="/">MainPage</NavLink>
-          </LiStyle>
+          </LiStyle> */}
           {/* <LiStyle>
             <NavLink to="/page1">page1</NavLink>
           </LiStyle>
@@ -81,13 +81,13 @@ function MainNavigation() {
 export default MainNavigation;
 
 const HeaderStyle = styled.header`
-  width: 90vw;
+  width: 100%;
   box-sizing: border-box;
   /* height: 60px; */
   display: flex;
   align-items: center;
   /* background-color: pink; */
-  justify-content: space-around;
+  justify-content: space-between;
   /* background: linear-gradient(to left, #c1a1d3, #c3ddff); */
   /* background-color: #c1a1d3; */
   /* padding: 0 10%; */
