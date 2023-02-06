@@ -20,7 +20,7 @@ const PhoneStyle = styled.div`
   border-radius: 1rem;
   /* border: 10px rgb(121, 190, 232) solid; */
   width: 22rem;
-  height: 40rem;
+  height: 35rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   /* display: flex;

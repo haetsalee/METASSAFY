@@ -30,33 +30,14 @@ const BoardPage = () => {
     else setMode('write');
   };
 
-  if (mode == 'item') {
-    components = (
-      <BoardItem changeMode={changeMode} data={data} setIsUpdate={setUpdate} />
-    );
-  } else if (mode == 'write') {
-    components = <BoardWrite changeMode={changeMode} />;
-  } else {
-    components = <BoardList changeMode={changeMode} setArticle={setArticle} />;
-  }
-  return (
-    <div>
-      <Phone>
-        여기는 게시판<button onClick={clickWriteBtn}>글쓰기</button>
-        {components}
-      </Phone>
-    </div>
-  );
+  return <SectionStyle>f</SectionStyle>;
 };
 
 export default BoardPage;
 
 const SectionStyle = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: pink;
+  min-height: 100vh;
 `;
 
-const WrapperStyle = styled.div`
-  width: 350px;
-`;
+// const BannerDivStyle = styled.
