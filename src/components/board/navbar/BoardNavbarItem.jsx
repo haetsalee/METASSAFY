@@ -18,8 +18,7 @@ const BoardNavbarItem = ({
     // get new board
     const newList = [];
     // api
-    console.log(menu.type);
-    setBoardList(newList);
+    // setBoardList(newList);
   };
 
   let dropDown = null;
@@ -55,7 +54,7 @@ const LiStyle = styled.li`
     height: 100%;
     text-align: center;
     border: none;
-    border-radius: 7px;
+    border-radius: 20px;
     background-color: white;
     color: #868e96;
     position: relative;

@@ -1,12 +1,28 @@
 import styled from 'styled-components';
+import BoardCard from './card/BoardCard';
 
 const BoardFeed = () => {
-  return <SectionStyle>피드</SectionStyle>;
+  return (
+    <SectionStyle>
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+      <BoardCard />
+    </SectionStyle>
+  );
 };
 
 export default BoardFeed;
 
 const SectionStyle = styled.section`
-  background-color: blue;
-  width: 80%;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  flex-wrap: wrap;
 `;

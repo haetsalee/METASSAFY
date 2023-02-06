@@ -36,6 +36,6 @@ const BoardNavbar = ({ setBoardList }) => {
 export default BoardNavbar;
 
 const SectionStyle = styled.section`
-  width: 20%;
+  width: 12%;
   min-width: 8rem;
 `;
