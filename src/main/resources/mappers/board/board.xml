@@ -59,20 +59,20 @@
 				</if>
 				<if test="key == 'area'">
 					<choose>
-						<when test="word == 'seoul'">
-							and u.area = 'seoul'
+						<when test="word == '서울'">
+							and u.area = '서울'
 						</when>
-						<when test="word == 'gumi'">
-							and u.area = 'gumi'
+						<when test="word == '구미'">
+							and u.area = '구미'
 						</when>
-						<when test="word == 'gwang'">
-							and u.area = 'gwang'
+						<when test="word == '서울'">
+							and u.area = '서울'
 						</when>
-						<when test="word == 'dae'">
-							and u.area = 'dae'
+						<when test="word == '대전'">
+							and u.area = '대전'
 						</when>
-						<when test="word == 'bul'">
-							and u.area = 'bul'
+						<when test="word == '부울경'">
+							and u.area = '부울경'
 						</when>
 					</choose>
 				</if>
