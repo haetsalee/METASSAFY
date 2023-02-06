@@ -61,6 +61,7 @@ const NameP = styled.p`
 
 const RoadMapP = styled.p`
   font-size: 1.5rem;
+  color: #436b71c9;
 `;
 
 const DescribeDiv = styled.div`

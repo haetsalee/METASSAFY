@@ -89,22 +89,22 @@ function DevelopersList() {
 export default DevelopersList;
 
 const InvitedImgStyle = styled.img`
-  width: 15rem;
-  height: 15rem;
+  width: 12rem;
+  height: 12rem;
   object-fit: cover;
   border-radius: 50%;
-  margin: 0rem 3rem;
+  margin: 0rem 2rem;
 `;
 
 const FlexDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin: 5rem 0rem;
+  margin: 3rem 0rem;
 `;
 
 const BlankDiv = styled.div`
-  width: 20rem;
-  height: 20rem;
+  width: 17rem;
+  height: 17rem;
 `;
 
 const DevelopDiv = styled.div`
