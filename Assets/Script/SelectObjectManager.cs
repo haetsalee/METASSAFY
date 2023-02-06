@@ -57,6 +57,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
     void goToGumi()
     {
         Debug.Log("구미 클릭");
+        
         //모든 플레이어 중에서
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
         for (int i=0;i< players.Length; i++)
@@ -65,7 +66,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.Disconnect();
             }
-        }
+        } 
         //씬 이동
         SceneManager.LoadScene("Gumi");
 

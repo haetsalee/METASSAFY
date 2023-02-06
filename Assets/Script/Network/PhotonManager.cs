@@ -17,12 +17,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Conneted to Master");
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        PhotonNetwork.JoinOrCreateRoom("Gumi", null, null);
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined a room successfully!");
-        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+        GameObject p=PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+        Transform t = p.GetComponent<Transform>();
+        t.Find("name").GetComponent<TextMesh>().text = GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname;
     }
 }
