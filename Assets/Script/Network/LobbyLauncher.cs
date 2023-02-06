@@ -8,7 +8,7 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
 {
     public PhotonView playerPrefab;
 
-
+    public GameObject ReactManager;
     public GameObject loading;
 
     // Start is called before the first frame update
@@ -27,11 +27,16 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
     {
         loading.SetActive(false);
         Debug.Log("룸 참가 성공");
+         
         GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
         Transform t = p.GetComponent<Transform>();
         GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
          
         Debug.Log("카메라 연결 성공");
+        t.Find("name").GetComponent<TextMesh>().text=  ReactManager.GetComponent<ReactManager>().getNickname();
+
+
+
     }
     
 }
