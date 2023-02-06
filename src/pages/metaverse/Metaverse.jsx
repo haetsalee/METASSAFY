@@ -309,37 +309,37 @@ function Metaverse() {
             window.location.href = 'http://edu.ssafy.com';
           }
           if (
-            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
-            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
+            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1 &&
+            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1
           ) {
-            if (!house.visible) {
-              console.log('나와');
-              house.visible = true;
-              // naver로이동
-              window.open('https://naver.com');
-              spotMesh.material.color.set('seagreen');
-              gsap.to(house.modelMesh.position, {
-                duration: 1,
-                y: 1,
-                ease: 'Bounce.easeOut',
-              });
-              gsap.to(camera.position, {
-                duration: 1,
-                y: 3,
-              });
-            }
-          } else if (house.visible) {
-            console.log('들어가');
-            house.visible = false;
-            spotMesh.material.color.set('yellow');
-            gsap.to(house.modelMesh.position, {
-              duration: 0.5,
-              y: -1.3,
-            });
-            gsap.to(camera.position, {
-              duration: 1,
-              y: 5,
-            });
+            // if (!house.visible) {
+            //   console.log('나와');
+            //   house.visible = true;
+            // naver로이동
+            window.open('https://naver.com');
+            //     spotMesh.material.color.set('seagreen');
+            //     gsap.to(house.modelMesh.position, {
+            //       duration: 1,
+            //       y: 1,
+            //       ease: 'Bounce.easeOut',
+            //     });
+            //     gsap.to(camera.position, {
+            //       duration: 1,
+            //       y: 3,
+            //     });
+            //   }
+            // } else if (house.visible) {
+            //   console.log('들어가');
+            //   house.visible = false;
+            //   spotMesh.material.color.set('yellow');
+            //   gsap.to(house.modelMesh.position, {
+            //     duration: 0.5,
+            //     y: -1.3,
+            //   });
+            //   gsap.to(camera.position, {
+            //     duration: 1,
+            //     y: 5,
+            //   });
           }
         } else {
           // 서 있는 상태
