@@ -19,6 +19,7 @@ import ProfilePage from './pages/ProfilePage';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
 import UnityPage from './pages/UnityPage';
+import VideoChatPage from './pages/VideoChatPage';
 
 import useInfo from './hooks/use-info';
 import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
@@ -57,6 +58,7 @@ function App() {
           <Route path="developers" element={<DevelopersPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="metassafy/" element={<Metaverse />}>
+            <Route path="videochat/" element={<VideoChatPage />} />
             <Route path="phone/" element={<Page1 />}>
               <Route
                 path="profile"
