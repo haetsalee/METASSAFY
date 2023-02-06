@@ -25,7 +25,6 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
-import UnityPage from './pages/UnityPage';
 
 function App() {
   useInfo();
