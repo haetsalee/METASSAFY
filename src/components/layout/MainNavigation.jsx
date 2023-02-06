@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 // import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 function MainNavigation() {
   return (
     <HeaderStyle>
-      <LogoStyle>METASSAFY</LogoStyle>
+      <Link to="/">
+        <LogoStyle>METASSAFY</LogoStyle>
+      </Link>
       <nav>
         <UlStyle>
           <LiStyle>
@@ -54,6 +56,8 @@ const HeaderStyle = styled.header`
   background: linear-gradient(to left, #c1a1d3, #c3ddff);
   /* background-color: #c1a1d3; */
   padding: 0 10%;
+  position: absolute;
+  top: 0;
 `;
 
 const LogoStyle = styled.div`
