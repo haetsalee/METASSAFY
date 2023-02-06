@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityStandardAssets.Utility;
+
 public class LobbyLauncher : MonoBehaviourPunCallbacks
 {
     public PhotonView playerPrefab;
@@ -26,7 +28,9 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
         loading.SetActive(false);
         Debug.Log("룸 참가 성공");
         GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
-        GameObject.Find("Main Camera").GetComponent<SmoothFollow>().target = p.transform;
+        Transform t = p.GetComponent<Transform>();
+        GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
+         
         Debug.Log("카메라 연결 성공");
     }
     

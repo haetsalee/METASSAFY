@@ -67,7 +67,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
             }
         }
         //æ¿ ¿Ãµø
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Gumi");
 
     }
     private void clickBoard()
