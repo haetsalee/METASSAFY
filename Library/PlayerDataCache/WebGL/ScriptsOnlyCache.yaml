@@ -18,6 +18,8 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
+    PhotonUnityNetworking.Editor.dll:
+    - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonHandler
@@ -136,20 +138,38 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 1570}
+    - Class: 114
       Script: {instanceID: 1948}
     - Class: 114
       Script: {instanceID: 2194}
     - Class: 114
       Script: {instanceID: 2338}
     - Class: 114
+      Script: {instanceID: 2754}
+    - Class: 114
+      Script: {instanceID: 2992}
+    - Class: 114
       Script: {instanceID: 3220}
     - Class: 114
+      Script: {instanceID: 6218}
+    - Class: 114
       Script: {instanceID: 6260}
+    - Class: 114
+      Script: {instanceID: 6734}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     Assets/Scenes/Gumi.unity:
     - Class: 1
@@ -169,6 +189,8 @@ ScriptsOnlyBuild:
     - Class: 43
       Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -1138,7 +1160,7 @@ ScriptsOnlyBuild:
     className: TMP_Settings
   - hash:
       serializedVersion: 2
-      Hash: 0cecac2c57a3f22387f6531e216be61a
+      Hash: 60ebd98134377868139fb430005aa0a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LobbyLauncher
@@ -1582,7 +1604,7 @@ ScriptsOnlyBuild:
     className: TextMeshSpawner
   - hash:
       serializedVersion: 2
-      Hash: 0cecac2c57a3f22387f6531e216be61a
+      Hash: 60ebd98134377868139fb430005aa0a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GumiLauncher

@@ -137,6 +137,7 @@
     <None Include="Assets\Asset_DownLoad\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
     <None Include="Assets\Asset_DownLoad\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Asset_DownLoad\POLYGON city pack\Read_me.txt" />
     <None Include="Assets\Asset_DownLoad\Supercyan Character Pack Free Sample\Shaders\SupercyanShaderLighting.cginc" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
     <None Include="Assets\Asset_DownLoad\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
