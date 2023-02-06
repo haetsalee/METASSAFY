@@ -133,7 +133,7 @@ public class UserController {
             //토큰에는 아이디와 이메일 정보만 저장. 아이디 정보로 유저 전체 정보를 가져온다.
             JwtInfoDto userToken = new ObjectMapper().convertValue(tokenInfoMap.get("user"), JwtInfoDto.class);
             User user=service.getUser(userToken.getUser_id());
-
+            user.setUser_pwd(null);
             return new ResponseEntity<Object>(user, HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<Object>(FAIL, HttpStatus.OK);
