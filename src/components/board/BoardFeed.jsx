@@ -1,19 +1,13 @@
 import styled from 'styled-components';
 import BoardCard from './card/BoardCard';
 
-const BoardFeed = () => {
+const BoardFeed = ({ boardList }) => {
   return (
     <SectionStyle>
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      <BoardCard />
+      {boardList &&
+        boardList.map((card, index) => {
+          return <BoardCard key={index} card={card} />;
+        })}
     </SectionStyle>
   );
 };

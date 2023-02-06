@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const area = [
-  { key: 'gumi', label: '구미' },
   { key: 'seoul', label: '서울' },
+  { key: 'gwang', label: '광주' },
   { key: 'gumi', label: '구미' },
-  { key: 'gumi', label: '구미' },
-  { key: 'gumi', label: '구미' },
+  { key: 'dae', label: '대구' },
+  { key: 'bul', label: '부울경' },
 ];
 
 const search = [
@@ -29,16 +29,23 @@ const BoardNavbarDrop = ({ type }) => {
 export default BoardNavbarDrop;
 
 const UlStyle = styled.ul`
+  width: 10rem;
+  position: absolute;
+  top: 2rem;
   border: 1px solid #799fc0;
   border-radius: 10px;
   margin-top: 0.2rem;
-  padding: 0.5rem;
+  z-index: 10;
+  background-color: white;
 `;
 
 const LiStyle = styled.li`
-  background-color: pink;
-  margin: 0.3rem;
+  width: 100%;
+  padding: 0.4rem 0;
+  margin: 0.3rem 0;
+  text-align: center;
   color: #8a8a8a;
+  cursor: pointer;
   &:hover {
     color: black;
   }

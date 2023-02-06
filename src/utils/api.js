@@ -9,7 +9,7 @@ const API = axios.create({
   baseURL: 'https://www.metassafy.store/api',
   // baseURL: 'http://i8d211.p.ssafy.io:8088/metassafy',
   // baseURL: 'http://192.168.100.124:9999/metassafy',
-  // baseURL: 'http://172.30.1.65:9999/metassafy',
+  // baseURL: 'http://172.30.1.22:9999/metassafy',
   headers: {
     'Content-Type': 'application/json',
     // 'jwt-auth-token': TOKEN,

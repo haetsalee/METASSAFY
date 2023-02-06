@@ -14,28 +14,25 @@ const BoardNavbar = ({ setBoardList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <SectionStyle>
-      <ul>
-        {menuList.map((menu, index) => {
-          return (
-            <BoardNavbarItem
-              key={index}
-              menu={menu}
-              index={index}
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-              setBoardList={setBoardList}
-            ></BoardNavbarItem>
-          );
-        })}
-      </ul>
-    </SectionStyle>
+    <UlStyle>
+      {menuList.map((menu, index) => {
+        return (
+          <BoardNavbarItem
+            key={index}
+            menu={menu}
+            index={index}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+            setBoardList={setBoardList}
+          ></BoardNavbarItem>
+        );
+      })}
+    </UlStyle>
   );
 };
 
 export default BoardNavbar;
 
-const SectionStyle = styled.section`
-  width: 12%;
-  min-width: 8rem;
+const UlStyle = styled.ul`
+  width: 12rem;
 `;

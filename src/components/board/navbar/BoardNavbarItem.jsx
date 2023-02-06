@@ -13,7 +13,11 @@ const BoardNavbarItem = ({
 }) => {
   const clickHandler = () => {
     // button active
-    setActiveIndex(index);
+    if (index === activeIndex) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(index);
+    }
 
     // get new board
     const newList = [];
@@ -41,6 +45,10 @@ const BoardNavbarItem = ({
 export default BoardNavbarItem;
 
 const LiStyle = styled.li`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
   margin-bottom: 1.2rem;
   height: 2rem;
 

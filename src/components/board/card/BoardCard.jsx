@@ -2,29 +2,37 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Heart from './Heart';
 
-const BoardCard = () => {
+const BoardCard = ({ card }) => {
+  const date = new Date(card.regtime);
+  const strDate =
+    String(date.getFullYear()).slice(2, 4) +
+    '.' +
+    String(date.getMonth()).padStart(2, '0') +
+    '.' +
+    String(date.getDate()).padStart(2, '0');
+
   return (
-    <Link to="/1" style={{ textDecoration: 'none', color: 'black' }}>
+    <Link
+      to={'/' + card.article_no}
+      style={{ textDecoration: 'none', color: 'black' }}
+    >
       <CardSection>
         <LikeDivStyle>
-          <Heart isLike={true} />
-          <p>21</p>
+          <Heart isLike={card.my_like} />
+          <p>{card.like}</p>
         </LikeDivStyle>
-        <ImgStyle
-          src="https://www.jungle.co.kr/image/ea06cd0346fa8777cb624e3f"
-          alt="article img"
-        ></ImgStyle>
+        <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
         <LineDivStyle>
-          <TitleStyle>게시글 제목</TitleStyle>
-          <SubTitleStyle color="#AECBDB">0</SubTitleStyle>
+          <TitleStyle>{card.title}</TitleStyle>
+          <SubTitleStyle color="#AECBDB">{card.hit}</SubTitleStyle>
         </LineDivStyle>
         <LineDivStyle>
-          <SubTitleStyle>김싸피 (6기 / 서울)</SubTitleStyle>
-          <SubTitleStyle>23.02.06</SubTitleStyle>
+          <SubTitleStyle>
+            {card.name} ({card.generation}기 / {card.area})
+          </SubTitleStyle>
+          <SubTitleStyle>{strDate}</SubTitleStyle>
         </LineDivStyle>
-        <ContentStyle>
-          게시글 내용 글자수 한... 50자 이내까지만 보이는 미리보기 같은 것을...
-        </ContentStyle>
+        <ContentStyle>{card.content}</ContentStyle>
       </CardSection>
     </Link>
   );
@@ -78,8 +86,15 @@ const SubTitleStyle = styled.section`
   font-size: 0.5rem;
 `;
 
-const ContentStyle = styled.section`
+const ContentStyle = styled.div`
+  width: 100%;
+  height: 1.3rem;
   color: #799fc0;
   font-size: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `;

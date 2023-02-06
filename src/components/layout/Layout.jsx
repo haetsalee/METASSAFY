@@ -23,4 +23,5 @@ const MainStyle = styled.main`
   /* position: absolute;
   top: 0; */
   // max-width: 40rem;
+  // margin: 10rem;
 `;

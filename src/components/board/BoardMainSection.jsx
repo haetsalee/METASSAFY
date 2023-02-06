@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchBoardList } from '../../services/board-service';
 
@@ -11,17 +11,27 @@ import BoardNavbar from './navbar/BoardNavbar';
 // my(id)
 // writer(id), title(word), content(word)
 const BoardMainSection = () => {
+  const user = useSelector((state) => state.auth.user);
   const [boardList, setBoardList] = useState([]);
 
   useEffect(() => {
     // list
     const getList = async () => {
-      const res = await fetchBoardList();
-      console.log(res);
-      // setBoardList();
+      const filter = {
+        key: null,
+        popularity: false,
+        user_id: user.user_id,
+        word: null,
+      };
+      const { data, status } = await fetchBoardList(filter);
+      if (status === 200) {
+        setBoardList(data);
+      }
     };
-    getList();
-  }, []);
+    if (user.user_id) {
+      getList();
+    }
+  }, [user]);
 
   return (
     <SectionStyle>
@@ -29,7 +39,7 @@ const BoardMainSection = () => {
         <BoardNavbar setBoardList={setBoardList}></BoardNavbar>
         <DivStyle>
           <ButtonStyle>글쓰기</ButtonStyle>
-          <BoardFeed></BoardFeed>
+          <BoardFeed boardList={boardList}></BoardFeed>
         </DivStyle>
       </WrapperStyle>
     </SectionStyle>
