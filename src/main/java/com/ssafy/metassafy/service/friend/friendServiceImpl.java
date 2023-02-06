@@ -25,7 +25,11 @@ public class friendServiceImpl implements  FriendService{
 
     @Override
     public List<User> getFrinedList(String user_id) {
-         return mapper.getFriendList(user_id);
+        List <User> list= mapper.getFriendList(user_id);
+        for(int i=0;i<list.size();i++){
+            list.get(i).setUser_pwd(null);
+        }
+        return list;
     }
 
     @Override
