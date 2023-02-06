@@ -45,8 +45,8 @@ public class BoardController {
 
     @ApiOperation(value = "전체게시글 보기", notes = "전체 게시글 정보를 가져온다. 그리고 DB입력 성공하면 List<BoardDto>가 json형태로 반환된다.", response = List.class)
     @GetMapping
-    public ResponseEntity<List<BoardDto>> listArticle(@ApiParam(value = "게시판 파라미터 정보(key, word)", required = false) BoardParameterDto boardParameterDto) throws Exception {
-        logger.info("listArticle - 호출");
+    public ResponseEntity<List<BoardDto>> listArticle(@ApiParam(value = "게시판 파라미터 정보(key, word, popularity, user_id)", required = false) BoardParameterDto boardParameterDto) throws Exception {
+        logger.info("listArticle - 호출" + boardParameterDto);
         return new ResponseEntity<List<BoardDto>>(boardService.listArticle(boardParameterDto), HttpStatus.OK);
     }
 

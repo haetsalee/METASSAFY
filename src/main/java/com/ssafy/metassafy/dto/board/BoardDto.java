@@ -51,10 +51,10 @@ public class BoardDto {
     @ApiModelProperty(value = "해당 게시글이 나의 글인지")
     private int my_article;
     @ApiModelProperty(value = "작성자 이름")
-    private int name;
+    private String name;
     @ApiModelProperty(value = "작성자 기수")
     private int generation;
     @ApiModelProperty(value = "작성자 지역")
-    private int area;
+    private String area;
 
 }
