@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import styled, { css } from 'styled-components';
 
 import BoardNavbarDrop from './BoardNavbarDrop';
+import { getBoardList } from '../../../services/board-service';
 
-//{ label: '전체', active: true, type: 'recent' },
 const BoardNavbarItem = ({
   menu,
   index,
@@ -11,26 +13,61 @@ const BoardNavbarItem = ({
   setActiveIndex,
   setBoardList,
 }) => {
-  const clickHandler = () => {
-    // button active
+  const user = useSelector((state) => state.auth.user);
+  const [keyword, setKeyword] = useState({});
+  const [isTouched, setIsTouched] = useState(false);
+
+  // 하위 드롭박스에서 검색 시 리스트 업데이트
+  useEffect(() => {
+    const setBoard = async () => {
+      if (isTouched) {
+        const newList = await getBoardList(
+          keyword.key,
+          false,
+          user.user_id,
+          keyword.word
+        );
+        setBoardList(newList);
+      }
+    };
+    setBoard();
+    setIsTouched(true);
+  }, [keyword]);
+
+  // 넷바 클릭 시 리스트 업데이트
+  const clickHandler = async () => {
+    // button active css
     if (index === activeIndex) {
       setActiveIndex(0);
     } else {
       setActiveIndex(index);
     }
 
-    // get new board
-    const newList = [];
     // api
-    // setBoardList(newList);
+    // 넷바 클릭시 (전체, 인기순, 게시글)
+    if (menu.type === 'recent') {
+      const newList = await getBoardList(null, false, user.user_id, null);
+      setBoardList(newList);
+    } else if (menu.type === 'like') {
+      const newList = await getBoardList(null, true, user.user_id, null);
+      setBoardList(newList);
+    } else if (menu.type === 'my') {
+      const newList = await getBoardList(
+        'user_id',
+        false,
+        user.user_id,
+        user.user_id
+      );
+      setBoardList(newList);
+    }
   };
 
   let dropDown = null;
   if (index === activeIndex) {
     if (menu.type === 'area') {
-      dropDown = <BoardNavbarDrop type={menu.type} />;
+      dropDown = <BoardNavbarDrop setKeyword={setKeyword} type={menu.type} />;
     } else if (menu.type === 'search') {
-      dropDown = <BoardNavbarDrop type={menu.type} />;
+      dropDown = <BoardNavbarDrop setKeyword={setKeyword} type={menu.type} />;
     }
   }
 

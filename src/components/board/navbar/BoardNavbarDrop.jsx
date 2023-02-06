@@ -4,7 +4,7 @@ const area = [
   { key: 'seoul', label: '서울' },
   { key: 'gwang', label: '광주' },
   { key: 'gumi', label: '구미' },
-  { key: 'dae', label: '대구' },
+  { key: 'dae', label: '대전' },
   { key: 'bul', label: '부울경' },
 ];
 
@@ -14,13 +14,19 @@ const search = [
   { key: 'gumi', label: '본문' },
 ];
 
-const BoardNavbarDrop = ({ type }) => {
+const BoardNavbarDrop = ({ setKeyword, type }) => {
   const list = type === 'area' ? area : search;
+
+  const clickHandler = (index) => {
+    setKeyword({ key: type, word: list[index].label });
+  };
 
   return (
     <UlStyle>
       {list.map((item, index) => (
-        <LiStyle key={index}>{item.label}</LiStyle>
+        <LiStyle key={index} onClick={clickHandler.bind(null, index)}>
+          {item.label}
+        </LiStyle>
       ))}
     </UlStyle>
   );

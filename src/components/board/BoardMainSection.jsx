@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchBoardList } from '../../services/board-service';
+import { getBoardList } from '../../services/board-service';
 
 import BoardFeed from './BoardFeed';
 import BoardNavbar from './navbar/BoardNavbar';
@@ -14,22 +14,14 @@ const BoardMainSection = () => {
   const user = useSelector((state) => state.auth.user);
   const [boardList, setBoardList] = useState([]);
 
+  // 초기 전체 리스트
   useEffect(() => {
-    // list
-    const getList = async () => {
-      const filter = {
-        key: null,
-        popularity: false,
-        user_id: user.user_id,
-        word: null,
-      };
-      const { data, status } = await fetchBoardList(filter);
-      if (status === 200) {
-        setBoardList(data);
-      }
+    const setBoard = async () => {
+      const newList = await getBoardList(null, false, user.user_id, null);
+      setBoardList(newList);
     };
     if (user.user_id) {
-      getList();
+      setBoard();
     }
   }, [user]);
 
