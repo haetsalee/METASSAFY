@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { css } from 'styled-components';
 
+import BoardNavbarDrop from './BoardNavbarDrop';
+
 //{ label: '전체', active: true, type: 'recent' },
 const BoardNavbarItem = ({
   menu,
@@ -16,11 +18,23 @@ const BoardNavbarItem = ({
     // get new board
     const newList = [];
     // api
+    console.log(menu.type);
     setBoardList(newList);
   };
+
+  let dropDown = null;
+  if (index === activeIndex) {
+    if (menu.type === 'area') {
+      dropDown = <BoardNavbarDrop type={menu.type} />;
+    } else if (menu.type === 'search') {
+      dropDown = <BoardNavbarDrop type={menu.type} />;
+    }
+  }
+
   return (
     <LiStyle index={index} activeIndex={activeIndex}>
       <button onClick={clickHandler}>{menu.label}</button>
+      {dropDown}
     </LiStyle>
   );
 };
@@ -44,6 +58,8 @@ const LiStyle = styled.li`
     border-radius: 7px;
     background-color: white;
     color: #868e96;
+    position: relative;
+    cursor: pointer;
     ${(props) => {
       if (props.index === props.activeIndex) {
         return css`

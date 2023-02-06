@@ -11,9 +11,7 @@ import BoardNavbar from './BoardNavbar';
 // writer(id), title(word), content(word)
 const BoardMainSection = () => {
   const [boardList, setBoardList] = useState([]);
-  const [sortType, setSortType] = useState('recent');
 
-  console.log(sortType);
   useEffect(() => {
     // list
     // setBoardList();

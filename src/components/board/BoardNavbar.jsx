@@ -19,6 +19,7 @@ const BoardNavbar = ({ setBoardList }) => {
         {menuList.map((menu, index) => {
           return (
             <BoardNavbarItem
+              key={index}
               menu={menu}
               index={index}
               activeIndex={activeIndex}
