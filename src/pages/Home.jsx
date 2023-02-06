@@ -52,6 +52,6 @@ export default Home;
 
 const SectionStyle = styled.section`
   background-color: antiquewhite;
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
 `;

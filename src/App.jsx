@@ -18,6 +18,7 @@ import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
+import UnityPage from './pages/UnityPage';
 import VideoChatPage from './pages/VideoChatPage';
 
 import useInfo from './hooks/use-info';
@@ -25,7 +26,6 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
-import UnityPage from './pages/UnityPage';
 
 function App() {
   useInfo();
