@@ -18,6 +18,7 @@ import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
+import UnityPage from './pages/UnityPage';
 
 import useInfo from './hooks/use-info';
 import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
@@ -63,7 +64,7 @@ function App() {
       </Route>
       {/* Navbar 제외 */}
       <Route path="/" element={<PrivateRoute />}>
-        {/* <Route path="unity element={<UnityPage />} /> */}
+        <Route path="unity" element={<UnityPage />} />
       </Route>
     </Routes>
   );
