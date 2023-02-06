@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => isConnect);
 
-        GameObject playerTemp = PhotonNetwork.Instantiate("Player", Vector3.one, Quaternion.identity, 0);
+        GameObject playerTemp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 
     }
 }

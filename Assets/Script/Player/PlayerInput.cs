@@ -51,6 +51,5 @@ public class PlayerInput : MonoBehaviourPun
             playerAnimator.SetBool("isMove", false);
         }
 
-
     }
 }
