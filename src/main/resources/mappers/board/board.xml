@@ -65,8 +65,8 @@
 						<when test="word == '구미'">
 							and u.area = '구미'
 						</when>
-						<when test="word == '서울'">
-							and u.area = '서울'
+						<when test="word == '광주'">
+							and u.area = '광주'
 						</when>
 						<when test="word == '대전'">
 							and u.area = '대전'
