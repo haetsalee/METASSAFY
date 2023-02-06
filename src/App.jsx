@@ -25,9 +25,11 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
+import { useSelector } from 'react-redux';
 
 function App() {
   useInfo();
+  const user = useSelector((state) => state.auth.user);
   // const user = getJsonLocalUserInfo()['userId'] || 'annonymous';
 
   return (
@@ -47,13 +49,19 @@ function App() {
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
           <Route path="board" element={<BoardPage />} />
-          <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
+          <Route
+            path="profile"
+            element={<ProfilePage user_id={user.user_id} />}
+          />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="developers" element={<DevelopersPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="phone/" element={<Page1 />}>
-              <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
+              <Route
+                path="profile"
+                element={<ProfilePage user_id={user.user_id} />}
+              />
               <Route path="profile/modify" element={<ProfileModify />}></Route>
               <Route path="chat/" element={<PhoneChatingList />} />
               <Route path="chat/room/:id" element={<PhoneChatingRoom />} />

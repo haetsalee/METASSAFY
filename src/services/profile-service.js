@@ -47,13 +47,12 @@ export const fetchAllStacks = async (id) => {
   }
 };
 
-export const fetchTechSave = async (user_id, tech) => {
-  const requestBody = {
-    user_id: user_id,
-    tech_id: tech.tech_id,
-  };
+export const fetchTechSave = async (user_id, tech_list) => {
   try {
-    const { data, status } = await API.post('/user/addTech', requestBody);
+    const { data, status } = await API.post(
+      `/user/addTechList/${user_id}`,
+      tech_list
+    );
     if (status === 200) {
       // console.log('save tech', data);
       return { data, status, error: null };

@@ -111,9 +111,8 @@ const InputBoxList = () => {
     // submit
     console.log('제출!!', info, techList);
     fetchProfileModify(info);
-    techList.forEach((tech) => {
-      fetchTechSave(user.user_id, tech);
-    });
+    const techs = techList.map((tech) => tech.tech_id);
+    fetchTechSave(user.user_id, techs);
   };
 
   return (
@@ -144,13 +143,15 @@ const InputBoxList = () => {
           <CalendarInput
             value={info.birthday}
             // value="2023-02-03T04:09:23.840Z"
-            onChange={(e) =>
+            onChange={(e) => {
               setInfo((preState) => {
                 const state = { ...preState };
                 state['birthday'] = String(e['$d']);
+                console.log(state['birthday'], 'sdfsdfsdfsdkf');
                 return state;
-              })
-            }
+              });
+              console.log(String(e['$d']));
+            }}
           />
         </InputsStyle>
       </InputLineStyle>
@@ -286,4 +287,5 @@ const ButtonStyle = styled.button`
   align-items: center;
   padding: 1rem;
   font-family: 'korail_bold';
+  cursor: pointer;
 `;
