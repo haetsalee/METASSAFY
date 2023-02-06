@@ -11,16 +11,24 @@ import MainPage from './pages/MainPage';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
-import Page4 from './pages/Page4';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
-import Board from './pages/Board';
+import IntroPage from './pages/IntroPage';
+import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
-import useInfo from './hooks/use-info';
-import UnityPage from './pages/UnityPage';
+import DevelopersPage from './pages/DevelopersPage';
+import LoginPage from './pages/LoginPage';
 
+import useInfo from './hooks/use-info';
+import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
+import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
+import Metaverse from './pages/Metaverse';
+import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
+import { getJsonLocalUserInfo } from './utils/local-storage';
+import UnityPage from './pages/UnityPage';
 function App() {
   useInfo();
+  // const user = getJsonLocalUserInfo()['userId'] || 'annonymous';
 
   return (
     <Layout>
@@ -32,18 +40,26 @@ function App() {
         </Route>
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
+          <Route path="Page1" element={<Page1 />} />
+          <Route path="Page2" element={<Page2 />} />
+          <Route path="Page3" element={<Page3 />} />
+          {/* 실제 서비스 페이지 */}
+          <Route path="intro" element={<IntroPage />} />
+          <Route path="board" element={<BoardPage />} />
           <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
           <Route path="profile/modify" element={<ProfileModify />} />
+          <Route path="developers" element={<DevelopersPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="metassafy/" element={<Metaverse />}>
+            <Route path="phone/" element={<Page1 />}>
+              <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
+              <Route path="profile/modify" element={<ProfileModify />}></Route>
+              <Route path="chat/" element={<PhoneChatingList />} />
+              <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
+              <Route path="friend" element={<PhoneFriendPage />}></Route>
+            </Route>
+          </Route>
         </Route>
-        {/* <Route path="/" element={<Home />} /> */}
-
-        <Route path="/board" element={<Board />} />
-        {/* 여기서부터 무언가... */}
-        <Route path="/Page1" element={<Page1 />} />
-        {/* <Route path="/Page2" element={<Page2 />} /> */}
-        <Route path="/Page3" element={<Page3 />} />
-        <Route path="/Page4" element={<Page4 />} />
-        {/* <Route path="/profile-modify" element={<Profile />} /> */}
         <Route
           path="/unity"
           element={
@@ -56,6 +72,7 @@ function App() {
             />
           }
         />
+        {/* <Route path="/" element={<Home />} /> */}
       </Routes>
     </Layout>
   );

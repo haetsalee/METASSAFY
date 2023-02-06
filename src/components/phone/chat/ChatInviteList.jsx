@@ -15,7 +15,7 @@ function ChatInviteList(props) {
     newChatRoomName += item[0] + ', ';
   });
   newChatRoomName = newChatRoomName.substring(0, newChatRoomName.length - 2);
-  console.log(newChatRoomName);
+  // console.log(newChatRoomName);
 
   const frm = new FormData();
 

@@ -5,13 +5,17 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Player } from './Player';
 import { House } from './House';
-import { Map } from './Map';
+// import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
+import Stats from 'three/examples/jsm/libs/stats.module';
+
+// local용인지 빌드용인지 체크
 
 function Metaverse() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+  const [statsTag, setStatsTag] = useState([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,11 +26,14 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v5.png');
+    // local test
+    const floorTexture = textureLoader.load('/images/grid.png');
+    // server test
+    // const floorTexture = textureLoader.load('build/images/grid.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.x = 1;
-    floorTexture.repeat.y = 1;
+    floorTexture.repeat.x = 10;
+    floorTexture.repeat.y = 10;
 
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
@@ -93,34 +100,23 @@ function Metaverse() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    const orbitControls = new OrbitControls(camera, renderer.domElement);
-    orbitControls.enableDamping = true;
-    // orbitControls.minDistance = 5;
-    // orbitControls.maxDistance = 15;
-    orbitControls.enablePan = false;
-    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    orbitControls.update();
+    // Control
+    // const orbitControls = new OrbitControls(camera, renderer.domElement);
+    // orbitControls.enableDamping = true;
+    // // orbitControls.minDistance = 5;
+    // // orbitControls.maxDistance = 15;
+    // orbitControls.enablePan = false;
+    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    // orbitControls.update();
+
+    // 프레임 확인
+    const stats = Stats();
+    document.body.appendChild(stats.dom);
 
     // Mesh
     const meshes = [];
-    const startMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        // map: 'floorTexture',
-        color: 'red',
-      })
-    );
-    startMesh.name = 'floor';
-    startMesh.position.y = 0.01;
-    startMesh.rotation.x = -Math.PI / 2;
-    startMesh.receiveShadow = true;
-    scene.add(startMesh);
-    meshes.push(startMesh);
-
-    // 3d 텍스트
-
     const floorMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(50, 50),
+      new THREE.PlaneGeometry(100, 100),
       new THREE.MeshStandardMaterial({
         map: floorTexture,
       })
@@ -131,24 +127,12 @@ function Metaverse() {
     scene.add(floorMesh);
     meshes.push(floorMesh);
 
-    ////////////////////
-
     // 캐릭터 위치 나타낼 포인터 메쉬
-    const pointerMeshTexture = textureLoader.load('/images/sta3r.png');
-
     const pointerMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({
-        // color: 'skyblue',
-        // transparent: true,
-        // opacity: 0.5,
-        map: pointerMeshTexture,
-        size: 0.1,
+        color: 'crimson',
         transparent: true,
-        alphaMap: pointerMeshTexture,
-        // depthWrite: false,
-        // vertexColors: true,
-        color: 'skyblue',
         opacity: 0.5,
       })
     );
@@ -161,7 +145,7 @@ function Metaverse() {
     const spotMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(3, 3),
       new THREE.MeshStandardMaterial({
-        color: 'green',
+        color: 'yellow',
         transparent: true,
         opacity: 0.5,
       })
@@ -170,20 +154,6 @@ function Metaverse() {
     spotMesh.rotation.x = -Math.PI / 2;
     spotMesh.receiveShadow = true;
     scene.add(spotMesh);
-
-    // 스팟매쉬 - 여기들어가면 집 나와
-    const spotMesh2 = new THREE.Mesh(
-      new THREE.PlaneGeometry(3, 3),
-      new THREE.MeshStandardMaterial({
-        color: 'purple',
-        transparent: true,
-        opacity: 0.5,
-      })
-    );
-    spotMesh2.position.set(10, 0.005, 5);
-    spotMesh2.rotation.x = -Math.PI / 2;
-    spotMesh2.receiveShadow = true;
-    scene.add(spotMesh2);
 
     // gltf로더 로드
     let gltfLoader = new GLTFLoader();
@@ -196,38 +166,47 @@ function Metaverse() {
     const house = new House({
       gltfLoader,
       scene,
-      modelSrc: '/models/house.glb',
+      // local test용
+      modelSrc: 'models/house.glb',
+      // build용
+      // modelSrc: 'build/models/house.glb',
       x: 5,
       y: -1.3,
       z: 2,
     });
 
     // 지도 로드
-    // gltfLoader.load(
-    //   // 'build/model/map/map.gltf',
-    //   'models/map_floorx.glb',
-    //   function (gltf) {
-    //     gltf.scene.scale.set(1, 1, 1);
-    //     // gltf.scene.position.y = 0.1;
-    //     gltf.scene.position.z = 10;
-    //     scene.add(gltf.scene);
-    //   },
-    //   // called while loading is progressing
-    //   function (xhr) {
-    //     // console.log(xhr)
-    //     // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
-    //   },
-    //   // called when loading has errors
-    //   function (error) {
-    //     console.log(error);
-    //   }
-    // );
+    gltfLoader.load(
+      // local test용
+      'model/map/map_floorx.glb',
+      // build용
+      // 'build/models/map_floorx.glb',
+      function (gltf) {
+        gltf.scene.scale.set(1, 1, 1);
+        // gltf.scene.position.y = 0.1;
+        gltf.scene.position.z = 15;
+        gltf.scene.rotation.y = Math.PI;
+        scene.add(gltf.scene);
+      },
+      // called while loading is progressing
+      function (xhr) {
+        // console.log(xhr)
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+      },
+      // called when loading has errors
+      function (error) {
+        console.log(error);
+      }
+    );
 
     const player = new Player({
       scene,
       meshes,
       gltfLoader,
-      modelSrc: '/models/people.glb',
+      // local test용
+      modelSrc: 'models/people.glb',
+      // build용
+      // modelSrc: 'build/models/people.glb',
     });
 
     const raycaster = new THREE.Raycaster();
@@ -241,7 +220,7 @@ function Metaverse() {
 
     function draw() {
       const delta = clock.getDelta();
-
+      stats.update();
       if (player.mixer) player.mixer.update(delta);
 
       if (player.modelMesh) {
@@ -277,22 +256,12 @@ function Metaverse() {
           }
 
           if (
-            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
-              1.5 &&
-            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
-          ) {
-            // redirection
-            window.location.href = 'http://localhost:3000/page4';
-          }
-          if (
             Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
           ) {
             if (!house.visible) {
               console.log('나와');
               house.visible = true;
-              // naver로이동
-              window.open('https://naver.com');
               spotMesh.material.color.set('seagreen');
               gsap.to(house.modelMesh.position, {
                 duration: 1,
@@ -410,12 +379,11 @@ function Metaverse() {
   return (
     <div
       className="canvas_Wrap"
-      style={{ display: 'flex', justifyContent: 'center', overflow: 'hidden' }}
+      style={{ display: 'flex', justifyContent: 'center' }}
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
-      {/* <video id="video"></video> */}
       {/* </Card> */}
     </div>
   );

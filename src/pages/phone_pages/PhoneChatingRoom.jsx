@@ -9,25 +9,46 @@ import ChatRoomForm from '../../components/phone/chat/ChatRoomForm';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import API from '../../utils/api';
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
+import { useParams } from 'react-router-dom';
+
 let stompClient;
+let startNo = 0;
 
 function PhoneChatingRoom(props) {
-  const room = props.croom;
+  // // 파람스 시도
+  const params = useParams();
+  const room = params.id;
+  console.log('room', room);
+
+  // const room = props.croom_no;
   // console.log(props.croom, '==================');
   // console.log(room, '------------------');
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+  const name = getJsonLocalUserInfo()['name'] || 'annonymous';
 
   const [chatList, setChatList] = useState([]);
   const [chatRoom, setRoomList] = useState({});
   const [chat, setChat] = useState('');
 
+  const chatBoxRef = useRef();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [target, setTarget] = useState(null);
+  const [scrollLen, setscrollLen] = useState(0);
+
+  const [scrollLoad, setscrollLoad] = useState(false);
+
+  let temp = [];
+
   const connect = () => {
-    const socket = new SockJS('http://i8d211.p.ssafy.io:8088/metassafy/ws');
+    const socket = new SockJS('https://www.metassafy.store/api/ws');
+    // const socket = new SockJS('http://i8d211.p.ssafy.io:8088/metassafy/ws');
+    // const socket = new SockJS('http://192.168.100.124:9999/metassafy/ws');
     stompClient = Stomp.over(socket);
 
     // connect(header,연결 성공시 콜백,에러발생시 콜백)
@@ -79,20 +100,24 @@ function PhoneChatingRoom(props) {
 
           console.log(2);
 
-          let temp = [];
+          // let temp = [];
+          console.log(startNo, '--startno--');
 
           // chat 리스트 다시 불러오기
           // 대화목록 가져오기
           await API.get(`/chat`, {
             params: {
-              start_no: 0,
+              start_no: startNo,
               user_id: user,
               croom_no: room,
             },
           })
             .then((res) => {
               temp = res.data;
-              console.log(res.data);
+              console.log(
+                res.data
+                // '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
+              );
             })
             .catch((err) => console.log(err));
 
@@ -101,7 +126,7 @@ function PhoneChatingRoom(props) {
           // )
           //   .then((res) => res.json())
           //   .then((data) => (temp = data));
-          console.log(temp);
+          // console.log(temp, '========socket connect입니다=========');
           setChatList(temp);
           // setChatList((_chat_list) => [..._chat_list, content]);
 
@@ -127,7 +152,7 @@ function PhoneChatingRoom(props) {
     const data = {
       croom_no: room,
       user_id: user,
-      name: 'seok',
+      name: name,
       message: chat,
     };
     console.log(data);
@@ -146,7 +171,10 @@ function PhoneChatingRoom(props) {
       .catch((err) => console.log(err));
     connect();
 
-    return () => stompClient.disconnect();
+    return () => {
+      startNo = 0;
+      stompClient.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -160,13 +188,17 @@ function PhoneChatingRoom(props) {
       .then(() => {
         API.get('/chat', {
           params: {
-            start_no: 0,
-            user_id: 'ssafy',
+            start_no: startNo,
+            user_id: user,
             croom_no: room,
           },
         })
           .then((res) => {
             setChatList(res.data);
+            startNo = res.data[0]['chat_no'];
+            // console.log(res.data[0]['chat_no'], '--startno--');
+            // console.log(startNo, '--startno--');
+            // console.log(res.data, '------useEffect입니다--------');
           })
           .catch((err) => console.log(err));
       });
@@ -179,16 +211,68 @@ function PhoneChatingRoom(props) {
       },
     })
       .then((res) => {
+        console.log(res.data);
         setRoomList(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    console.log(chatBoxRef.current.scrollTop, '스크롤 시작');
+    console.log(chatBoxRef.current.scrollHeight, '스크롤 길이');
+    setscrollLen(chatBoxRef.current.scrollHeight);
+    console.log(scrollLen, 'scrolllen');
+    chatBoxRef.current.scrollTop = chatBoxRef.current?.scrollHeight - scrollLen;
+  }, [startNo]);
+
+  const getMoreItem = async () => {
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    API.get(`/chat/upscroll`, {
+      params: {
+        start_no: startNo,
+        croom_no: room,
+      },
+    }).then((res) => {
+      console.log(res.data);
+      if (res.data === '') {
+      } else {
+        const newList = res.data;
+        console.log(res.data);
+        setChatList((chatList) => newList.concat(chatList));
+        startNo = res.data[0].chat_no;
+        setIsLoading(false);
+      }
+    });
+    // let newList = [];
+    // setChatList((chatList) => chatList.concat(newList));
+  };
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoading) {
+      observer.unobserve(entry.target);
+      await getMoreItem();
+      observer.observe(entry.target);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.4,
+      });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
+
   return (
     <Phone>
-      <ChatRoomNav chatRoom={chatRoom} setPage={props.setPage} />
-      <ChatRoomDiv>
+      <ChatRoomNav chatRoom={chatRoom} />
+      <ChatRoomDiv ref={chatBoxRef}>
         <PhoneChatingRoomStyle>
+          {!isLoading && scrollLen > 480 && <div ref={setTarget}></div>}
           {chatList.map((chat) => {
             if (chat.user_id === user) {
               return <MyChatBox chat={chat} key={chat.chat_no} />;

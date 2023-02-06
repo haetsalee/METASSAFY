@@ -39,29 +39,34 @@ function Profile() {
 
   return (
     <PhoneUserProfileStyle>
-      <BackgroundBox image={user.profile_img} />
-      <TextGroupComponent
-        name={user.name}
-        area={user.area}
-        class={user.common_class}
-      />
-      {/* 전공, 포지션, 공통 */}
-      <MajorPositionClass
-        major={user.major}
-        position={user.interest}
-        track={user.first_semester}
-      />
-      {/* 기술스택 자기소개 */}
-      <TechStackList user_id={user.user_id}></TechStackList>
-      <RoundBox text="자기소개"></RoundBox>
-      <InfoListStyle>
-        <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
-        <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
-        {user.gender !== '미정' && (
-          <InfoBox icon={<FaCreativeCommonsBy />} text={user.gender}></InfoBox>
-        )}
-        <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
-      </InfoListStyle>
+      <ScrollDivStyle>
+        <BackgroundBox image={user.profile_img} />
+        <TextGroupComponent
+          name={user.name}
+          area={user.area}
+          class={user.common_class}
+        />
+        {/* 전공, 포지션, 공통 */}
+        <MajorPositionClass
+          major={user.major}
+          position={user.interest}
+          track={user.first_semester}
+        />
+        {/* 기술스택 자기소개 */}
+        <TechStackList user_id={user.user_id}></TechStackList>
+        <RoundBox text="자기소개"></RoundBox>
+        <InfoListStyle>
+          <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
+          <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
+          {user.gender !== '미정' && (
+            <InfoBox
+              icon={<FaCreativeCommonsBy />}
+              text={user.gender}
+            ></InfoBox>
+          )}
+          <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
+        </InfoListStyle>
+      </ScrollDivStyle>
     </PhoneUserProfileStyle>
   );
 }
@@ -77,19 +82,22 @@ const PhoneUserProfileStyle = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2rem 1rem;
+`;
+
+const ScrollDivStyle = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 0.2rem;
+    width: 0.3rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #e0f4ff;
+    background-color: #617485;
     border-radius: 10px;
     background-clip: padding-box;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
   }
   &::-webkit-scrollbar-track {
-    background-color: #617485;
+    /* background-color: #617485; */
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }

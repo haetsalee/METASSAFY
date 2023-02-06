@@ -18,9 +18,19 @@ const ChatRoomNavStatusStyle = styled.div`
 
 const ChatRoomNameStyle = styled.p`
   font-size: 1.1rem;
+  display: inline-block;
+  width: 13.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ChatRoomMemberStyle = styled.p`
   font-size: 0.3rem;
   margin-top: 0.2rem;
+  display: inline-block;
+  width: 13.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

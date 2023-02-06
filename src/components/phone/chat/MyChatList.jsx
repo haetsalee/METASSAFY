@@ -1,14 +1,11 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 function MyChatList(props) {
-  // console.log(props.room);
+  console.log('----------------');
+  console.log(props.room);
   return (
-    <div
-      onClick={() => {
-        props.setCroom(props.room.croom_no);
-        props.setPage('chatroom');
-      }}
-    >
+    <NavLink to={`room/${props.room.croom_no}`}>
       <ChatRoomListStyle>
         <ChatRoomNavImgStyle
           src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg"
@@ -21,11 +18,13 @@ function MyChatList(props) {
           </FlexDiv>
           <ChatTextStyle>
             <span>{props.room.last_chat}</span>
-            <ChatTimeSpanStyle>{props.room.last_chat_time}</ChatTimeSpanStyle>
+            <ChatTimeSpanStyle>
+              {props.room.last_chat_time?.substring(11, 16)}
+            </ChatTimeSpanStyle>
           </ChatTextStyle>
         </ChatTextBoxDiv>
       </ChatRoomListStyle>
-    </div>
+    </NavLink>
   );
 }
 
@@ -40,6 +39,11 @@ const ChatRoomListStyle = styled.div`
 
 const ChatRoomNameStyle = styled.span`
   font-size: 1.1rem;
+  display: inline-block;
+  width: 13.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ChatTextBoxDiv = styled.div`

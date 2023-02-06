@@ -1,43 +1,37 @@
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
+import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 function PhoneNav(props) {
+  const navigate = useNavigate();
+
+  const goNavbar = (page) => {
+    navigate(page);
+  };
+
   return (
     <NavDiv>
-      <NavInnerDiv>
-        {props.status === 'profile' && <User stroke="#617485" />}
-        {props.status !== 'profile' && (
-          <User
-            stroke="#AEC6D7"
-            onClick={() => {
-              props.setPage('profile');
-            }}
-          />
-        )}
-        {props.status === 'friend' && <Users stroke="#617485" />}
-        {props.status !== 'friend' && (
-          <Users
-            stroke="#AEC6D7"
-            onClick={() => {
-              props.setPage('friend');
-            }}
-          />
-        )}
-        {(props.status === 'chatroom' || props.status === 'chatlist') && (
-          <CircleMessage stroke="#617485" />
-        )}
-        {props.status !== 'chatroom' && props.status !== 'chatlist' && (
-          <CircleMessage
-            stroke="#AEC6D7"
-            onClick={() => {
-              props.setPage('chatlist');
-            }}
-          />
-        )}
-      </NavInnerDiv>
+      <UlStyle>
+        <LiStyle>
+          <NavLink to="profile">
+            <User />
+          </NavLink>
+        </LiStyle>
+        <LiStyle>
+          <NavLink to="friend">
+            <Users />
+          </NavLink>
+        </LiStyle>
+        <LiStyle>
+          <NavLink to="chat">
+            <CircleMessage />
+          </NavLink>
+        </LiStyle>
+      </UlStyle>
     </NavDiv>
   );
 }
@@ -45,14 +39,41 @@ function PhoneNav(props) {
 export default PhoneNav;
 
 const NavDiv = styled.div`
-  width: 100%;
+  width: 95%;
   height: 3rem;
   position: absolute;
   bottom: 0;
+  background-color: white;
+  padding-top: 10px;
+  border-radius: 30px;
 `;
 
-const NavInnerDiv = styled.div`
+const UlStyle = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  padding: 0.5rem 3rem 0rem 3rem;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: baseline;
+`;
+
+const LiStyle = styled.li`
+  & > a > svg {
+    text-decoration: none;
+    font-size: 1rem;
+    stroke: #aec6d7;
+    :hover {
+      stroke: navy;
+    }
+    :active {
+      stroke: navy;
+    }
+  }
+
+  & > a.active > svg {
+    stroke: #617485;
+  }
+  & > a.active:hover > svg {
+    stroke: #617485;
+  }
 `;

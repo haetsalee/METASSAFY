@@ -7,7 +7,7 @@ import BoardItem from '../components/board/BoardItem';
 import BoardWrite from '../components/board/BoardWrite';
 import { getLocalUserInfo } from '../utils/local-storage';
 import { useEffect, useState } from 'react';
-const Board = () => {
+const BoardPage = () => {
   const [user, setUser] = useState(getLocalUserInfo());
   const loginUser = JSON.parse(user);
   const [mode, setMode] = useState('list');
@@ -49,7 +49,7 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default BoardPage;
 
 const SectionStyle = styled.section`
   display: flex;

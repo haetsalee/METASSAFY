@@ -14,14 +14,10 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { socket, connectSocket } from '../Socket';
 import Card from '../components/UI/Card';
 import Chat from '../modules/chat/Chat';
-import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function Page2() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
-
-  // const user = getJsonLocalUserInfo()['name'] || 'annonymous';
-  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   useEffect(() => {
     connectSocket();
@@ -37,34 +33,18 @@ function Page2() {
     console.log(clients);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('lime');
+    scene.background = new THREE.Color('white');
 
-    // camera
-    // const camera = new THREE.PerspectiveCamera(
-    //   50,
-    //   window.innerWidth / window.innerHeight,
-    //   1,
-    //   1000
-    // );
-    // // camera.position.z = 96;
-    // camera.position.y = 5;
-    // camera.position.z = 5;
-    // camera.position.x = 5;
-
-    // Camera
-    const camera = new THREE.OrthographicCamera(
-      -(window.innerWidth / window.innerHeight), // left
-      window.innerWidth / window.innerHeight, // right,
-      1, // top
-      -1, // bottom
-      -1000,
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      1,
       1000
     );
-    const cameraPosition = new THREE.Vector3(1, 5, 5);
-    camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-    camera.zoom = 0.2;
-    camera.updateProjectionMatrix();
-    scene.add(camera);
+    // camera.position.z = 96;
+    camera.position.y = 5;
+    camera.position.z = 5;
+    camera.position.x = 5;
 
     // canvas가 하나뿐이면 아래처럼 id 설렉트 후 render에 넣지 않아도
     // 3D 오브젝트가 알아서 canvas 안에 들어가는 것 같음.
@@ -75,91 +55,35 @@ function Page2() {
       canvas,
       antialias: true,
     });
-    //resize
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // old version
-    // renderer.setSize(window.innerWidth * 0.5, window.innerHeight * 0.5);
-    // renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth * 0.5, window.innerHeight * 0.5);
+    renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.shadowMap.enabled = true;
     // ㄴ 이게 무엇인지는 확인이 필요
     // document.body.appendChild(renderer.domElement);
     //   // ㄴ 이건 필요함(없으면 렌더가 안보임)
 
-    // Control
-    // const orbitControls = new OrbitControls(camera, renderer.domElement);
-    // orbitControls.enableDamping = true;
-    // // orbitControls.minDistance = 5;
-    // // orbitControls.maxDistance = 15;
-    // orbitControls.enablePan = false;
-    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    // orbitControls.update();
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
+    orbitControls.enablePan = false;
+    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    orbitControls.update();
 
-    // Light
-    const ambientLight = new THREE.AmbientLight('white', 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    ambientLight.castShadow = true;
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight('white', 0.5);
-    const directionalLightOriginPosition = new THREE.Vector3(1, 1, 1);
-    directionalLight.position.x = directionalLightOriginPosition.x;
-    directionalLight.position.y = directionalLightOriginPosition.y;
-    directionalLight.position.z = directionalLightOriginPosition.z;
-    directionalLight.castShadow = true;
-
-    // mapSize 세팅으로 그림자 퀄리티 설정
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
-    // 그림자 범위
-    directionalLight.shadow.camera.left = -100;
-    directionalLight.shadow.camera.right = 100;
-    directionalLight.shadow.camera.top = 100;
-    directionalLight.shadow.camera.bottom = -100;
-    directionalLight.shadow.camera.near = -100;
-    directionalLight.shadow.camera.far = 100;
-    scene.add(directionalLight);
-
-    // light
-    // const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    // ambientLight.castShadow = true;
-    // scene.add(ambientLight);
-
-    // const spotLight = new THREE.SpotLight(0xffffff, 1);
-    // spotLight.castShadow = true;
-    // spotLight.position.set(0, 64, 32);
-    // scene.add(spotLight);
+    const spotLight = new THREE.SpotLight(0xffffff, 1);
+    spotLight.castShadow = true;
+    spotLight.position.set(0, 64, 32);
+    scene.add(spotLight);
 
     // const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
     // const boxMaterial = new THREE.MeshNormalMaterial();
     // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     // scene.add(boxMesh);
-
-    // Texture - 바닥 텍스쳐
-    const textureLoader = new THREE.TextureLoader();
-    // local test
-    const floorTexture = textureLoader.load('/images/grid.png');
-    // server test
-    // const floorTexture = textureLoader.load('build/images/grid.png');
-    floorTexture.wrapS = THREE.RepeatWrapping;
-    floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.x = 10;
-    floorTexture.repeat.y = 10;
-    // Mesh
-    const meshes = [];
-    const floorMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, 100),
-      new THREE.MeshStandardMaterial({
-        map: floorTexture,
-        // color: 'blue',
-      })
-    );
-    floorMesh.name = 'floor';
-    floorMesh.rotation.x = -Math.PI / 2;
-    floorMesh.receiveShadow = true;
-    scene.add(floorMesh);
-    meshes.push(floorMesh);
 
     let loaders = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
@@ -167,33 +91,32 @@ function Page2() {
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
     loaders.setDRACOLoader(dracoLoader);
 
-    // Map loader
-    // loaders.load(
-    //   // 'build/model/map/map.gltf',
-    //   'build/model/map/ssafyMap.glb',
-    //   function (gltf) {
-    //     gltf.scene.scale.set(10, 10, 10);
-    //     // gltf.scene.position.y = 0.5;
-    //     gltf.scene.position.z = 5;
-    //     scene.add(gltf.scene);
-    //   },
-    //   // called while loading is progressing
-    //   function (xhr) {
-    //     // console.log(xhr)
-    //     // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
-    //   },
-    //   // called when loading has errors
-    //   function (error) {
-    //     console.log(error);
-    //   }
-    // );
+    loaders.load(
+      // 'build/model/map/map.gltf',
+      'build/model/map/ssafyMap.glb',
+      function (gltf) {
+        gltf.scene.scale.set(10, 10, 10);
+        // gltf.scene.position.y = 0.5;
+        gltf.scene.position.z = 5;
+        scene.add(gltf.scene);
+      },
+      // called while loading is progressing
+      function (xhr) {
+        // console.log(xhr)
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+      },
+      // called when loading has errors
+      function (error) {
+        console.log(error);
+      }
+    );
 
     // animation 관련
     let mixer;
-    //왜 적용이 안될까
+
     loaders.load(
       // "build/model/toon_cat_free/scene.gltf",
-      'build/model/people/people.glb',
+      'build/model/people/ilbuni.glb',
       function (gltf) {
         // console.log('-------------')
         // console.log(gltf.scene.children);
@@ -212,9 +135,9 @@ function Page2() {
         // gltf.scene.scale.x = 0.01;
         // gltf.scene.scale.y = 0.01;
         // gltf.scene.scale.z = 0.01;
-        gltf.scene.scale.x = 1;
-        gltf.scene.scale.y = 1;
-        gltf.scene.scale.z = 1;
+        gltf.scene.scale.x = 3;
+        gltf.scene.scale.y = 3;
+        gltf.scene.scale.z = 3;
         gltf.scene.position.y += 2;
         scene.add(gltf.scene);
         // console.log(gltf.scene.rotation)
@@ -311,7 +234,7 @@ function Page2() {
     function getModel() {
       loaders.load(
         // "ptoon_cat_free/scene.gltf",
-        'build/models/people.glb',
+        'people/ilbuni.glb',
         function (gltf) {
           mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
           const actions = [];
@@ -320,9 +243,9 @@ function Page2() {
           // gltf.scene.scale.x = 0.01;
           // gltf.scene.scale.y = 0.01;
           // gltf.scene.scale.z = 0.01;
-          gltf.scene.scale.x = 1;
-          gltf.scene.scale.y = 1;
-          gltf.scene.scale.z = 1;
+          gltf.scene.scale.x = 3;
+          gltf.scene.scale.y = 3;
+          gltf.scene.scale.z = 3;
           gltf.scene.position.y += 2;
           scene.add(gltf.scene);
           animate();
@@ -348,7 +271,7 @@ function Page2() {
 
           loaders.load(
             // "build/model/toon_cat_free/scene.gltf",
-            'build/model/people/people.glb',
+            'build/model/people/ilbuni.glb',
             function (gltf) {
               mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
               const actions = [];
@@ -358,9 +281,9 @@ function Page2() {
               // gltf.scene.scale.x = 0.01;
               // gltf.scene.scale.y = 0.01;
               // gltf.scene.scale.z = 0.01;
-              gltf.scene.scale.x = 1;
-              gltf.scene.scale.y = 1;
-              gltf.scene.scale.z = 1;
+              gltf.scene.scale.x = 3;
+              gltf.scene.scale.y = 3;
+              gltf.scene.scale.z = 3;
               gltf.scene.position.y += 2;
               animate();
               clients[_ids[i]].mesh = gltf.scene;
@@ -413,7 +336,7 @@ function Page2() {
         };
         loaders.load(
           // "build/model/toon_cat_free/scene.gltf",
-          'build/model/people/people.glb',
+          'build/model/people/ilbuni.glb',
           function (gltf) {
             mixer = new THREE.AnimationMixer(gltf.scene.children[0]);
             const actions = [];
@@ -423,9 +346,9 @@ function Page2() {
             // gltf.scene.scale.x = 0.01;
             // gltf.scene.scale.y = 0.01;
             // gltf.scene.scale.z = 0.01;
-            gltf.scene.scale.x = 1;
-            gltf.scene.scale.y = 1;
-            gltf.scene.scale.z = 1;
+            gltf.scene.scale.x = 3;
+            gltf.scene.scale.y = 3;
+            gltf.scene.scale.z = 3;
             gltf.scene.position.y += 2;
             clients[_id].mesh = gltf.scene;
             console.log(clients);
@@ -456,13 +379,7 @@ function Page2() {
       }
     });
 
-    socket.on('connect', (d) => {
-      // console.log(d);
-      const userData = {
-        user,
-      };
-      socket.emit('user', userData);
-    });
+    socket.on('connect', () => {});
 
     //Update when one of the users moves in space
     socket.on('userPositions', (_clientProps) => {
@@ -471,7 +388,7 @@ function Page2() {
       for (let i = 0; i < Object.keys(_clientProps).length; i++) {
         if (Object.keys(_clientProps)[i] !== id) {
           //Store the values
-          let oldPos = clients[Object.keys(_clientProps)[i]].mesh?.position;
+          let oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
           let newPos = _clientProps[Object.keys(_clientProps)[i]].position;
 
           // console.log(newPos)
@@ -505,7 +422,7 @@ function Page2() {
     const controls = new OrbitControls(camera, renderer.domElement);
 
     const stats = Stats();
-    document.body.appendChild(stats.dom);
+    // document.body.appendChild(stats.dom);
 
     // var xSpeed = 0.0001;
     // var ySpeed = 0.0001;
@@ -544,35 +461,21 @@ function Page2() {
       window.requestAnimationFrame(animate);
     };
 
-    //창사이즈변환에 따른 canvas크기조정
-    function setSize() {
-      camera.left = -(window.innerWidth / window.innerHeight);
-      camera.right = window.innerWidth / window.innerHeight;
-      camera.top = 1;
-      camera.bottom = -1;
-
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.render(scene, camera);
-    }
-    window.addEventListener('resize', setSize);
-
     animate();
-
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>Page2</h1>
       <Chat />
-      <div style={{ display: 'flex' }}>
-        <h1>Canvas</h1>
-        <canvas className="meta-ssafy" ref={canvasRef}></canvas>
+      <div className="canvas_Wrap">
+        {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
+        <Card>
+          {/* <canvas className="meta-ssafy" ref={canvasRef}></canvas> */}
+          <h1>Canvas</h1>
+        </Card>
       </div>
-    </div>
+    </section>
   );
 }
 
