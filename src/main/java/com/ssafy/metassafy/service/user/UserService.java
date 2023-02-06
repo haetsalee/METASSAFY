@@ -55,12 +55,15 @@ public class UserService {
     }
 
     public void update(User user) {
-        if(user.getGenderF().equals("남성")){
-            user.setGender('m');
-        }else if(user.getGenderF().equals("여성")){
-            user.setGender('w');
-        }
 
+            if(user.getGenderF().equals("남성")){
+                user.setGender('m');
+            }else if(user.getGenderF().equals("여성")){
+                user.setGender('w');
+            }else{
+                user.setGender('z');
+            }
+        System.out.println(user.getGender());
         mapper.update(user);
     }
 

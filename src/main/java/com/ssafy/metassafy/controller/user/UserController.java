@@ -29,7 +29,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api("유저 컨트롤러  API V1")
 public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String SUCCESS = "Success";
     private static final String FAIL = "Fail";
 
@@ -167,6 +167,7 @@ public class UserController {
         try{
             service.update(user);
         }catch(Exception e){
+            logger.info("수정 "+e.getMessage());
             return new ResponseEntity<String>(FAIL, HttpStatus.OK);
         }
         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
