@@ -93,7 +93,7 @@ const HeaderStyle = styled.header`
   /* padding: 0 10%; */
   /* position: absolute;
   top: 0; */
-  @media screen and (max-width: 730px) {
+  @media screen and (max-width: 400px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -121,14 +121,14 @@ const UlStyle = styled.ul`
   padding: 0;
   display: flex;
   align-items: baseline;
-  @media screen and (max-width: 730px) {
+  @media screen and (max-width: 400px) {
     flex-direction: column;
   }
 `;
 
 const LiStyle = styled.li`
-  margin-left: 3rem;
-  @media screen and (max-width: 730px) {
+  margin-right: 2rem;
+  @media screen and (max-width: 400px) {
     margin-left: 10px;
     margin-bottom: 5px;
   }
@@ -158,7 +158,7 @@ const LiStyle = styled.li`
 //   right: 10px;
 //   top: 6px;
 //   /* display: none; */
-//   @media screen and (max-width: 730px) {
+//   @media screen and (max-width: 400px) {
 //     display: block;
 //   }
 // `;
