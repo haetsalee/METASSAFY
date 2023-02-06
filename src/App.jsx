@@ -24,15 +24,16 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
-import { getJsonLocalUserInfo } from './utils/local-storage';
 import UnityPage from './pages/UnityPage';
+
 function App() {
   useInfo();
   // const user = getJsonLocalUserInfo()['userId'] || 'annonymous';
 
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      {/* Navbar */}
+      <Route element={<Layout />}>
         {/* 일반 라우터 */}
         <Route path="/" element={<Home />} />
         <Route element={<PublicRoute />}>
@@ -60,21 +61,12 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route
-          path="/unity"
-          element={
-            <UnityPage
-              style={{
-                margin: 0,
-                width: '100vw',
-                height: '100vh',
-              }}
-            />
-          }
-        />
-        {/* <Route path="/" element={<Home />} /> */}
-      </Routes>
-    </Layout>
+      </Route>
+      {/* Navbar 제외 */}
+      <Route path="/" element={<PrivateRoute />}>
+        <Route path="unity" element={<UnityPage />} />
+      </Route>
+    </Routes>
   );
 }
 
