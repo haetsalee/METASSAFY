@@ -24,6 +24,7 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
+import UnityPage from './pages/UnityPage';
 
 function App() {
   useInfo();
@@ -63,7 +64,7 @@ function App() {
       </Route>
       {/* Navbar 제외 */}
       <Route path="/" element={<PrivateRoute />}>
-        {/* <Route path="unity element={<UnityPage />} /> */}
+        <Route path="unity" element={<UnityPage />} />
       </Route>
     </Routes>
   );
