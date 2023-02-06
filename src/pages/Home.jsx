@@ -43,6 +43,7 @@ const Home = () => {
         <div style={{ wordBreak: 'break-all' }}>{JSON.stringify(user)}</div>
       )}
       <button onClick={() => navigate('/board')}>게시판 테스트</button>
+      <button onClick={() => navigate('/unity')}>유니티</button>
     </SectionStyle>
   );
 };
