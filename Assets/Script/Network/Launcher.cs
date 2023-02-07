@@ -49,7 +49,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         
         Transform t = p.GetComponent<Transform>();
-        GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
+       // GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
 
         //이름을 붙인다.
         setNickName(t);
