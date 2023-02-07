@@ -29,9 +29,9 @@ namespace StarterAssets
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
-        /*public AudioClip LandingAudioClip;
+        public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;*/
+        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -303,10 +303,10 @@ namespace StarterAssets
                 }
 
                 // stop our velocity dropping infinitely when grounded
-                if (_verticalVelocity < 0.0f)
+                /*if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
-                }
+                }*/
 
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
@@ -378,7 +378,7 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        /*private void OnFootstep(AnimationEvent animationEvent)
+        private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
@@ -388,7 +388,7 @@ namespace StarterAssets
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
-        }*/
+        }
 
     }
 }
