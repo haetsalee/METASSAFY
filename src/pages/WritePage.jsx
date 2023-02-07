@@ -1,5 +1,18 @@
+import styled from 'styled-components';
+
+import BoardWrite from '../components/board/write/BoardWrite';
+
 const WritePage = () => {
-  return <h1>write</h1>;
+  return (
+    <SectionStyle>
+      <BoardWrite></BoardWrite>
+    </SectionStyle>
+  );
 };
 
 export default WritePage;
+
+const SectionStyle = styled.section`
+  width: 100vw;
+  height: 100vh;
+`;

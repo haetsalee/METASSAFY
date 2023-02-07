@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { getLocalUserInfo } from '../../utils/local-storage';
+import { getLocalUserInfo } from '../../../utils/local-storage';
 import styled from 'styled-components';
-import API from '../../utils/api';
+import API from '../../../utils/api';
 const BoardItem = ({ changeMode, data }) => {
   const [user, setUser] = useState(getLocalUserInfo());
   const loginUser = JSON.parse(user);

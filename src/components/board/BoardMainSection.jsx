@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getBoardList } from '../../services/board-service';
 
-import BoardFeed from './BoardFeed';
+import BoardFeed from './list/BoardFeed';
 import BoardNavbar from './navbar/BoardNavbar';
 
 // recent, like
@@ -11,6 +12,7 @@ import BoardNavbar from './navbar/BoardNavbar';
 // my(id)
 // writer(id), title(word), content(word)
 const BoardMainSection = () => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const [boardList, setBoardList] = useState([]);
 
@@ -25,12 +27,16 @@ const BoardMainSection = () => {
     }
   }, [user]);
 
+  const goWrite = () => {
+    navigate('write');
+  };
+
   return (
     <SectionStyle>
       <WrapperStyle>
         <BoardNavbar setBoardList={setBoardList}></BoardNavbar>
         <DivStyle>
-          <ButtonStyle>글쓰기</ButtonStyle>
+          <ButtonStyle onClick={goWrite}>글쓰기</ButtonStyle>
           <BoardFeed boardList={boardList}></BoardFeed>
         </DivStyle>
       </WrapperStyle>
@@ -69,4 +75,8 @@ const ButtonStyle = styled.button`
   background-color: white;
   color: #868e96;
   position: relative;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid black;
+  }
 `;

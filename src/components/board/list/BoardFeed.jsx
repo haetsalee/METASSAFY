@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BoardCard from './card/BoardCard';
+import BoardCard from './BoardCard';
 
 const BoardFeed = ({ boardList }) => {
   return (

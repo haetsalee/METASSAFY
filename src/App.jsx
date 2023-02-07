@@ -47,10 +47,9 @@ function App() {
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
-          <Route path="board/" element={<BoardPage />}>
-            <Route path=":id" element={<ArticlePage />} />
-            <Route path="write" element={<WritePage />} />
-          </Route>
+          <Route path="board/" element={<BoardPage />} />
+          <Route path="board/:id" element={<ArticlePage />} />
+          <Route path="board/write" element={<WritePage />} />
           <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="developers" element={<DevelopersPage />} />
