@@ -19,7 +19,7 @@ class OpenViduPage extends Component {
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
       subscribers: [],
-      // subscriberScreen: [],
+      subscriberScreen: [],
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -33,11 +33,13 @@ class OpenViduPage extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.onbeforeunload);
+    // window.addEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.onbeforeunload);
+    // window.removeEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   onbeforeunload(event) {
@@ -514,12 +516,13 @@ class OpenViduPage extends Component {
     if (mySession) {
       mySession.disconnect();
     }
-    if (mySession) {
+    if (sessionScreen) {
       sessionScreen.disconnect();
     }
 
     // Empty all properties...
     this.OV = null;
+    this.OVScreen = null;
     this.setState({
       session: undefined,
       subscribers: [],
