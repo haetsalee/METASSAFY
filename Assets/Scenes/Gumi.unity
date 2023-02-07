@@ -4302,6 +4302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 349010414}
   - component: {fileID: 349010416}
+  - component: {fileID: 349010417}
   m_Layer: 0
   m_Name: PhotonManager
   m_TagString: Untagged
@@ -4331,7 +4332,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349010412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87bd79425e7e54b44b31291e4dcb102a, type: 3}
   m_Name: 
@@ -4339,6 +4340,22 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 4432000044067785519, guid: 3dfc5b5b335b90c489d8c37996bd8225, type: 3}
   - {fileID: 4255249056724277099, guid: 459481c357dd527408553d90c188eb61, type: 3}
+--- !u!114 &349010417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349010412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd953520d36b99b4a83856f4e31b2bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefabs:
+  - {fileID: 4432000044067785519, guid: 3dfc5b5b335b90c489d8c37996bd8225, type: 3}
+  - {fileID: 4255249056724277099, guid: 459481c357dd527408553d90c188eb61, type: 3}
+  loading: {fileID: 774462945}
 --- !u!1001 &353170611
 PrefabInstance:
   m_ObjectHideFlags: 0
