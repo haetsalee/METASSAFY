@@ -39,7 +39,8 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
 
             // 광선으로 충돌된 collider를 hit에 넣습니다.
             if (Physics.Raycast(ray, out hit))
-            {               
+            {
+                Debug.Log(hit.collider.name + " 선택");
                 //구미를 클릭 했으면
                 if (hit.collider.name == "Gumi")
                     goToGumi();

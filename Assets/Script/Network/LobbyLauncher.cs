@@ -6,9 +6,9 @@ using UnityStandardAssets.Utility;
 
 public class LobbyLauncher : MonoBehaviourPunCallbacks 
 {
-    public PhotonView playerPrefab;
+    public PhotonView[] playerPrefabs;
 
-    public GameObject ReactManager;
+     
     public GameObject loading;
 
     // Start is called before the first frame update
@@ -27,10 +27,10 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
     {
         loading.SetActive(false);
         Debug.Log("·ë Âü°¡ ¼º°ø");
-         
-         
-    
-        GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+
+
+        int skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        GameObject p = PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
         Transform t = p.GetComponent<Transform>();
         GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
 
@@ -41,7 +41,7 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
     
     public void setNickName(Transform t )
     {
-        string name = GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname;
+        string name = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
         PhotonNetwork.LocalPlayer.NickName = name;
     }
      

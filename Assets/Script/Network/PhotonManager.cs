@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
-    public PhotonView playerPrefab;
+    public PhotonView[] playerPrefabs;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +23,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined a room successfully!");
-        GameObject p=PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+        int skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        GameObject p = PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
         Transform t = p.GetComponent<Transform>();
-        t.Find("name").GetComponent<TextMesh>().text = GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname;
+        t.Find("name").GetComponent<TextMesh>().text = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
     }
 }

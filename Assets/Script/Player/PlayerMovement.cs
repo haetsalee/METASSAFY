@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviourPun
 {
@@ -24,14 +25,16 @@ public class PlayerMovement : MonoBehaviourPun
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
 
-        if (photonView.IsMine)
-        {
-            Camera.main.GetComponent<SmoothFollowCam>().target = transform.Find("CamPivot").transform;
-        }
-        else
-        {
-            playerRigidbody.isKinematic = true;
-        }
+         
+            if (photonView.IsMine)
+            {
+                Camera.main.GetComponent<SmoothFollowCam>().target = transform.Find("CamPivot").transform;
+            }
+            else
+            {
+                playerRigidbody.isKinematic = true;
+            }
+        
     }
 
     // FixedUpdate는 물리 갱신 주기에 맞춰 실행됨
