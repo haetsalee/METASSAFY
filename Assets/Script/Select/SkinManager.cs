@@ -43,14 +43,16 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("Girl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(0);
+                    setSkinRes(hit.collider.name);
                 }
                 else if (hit.collider.name == "Girl")
                 {
                     GameObject.Find("Boy").GetComponent<Outline>().enabled = false;
                     GameObject.Find("Girl").GetComponent<Outline>().enabled = true;
                     setSkinNo(1);
+                    setSkinRes(hit.collider.name);
                 }
-                setSkinRes(hit.collider.name);
+                 
                 
 
             }
