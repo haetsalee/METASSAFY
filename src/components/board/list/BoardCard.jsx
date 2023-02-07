@@ -21,7 +21,11 @@ const BoardCard = ({ card }) => {
           <Heart type="1" no={card.article_no} isLike={card.my_like} />
           <p>{card.like}</p>
         </LikeDivStyle>
-        <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
+        {card.thumbnail ? (
+          <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
+        ) : (
+          <div style={{ height: '0.5rem' }}></div>
+        )}
         <LineDivStyle>
           <TitleStyle>{card.title}</TitleStyle>
           <SubTitleStyle color="#AECBDB">{card.hit}</SubTitleStyle>
@@ -32,7 +36,7 @@ const BoardCard = ({ card }) => {
           </SubTitleStyle>
           <SubTitleStyle>{strDate}</SubTitleStyle>
         </LineDivStyle>
-        <ContentStyle>{card.content}</ContentStyle>
+        <ContentStyle className="content">{card.content}</ContentStyle>
       </CardSection>
     </Link>
   );
@@ -44,7 +48,7 @@ const CardSection = styled.section`
   display: flex;
   flex-direction: column;
   width: 14rem;
-  min-height: 20rem;
+  /* min-height: 20rem; */
   padding: 0.8rem 1rem;
   margin: 0.3rem;
   background-color: white;
@@ -54,6 +58,7 @@ const CardSection = styled.section`
 
   &:hover {
     transform: scale(1.05);
+    /* background-color: #aecbdb; */
   }
 `;
 

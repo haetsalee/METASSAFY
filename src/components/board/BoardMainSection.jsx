@@ -73,7 +73,7 @@ const ButtonStyle = styled.button`
   text-align: center;
   border: none;
   border-radius: 20px;
-  background-color: white;
+  background-color: #e0f4ff;
   color: #868e96;
   position: relative;
   cursor: pointer;
