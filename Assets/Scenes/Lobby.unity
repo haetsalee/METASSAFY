@@ -1365,6 +1365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 738593254}
   - component: {fileID: 738593255}
+  - component: {fileID: 738593256}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -1402,6 +1403,28 @@ MonoBehaviour:
   playerPrefab: {fileID: 1961607097688526911, guid: b8834ab3a18bd2440968a0e2c55e2cd7, type: 3}
   ReactManager: {fileID: 1420998343}
   loading: {fileID: 1854742412}
+--- !u!114 &738593256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738593252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &785586559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4210084119734192, guid: 625d4ab1ce4723c449f165b8e7f27de1, type: 3}
