@@ -1,81 +1,85 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { getLocalUserInfo } from '../../../utils/local-storage';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import API from '../../../utils/api';
+
 import BoardWriteInput from './BoardWriteInput';
 import BoardWriteImage from './BoardWriteImage';
+import {
+  fetchBoardImage,
+  fetchBoardPost,
+} from '../../../services/board-service';
+import { BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
-const BoardWrite = ({ changeMode }) => {
-  const [user, setUser] = useState(getLocalUserInfo());
-  const loginUser = JSON.parse(user);
-  const [isThumbnail, setIsThumbnail] = useState(true);
+const BoardWrite = () => {
+  const navigator = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const [article, setArticle] = useState({ title: '', content: '' });
+  const [file, setFile] = useState();
+  const [thumbnail, setThumbnail] = useState('');
 
-  const [thumbnail, setThumbnail] = useState(
-    'https://kr.object.ncloudstorage.com/metassafy/46322b57-7041-43d2-a970-665670d2bccesssssss.png'
-  );
-
-  const headers = { 'Content-Type': 'multipart/form-data' };
-  useEffect(() => {
-    //getList();
-  }, []);
-
-  const boardHandler = () => {
-    changeMode('list');
+  // 사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
+  const setImgUrl = async () => {
+    const formData = new FormData();
+    formData.append('image', file);
+    console.log(file, formData);
+    const { data } = await fetchBoardImage(formData); // ???
+    console.log(data);
+    setThumbnail(data);
   };
 
-  //사진 추가 버튼을 누르면
-  const handleUploadImg = (e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    setImgUrl(file);
-  };
-  //사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
-  const setImgUrl = (file) => {
-    const frm = new FormData();
-    frm.append('image', file);
-    console.log(frm);
-    API.post('board/uploadAndgetLink', frm, {
-      headers,
-    }).then(function (response) {
-      makeHtmlImg(response.data);
-      if (isThumbnail) {
-        setThumbnail(response.data);
-        setIsThumbnail(false);
-      }
-    });
-  };
-  //url 받아서 글쓰는 부분에 img 만들어 추가
-  const makeHtmlImg = (url) => {
-    let tagArea = document.getElementById('writeArea');
-    let new_pTag = document.createElement('img');
-    new_pTag.setAttribute('src', url);
-    tagArea.appendChild(new_pTag);
-  };
-
-  //글 작성 버튼을 누르면 axios
+  // 글 작성
   const handleSubmit = (e) => {
     e.preventDefault();
-    let content = document.getElementById('writeArea').innerHTML;
-    let title = document.getElementById('titleArea').innerHTML;
-    const boardDto = {
-      user_id: loginUser.user_id,
-      title: title,
-      content: content,
-      thumbnail: thumbnail,
+    if (!article.title || !article.content) {
+      alert('제목과 내용은 필수 입력입니다.');
+      return;
+    }
+
+    const uploadArticle = async () => {
+      // thumbnail
+      if (file) {
+        await setImgUrl();
+      }
+      console.log(thumbnail);
+      // article
+      const body = {
+        user_id: user.user_id,
+        title: article.title,
+        content: article.content,
+        thumbnail: thumbnail,
+      };
+      await fetchBoardPost(body);
     };
-    console.log(thumbnail);
-    API.post('board/writeSimple', boardDto).then(function (response) {
-      // 성공한 경우 실행
-      changeMode('list');
-    });
+    uploadArticle();
+    navigator('/board');
   };
 
   return (
     <WriteSection>
-      <BoardWriteInput type="title" label="제목" placeholder="제목" />
-      <BoardWriteInput type="content" label="본문" placeholder="새 글 작성" />
-      <BoardWriteImage />
+      <form method="post" encType="multipart/form-data">
+        <BoardWriteInput
+          type="title"
+          label="제목"
+          placeholder="제목"
+          value={article.title}
+          setValue={setArticle}
+        />
+        <BoardWriteInput
+          type="content"
+          label="본문"
+          placeholder="새 글 작성"
+          value={article.content}
+          setValue={setArticle}
+        />
+        <BoardWriteImage setFile={setFile} />
+        <HrStyle />
+        <BoardWriteButtonStyle onClick={handleSubmit}>
+          <BsPencilSquare style={{ fontSize: '0.9rem' }} />
+          <p>저장</p>
+        </BoardWriteButtonStyle>
+      </form>
     </WriteSection>
   );
 };
@@ -84,4 +88,26 @@ export default BoardWrite;
 const WriteSection = styled.section`
   width: 70%;
   margin-top: 8rem;
+`;
+
+const HrStyle = styled.hr`
+  background-color: #ced4da;
+  border: none;
+  height: 0.1px;
+  margin: 1rem 0;
+`;
+
+const BoardWriteButtonStyle = styled.button`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  float: right;
+  width: 7rem;
+  padding: 0.5rem 2rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #799fc1;
+  color: white;
+  font-size: 0.7rem;
+  cursor: pointer;
 `;

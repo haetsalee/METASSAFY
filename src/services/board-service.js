@@ -56,3 +56,47 @@ export const fetchBoardLikeDelete = async ({ type, no, user_id }) => {
     return { data: error.message, status: error.response.status, error };
   }
 };
+
+export const fetchBoardImage = async (formData) => {
+  try {
+    API.defaults.headers['Content-Type'] = 'multipart/form-data';
+    const { data, status } = await API.post(
+      '/board/uploadAndgetLink',
+      formData
+    );
+    API.defaults.headers['Content-Type'] = 'application/json';
+    if (status === 200) {
+      console.log('upload img', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardPost = async ({
+  user_id,
+  title,
+  content,
+  thumbnail,
+}) => {
+  const requestBody = {
+    user_id: user_id,
+    title: title,
+    content: content,
+    thumbnail: thumbnail,
+  };
+  console.log(requestBody);
+
+  try {
+    const { data, status } = await API.post('/board/writeSimple', requestBody);
+    if (status === 200) {
+      console.log('board write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};

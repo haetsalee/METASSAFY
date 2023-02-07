@@ -19,7 +19,7 @@ const MainStyle = styled.main`
   // margin: 3rem auto;
   width: 100%;
   min-height: 100vh;
-  background-color: aqua;
+  // background-color: aqua;
   /* position: absolute;
   top: 0; */
   // max-width: 40rem;

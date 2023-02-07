@@ -20,6 +20,7 @@ const BoardMainSection = () => {
   useEffect(() => {
     const setBoard = async () => {
       const newList = await getBoardList(null, false, user.user_id, null);
+      console.log(boardList);
       setBoardList(newList);
     };
     if (user.user_id) {

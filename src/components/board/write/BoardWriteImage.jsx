@@ -1,50 +1,77 @@
-import styled from 'styled-components';
 import { useState } from 'react';
+import styled from 'styled-components';
 
-const BoardWriteImage = ({ image }) => {
-  const [thumbnail, setThumbnail] = useState(image);
+import { FiImage } from 'react-icons/fi';
+
+const BoardWriteImage = ({ setFile }) => {
+  const [imageSrc, setImageSrc] = useState('');
+  const [imageName, setImageName] = useState('이미지를 선택해주세요.');
+
+  // 제출한 이미지 미리보기
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+      };
+    });
+  };
 
   const handleUploadImg = (e) => {
     const file = e.target.files[0];
-    setImgUrl(file);
-  };
-
-  //사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
-  const setImgUrl = (file) => {
-    const uploadImage = async () => {
-      const formData = new FormData();
-      formData.append('profile_img', file);
-      //   const { data } = await fetchProfileImage(formData);
-      //   console.log(data);
-      //   setThumbnail(data);
-    };
-    uploadImage();
+    setImageName(file.name);
+    setFile(file);
   };
 
   return (
-    <form method="post" encType="multipart/form-data">
-      <div className="button">
+    <>
+      <div style={{ position: 'relative' }}>
         <label htmlFor="chooseFile">
-          <DivStyle>ㅁㄴㅇ</DivStyle>
+          <ImgSelectDivStyle>
+            {imageName}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {imageSrc && <PreImgStyle src={imageSrc} alt="preview-img" />}
+              {!imageSrc && <FiImage color="#799FC1" />}
+              <div style={{ marginLeft: '0.3rem' }}>파일 선택</div>
+            </div>
+          </ImgSelectDivStyle>
         </label>
       </div>
       <input
         type="file"
         id="chooseFile"
         name="chooseFile"
-        accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-        onChange={handleUploadImg}
+        accept="image/*"
+        onChange={(e) => {
+          handleUploadImg(e);
+          encodeFileToBase64(e.target.files[0]);
+        }}
         style={{ display: 'none' }}
       />
-    </form>
+    </>
   );
 };
 
 export default BoardWriteImage;
 
-const DivStyle = styled.div`
-  cursor: pointer;
-  background-color: #f5fcff;
-  border: 1px solid #eef9ff;
+const ImgSelectDivStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  padding: 0 1rem;
   color: #5f6e7e;
+  background-color: #f5fcff;
+  font-size: 0.75rem;
+  border: 1px solid #eef9ff;
+  border-radius: 20px;
+  cursor: pointer;
+`;
+
+const PreImgStyle = styled.img`
+  max-width: 2rem;
+  height: 100%;
 `;

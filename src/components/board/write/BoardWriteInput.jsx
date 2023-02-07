@@ -1,10 +1,31 @@
 import styled from 'styled-components';
 
-const BoardWriteInput = ({ type, label, placeholder }) => {
+const BoardWriteInput = ({ type, label, placeholder, value, setValue }) => {
+  const changeHandler = (e) => {
+    setValue((state) => {
+      return { ...state, [type]: e.target.value };
+    });
+  };
+
   return (
     <InputWrapper>
       <TitleDiv>{label}</TitleDiv>
-      <InputStyle type={type} placeholder={placeholder} />
+      {type === 'title' && (
+        <InputStyle
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={changeHandler}
+        />
+      )}
+      {type === 'content' && (
+        <TextareaStyle
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={changeHandler}
+        />
+      )}
     </InputWrapper>
   );
 };
@@ -31,18 +52,47 @@ const TitleDiv = styled.div`
 
 const InputStyle = styled.input`
   width: 98%;
-  padding: ${(props) => (props.type === 'content' ? '1rem' : '0.3rem')};
+  padding: 0.3rem;
   margin: 0.5rem;
   border: none;
   background-color: transparent;
-  font-size: ${(props) => (props.type === 'content' ? '1rem' : '1.5rem')};
+  font-size: 1.5rem;
   color: #617485;
-
-  border-bottom: ${(props) =>
-    props.type === 'content' ? 'none' : '1px solid #cccccc'};
+  border-bottom: 1px solid #cccccc;
 
   &:active,
   &:focus {
     outline: none;
+  }
+`;
+
+const TextareaStyle = styled.textarea`
+  width: 100%;
+  min-height: 17rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #617485;
+  border: none;
+  resize: none;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #617485;
+    border-radius: 10px;
+    background-clip: padding-box;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
 `;
