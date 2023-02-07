@@ -4,6 +4,7 @@ import { getLocalUserInfo } from '../../../utils/local-storage';
 import styled from 'styled-components';
 import API from '../../../utils/api';
 import BoardWriteInput from './BoardWriteInput';
+import BoardWriteImage from './BoardWriteImage';
 
 const BoardWrite = ({ changeMode }) => {
   const [user, setUser] = useState(getLocalUserInfo());
@@ -72,13 +73,15 @@ const BoardWrite = ({ changeMode }) => {
 
   return (
     <WriteSection>
-      <BoardWriteInput type="title">제목</BoardWriteInput>
-      <BoardWriteInput type="content">본문</BoardWriteInput>
+      <BoardWriteInput type="title" label="제목" placeholder="제목" />
+      <BoardWriteInput type="content" label="본문" placeholder="새 글 작성" />
+      <BoardWriteImage />
     </WriteSection>
   );
 };
 export default BoardWrite;
 
 const WriteSection = styled.section`
-  max-width: 1200px;
+  width: 70%;
+  margin-top: 8rem;
 `;
