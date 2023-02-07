@@ -19,6 +19,7 @@ class OpenViduPage extends Component {
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
       subscribers: [],
+      // subscriberScreen: [],
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -465,7 +466,7 @@ class OpenViduPage extends Component {
     });
 
     publisherScreen.on('videoElementCreated', (event) => {
-      var subscriberScreen = sessionScreen.subscribe(
+      var subscriber = sessionScreen.subscribe(
         event.stream,
         'container-screens'
       );
@@ -474,10 +475,10 @@ class OpenViduPage extends Component {
       //   // Add a new <p> element for the user's nickname just below its video
       //   appendUserData(event.element, subscriberScreen.stream.connection);
       // });
-      var subscribersScreen = this.state.subscribersScreen;
-      subscribersScreen.push(subscriberScreen);
+      var subscribers = this.state.subscribers;
+      subscribers.push(subscriber);
       this.setState({
-        subscribersScreen: subscribersScreen,
+        subscribers: subscribers,
       });
       event.element['muted'] = true;
     });
