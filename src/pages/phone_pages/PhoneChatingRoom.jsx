@@ -46,8 +46,8 @@ function PhoneChatingRoom(props) {
   let temp = [];
 
   const connect = () => {
-    // const socket = new SockJS('https://www.metassafy.store/api/ws');
-    const socket = new SockJS('http://i8d211.p.ssafy.io:8088/metassafy/ws');
+    const socket = new SockJS('https://www.metassafy.store/api/ws');
+    // const socket = new SockJS('http://i8d211.p.ssafy.io:8088/metassafy/ws');
     // const socket = new SockJS('http://192.168.100.124:9999/metassafy/ws');
     stompClient = Stomp.over(socket);
 
