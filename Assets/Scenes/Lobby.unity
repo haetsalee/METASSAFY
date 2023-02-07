@@ -1365,6 +1365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 738593254}
   - component: {fileID: 738593255}
+  - component: {fileID: 738593256}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -1394,9 +1395,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738593252}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8729f50126d2a9140975befe85d7541c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefabs:
+  - {fileID: 4432000044067785519, guid: 3dfc5b5b335b90c489d8c37996bd8225, type: 3}
+  - {fileID: 4255249056724277099, guid: 459481c357dd527408553d90c188eb61, type: 3}
+  loading: {fileID: 1854742412}
+--- !u!114 &738593256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738593252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd953520d36b99b4a83856f4e31b2bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabs:
