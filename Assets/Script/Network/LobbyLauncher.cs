@@ -4,11 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using UnityStandardAssets.Utility;
 
-public class LobbyLauncher : MonoBehaviourPunCallbacks
+public class LobbyLauncher : MonoBehaviourPunCallbacks 
 {
-    public PhotonView playerPrefab;
+    public PhotonView[] playerPrefabs;
 
-    public GameObject ReactManager;
+     
     public GameObject loading;
 
     // Start is called before the first frame update
@@ -27,21 +27,23 @@ public class LobbyLauncher : MonoBehaviourPunCallbacks
     {
         loading.SetActive(false);
         Debug.Log("룸 참가 성공");
-         
-        GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+
+
+        int skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        GameObject p = PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
         Transform t = p.GetComponent<Transform>();
         GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
 
-        t.Find("name").GetComponent<TextMesh>().text = GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname;
-        Debug.Log(GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname+" 이름을 붙입니다.");
-        Debug.Log("카메라 연결 성공");
-        
+        //이름을 붙인다.
+        setNickName(t);
 
-
-    }
-    public void test()
-    {
-        Debug.Log(GameObject.Find("ReactManager").GetComponent<ReactManager>().nickname );
     }
     
+    public void setNickName(Transform t )
+    {
+        string name = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
+        PhotonNetwork.LocalPlayer.NickName = name;
+    }
+     
+    //플레이어가 방을 떠났을때 호출되는 함수가 있나?
 }

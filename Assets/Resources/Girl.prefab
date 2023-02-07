@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 4641647347083932052}
   - component: {fileID: 8809649610670791436}
   - component: {fileID: 2649263888396634277}
+  - component: {fileID: 406041371029301558}
+  - component: {fileID: 143535113851312699}
   m_Layer: 0
   m_Name: name
   m_TagString: Untagged
@@ -193,6 +195,41 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4284022613
+--- !u!114 &406041371029301558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649513214302636595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &143535113851312699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649513214302636595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26ef2378d2baaf45a534fa67761ba4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameField: {fileID: 2649263888396634277}
 --- !u!1 &801198627964294464
 GameObject:
   m_ObjectHideFlags: 0

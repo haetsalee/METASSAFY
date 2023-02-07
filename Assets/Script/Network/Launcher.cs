@@ -2,29 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using UnityStandardAssets.Utility;
+
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    public PhotonView playerPrefab;
+    public PhotonView [] playerPrefabs;
+    public GameObject loading;
+   
 
-  
     void Start()
     {
+        loading.SetActive(true);
+        Debug.Log("launcher 실행");
         PhotonNetwork.ConnectUsingSettings();
     }
      
     public override void OnConnectedToMaster()
     {
-        Debug.Log("연결 성공");
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        Debug.Log("방에 접속하는 중..");
+      
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            Debug.Log("로비 연결..");
+            PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
+        }
+        else if(SceneManager.GetActiveScene().name == "Gumi")
+        {
+            Debug.Log("구미 연결..");
+            PhotonNetwork.JoinOrCreateRoom("Gumi", null, null);
+        }
     }
     public override void OnJoinedRoom()
     {
         Debug.Log("룸 참가 성공");
-        GameObject p=PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
-        GameObject.Find("Main Camera").GetComponent<SmoothFollow>().target=p.transform;
        
-        // camera = Camera.main.gameObject;
-        //camera.transform.position = playerPrefab.transform.position;
+        loading.SetActive(false);
+        int skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        GameObject p= PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
+
+        
+        Transform t = p.GetComponent<Transform>();
+        GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
+
+        //이름을 붙인다.
+        setNickName(t);
+   
+    }
+    public void setNickName(Transform t)
+    {
+        string name = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
+        PhotonNetwork.LocalPlayer.NickName = name;
     }
 
 }

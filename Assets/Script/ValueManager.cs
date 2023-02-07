@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class ReactManager : MonoBehaviour
+public class ValueManager : MonoBehaviour
 {
 
     public string nickname;
+    public int skin;
    
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,10 @@ public class ReactManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void setSkin(int skin)
+    {
+        this.skin = skin;
     }
     public void getNickname()
     {
