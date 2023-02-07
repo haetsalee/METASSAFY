@@ -1,16 +1,24 @@
 import BoardCard from './BoardCard';
 import styled from 'styled-components';
-import { Masonry } from '@mui/lab';
+import { Masonry } from 'masonic';
 
 const BoardFeed = ({ boardList }) => {
+  const renderer = (card) => <BoardCard key={card.index} card={card.data} />;
+
   return (
     <SectionStyle>
-      <Masonry columns={4} spacing={2}>
-        {boardList &&
-          boardList.map((card, index) => {
-            return <BoardCard key={index} card={card} />;
-          })}
-      </Masonry>
+      <Masonry
+        // Provides the data for our grid items
+        items={boardList}
+        // Adds 8px of space between the grid cells
+        columnGutter={8}
+        // Sets the minimum column width to 230px
+        columnWidth={230}
+        // Pre-renders 4 windows worth of content
+        overscanBy={4}
+        // This is the grid item component
+        render={renderer}
+      />
     </SectionStyle>
   );
 };

@@ -12,33 +12,35 @@ const BoardCard = ({ card }) => {
     String(date.getDate()).padStart(2, '0');
 
   return (
-    <Link
-      to={'/' + card.article_no}
-      style={{ textDecoration: 'none', color: 'black' }}
-    >
-      <CardSection>
-        <LikeDivStyle>
-          <Heart type="1" no={card.article_no} isLike={card.my_like} />
-          <p>{card.like}</p>
-        </LikeDivStyle>
-        {card.thumbnail ? (
-          <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
-        ) : (
-          <div style={{ height: '0.5rem' }}></div>
-        )}
-        <LineDivStyle>
-          <TitleStyle>{card.title}</TitleStyle>
-          <SubTitleStyle color="#AECBDB">{card.hit}</SubTitleStyle>
-        </LineDivStyle>
-        <LineDivStyle>
-          <SubTitleStyle>
-            {card.name} ({card.generation}기 / {card.area})
-          </SubTitleStyle>
-          <SubTitleStyle>{strDate}</SubTitleStyle>
-        </LineDivStyle>
-        <ContentStyle className="content">{card.content}</ContentStyle>
-      </CardSection>
-    </Link>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Link
+        to={'/board/' + card.article_no}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <CardSection>
+          <LikeDivStyle>
+            <Heart type="1" no={card.article_no} isLike={card.my_like} />
+            <p>{card.like}</p>
+          </LikeDivStyle>
+          {card.thumbnail ? (
+            <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
+          ) : (
+            <div style={{ height: '0.5rem' }}></div>
+          )}
+          <LineDivStyle>
+            <TitleStyle>{card.title}</TitleStyle>
+            <SubTitleStyle color="#AECBDB">{card.hit}</SubTitleStyle>
+          </LineDivStyle>
+          <LineDivStyle>
+            <SubTitleStyle>
+              {card.name} ({card.generation}기 / {card.area})
+            </SubTitleStyle>
+            <SubTitleStyle>{strDate}</SubTitleStyle>
+          </LineDivStyle>
+          <ContentStyle className="content">{card.content}</ContentStyle>
+        </CardSection>
+      </Link>
+    </div>
   );
 };
 
