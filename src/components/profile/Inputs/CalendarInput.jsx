@@ -9,9 +9,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const CalendarInput = ({ value, onChange }) => {
   // const [result, setResult] = useState(dayjs(value));
-  const [result, setResult] = useState(
-    dayjs('Thu Dec 30 1999 21:11:54 GMT+0900 (한국 표준시)')
-  );
+  const [result, setResult] = useState(dayjs('1999-12-31', 'YYYY-MM-DD'));
 
   const handleChange = (e) => {
     setResult(e);
@@ -24,7 +22,7 @@ const CalendarInput = ({ value, onChange }) => {
       <DesktopDatePickerStyle
         label="생일"
         inputFormat="YYYY/MM/DD"
-        value={result}
+        value={value}
         onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
       />
