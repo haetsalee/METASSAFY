@@ -24,3 +24,35 @@ export const fetchBoardList = async ({ key, popularity, user_id, word }) => {
     return { data: error.message, status: error.response.status, error };
   }
 };
+
+export const fetchBoardLikePost = async ({ type, no, user_id }) => {
+  const requestBody = {
+    like_type: type,
+    user_id: user_id,
+    no: no,
+  };
+
+  try {
+    const { data, status } = await API.post('/board/like', requestBody);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchBoardLikeDelete = async ({ type, no, user_id }) => {
+  const requestBody = {
+    like_type: type,
+    user_id: user_id,
+    no: no,
+  };
+
+  try {
+    const { data, status } = await API.delete('/board/like', {
+      data: requestBody,
+    });
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};

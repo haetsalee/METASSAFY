@@ -18,7 +18,7 @@ const BoardCard = ({ card }) => {
     >
       <CardSection>
         <LikeDivStyle>
-          <Heart isLike={card.my_like} />
+          <Heart type="1" no={card.article_no} isLike={card.my_like} />
           <p>{card.like}</p>
         </LikeDivStyle>
         <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
