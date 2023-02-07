@@ -1,20 +1,54 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { BiDotsHorizontal, BiX } from 'react-icons/bi';
 
 function MainNavigation() {
+  const [MenuShow, setMenuShow] = useState(false);
+
+  const onChangeMenuShow = () => {
+    setMenuShow(!MenuShow);
+  };
+
   return (
     <HeaderStyle>
-      <Link to="/">
+      <LogoStyle>
+        <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            alt="MetaSSAFY logo"
+            src="images/logo.png"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+          METASSAFY
+        </NavLink>
+      </LogoStyle>
+      {/* <MenuIconStyle
+        style={{ textDecoration: 'none' }}
+        onClick={() => {
+          setMenuShow(!MenuShow);
+          // console.log(MenuShow);
+        }}
+      >
+        <IconStyle href="#">
+          {MenuShow ? (
+            <BiX size="30px"></BiX>
+          ) : (
+            <BiDotsHorizontal size="30px"></BiDotsHorizontal>
+          )}
+        </IconStyle>
+      </MenuIconStyle> */}
+      {/* <Link to="/">
         <LogoStyle>METASSAFY</LogoStyle>
-      </Link>
+      </Link> */}
       <nav>
         <UlStyle>
-          <LiStyle>
+          {/* <LiStyle>
             <NavLink to="/">MainPage</NavLink>
-          </LiStyle>
-          <LiStyle>
+          </LiStyle> */}
+          {/* <LiStyle>
             <NavLink to="/page1">page1</NavLink>
           </LiStyle>
           <LiStyle>
@@ -22,7 +56,7 @@ function MainNavigation() {
           </LiStyle>
           <LiStyle>
             <NavLink to="/page3">page3</NavLink>
-          </LiStyle>
+          </LiStyle> */}
           <LiStyle>
             <NavLink to="/intro">소개</NavLink>
           </LiStyle>
@@ -49,21 +83,36 @@ export default MainNavigation;
 const HeaderStyle = styled.header`
   width: 100%;
   box-sizing: border-box;
-  height: 5rem;
+  /* height: 60px; */
   display: flex;
   align-items: center;
+  /* background-color: pink; */
   justify-content: space-between;
-  background: linear-gradient(to left, #c1a1d3, #c3ddff);
+  /* background: linear-gradient(to left, #c1a1d3, #c3ddff); */
   /* background-color: #c1a1d3; */
-  padding: 0 10%;
-  position: absolute;
-  top: 0;
+  /* padding: 0 10%; */
+  /* position: absolute;
+  top: 0; */
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const LogoStyle = styled.div`
-  font-size: 2rem;
-  color: white;
-  font-weight: bold;
+  padding: 5px;
+  & > a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    /* :hover {
+      color: navy;
+    }
+    :active {
+      color: navy;
+    } */
+  }
 `;
 
 const UlStyle = styled.ul`
@@ -72,27 +121,49 @@ const UlStyle = styled.ul`
   padding: 0;
   display: flex;
   align-items: baseline;
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+  }
 `;
 
 const LiStyle = styled.li`
-  margin-left: 3rem;
-
+  margin-right: 1rem;
+  @media screen and (max-width: 400px) {
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
   & > a {
     text-decoration: none;
-    font-size: 1rem;
-    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    color: #646464;
     :hover {
-      color: navy;
+      color: #b282d9;
     }
     :active {
-      color: navy;
+      color: #ca97f3;
     }
   }
-
   & > a.active {
-    color: #3d3d3d;
+    color: #4f88cd;
   }
   & > a.active:hover {
-    color: navy;
+    color: v;
   }
 `;
+
+// const MenuIconStyle = styled.li`
+//   position: absolute;
+//   text-decoration: none;
+//   right: 10px;
+//   top: 6px;
+//   /* display: none; */
+//   @media screen and (max-width: 400px) {
+//     display: block;
+//   }
+// `;
+
+// const IconStyle = styled.a`
+//   text-decoration: none;
+//   color: #646464;
+// `;

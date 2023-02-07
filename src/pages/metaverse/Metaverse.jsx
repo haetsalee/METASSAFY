@@ -5,17 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Player } from './Player';
 import { House } from './House';
-// import { Map } from './Map';
+import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
-import Stats from 'three/examples/jsm/libs/stats.module';
-
-// local용인지 빌드용인지 체크
 
 function Metaverse() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
-  const [statsTag, setStatsTag] = useState([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,14 +22,11 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    // local test
-    const floorTexture = textureLoader.load('/images/grid.png');
-    // server test
-    // const floorTexture = textureLoader.load('build/images/grid.png');
+    const floorTexture = textureLoader.load('images/map_v5.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.x = 10;
-    floorTexture.repeat.y = 10;
+    floorTexture.repeat.x = 1;
+    floorTexture.repeat.y = 1;
 
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
@@ -48,7 +41,7 @@ function Metaverse() {
 
     // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('lime');
+    scene.background = new THREE.Color('white');
 
     // Camera
 
@@ -100,7 +93,6 @@ function Metaverse() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    // Control
     // const orbitControls = new OrbitControls(camera, renderer.domElement);
     // orbitControls.enableDamping = true;
     // // orbitControls.minDistance = 5;
@@ -109,14 +101,26 @@ function Metaverse() {
     // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
     // orbitControls.update();
 
-    // 프레임 확인
-    const stats = Stats();
-    document.body.appendChild(stats.dom);
-
     // Mesh
     const meshes = [];
+    const startMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        // map: 'floorTexture',
+        color: 'red',
+      })
+    );
+    startMesh.name = 'floor';
+    startMesh.position.y = 0.01;
+    startMesh.rotation.x = -Math.PI / 2;
+    startMesh.receiveShadow = true;
+    scene.add(startMesh);
+    meshes.push(startMesh);
+
+    // 3d 텍스트
+
     const floorMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, 100),
+      new THREE.PlaneGeometry(50, 50),
       new THREE.MeshStandardMaterial({
         map: floorTexture,
       })
@@ -127,12 +131,24 @@ function Metaverse() {
     scene.add(floorMesh);
     meshes.push(floorMesh);
 
+    ////////////////////
+
     // 캐릭터 위치 나타낼 포인터 메쉬
+    const pointerMeshTexture = textureLoader.load('/images/sta3r.png');
+
     const pointerMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({
-        color: 'crimson',
+        // color: 'skyblue',
+        // transparent: true,
+        // opacity: 0.5,
+        map: pointerMeshTexture,
+        size: 0.1,
         transparent: true,
+        // alphaMap: pointerMeshTexture,
+        // depthWrite: false,
+        // vertexColors: true,
+        color: 'skyblue',
         opacity: 0.5,
       })
     );
@@ -143,17 +159,45 @@ function Metaverse() {
 
     // 스팟매쉬 - 여기들어가면 집 나와
     const spotMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(3, 3),
+      new THREE.PlaneGeometry(1, 1),
       new THREE.MeshStandardMaterial({
-        color: 'yellow',
+        color: 'green',
         transparent: true,
         opacity: 0.5,
       })
     );
-    spotMesh.position.set(5, 0.005, 5);
+    spotMesh.position.set(3, 0.005, 5.3);
     spotMesh.rotation.x = -Math.PI / 2;
     spotMesh.receiveShadow = true;
     scene.add(spotMesh);
+
+    // 스팟매쉬 - 여기들어가면 집 나와
+    const spotMesh2 = new THREE.Mesh(
+      new THREE.PlaneGeometry(3, 3),
+      new THREE.MeshStandardMaterial({
+        color: 'purple',
+        transparent: true,
+        opacity: 0.5,
+      })
+    );
+    spotMesh2.position.set(10, 0.005, 5);
+    spotMesh2.rotation.x = -Math.PI / 2;
+    spotMesh2.receiveShadow = true;
+    scene.add(spotMesh2);
+
+    // 스팟매쉬 - 여기들어가면 집 나와
+    const spotMeshSSAFY = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        color: 'pink',
+        transparent: true,
+        opacity: 0.5,
+      })
+    );
+    spotMeshSSAFY.position.set(1.5, 0.005, -6.5);
+    spotMeshSSAFY.rotation.x = -Math.PI / 2;
+    spotMeshSSAFY.receiveShadow = true;
+    scene.add(spotMeshSSAFY);
 
     // gltf로더 로드
     let gltfLoader = new GLTFLoader();
@@ -166,47 +210,38 @@ function Metaverse() {
     const house = new House({
       gltfLoader,
       scene,
-      // local test용
-      modelSrc: 'models/house.glb',
-      // build용
-      // modelSrc: 'build/models/house.glb',
+      modelSrc: '/models/house.glb',
       x: 5,
       y: -1.3,
       z: 2,
     });
 
     // 지도 로드
-    gltfLoader.load(
-      // local test용
-      'model/map/map_floorx.glb',
-      // build용
-      // 'build/models/map_floorx.glb',
-      function (gltf) {
-        gltf.scene.scale.set(1, 1, 1);
-        // gltf.scene.position.y = 0.1;
-        gltf.scene.position.z = 15;
-        gltf.scene.rotation.y = Math.PI;
-        scene.add(gltf.scene);
-      },
-      // called while loading is progressing
-      function (xhr) {
-        // console.log(xhr)
-        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
-      },
-      // called when loading has errors
-      function (error) {
-        console.log(error);
-      }
-    );
+    // gltfLoader.load(
+    //   // 'build/model/map/map.gltf',
+    //   'models/map_floorx.glb',
+    //   function (gltf) {
+    //     gltf.scene.scale.set(1, 1, 1);
+    //     // gltf.scene.position.y = 0.1;
+    //     gltf.scene.position.z = 10;
+    //     scene.add(gltf.scene);
+    //   },
+    //   // called while loading is progressing
+    //   function (xhr) {
+    //     // console.log(xhr)
+    //     // console.log((xhr.loaded / xhr.total) * 100 + "% loaded city");
+    //   },
+    //   // called when loading has errors
+    //   function (error) {
+    //     console.log(error);
+    //   }
+    // );
 
     const player = new Player({
       scene,
       meshes,
       gltfLoader,
-      // local test용
-      modelSrc: 'models/people.glb',
-      // build용
-      // modelSrc: 'build/models/people.glb',
+      modelSrc: '/models/people.glb',
     });
 
     const raycaster = new THREE.Raycaster();
@@ -220,7 +255,7 @@ function Metaverse() {
 
     function draw() {
       const delta = clock.getDelta();
-      stats.update();
+
       if (player.mixer) player.mixer.update(delta);
 
       if (player.modelMesh) {
@@ -256,35 +291,55 @@ function Metaverse() {
           }
 
           if (
-            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1.5 &&
-            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1.5
+            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
+              1.5 &&
+            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
           ) {
-            if (!house.visible) {
-              console.log('나와');
-              house.visible = true;
-              spotMesh.material.color.set('seagreen');
-              gsap.to(house.modelMesh.position, {
-                duration: 1,
-                y: 1,
-                ease: 'Bounce.easeOut',
-              });
-              gsap.to(camera.position, {
-                duration: 1,
-                y: 3,
-              });
-            }
-          } else if (house.visible) {
-            console.log('들어가');
-            house.visible = false;
-            spotMesh.material.color.set('yellow');
-            gsap.to(house.modelMesh.position, {
-              duration: 0.5,
-              y: -1.3,
-            });
-            gsap.to(camera.position, {
-              duration: 1,
-              y: 5,
-            });
+            // redirection
+            window.location.href = 'http://localhost:3000/page4';
+          }
+          /////////////////////////// REDIRECTION
+          if (
+            Math.abs(spotMeshSSAFY.position.x - player.modelMesh.position.x) <
+              1 &&
+            Math.abs(spotMeshSSAFY.position.z - player.modelMesh.position.z) < 1
+          ) {
+            // redirection
+            console.log('드러가따');
+            window.location.href = 'http://edu.ssafy.com';
+          }
+          if (
+            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1 &&
+            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1
+          ) {
+            // if (!house.visible) {
+            //   console.log('나와');
+            //   house.visible = true;
+            // naver로이동
+            window.open('https://naver.com');
+            //     spotMesh.material.color.set('seagreen');
+            //     gsap.to(house.modelMesh.position, {
+            //       duration: 1,
+            //       y: 1,
+            //       ease: 'Bounce.easeOut',
+            //     });
+            //     gsap.to(camera.position, {
+            //       duration: 1,
+            //       y: 3,
+            //     });
+            //   }
+            // } else if (house.visible) {
+            //   console.log('들어가');
+            //   house.visible = false;
+            //   spotMesh.material.color.set('yellow');
+            //   gsap.to(house.modelMesh.position, {
+            //     duration: 0.5,
+            //     y: -1.3,
+            //   });
+            //   gsap.to(camera.position, {
+            //     duration: 1,
+            //     y: 5,
+            //   });
           }
         } else {
           // 서 있는 상태
@@ -379,7 +434,7 @@ function Metaverse() {
   return (
     <div
       className="canvas_Wrap"
-      style={{ display: 'flex', justifyContent: 'center' }}
+      style={{ display: 'flex', justifyContent: 'center', overflowX: 'hidden' }}
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
