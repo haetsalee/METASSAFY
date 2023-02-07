@@ -30,11 +30,13 @@ class VideoChatPage extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.onbeforeunload);
+    // window.addEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.onbeforeunload);
+    // window.removeEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   onbeforeunload(event) {
@@ -175,7 +177,7 @@ class VideoChatPage extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
+    console.log('disconnect 잘 되고 있나요??-----');
     const mySession = this.state.session;
 
     if (mySession) {
