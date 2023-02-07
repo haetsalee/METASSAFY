@@ -129,19 +129,24 @@ public class BoardServiceImpl implements  BoardService{
     }
 
     @Override
-    public String uploadAndgetLink(MultipartFile img) throws IOException {
+    public String uploadAndgetLink(MultipartFile img) throws Exception {
         FileDto file = fileService.saveFile(img);
         return file.getPath();
     }
 
     @Override
-    public boolean writeArticle(BoardDto boardDto) {
-        try{
-            return sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto)==1;
-        }catch (Exception e){
-            return false;
-        }
+    public boolean writeArticle(BoardDto boardDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto)==1;
     }
 
+    @Override
+    public boolean uploadLike(LikeDto likeDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).uploadLike(likeDto)==1;
+    }
+
+    @Override
+    public boolean deleteLike(LikeDto likeDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).deleteLike(likeDto)==1;
+    }
 
 }

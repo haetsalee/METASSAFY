@@ -6,12 +6,12 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.like.LikeDto;
 import com.ssafy.metassafy.service.board.BoardService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -100,12 +100,40 @@ public class BoardController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
+//    LikeDto {
+//        @ApiModelProperty(value = "좋아요 타입(게시글, 댓글, 대댓글 등)")
+//        private int like_type;
+//        @ApiModelProperty(value = "작성자 아이디")
+//        private String user_id;
+//        @ApiModelProperty(value = "글번호")
+//        private int no;
+
+    @ApiOperation(value = "좋아요", notes = "게시글, 메모, 메메모에 좋아요를 누른다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @PostMapping("/like")
+    public ResponseEntity<String> uploadLike(@RequestBody @ApiParam(value = "좋아요 정보( like_type(게시글 : 1, 메모 : 2, 메메모 : 3), user_id(작성자 아이디), no(식별자 번호) )", required = true) LikeDto likeDto) throws Exception{
+        logger.info(likeDto.toString());
+        if (boardService.uploadLike(likeDto)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value = "좋아요", notes = "게시글, 메모, 메메모에 좋아요를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @DeleteMapping("/like")
+    public ResponseEntity<String> deleteLike(@RequestBody @ApiParam(value = "좋아요 정보( like_type(게시글 : 1, 메모 : 2, 메메모 : 3), user_id(작성자 아이디), no(식별자 번호) )", required = true) LikeDto likeDto) throws Exception{
+        logger.info(likeDto.toString());
+        if (boardService.deleteLike(likeDto)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping("/uploadAndgetLink")
-    public ResponseEntity<String> uploadAndgetLink(@ApiParam(value = "이미지 올리면 링크를 준다.", required = false) MultipartFile image) throws IOException {
+    public ResponseEntity<String> uploadAndgetLink(@ApiParam(value = "이미지 올리면 링크를 준다.", required = false) MultipartFile image) throws Exception {
         return  new ResponseEntity<String>(boardService.uploadAndgetLink(image), HttpStatus.OK);
     }
     @PostMapping("/writeSimple")
-    public ResponseEntity<String> writeSimple(@RequestBody @ApiParam(value = "게시글 정보", required = true) BoardDto boardDto){
+    public ResponseEntity<String> writeSimple(@RequestBody @ApiParam(value = "게시글 정보", required = true) BoardDto boardDto) throws Exception{
         logger.info(boardDto.toString());
         if (boardService.writeArticle(boardDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

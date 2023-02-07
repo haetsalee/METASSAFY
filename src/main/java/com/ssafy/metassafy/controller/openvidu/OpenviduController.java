@@ -54,6 +54,8 @@ public class OpenviduController {
      * @param params    The Connection properties
      * @return The Token associated to the Connection
      */
+
+    //    http://123.123.12.123:9999/metassafy/session/{sessionId}/connections
     @PostMapping("/{sessionId}/connections")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
