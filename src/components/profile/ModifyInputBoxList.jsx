@@ -84,7 +84,7 @@ const InputBoxList = () => {
       user_id: user.user_id,
       name: user.name || '',
       genderF: user.genderF || '', // w, m
-      birthday: dayjs(user.birthday) || '',
+      birthday: user.birthday || '',
       generation: user.generation || '', // 기수
       area: user.area || '', // 지역
       first_semester: user.first_semester || '', // 트랙
@@ -146,8 +146,44 @@ const InputBoxList = () => {
             onChange={(e) => {
               setInfo((preState) => {
                 const state = { ...preState };
-                state['birthday'] = String(e['$d']);
-                console.log(state['birthday'], 'sdfsdfsdfsdkf');
+                const birthday = String(e['$d']).substring(4, 15);
+                const year = birthday.substring(7, 11);
+                const month = birthday.substring(0, 3);
+                const day = birthday.substring(4, 6);
+
+                let newBirthday = '';
+                newBirthday += year;
+
+                if (String(month) === 'Jan') {
+                  newBirthday += '/01/';
+                } else if (month === 'Feb') {
+                  newBirthday += '/02/';
+                } else if (month === 'Mar') {
+                  newBirthday += '/03/';
+                } else if (month === 'Apr') {
+                  newBirthday += '/04/';
+                } else if (month === 'May') {
+                  newBirthday += '/05/';
+                } else if (month === 'Jun') {
+                  newBirthday += '/06/';
+                } else if (month === 'Jul') {
+                  newBirthday += '/07/';
+                } else if (month === 'Aug') {
+                  newBirthday += '/08/';
+                } else if (month === 'Sep') {
+                  newBirthday += '/09/';
+                } else if (month === 'Oct') {
+                  newBirthday += '/10/';
+                } else if (month === 'Nov') {
+                  newBirthday += '/11/';
+                } else if (month === 'Dec') {
+                  newBirthday += '/12/';
+                }
+
+                newBirthday += day;
+                console.log(newBirthday);
+
+                state['birthday'] = newBirthday;
                 return state;
               });
               console.log(String(e['$d']));
@@ -220,7 +256,10 @@ const InputBoxList = () => {
       <InputLineStyle>
         <LabelStyle>기술스택</LabelStyle>
         <InputsStyle>
-          <MultipleSelectChip setTechList={setTechList}></MultipleSelectChip>
+          <MultipleSelectChip
+            techList={techList}
+            setTechList={setTechList}
+          ></MultipleSelectChip>
         </InputsStyle>
       </InputLineStyle>
       <ButtonStyle onClick={onSubmitHandler}>
