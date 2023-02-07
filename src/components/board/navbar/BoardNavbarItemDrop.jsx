@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import BoardNavbarDropArea from './BoardNavbarDropArea';
 import BoardNavbarDropSearch from './BoardNavbarDropSearch';
+import { BiChevronDown } from 'react-icons/bi';
 
 const BoardNavbarItemDrop = ({
   menu,
@@ -28,7 +29,10 @@ const BoardNavbarItemDrop = ({
 
   return (
     <LiStyle index={index} activeIndex={activeIndex}>
-      <button onClick={clickHandler}>{menu.label}</button>
+      <button onClick={clickHandler}>
+        {menu.label}
+        <BiChevronDown />
+      </button>
       {isShow &&
         (menu.type === 'area' ? (
           <BoardNavbarDropArea type={menu.type} setBoardList={setBoardList} />
@@ -74,6 +78,23 @@ const LiStyle = styled.li`
     :hover, :active {
       color: #617485;
       background-color: #e0f4ff;
+    }
+  }
+
+  &:hover > ul {
+    animation: growDown 600ms ease-in-out;
+    transform-origin: top center;
+  }
+
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    80% {
+      transform: scaleY(1.1);
+    }
+    100% {
+      transform: scaleY(1);
     }
   }
 `;
