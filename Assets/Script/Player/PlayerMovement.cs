@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviourPun
     public float rotateSpeed = 80f; // 좌우 회전 속도
     public float jumpPower = 5.0f;
 
-    
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviourPun
         Rotate();
         // 움직임 실행
         Move();
-
 
 
         Debug.DrawRay(transform.position, -transform.up * 0.6f, Color.green);

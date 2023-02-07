@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 8970580567456781883}
   - component: {fileID: 4995166860613169134}
   - component: {fileID: 7515958637858327110}
+  - component: {fileID: -5946368775280786621}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -681,6 +682,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1388285763836595183}
+  - {fileID: -5946368775280786621}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -743,6 +745,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1.6, z: 1}
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &-5946368775280786621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724194239578311544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: isMove
+  - Type: 4
+    SynchronizeType: 2
+    Name: isRun
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &2854698792632224546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,6 +2028,7 @@ GameObject:
   - component: {fileID: 8368988935587681887}
   - component: {fileID: 7351479739842056100}
   - component: {fileID: 8235070218171759235}
+  - component: {fileID: 6998387181636090630}
   m_Layer: 0
   m_Name: name
   m_TagString: Untagged
@@ -2088,6 +2115,28 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4284022613
+--- !u!114 &6998387181636090630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160452703404135902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &9222302843984133626
 GameObject:
   m_ObjectHideFlags: 0
