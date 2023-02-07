@@ -43,7 +43,7 @@ export default BoardCard;
 const CardSection = styled.section`
   display: flex;
   flex-direction: column;
-  max-width: 14rem;
+  width: 14rem;
   min-height: 20rem;
   padding: 0.8rem 1rem;
   margin: 0.3rem;

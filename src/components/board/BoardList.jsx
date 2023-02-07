@@ -11,11 +11,13 @@ const BoardList = ({ changeMode, setArticle }) => {
   useEffect(() => {
     getList();
   }, []);
+
   const getList = () => {
     API.get('/board').then(function (response) {
       setList(response.data);
     });
   };
+
   const boardItemHandler = (value) => {
     API.get('/board/' + value).then(function (response) {
       setArticle(response.data);

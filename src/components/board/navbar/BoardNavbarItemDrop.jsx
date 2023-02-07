@@ -1,18 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { getBoardList } from '../../../services/board-service';
+import BoardNavbarDropArea from './BoardNavbarDropArea';
+import BoardNavbarDropSearch from './BoardNavbarDropSearch';
 
-const BoardNavbarItem = ({
+const BoardNavbarItemDrop = ({
   menu,
   index,
   activeIndex,
   setActiveIndex,
   setBoardList,
 }) => {
-  const user = useSelector((state) => state.auth.user);
+  const [isShow, setIsShow] = useState(false);
 
-  // 넷바 클릭 시 리스트 업데이트
+  // 넷바 클릭 시 드롭박스 보여주기
   const clickHandler = async () => {
     // button active css
     if (index === activeIndex) {
@@ -21,41 +22,31 @@ const BoardNavbarItem = ({
       setActiveIndex(index);
     }
 
-    // api
-    // 넷바 클릭시 (전체, 인기순, 게시글)
-    if (menu.type === 'recent') {
-      const newList = await getBoardList(null, false, user.user_id, null);
-      setBoardList(newList);
-    } else if (menu.type === 'like') {
-      const newList = await getBoardList(null, true, user.user_id, null);
-      setBoardList(newList);
-    } else if (menu.type === 'my') {
-      const newList = await getBoardList(
-        'user_id',
-        false,
-        user.user_id,
-        user.user_id
-      );
-      setBoardList(newList);
-    }
+    // 드롭박스 보여주기
+    setIsShow(!isShow);
   };
 
   return (
     <LiStyle index={index} activeIndex={activeIndex}>
       <button onClick={clickHandler}>{menu.label}</button>
+      {isShow &&
+        (menu.type === 'area' ? (
+          <BoardNavbarDropArea type={menu.type} setBoardList={setBoardList} />
+        ) : (
+          <BoardNavbarDropSearch type={menu.type} setBoardList={setBoardList} />
+        ))}
     </LiStyle>
   );
 };
 
-export default BoardNavbarItem;
+export default BoardNavbarItemDrop;
 
 const LiStyle = styled.li`
   display: flex;
-  justify-content: center;
-  position: relative;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin-bottom: 1rem;
-  height: 2rem;
 
   & > button {
     display: flex;
@@ -64,7 +55,7 @@ const LiStyle = styled.li`
     text-decoration: none;
     font-size: 1rem;
     width: 100%;
-    height: 100%;
+    height: 2rem;
     text-align: center;
     border: none;
     border-radius: 20px;
