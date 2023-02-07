@@ -93,13 +93,13 @@ function Metaverse() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    // const orbitControls = new OrbitControls(camera, renderer.domElement);
-    // orbitControls.enableDamping = true;
-    // // orbitControls.minDistance = 5;
-    // // orbitControls.maxDistance = 15;
-    // orbitControls.enablePan = false;
-    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    // orbitControls.update();
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
+    orbitControls.enablePan = false;
+    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    orbitControls.update();
 
     // Mesh
     const meshes = [];
@@ -158,18 +158,18 @@ function Metaverse() {
     scene.add(pointerMesh);
 
     // 스팟매쉬 - 여기들어가면 집 나와
-    const spotMesh = new THREE.Mesh(
+    const spotMeshProgrammers = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
       new THREE.MeshStandardMaterial({
         color: 'green',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0.3,
       })
     );
-    spotMesh.position.set(3, 0.005, 5.3);
-    spotMesh.rotation.x = -Math.PI / 2;
-    spotMesh.receiveShadow = true;
-    scene.add(spotMesh);
+    spotMeshProgrammers.position.set(3, 0.005, 5.3);
+    spotMeshProgrammers.rotation.x = -Math.PI / 2;
+    spotMeshProgrammers.receiveShadow = true;
+    scene.add(spotMeshProgrammers);
 
     // 스팟매쉬 - 여기들어가면 집 나와
     const spotMesh2 = new THREE.Mesh(
@@ -290,15 +290,7 @@ function Metaverse() {
             console.log('멈춤');
           }
 
-          if (
-            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
-              1.5 &&
-            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
-          ) {
-            // redirection
-            window.location.href = 'http://localhost:3000/page4';
-          }
-          /////////////////////////// REDIRECTION
+          /////////////////////////// REDIRECTION ////////////////////////////
           if (
             Math.abs(spotMeshSSAFY.position.x - player.modelMesh.position.x) <
               1 &&
@@ -309,37 +301,22 @@ function Metaverse() {
             window.location.href = 'http://edu.ssafy.com';
           }
           if (
-            Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1 &&
-            Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1
+            Math.abs(
+              spotMeshProgrammers.position.x - player.modelMesh.position.x
+            ) < 1 &&
+            Math.abs(
+              spotMeshProgrammers.position.z - player.modelMesh.position.z
+            ) < 1
           ) {
-            // if (!house.visible) {
-            //   console.log('나와');
-            //   house.visible = true;
-            // naver로이동
-            window.open('https://naver.com');
-            //     spotMesh.material.color.set('seagreen');
-            //     gsap.to(house.modelMesh.position, {
-            //       duration: 1,
-            //       y: 1,
-            //       ease: 'Bounce.easeOut',
-            //     });
-            //     gsap.to(camera.position, {
-            //       duration: 1,
-            //       y: 3,
-            //     });
-            //   }
-            // } else if (house.visible) {
-            //   console.log('들어가');
-            //   house.visible = false;
-            //   spotMesh.material.color.set('yellow');
-            //   gsap.to(house.modelMesh.position, {
-            //     duration: 0.5,
-            //     y: -1.3,
-            //   });
-            //   gsap.to(camera.position, {
-            //     duration: 1,
-            //     y: 5,
-            //   });
+            window.location.href = 'https://programmers.co.kr/';
+          }
+          if (
+            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
+              1.5 &&
+            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
+          ) {
+            // redirection
+            window.location.href = 'http://localhost:3000/page4';
           }
         } else {
           // 서 있는 상태
@@ -445,3 +422,95 @@ function Metaverse() {
 }
 
 export default Metaverse;
+
+///잠시 save
+// function draw() {
+//   const delta = clock.getDelta();
+
+//   if (player.mixer) player.mixer.update(delta);
+
+//   if (player.modelMesh) {
+//     camera.lookAt(player.modelMesh.position);
+//   }
+
+//   if (player.modelMesh) {
+//     if (isPressed) {
+//       raycasting();
+//     }
+
+//     if (player.moving) {
+//       // 걸어가는 상태
+//       angle = Math.atan2(
+//         destinationPoint.z - player.modelMesh.position.z,
+//         destinationPoint.x - player.modelMesh.position.x
+//       );
+//       player.modelMesh.position.x += Math.cos(angle) * 0.05;
+//       player.modelMesh.position.z += Math.sin(angle) * 0.05;
+
+//       camera.position.x = cameraPosition.x + player.modelMesh.position.x;
+//       camera.position.z = cameraPosition.z + player.modelMesh.position.z;
+
+//       player.actions[0].stop();
+//       player.actions[1].play();
+
+//       if (
+//         Math.abs(destinationPoint.x - player.modelMesh.position.x) < 0.03 &&
+//         Math.abs(destinationPoint.z - player.modelMesh.position.z) < 0.03
+//       ) {
+//         player.moving = false;
+//         console.log('멈춤');
+//       }
+
+//       if (
+//         Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
+//           1.5 &&
+//         Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
+//       ) {
+//         // redirection
+//         window.location.href = 'http://localhost:3000/page4';
+//       }
+//       /////////////////////////// REDIRECTION
+//       if (
+//         Math.abs(spotMeshSSAFY.position.x - player.modelMesh.position.x) <
+//           1 &&
+//         Math.abs(spotMeshSSAFY.position.z - player.modelMesh.position.z) < 1
+//       ) {
+//         // redirection
+//         console.log('드러가따');
+//         window.location.href = 'http://edu.ssafy.com';
+//       }
+//       if (
+//         Math.abs(spotMesh.position.x - player.modelMesh.position.x) < 1 &&
+//         Math.abs(spotMesh.position.z - player.modelMesh.position.z) < 1
+//       ) {
+//         window.location.href = 'https://programmers.co.kr/';
+//       }
+// if (!house.visible) {
+//   console.log('나와');
+//   house.visible = true;
+// naver로이동
+// window.open('https://naver.com');
+//     spotMesh.material.color.set('seagreen');
+//     gsap.to(house.modelMesh.position, {
+//       duration: 1,
+//       y: 1,
+//       ease: 'Bounce.easeOut',
+//     });
+//     gsap.to(camera.position, {
+//       duration: 1,
+//       y: 3,
+//     });
+//   }
+// } else if (house.visible) {
+//   console.log('들어가');
+//   house.visible = false;
+//   spotMesh.material.color.set('yellow');
+//   gsap.to(house.modelMesh.position, {
+//     duration: 0.5,
+//     y: -1.3,
+//   });
+//   gsap.to(camera.position, {
+//     duration: 1,
+//     y: 5,
+//   });
+// }
