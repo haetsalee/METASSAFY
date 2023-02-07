@@ -4,10 +4,9 @@ import { Routes, Route } from 'react-router-dom';
 import PublicRoute from './libs/PublicRoute';
 import PrivateRoute from './libs/PrivateRoute';
 
-import Home from './pages/Home';
-
 import Layout from './components/layout/Layout';
 import MainPage from './pages/MainPage';
+import DebuggingPage from './pages/DebuggingPage';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
@@ -38,9 +37,14 @@ function App() {
       {/* Navbar */}
       <Route element={<Layout />}>
         {/* 일반 라우터 */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="debugging" element={<DebuggingPage />} />
+        <Route path="intro" element={<IntroPage />} />
+        <Route path="developers" element={<DevelopersPage />} />
         <Route element={<PublicRoute />}>
+          {/* <Route path="login" element={<LoginPage />} /> */}
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LoginPage />} />
         </Route>
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
@@ -48,15 +52,12 @@ function App() {
           <Route path="Page2" element={<Page2 />} />
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
-          <Route path="intro" element={<IntroPage />} />
           <Route path="board" element={<BoardPage />} />
           <Route
             path="profile"
             element={<ProfilePage user_id={user?.user_id} />}
           />
           <Route path="profile/modify" element={<ProfileModify />} />
-          <Route path="developers" element={<DevelopersPage />} />
-          <Route path="login" element={<LoginPage />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<VideoChatPage />} />
             <Route path="phone/" element={<Page1 />}>
