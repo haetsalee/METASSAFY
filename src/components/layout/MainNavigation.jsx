@@ -1,15 +1,40 @@
 import { useContext, useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { BiDotsHorizontal, BiX } from 'react-icons/bi';
+// import { BiDotsHorizontal, BiX } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import Login from '../auth/login/Login';
+import { logoutProcess } from '../../services/auth-service';
+import { loginSlice } from '../../store/slice/authSlice';
 
 function MainNavigation() {
   const [MenuShow, setMenuShow] = useState(false);
+  const dispatch = useDispatch();
 
   const onChangeMenuShow = () => {
     setMenuShow(!MenuShow);
   };
+
+  const [loginShown, setLoginShown] = useState(false);
+  const navigate = useNavigate();
+
+  const showLoginHandler = () => {
+    setLoginShown(true);
+  };
+
+  const hideLoginHandler = () => {
+    setLoginShown(false);
+  };
+
+  const logout = () => {
+    logoutProcess();
+    // 리덕스에서 삭제
+    dispatch(loginSlice(null));
+  };
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <HeaderStyle>
@@ -61,16 +86,21 @@ function MainNavigation() {
             <NavLink to="/intro">소개</NavLink>
           </LiStyle>
           <LiStyle>
+            <NavLink to="/developers">개발팀</NavLink>
+          </LiStyle>
+          <LiStyle>
             <NavLink to="/board">게시판</NavLink>
           </LiStyle>
           <LiStyle>
             <NavLink to="/profile">프로필</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/developers">개발팀</NavLink>
-          </LiStyle>
-          <LiStyle>
-            <NavLink to="/login">로그인</NavLink>
+            {!user && <NavLink to="/login">로그인</NavLink>}
+            {user && (
+              <NavLink to="/" onClick={logout}>
+                로그아웃
+              </NavLink>
+            )}
           </LiStyle>
         </UlStyle>
       </nav>
