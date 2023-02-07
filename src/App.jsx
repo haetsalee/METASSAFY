@@ -19,6 +19,7 @@ import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
 import UnityPage from './pages/UnityPage';
 import VideoChatPage from './pages/VideoChatPage';
+import OpenViduPage from './pages/OpenViduPage';
 
 import useInfo from './hooks/use-info';
 import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
@@ -41,6 +42,7 @@ function App() {
         <Route path="debugging" element={<DebuggingPage />} />
         <Route path="intro" element={<IntroPage />} />
         <Route path="developers" element={<DevelopersPage />} />
+        <Route path="openvidu" element={<OpenViduPage />} />
         <Route element={<PublicRoute />}>
           {/* <Route path="login" element={<LoginPage />} /> */}
           <Route path="/register" element={<Register />} />
