@@ -9,7 +9,15 @@ public class ValueManager : MonoBehaviour
 
     public string nickname;
     public int skin;
-   
+
+    public static ValueManager instance;
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != null) return;
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

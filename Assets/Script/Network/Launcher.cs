@@ -10,12 +10,12 @@ public class Launcher : MonoBehaviourPunCallbacks
 {
     public PhotonView [] playerPrefabs;
     public GameObject loading;
-   
-
+ 
     void Start()
     {
         loading.SetActive(true);
         Debug.Log("launcher 실행");
+        
         PhotonNetwork.ConnectUsingSettings();
     }
      
@@ -39,7 +39,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         Debug.Log("룸 참가 성공");
        
         loading.SetActive(false);
-        int skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        int skin;
+        if (GameObject.Find("ValueManager") != null)
+            skin = GameObject.Find("ValueManager").GetComponent<ValueManager>().skin;
+        else
+            skin = 0;
+         
         GameObject p= PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
 
         
@@ -52,7 +57,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public void setNickName(Transform t)
     {
-        string name = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
+        string name;
+        if (GameObject.Find("ValueManager") != null)
+            name = GameObject.Find("ValueManager").GetComponent<ValueManager>().nickname;
+        else
+            name = "익명";
+
         PhotonNetwork.LocalPlayer.NickName = name;
     }
 
