@@ -41,7 +41,7 @@ function PhoneChatingRoom(props) {
   const [target, setTarget] = useState(null);
   const [scrollLen, setscrollLen] = useState(0);
 
-  const [scrollLoad, setscrollLoad] = useState(false);
+  const [sending, setSending] = useState(0);
 
   let temp = [];
 
@@ -158,6 +158,7 @@ function PhoneChatingRoom(props) {
     console.log(data);
     // send(destination,헤더,페이로드)
     stompClient.send('/pub/chat/room/message', {}, JSON.stringify(data));
+    setSending(sending + 1);
   };
 
   useEffect(() => {
@@ -224,6 +225,13 @@ function PhoneChatingRoom(props) {
     console.log(scrollLen, 'scrolllen');
     chatBoxRef.current.scrollTop = chatBoxRef.current?.scrollHeight - scrollLen;
   }, [startNo]);
+
+  useEffect(() => {
+    setTimeout(
+      () => (chatBoxRef.current.scrollTop = chatBoxRef.current?.scrollHeight),
+      200
+    );
+  }, [sending]);
 
   const getMoreItem = async () => {
     setIsLoading(true);
@@ -297,7 +305,7 @@ const PhoneChatingRoomStyle = styled.div`
 
 const ChatRoomDiv = styled.div`
   width: 100%;
-  height: 75%;
+  height: 72%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0.2rem;
