@@ -11,7 +11,7 @@ export default function LoginPage() {
         {/* <AuthClose onClose={props.onClose} /> */}
         <AuthTitle title="METASSAFY!" subTitle="DIVE TO" />
         <LoginPageForm />
-        <LoginBottom />
+        {/* <LoginBottom /> */}
       </div>
     </LoginPageStyle>
   );
