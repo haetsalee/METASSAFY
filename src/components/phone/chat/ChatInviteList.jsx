@@ -3,12 +3,15 @@ import API from '../../../utils/api';
 import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 import ChatInviteItem from './ChatInviteItem';
 import { BiMessageSquareAdd } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 // const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
 
 function ChatInviteList(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
   const name = getJsonLocalUserInfo()['name'] || 'annonymous';
+
+  const navigate = useNavigate();
 
   // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
@@ -49,7 +52,7 @@ function ChatInviteList(props) {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((res) => {
-        console.log(res);
+        navigate(`room/${res.data}`);
       })
       .catch((err) => console.log(err));
   }

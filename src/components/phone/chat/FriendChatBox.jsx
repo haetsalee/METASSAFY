@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import NotRead from './NotRead';
 
 function FriendChatBox(props) {
-  console.log(props.chat);
+  // console.log(props.chat);
   return (
     <ChatBoxStyle>
       <NavLink to={`/metassafy/phone/profile/${props.chat.user_id}`}>
