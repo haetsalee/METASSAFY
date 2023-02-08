@@ -28,7 +28,7 @@ class OpenViduPage extends Component {
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
-    this.handleMainScreenStream = this.handleMainScreenStream.bind(this);
+    //this.handleMainScreenStream = this.handleMainScreenStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.publishScreenShare = this.publishScreenShare.bind(this);
   }
@@ -65,10 +65,21 @@ class OpenViduPage extends Component {
     }
   }
 
-  handleMainScreenStream(stream) {
-    if (this.state.shareScreen !== stream) {
+  // handleMainScreenStream(stream) {
+  //   if (this.state.shareScreen !== stream) {
+  //     this.setState({
+  //       shareScreen: stream,
+  //     });
+  //   }
+  // }
+
+  deleteSubscriberScreens(streamManager) {
+    let subscriberScreens = this.state.subscriberScreens;
+    let index = subscriberScreens.indexOf(streamManager, 0);
+    if (index > -1) {
+      subscriberScreens.splice(index, 1);
       this.setState({
-        shareScreen: stream,
+        subscriberScreens: subscriberScreens,
       });
     }
   }
@@ -166,7 +177,7 @@ class OpenViduPage extends Component {
 
         sessionScreen.on('streamDestroyed', (event) => {
           // Remove the stream from 'subscribers' array
-          this.deleteSubscriber(event.stream.streamManager);
+          this.deleteSubscriberScreens(event.stream.streamManager);
         });
 
         sessionScreen.on('exception', (exception) => {
@@ -289,7 +300,9 @@ class OpenViduPage extends Component {
     });
 
     shareScreen.on('videoElementCreated', (event) => {
-      console.log('event -----------------------' + event);
+      console.log(
+        'shareScreen videoElementCreated-----------------------' + event
+      );
       event.element['muted'] = true;
     });
 
@@ -300,10 +313,6 @@ class OpenViduPage extends Component {
   }
 
   leaveSession() {
-    console.log(
-      '=======================================================leaveSession========================================================'
-    );
-
     const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;
 
