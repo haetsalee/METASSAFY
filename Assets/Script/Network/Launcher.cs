@@ -33,6 +33,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             Debug.Log("구미 연결..");
             PhotonNetwork.JoinOrCreateRoom("Gumi", null, null);
         }
+        else
+        {
+            PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
+        }
     }
     public override void OnJoinedRoom()
     {
