@@ -92,7 +92,7 @@ function MainNavigation() {
             <NavLink to="/board">게시판</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/profile">프로필</NavLink>
+            <NavLink to={`/profile/${user?.user_id}`}>프로필</NavLink>
           </LiStyle>
           <LiStyle>
             {!user && <NavLink to="/login">로그인</NavLink>}

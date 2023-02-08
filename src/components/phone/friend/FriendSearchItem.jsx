@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VscAdd } from 'react-icons/vsc';
+import { NavLink } from 'react-router-dom';
 
 const FriendSearchItem = (props) => {
   return (
@@ -8,11 +9,13 @@ const FriendSearchItem = (props) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <FriendImgStyle
-              img
-              src={props.profile_img}
-              alt={props.name}
-            ></FriendImgStyle>
+            <NavLink to={`/metassafy/phone/profile/${props.user_id}`}>
+              <FriendImgStyle
+                img
+                src={props.profile_img}
+                alt={props.name}
+              ></FriendImgStyle>
+            </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{props.name}</NameTextStyle>
