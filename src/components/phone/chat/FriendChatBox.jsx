@@ -2,13 +2,16 @@ import FriendChatMessage from './FriendChatMessage';
 
 import styled from 'styled-components';
 import ChatTime from './ChatTime';
+import { NavLink } from 'react-router-dom';
 
 function FriendChatBox(props) {
   return (
     <ChatBoxStyle>
-      <ChatImgDivStyle>
-        <ChatImgStyle src={props.chat.profile_img} alt="" />
-      </ChatImgDivStyle>
+      <NavLink to={`/metassafy/phone/profile/${props.chat.user_id}`}>
+        <ChatImgDivStyle>
+          <ChatImgStyle src={props.chat.profile_img} alt="" />
+        </ChatImgDivStyle>
+      </NavLink>
       <div>
         <UserIdStyle>{props.chat.name}</UserIdStyle>
         <FriendChatMessage chat={props.chat.message} />

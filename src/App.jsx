@@ -55,16 +55,13 @@ function App() {
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="board" element={<BoardPage />} />
-          <Route
-            path="profile"
-            element={<ProfilePage user_id={user?.user_id} />}
-          />
+          <Route path="profile/:user_id" element={<ProfilePage />} />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<VideoChatPage />} />
             <Route path="phone/" element={<Page1 />}>
               <Route
-                path="profile"
+                path="profile/:user_id"
                 element={<ProfilePage user_id={user?.user_id} />}
               />
               <Route path="profile/modify" element={<ProfileModify />}></Route>

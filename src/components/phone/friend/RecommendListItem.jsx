@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VscAdd } from 'react-icons/vsc';
-
+import { NavLink } from 'react-router-dom';
 const RecommendListItem = ({ friend }) => {
   return (
     <>
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <FriendImgStyle
-              img
-              src={friend.image}
-              alt={friend.name}
-            ></FriendImgStyle>
+            <NavLink to={`/metassafy/phone/profile/${friend.user_id}`}>
+              <FriendImgStyle
+                img
+                src={friend.image}
+                alt={friend.name}
+              ></FriendImgStyle>
+            </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{friend.name}</NameTextStyle>
