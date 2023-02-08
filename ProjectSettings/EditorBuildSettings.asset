@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Select.unity
     guid: 3455b22a79669bc4c8d5deda02232ab3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 3e170392443abd944841d4a8f82586d1
   - enabled: 1
     path: Assets/Scenes/Gumi.unity
     guid: ea2f8188f214cab4e964b571b1ab8b17
+  - enabled: 1
+    path: Assets/Scenes/WorldMap.unity
+    guid: de293b12077c8a1449542d894cf8457d
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
