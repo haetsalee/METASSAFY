@@ -45,6 +45,7 @@ const ImgStyle = styled.img`
 
 const TextStyle = styled.div`
   width: 100%;
+  min-height: 5rem;
 `;
 
 const WriteInfoDivStyle = styled.div`

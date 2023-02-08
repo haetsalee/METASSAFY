@@ -1,29 +1,63 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import {
+  fetchCommentGet,
+  fetchCommentPost,
+} from '../../../services/board-service';
 import Avatar from '../article/Avatar';
 
-const CommentInput = () => {
+const CommentInput = ({ user_id, article_no, setComments }) => {
+  const user = useSelector((state) => state.auth.user);
+  const [disable, setDisable] = useState(true);
   const [text, setText] = useState('');
 
   const textHandler = (e) => {
+    if (e.target.value.length === 0) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
     if (e.target.value.length > 300) {
       return;
     }
     setText(e.target.value);
   };
 
+  const submitHandler = async () => {
+    const body = {
+      article_no,
+      content: text,
+      user_id,
+    };
+    await fetchCommentPost(body);
+    // list update
+    const { data } = await fetchCommentGet(article_no, user_id);
+    setComments(data);
+    setText('');
+  };
+
+  const onKeyHandler = (e) => {
+    if (text && e.key === 'Enter') {
+      submitHandler();
+    }
+  };
+
   return (
     <InputSection>
-      <Avatar />
+      <Avatar img={user.profile_img} />
       <InputWrapperStyle>
         <TextareaStyle
           value={text}
           onChange={textHandler}
+          onKeyPress={onKeyHandler}
           placeholder="댓글로 의견을 나눠보세요"
         />
         <DivStyle>
           <p>{text.length}/300</p>
-          <ButtonStyle>등록</ButtonStyle>
+          <ButtonStyle disabled={disable} onClick={submitHandler}>
+            등록
+          </ButtonStyle>
         </DivStyle>
       </InputWrapperStyle>
     </InputSection>
@@ -95,4 +129,13 @@ const ButtonStyle = styled.button`
   background-color: #799fc1;
   color: white;
   cursor: pointer;
+
+  &:disabled {
+    background-color: #ced4da;
+  }
+
+  &:hover {
+    background-color: #1c3042;
+    transform: scale(1.1);
+  }
 `;

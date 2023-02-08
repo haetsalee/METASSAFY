@@ -1,28 +1,75 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import {
+  fetchCommentDelete,
+  fetchCommentGet,
+} from '../../../services/board-service';
 import Avatar from '../article/Avatar';
 import Heart from '../list/Heart';
 
-const CommentLiItem = () => {
+const CommentLiItem = ({ comment, setComments }) => {
+  const user = useSelector((state) => state.auth.user);
+  const [likeNum, setLikeNum] = useState(comment.like);
+  const [isLike, setIsLike] = useState(comment.my_like);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const date = new Date(comment.regtime);
+  const strDate =
+    String(date.getFullYear()).slice(2, 4) +
+    '.' +
+    String(date.getMonth()).padStart(2, '0') +
+    '.' +
+    String(date.getDate()).padStart(2, '0');
+
+  // 초기만 하트 업데이트
+  useEffect(() => {
+    if (!isTouched) {
+      setLikeNum(comment.like);
+      setIsLike(comment.my_like);
+    }
+    setIsTouched(true);
+  }, [comment]);
+
+  // 댓글 삭제
+  const deleteHandler = async () => {
+    await fetchCommentDelete(comment.memo_no);
+    const { data } = await fetchCommentGet(comment.article_no, user.user_id);
+    setComments(data);
+  };
+
+  // 메메모 작성
+  const showMememoHandler = () => {
+    console.log('?');
+  };
+
   return (
     <LiSection>
-      <Avatar />
+      <Avatar img={comment.profile_img} />
       <InputWrapperStyle>
         <DivStyle>
           <TitleStyle>
-            김싸피<span>22.22.22</span>
+            {comment.name}
+            <span>{strDate}</span>
           </TitleStyle>
           <ButtonWrapper>
-            <ButtonStyle>수정하기</ButtonStyle>
-            <ButtonStyle>대댓글</ButtonStyle>
+            {comment.user_id === user.user_id && (
+              <ButtonStyle onClick={deleteHandler}>삭제하기</ButtonStyle>
+            )}
+            <ButtonStyle onClick={showMememoHandler}>대댓글</ButtonStyle>
             <LikeDivStyle>
-              {/* <Heart type="1" no={card.article_no} isLike={card.my_like} /> */}
-              {/* <p>{card.like}</p> */}
-              <Heart type="1" no="1" isLike="1" />
-              <p>12</p>
+              <Heart
+                type="2"
+                no={comment.article_no}
+                isLike={isLike}
+                setLikeNum={setLikeNum}
+                setIsLike={setIsLike}
+              />
+              <p>{likeNum}</p>
             </LikeDivStyle>
           </ButtonWrapper>
         </DivStyle>
-        <ContentStyle>으아아아ㅏ아아아ㅏ아악</ContentStyle>
+        <ContentStyle>{comment.content}</ContentStyle>
       </InputWrapperStyle>
     </LiSection>
   );
@@ -46,6 +93,7 @@ const DivStyle = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-top: 0.3rem;
 `;
 
 const TitleStyle = styled.div`
@@ -82,5 +130,7 @@ const LikeDivStyle = styled.div`
 `;
 
 const ContentStyle = styled.div`
-  padding: 0.7rem;
+  padding: 0.6rem 0;
+  color: #3d4248;
+  font-size: 0.8rem;
 `;

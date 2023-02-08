@@ -27,7 +27,10 @@ const Article = () => {
       <TitleDiv>{article.title}</TitleDiv>
       <ArticleInfo article={article}></ArticleInfo>
       <HrStyle />
-      <Comments></Comments>
+      <Comments
+        user_id={user.user_id}
+        article_no={article.article_no}
+      ></Comments>
     </ArticleSection>
   );
 };
