@@ -22,6 +22,9 @@ function UnityPage() {
 
   const handleClick = useCallback((mode) => {
     console.log('이벤트 발생:' + mode);
+    if (mode == 'phone') {
+      alert('여기에 핸드폰 모달을 띄우세요.');
+    }
   }, []);
 
   useEffect(() => {});
