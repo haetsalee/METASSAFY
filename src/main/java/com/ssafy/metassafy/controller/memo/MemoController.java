@@ -25,7 +25,7 @@ public class MemoController {
 
     // 메모 리스트 가져오기
     @GetMapping
-    public ResponseEntity<List<MemoDto>> listMemo(@RequestParam MemoParameterDto memoParameterDto) throws Exception {
+    public ResponseEntity<List<MemoDto>> listMemo(MemoParameterDto memoParameterDto) throws Exception {
         logger.info("listMemo - 호출");
         return new ResponseEntity<List<MemoDto>>(memoService.listMemo(memoParameterDto), HttpStatus.OK);
     }
