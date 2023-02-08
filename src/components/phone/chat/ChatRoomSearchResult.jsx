@@ -47,6 +47,6 @@ const ChatRoomSearchResultDivStyle = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 2px;
-    background: #617485;
+    background: #e0f4ff;
   }
 `;
