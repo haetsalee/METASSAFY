@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.metassafy.mapper.memo.MemoMapper">
 
 	<select id="listMemo" parameterType="com.ssafy.metassafy.dto.memo.MemoParameterDto" resultType="com.ssafy.metassafy.dto.memo.MemoDto">
-		SELECT m.memo_no, m.article_no, m.user_id, m.content,(SELECT COUNT(*) FROM `like` WHERE like_type = 2 AND `no` = m.memo_no) memo_like, (select count(*) from `like` where like_type = 2 and user_id = #{user_id} and `no` = m.memo_no) as `my_like`, m.regtime, u.name
+		SELECT m.memo_no, m.article_no, m.user_id, m.content,(SELECT COUNT(*) FROM `like` WHERE like_type = 2 AND `no` = m.memo_no) memo_like, (select count(*) from `like` where like_type = 2 and user_id = #{user_id} and `no` = m.memo_no) as `my_like`, m.regtime, u.name, u.profile_img
 		FROM memo m
 	 	LEFT JOIN User u
 	   	ON m.user_id = u.user_id
