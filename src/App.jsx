@@ -26,6 +26,10 @@ import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
+import PhoneChatEdit from './pages/phone_pages/PhoneChatEdit';
+import ArticlePage from './pages/ArticlePage';
+import WritePage from './pages/WritePage';
+import { useSelector } from 'react-redux';
 
 function App() {
   useInfo();
