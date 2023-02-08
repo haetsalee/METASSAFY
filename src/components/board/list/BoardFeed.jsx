@@ -2,11 +2,12 @@ import { useState } from 'react';
 import BoardCard from './BoardCard';
 import styled from 'styled-components';
 import Masonry from '@mui/lab/Masonry';
+import { useEffect } from 'react';
 
 const BoardFeed = ({ boardList }) => {
   const [columns, setColumns] = useState(4);
 
-  window.addEventListener(`resize`, function () {
+  const resize = () => {
     if (window.innerWidth > 1200) {
       setColumns(4);
     } else if (window.innerWidth > 950) {
@@ -16,7 +17,13 @@ const BoardFeed = ({ boardList }) => {
     } else {
       setColumns(1);
     }
-  });
+  };
+
+  useEffect(() => {
+    resize();
+  }, []);
+
+  window.addEventListener(`resize`, resize);
 
   return (
     <SectionStyle>

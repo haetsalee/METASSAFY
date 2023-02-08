@@ -8,16 +8,35 @@ import BoardWriteImage from './BoardWriteImage';
 import {
   fetchBoardImage,
   fetchBoardPost,
+  fetchBoardPut,
+  fetchBoardGet,
 } from '../../../services/board-service';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const BoardWrite = () => {
+const BoardWrite = ({ type }) => {
   const navigator = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const [article, setArticle] = useState({ title: '', content: '' });
   const [file, setFile] = useState();
   const [thumbnail, setThumbnail] = useState('');
+
+  useEffect(() => {
+    // 수정이면 기존 데이터 삽입
+    const getArticle = async () => {
+      const { data } = fetchBoardGet();
+      console.log(data);
+      setArticle({
+        title: data.title,
+        content: data.content,
+        file: data.thumbnail,
+      });
+    };
+    if (type === 'PUT') {
+      getArticle();
+    }
+  }, []);
 
   // 사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
   const setImgUrl = async () => {
@@ -75,7 +94,7 @@ const BoardWrite = () => {
           value={article.content}
           setValue={setArticle}
         />
-        <BoardWriteImage setFile={setFile} />
+        <BoardWriteImage file={file} setFile={setFile} />
         <HrStyle />
         <BoardWriteButtonStyle onClick={handleSubmit}>
           <BsPencilSquare style={{ fontSize: '0.9rem' }} />

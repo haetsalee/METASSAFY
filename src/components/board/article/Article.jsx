@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import { fetchBoardArticle } from '../../../services/board-service';
+import { fetchBoardGet } from '../../../services/board-service';
 import ArticleInfo from './ArticleInfo';
 import Comments from './Comments';
 
 const Article = () => {
+  const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const [article, setArticle] = useState({});
 
   useEffect(() => {
     const getArticle = async () => {
-      const { data } = await fetchBoardArticle(id);
+      const { data } = await fetchBoardGet(id, user.user_id);
       setArticle(data);
     };
-    getArticle();
-  }, [id]);
+    if (user.user_id) {
+      getArticle();
+    }
+  }, [user, id]);
 
   return (
     <ArticleSection>

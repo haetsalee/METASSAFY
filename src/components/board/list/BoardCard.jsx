@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Heart from './Heart';
 
 const BoardCard = ({ card }) => {
+  const [likeNum, setLikeNum] = useState(card.like);
+  const [isLike, setIsLike] = useState(card.my_like);
+  const [isTouched, setIsTouched] = useState(false);
+
   const date = new Date(card.regtime);
   const strDate =
     String(date.getFullYear()).slice(2, 4) +
@@ -10,6 +16,15 @@ const BoardCard = ({ card }) => {
     String(date.getMonth()).padStart(2, '0') +
     '.' +
     String(date.getDate()).padStart(2, '0');
+
+  // 초기만 업데이트
+  useEffect(() => {
+    if (!isTouched) {
+      setLikeNum(card.like);
+      setIsLike(card.my_like);
+    }
+    setIsTouched(true);
+  }, [card]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -19,8 +34,14 @@ const BoardCard = ({ card }) => {
       >
         <CardSection>
           <LikeDivStyle>
-            <Heart type="1" no={card.article_no} isLike={card.my_like} />
-            <p>{card.like}</p>
+            <Heart
+              type="1"
+              no={card.article_no}
+              isLike={isLike}
+              setLikeNum={setLikeNum}
+              setIsLike={setIsLike}
+            />
+            <p>{likeNum}</p>
           </LikeDivStyle>
           {card.thumbnail ? (
             <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>

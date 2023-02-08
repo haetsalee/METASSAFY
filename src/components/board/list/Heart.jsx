@@ -8,27 +8,28 @@ import {
   fetchBoardLikePost,
 } from '../../../services/board-service';
 
-const Heart = ({ type, no, isLike }) => {
+const Heart = ({ type, no, isLike, setLikeNum, setIsLike }) => {
   const user = useSelector((state) => state.auth.user);
-  const [like, setLike] = useState(isLike);
 
   const heartHandler = async (e) => {
     e.preventDefault();
     const user_id = user.user_id;
     const data = { type, no, user_id };
-    if (like === 0) {
+    if (isLike === 0) {
       await fetchBoardLikePost(data); // 좋아요 요청
+      setLikeNum((preState) => preState + 1);
     } else {
       await fetchBoardLikeDelete(data); // 싫어요 요청
+      setLikeNum((preState) => preState - 1);
     }
-    setLike(!like);
+    setIsLike((preState) => (preState === 0 ? 1 : 0));
   };
 
   return (
     <Fragment>
-      <ButtonStyle like={like} onClick={heartHandler}>
-        {!!like && <BsSuitHeartFill />}
-        {!like && <BsSuitHeart />}
+      <ButtonStyle like={isLike} onClick={heartHandler}>
+        {!!isLike && <BsSuitHeartFill />}
+        {!isLike && <BsSuitHeart />}
       </ButtonStyle>
     </Fragment>
   );

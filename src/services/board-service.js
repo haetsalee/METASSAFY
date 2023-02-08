@@ -100,12 +100,40 @@ export const fetchBoardPost = async ({
   }
 };
 
-export const fetchBoardArticle = async (article_no) => {
+export const fetchBoardPut = async ({ user_id, title, content, thumbnail }) => {
+  const requestBody = {
+    user_id: user_id,
+    title: title,
+    content: content,
+    thumbnail: thumbnail,
+  };
+
   try {
-    const { data, status } = await API.get(`/board/${article_no}`);
-    console.log('board article', data, status);
-    return { data, status, error: null };
+    const { data, status } = await API.put('/board/writeSimple', requestBody);
+    if (status === 200) {
+      console.log('board write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
   } catch (error) {
-    return { data: error.message, status: error.response.status, error };
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardGet = async (article_no, user_id) => {
+  const requestBody = {
+    article_no,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/board/article', requestBody);
+    if (status === 200) {
+      console.log('board get', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
   }
 };

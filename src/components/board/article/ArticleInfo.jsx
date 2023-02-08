@@ -1,15 +1,12 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import ArticleButtonWrapper from './ArticleButtonWrapper';
 import ArticleInfoWriter from './ArticleInfoWriter';
 
 const ArticleInfo = ({ article }) => {
-  //   const date = new Date(card.regtime);
-  //   const strDate =
-  //     String(date.getFullYear()).slice(2, 4) +
-  //     '.' +
-  //     String(date.getMonth()).padStart(2, '0') +
-  //     '.' +
-  //     String(date.getDate()).padStart(2, '0');
+  // useEffect(() => {
+  //   console.log(article);
+  // }, [article]);
 
   return (
     <SectionStyle style={{ width: '100%' }}>
@@ -19,7 +16,7 @@ const ArticleInfo = ({ article }) => {
       </ContentDivStyle>
       <WriteInfoDivStyle>
         <ArticleInfoWriter article={article} />
-        <ArticleButtonWrapper />
+        {!!article.my_article && <ArticleButtonWrapper />}
       </WriteInfoDivStyle>
     </SectionStyle>
   );
