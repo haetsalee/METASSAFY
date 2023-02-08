@@ -23,10 +23,9 @@ const BoardWrite = () => {
   const setImgUrl = async () => {
     const formData = new FormData();
     formData.append('image', file);
-    console.log(file, formData);
     const { data } = await fetchBoardImage(formData); // ???
-    console.log(data);
     setThumbnail(data);
+    return data;
   };
 
   // 글 작성
@@ -38,22 +37,25 @@ const BoardWrite = () => {
     }
 
     const uploadArticle = async () => {
+      let img;
       // thumbnail
       if (file) {
-        await setImgUrl();
+        img = await setImgUrl();
       }
-      console.log(thumbnail);
+      console.log(img);
       // article
       const body = {
         user_id: user.user_id,
         title: article.title,
         content: article.content,
-        thumbnail: thumbnail,
+        thumbnail: img,
       };
-      await fetchBoardPost(body);
+      const { status } = await fetchBoardPost(body);
+      if (status) {
+        navigator('/board/list');
+      }
     };
     uploadArticle();
-    navigator('/board');
   };
 
   return (

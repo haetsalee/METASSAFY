@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 import Heart from '../list/Heart';
 
-const ArticleInfoWriter = ({ card }) => {
+const ArticleInfoWriter = ({ article }) => {
   return (
     <>
       <div>
-        <WriterStyle>글 작성자</WriterStyle>
-        <TimeStyle>작성 시간 : 2022.22.22</TimeStyle>
-        <TimeStyle>수정 시간 : 2022.22.22</TimeStyle>
+        <WriterStyle>{article.name}</WriterStyle>
+        <TimeStyle>
+          <div>작성 시간</div>
+          {article.modtime}
+        </TimeStyle>
+        <TimeStyle>
+          <div>수정 시간</div>
+          {article.regtime}
+        </TimeStyle>
       </div>
       <LikeDivStyle>
-        {/* <Heart type="1" no={card.article_no} isLike={card.my_like} /> */}
-        {/* <p>{card.like}</p> */}
-        <Heart type="1" no="1" isLike="1" />
-        <p>12</p>
+        <Heart type="1" no={article.article_no} isLike={article.my_like} />
+        <p>{article.like}</p>
       </LikeDivStyle>
     </>
   );

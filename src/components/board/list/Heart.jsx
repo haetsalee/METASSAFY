@@ -4,7 +4,6 @@ import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
-  fetchBoardLike,
   fetchBoardLikeDelete,
   fetchBoardLikePost,
 } from '../../../services/board-service';

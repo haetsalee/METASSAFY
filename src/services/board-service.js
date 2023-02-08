@@ -87,7 +87,6 @@ export const fetchBoardPost = async ({
     content: content,
     thumbnail: thumbnail,
   };
-  console.log(requestBody);
 
   try {
     const { data, status } = await API.post('/board/writeSimple', requestBody);
@@ -98,5 +97,15 @@ export const fetchBoardPost = async ({
     return { data, status, error: 'Fail' };
   } catch (error) {
     return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardArticle = async (article_no) => {
+  try {
+    const { data, status } = await API.get(`/board/${article_no}`);
+    console.log('board article', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
   }
 };

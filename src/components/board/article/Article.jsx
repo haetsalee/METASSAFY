@@ -1,12 +1,27 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
+import { fetchBoardArticle } from '../../../services/board-service';
 import ArticleInfo from './ArticleInfo';
 import Comments from './Comments';
 
 const Article = () => {
+  const { id } = useParams();
+  const [article, setArticle] = useState({});
+
+  useEffect(() => {
+    const getArticle = async () => {
+      const { data } = await fetchBoardArticle(id);
+      setArticle(data);
+    };
+    getArticle();
+  }, [id]);
+
   return (
     <ArticleSection>
-      <TitleDiv>게시글 제목</TitleDiv>
-      <ArticleInfo></ArticleInfo>
+      <TitleDiv>{article.title}</TitleDiv>
+      <ArticleInfo article={article}></ArticleInfo>
       <HrStyle />
       <Comments></Comments>
     </ArticleSection>
