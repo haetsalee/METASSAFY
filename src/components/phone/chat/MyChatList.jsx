@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 function MyChatList(props) {
-  console.log('----------------');
-  console.log(props.room);
+  // console.log('----------------');
+  // console.log(props.room);
   return (
     <NavLink style={NavStyles} to={`room/${props.room.croom_no}`}>
       <ChatRoomListStyle>
@@ -65,8 +65,8 @@ const ChatTimeSpanStyle = styled.span`
 `;
 
 const NotReadSpanStyle = styled.span`
-  font-size: 0.3rem;
-  color: #00d9ff;
+  font-size: 0.8rem;
+  color: #6ca4ae;
 `;
 
 const ChatRoomNavImgStyle = styled.img`

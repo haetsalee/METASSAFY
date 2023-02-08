@@ -42,7 +42,7 @@ function PhoneNav(props) {
 export default PhoneNav;
 
 const NavDiv = styled.div`
-  width: 95%;
+  width: 100%;
   height: 3rem;
   position: absolute;
   bottom: 0;

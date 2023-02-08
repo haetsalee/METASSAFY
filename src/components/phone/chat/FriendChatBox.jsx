@@ -3,8 +3,10 @@ import FriendChatMessage from './FriendChatMessage';
 import styled from 'styled-components';
 import ChatTime from './ChatTime';
 import { NavLink } from 'react-router-dom';
+import NotRead from './NotRead';
 
 function FriendChatBox(props) {
+  console.log(props.chat);
   return (
     <ChatBoxStyle>
       <NavLink to={`/metassafy/phone/profile/${props.chat.user_id}`}>
@@ -16,7 +18,10 @@ function FriendChatBox(props) {
         <UserIdStyle>{props.chat.name}</UserIdStyle>
         <FriendChatMessage chat={props.chat.message} />
       </div>
-      <ChatTime time={props.chat.regtime} />
+      <UnderDiv>
+        <NotRead notRead={props.chat.not_read} who="you" />
+        <ChatTime time={props.chat.regtime} />
+      </UnderDiv>
     </ChatBoxStyle>
   );
 }
@@ -43,4 +48,8 @@ const ChatImgDivStyle = styled.div`
 const UserIdStyle = styled.p`
   padding: 0.2rem;
   font-size: 0.3rem;
+`;
+
+const UnderDiv = styled.div`
+  align-self: flex-end;
 `;

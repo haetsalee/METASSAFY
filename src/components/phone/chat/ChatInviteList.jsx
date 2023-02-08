@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import API from '../../../utils/api';
 import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 import ChatInviteItem from './ChatInviteItem';
+import { BiMessageSquareAdd } from 'react-icons/bi';
 
 // const tempInviteList = ['ssafy', 'ssafy2', 'admin'];
 
 function ChatInviteList(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+  const name = getJsonLocalUserInfo()['name'] || 'annonymous';
 
   // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
@@ -54,17 +56,23 @@ function ChatInviteList(props) {
 
   return (
     <div>
-      <ChatInviteDiv>
-        <ChatInviteText>초대된 목록</ChatInviteText>
-        <ChatInviteBtn onClick={makeChatRoom}>💬</ChatInviteBtn>
-      </ChatInviteDiv>
-      <ChatInviteListDiv>
-        {props.inviteList.map((item) => {
-          if (item[1] !== user) {
-            return <ChatInviteItem name={item} key={item[1]} />;
-          }
-        })}
-      </ChatInviteListDiv>
+      {newChatRoomName.length !== name.length && (
+        <>
+          <ChatInviteDiv>
+            <ChatInviteText>초대된 목록</ChatInviteText>
+            <ChatInviteBtn onClick={makeChatRoom}>
+              <BiMessageSquareAdd />
+            </ChatInviteBtn>
+          </ChatInviteDiv>
+          <ChatInviteListDiv>
+            {props.inviteList.map((item) => {
+              if (item[1] !== user) {
+                return <ChatInviteItem name={item} key={item[1]} />;
+              }
+            })}
+          </ChatInviteListDiv>
+        </>
+      )}
     </div>
   );
 }
@@ -82,7 +90,6 @@ const ChatInviteText = styled.p`
 `;
 
 const ChatInviteBtn = styled.p`
-  font-size: 0.8rem;
   &:hover {
     cursor: pointer;
   }
