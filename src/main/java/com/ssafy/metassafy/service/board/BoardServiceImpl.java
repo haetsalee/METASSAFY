@@ -91,8 +91,8 @@ public class BoardServiceImpl implements  BoardService{
     }
 
     @Override
-    public BoardDto getArticle(int article_no) throws Exception {
-        return sqlSession.getMapper(BoardMapper.class).getArticle(article_no);
+    public BoardDto getArticle(BoardParameterDto boardParameterDto) throws Exception {
+        return sqlSession.getMapper(BoardMapper.class).getArticle(boardParameterDto);
     }
 
     @Override

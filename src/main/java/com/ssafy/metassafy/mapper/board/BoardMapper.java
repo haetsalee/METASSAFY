@@ -13,7 +13,7 @@ import java.util.List;
 public interface BoardMapper {
     public int writeArticle(BoardDto boardDto) throws SQLException;
     public List<BoardDto> listArticle(BoardParameterDto boardParameterDto) throws SQLException;
-    public BoardDto getArticle(int article_no) throws SQLException;
+    public BoardDto getArticle(BoardParameterDto boardParameterDto) throws SQLException;
     public void updateHit(int article_no) throws SQLException;
     public int modifyArticle(BoardDto boardDto) throws SQLException;
     public int deleteArticle(int article_no) throws SQLException;

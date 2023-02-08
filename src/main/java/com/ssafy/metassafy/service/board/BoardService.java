@@ -14,7 +14,7 @@ public interface BoardService {
     public boolean writeArticle(BoardDto boardDto,MultipartFile thumbnail,List<MultipartFile> files) throws Exception;
     public boolean makeLike(LikeDto likeDto) throws Exception;
     public List<BoardDto> listArticle(BoardParameterDto boardParameterDto) throws Exception;
-    public BoardDto getArticle(int article_no) throws Exception;
+    public BoardDto getArticle(BoardParameterDto boardParameterDto) throws Exception;
     public void updateHit(int article_no) throws Exception;
     public boolean modifyArticle(BoardDto boardDto) throws Exception;
     public boolean deleteArticle(int article_no) throws Exception;

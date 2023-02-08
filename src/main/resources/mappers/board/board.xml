@@ -98,7 +98,7 @@
 	</select>
 
 
-	<select id="getArticle" parameterType="int" resultMap="article">
+	<select id="getArticle" parameterType="com.ssafy.metassafy.dto.board.BoardParameterDto" resultMap="article">
 		select a.article_no, a.user_id, a.title, a.content, a.hit, a.regtime, a.modtime, a.thumbnail, (select count(*) from `like` where like_type = 1 and `no` = a.article_no) as `like`,(select count(*) from `like` where like_type = 1 and user_id = #{user_id} and `no` = a.article_no) as `my_like`, (select a.user_id = #{user_id}) as `my_article`,u.name, u.generation, u.area
 		from article a
 				 LEFT JOIN User u

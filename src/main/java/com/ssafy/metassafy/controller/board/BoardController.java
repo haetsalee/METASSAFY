@@ -51,11 +51,11 @@ public class BoardController {
     }
 
     @ApiOperation(value = "선택한 게시글 보기", notes = "선택한 게시글 정보를 가져온다. 그리고 DB입력 성공하면 BoardDto가 json형태로 반환된다.", response = BoardDto.class)
-    @GetMapping("/{article_no}")
-    public ResponseEntity<BoardDto> getArticle(@PathVariable("article_no") @ApiParam(value = "게시글 번호(article_no)", required = true) int article_no) throws Exception {
-        logger.info("getArticle - 호출 : " + article_no);
-        boardService.updateHit(article_no);
-        return new ResponseEntity<BoardDto>(boardService.getArticle(article_no), HttpStatus.OK);
+    @GetMapping("/article")
+    public ResponseEntity<BoardDto> getArticle(@RequestBody @ApiParam(value = "게시글 번호(article_no, user_id)", required = true) BoardParameterDto boardParameterDto) throws Exception {
+        logger.info("getArticle - 호출 : " + boardParameterDto);
+        boardService.updateHit(boardParameterDto.getArticle_no());
+        return new ResponseEntity<BoardDto>(boardService.getArticle(boardParameterDto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 수정", notes = "게시글 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)

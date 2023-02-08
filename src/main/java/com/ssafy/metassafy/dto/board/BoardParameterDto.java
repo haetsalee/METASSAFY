@@ -22,4 +22,6 @@ public class BoardParameterDto {
     private String popularity;
     @ApiModelProperty(value = "유저 아이디")
     private String user_id;
+    @ApiModelProperty(value = "게시글 번호")
+    private int article_no;
 }
