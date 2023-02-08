@@ -51,7 +51,7 @@ public class BoardController {
     }
 
     @ApiOperation(value = "선택한 게시글 보기", notes = "선택한 게시글 정보를 가져온다. 그리고 DB입력 성공하면 BoardDto가 json형태로 반환된다.", response = BoardDto.class)
-    @GetMapping("/article")
+    @PostMapping("/article")
     public ResponseEntity<BoardDto> getArticle(@RequestBody @ApiParam(value = "게시글 번호(article_no, user_id)", required = true) BoardParameterDto boardParameterDto) throws Exception {
         logger.info("getArticle - 호출 : " + boardParameterDto);
         boardService.updateHit(boardParameterDto.getArticle_no());
