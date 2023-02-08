@@ -10,7 +10,7 @@ import Heart from '../list/Heart';
 
 const CommentLiItem = ({ comment, setComments }) => {
   const user = useSelector((state) => state.auth.user);
-  const [likeNum, setLikeNum] = useState(comment.like);
+  const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
   const [isTouched, setIsTouched] = useState(false);
 
@@ -25,7 +25,7 @@ const CommentLiItem = ({ comment, setComments }) => {
   // 초기만 하트 업데이트
   useEffect(() => {
     if (!isTouched) {
-      setLikeNum(comment.like);
+      setLikeNum(comment.memo_like);
       setIsLike(comment.my_like);
     }
     setIsTouched(true);
@@ -60,12 +60,12 @@ const CommentLiItem = ({ comment, setComments }) => {
             <LikeDivStyle>
               <Heart
                 type="2"
-                no={comment.article_no}
+                no={comment.memo_no}
                 isLike={isLike}
                 setLikeNum={setLikeNum}
                 setIsLike={setIsLike}
               />
-              <p>{likeNum}</p>
+              <p style={{ marginLeft: '0.3rem' }}>{likeNum}</p>
             </LikeDivStyle>
           </ButtonWrapper>
         </DivStyle>
