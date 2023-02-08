@@ -39,7 +39,31 @@ function MainNavigation() {
   return (
     <HeaderStyle>
       <LogoStyle>
-        <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
+        {!user && (
+          <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              alt="MetaSSAFY logo"
+              src="images/logo.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            METASSAFY
+          </NavLink>
+        )}
+        {user && (
+          <NavLink to="/page3">
+            <img
+              alt="MetaSSAFY logo"
+              src="images/logo.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            METASSAFY
+          </NavLink>
+        )}
+        {/* <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
           <img
             alt="MetaSSAFY logo"
             src="images/logo.png"
@@ -48,7 +72,7 @@ function MainNavigation() {
             className="d-inline-block align-top"
           />
           METASSAFY
-        </NavLink>
+        </NavLink> */}
       </LogoStyle>
       {/* <MenuIconStyle
         style={{ textDecoration: 'none' }}

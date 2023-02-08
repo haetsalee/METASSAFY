@@ -15,6 +15,8 @@ class OpenViduPage extends Component {
       mySessionId: 'SessionA',
       myUserName: 'Participant' + Math.floor(Math.random() * 100),
       session: undefined,
+      sessionCamera: undefined,
+      sessionScreen: undefined,
       screensharing: false,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
@@ -509,7 +511,7 @@ class OpenViduPage extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
+    console.log('나가라제발!!!!!!!!!!!!!!!!!!!');
     const mySession = this.state.session;
     const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;

@@ -8,8 +8,9 @@ import { House } from './House';
 import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
+import { DoubleSide } from 'three';
 
-function Metaverse() {
+function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
 
@@ -22,11 +23,18 @@ function Metaverse() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v5.png');
+    const floorTexture = textureLoader.load('images/map_v8.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
     floorTexture.repeat.y = 1;
+
+    // Texture - 포탈 텍스쳐
+    const portalTexture = textureLoader.load('images/logo.png');
+    portalTexture.wrapS = THREE.RepeatWrapping;
+    portalTexture.wrapT = THREE.RepeatWrapping;
+    portalTexture.repeat.x = 1;
+    portalTexture.repeat.y = 1;
 
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
@@ -93,32 +101,33 @@ function Metaverse() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    const orbitControls = new OrbitControls(camera, renderer.domElement);
-    orbitControls.enableDamping = true;
-    // orbitControls.minDistance = 5;
-    // orbitControls.maxDistance = 15;
-    orbitControls.enablePan = false;
-    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    orbitControls.update();
+    // const orbitControls = new OrbitControls(camera, renderer.domElement);
+    // orbitControls.enableDamping = true;
+    // // orbitControls.minDistance = 5;
+    // // orbitControls.maxDistance = 15;
+    // orbitControls.enablePan = false;
+    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    // orbitControls.update();
 
     // Mesh
     const meshes = [];
-    const startMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        // map: 'floorTexture',
-        color: 'red',
-      })
-    );
-    startMesh.name = 'floor';
-    startMesh.position.y = 0.01;
-    startMesh.rotation.x = -Math.PI / 2;
-    startMesh.receiveShadow = true;
-    scene.add(startMesh);
-    meshes.push(startMesh);
+
+    // StartMesh
+    // const startMesh = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     // map: 'floorTexture',
+    //     color: 'red',
+    //   })
+    // );
+    // startMesh.name = 'floor';
+    // startMesh.position.y = 0.01;
+    // startMesh.rotation.x = -Math.PI / 2;
+    // startMesh.receiveShadow = true;
+    // scene.add(startMesh);
+    // meshes.push(startMesh);
 
     // 3d 텍스트
-
     const floorMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(50, 50),
       new THREE.MeshStandardMaterial({
@@ -130,6 +139,22 @@ function Metaverse() {
     floorMesh.receiveShadow = true;
     scene.add(floorMesh);
     meshes.push(floorMesh);
+
+    const portalMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        map: portalTexture,
+        alphaMap: portalTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    portalMesh.name = 'protal';
+    portalMesh.rotation.y = Math.PI / 3;
+    portalMesh.receiveShadow = true;
+    portalMesh.position.set(-5, 1, 0);
+    scene.add(portalMesh);
+    meshes.push(portalMesh);
 
     ////////////////////
 
@@ -143,7 +168,7 @@ function Metaverse() {
         // transparent: true,
         // opacity: 0.5,
         map: pointerMeshTexture,
-        size: 0.1,
+        // size: 0.1,
         transparent: true,
         // alphaMap: pointerMeshTexture,
         // depthWrite: false,
@@ -157,13 +182,41 @@ function Metaverse() {
     pointerMesh.receiveShadow = true;
     scene.add(pointerMesh);
 
-    // 스팟매쉬 - 여기들어가면 집 나와
-    const spotMeshProgrammers = new THREE.Mesh(
+    // 스팟매쉬 - spotMeshMetaSSAFY
+    const spotMeshMetaSSAFY = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'purple',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshMetaSSAFY.position.set(-5, 0.01, 0);
+    spotMeshMetaSSAFY.rotation.x = -Math.PI / 2;
+    spotMeshMetaSSAFY.receiveShadow = true;
+    scene.add(spotMeshMetaSSAFY);
+
+    // 스팟매쉬 - baekjoon
+    const spotMeshBeakJoon = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'purple',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshBeakJoon.position.set(0.35, 0.005, 7);
+    spotMeshBeakJoon.rotation.x = -Math.PI / 2;
+    spotMeshBeakJoon.receiveShadow = true;
+    scene.add(spotMeshBeakJoon);
+
+    // 스팟매쉬 - programmers
+    const spotMeshProgrammers = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.8, 0.8),
       new THREE.MeshStandardMaterial({
         color: 'green',
         transparent: true,
-        opacity: 0.3,
+        opacity: 0,
       })
     );
     spotMeshProgrammers.position.set(3, 0.005, 5.3);
@@ -171,33 +224,75 @@ function Metaverse() {
     spotMeshProgrammers.receiveShadow = true;
     scene.add(spotMeshProgrammers);
 
-    // 스팟매쉬 - 여기들어가면 집 나와
-    const spotMesh2 = new THREE.Mesh(
-      new THREE.PlaneGeometry(3, 3),
-      new THREE.MeshStandardMaterial({
-        color: 'purple',
-        transparent: true,
-        opacity: 0.5,
-      })
-    );
-    spotMesh2.position.set(10, 0.005, 5);
-    spotMesh2.rotation.x = -Math.PI / 2;
-    spotMesh2.receiveShadow = true;
-    scene.add(spotMesh2);
-
-    // 스팟매쉬 - 여기들어가면 집 나와
+    // 스팟매쉬 - Edu SSAFY
     const spotMeshSSAFY = new THREE.Mesh(
       new THREE.PlaneGeometry(2, 2),
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0,
       })
     );
     spotMeshSSAFY.position.set(1.5, 0.005, -6.5);
     spotMeshSSAFY.rotation.x = -Math.PI / 2;
     spotMeshSSAFY.receiveShadow = true;
     scene.add(spotMeshSSAFY);
+
+    // 스팟매쉬 - Edu SWEA
+    const spotMeshSWEA = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.2, 1.2),
+      new THREE.MeshStandardMaterial({
+        color: 'pink',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshSWEA.position.set(5.25, 0.005, 3.6);
+    spotMeshSWEA.rotation.x = -Math.PI / 2;
+    spotMeshSWEA.receiveShadow = true;
+    scene.add(spotMeshSWEA);
+
+    // 스팟매쉬 - Edu Mattermost
+    const spotMeshMM = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshMM.position.set(4.5, 0.005, -4.8);
+    spotMeshMM.rotation.x = -Math.PI / 2;
+    spotMeshMM.receiveShadow = true;
+    scene.add(spotMeshMM);
+
+    // 스팟매쉬 - GitLab
+    const spotMeshGitlab = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'pink',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshGitlab.position.set(6.8, 0.005, -3.35);
+    spotMeshGitlab.rotation.x = -Math.PI / 2;
+    spotMeshGitlab.receiveShadow = true;
+    scene.add(spotMeshGitlab);
+
+    // 스팟매쉬 - Jira
+    const spotMeshJira = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'blue',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshJira.position.set(7.9, 0.005, -0.3);
+    spotMeshJira.rotation.x = -Math.PI / 2;
+    spotMeshJira.receiveShadow = true;
+    scene.add(spotMeshJira);
 
     // gltf로더 로드
     let gltfLoader = new GLTFLoader();
@@ -256,6 +351,8 @@ function Metaverse() {
     function draw() {
       const delta = clock.getDelta();
 
+      portalMesh.rotateY(delta);
+
       if (player.mixer) player.mixer.update(delta);
 
       if (player.modelMesh) {
@@ -290,15 +387,42 @@ function Metaverse() {
             console.log('멈춤');
           }
 
+          if (
+            Math.abs(
+              spotMeshBeakJoon.position.x - player.modelMesh.position.x
+            ) < 1 &&
+            Math.abs(
+              spotMeshBeakJoon.position.z - player.modelMesh.position.z
+            ) < 1
+          ) {
+            // redirection
+            window.location.href = 'https://www.acmicpc.net/';
+          }
           /////////////////////////// REDIRECTION ////////////////////////////
+          if (
+            Math.abs(
+              spotMeshMetaSSAFY.position.x - player.modelMesh.position.x
+            ) < 1 &&
+            Math.abs(
+              spotMeshMetaSSAFY.position.z - player.modelMesh.position.z
+            ) < 1
+          ) {
+            window.location.href = 'https://www.metassafy.store/unity';
+          }
           if (
             Math.abs(spotMeshSSAFY.position.x - player.modelMesh.position.x) <
               1 &&
             Math.abs(spotMeshSSAFY.position.z - player.modelMesh.position.z) < 1
           ) {
-            // redirection
-            console.log('드러가따');
             window.location.href = 'http://edu.ssafy.com';
+          }
+          if (
+            Math.abs(spotMeshGitlab.position.x - player.modelMesh.position.x) <
+              1 &&
+            Math.abs(spotMeshGitlab.position.z - player.modelMesh.position.z) <
+              1
+          ) {
+            window.location.href = 'https://lab.ssafy.com/';
           }
           if (
             Math.abs(
@@ -311,12 +435,24 @@ function Metaverse() {
             window.location.href = 'https://programmers.co.kr/';
           }
           if (
-            Math.abs(spotMesh2.position.x - player.modelMesh.position.x) <
-              1.5 &&
-            Math.abs(spotMesh2.position.z - player.modelMesh.position.z) < 1.5
+            Math.abs(spotMeshSWEA.position.x - player.modelMesh.position.x) <
+              1 &&
+            Math.abs(spotMeshSWEA.position.z - player.modelMesh.position.z) < 1
           ) {
-            // redirection
-            window.location.href = 'http://localhost:3000/page4';
+            window.location.href = 'https://swexpertacademy.com/';
+          }
+          if (
+            Math.abs(spotMeshJira.position.x - player.modelMesh.position.x) <
+              1 &&
+            Math.abs(spotMeshJira.position.z - player.modelMesh.position.z) < 1
+          ) {
+            window.location.href = 'https://ssafy.atlassian.net/jira/your-work';
+          }
+          if (
+            Math.abs(spotMeshMM.position.x - player.modelMesh.position.x) < 1 &&
+            Math.abs(spotMeshMM.position.z - player.modelMesh.position.z) < 1
+          ) {
+            window.location.href = 'https://meeting.ssafy.com/';
           }
         } else {
           // 서 있는 상태
@@ -411,7 +547,12 @@ function Metaverse() {
   return (
     <div
       className="canvas_Wrap"
-      style={{ display: 'flex', justifyContent: 'center', overflowX: 'hidden' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        overflowX: 'hidden',
+        overflowY: 'hidden',
+      }}
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
@@ -421,7 +562,7 @@ function Metaverse() {
   );
 }
 
-export default Metaverse;
+export default MetaverseThree;
 
 ///잠시 save
 // function draw() {

@@ -1,9 +1,9 @@
-import Metaverse from './metaverse/Metaverse';
+import MetaverseThree from './metaverse/MetaverseThree';
 
 function Page3() {
   return (
     <div>
-      <Metaverse />
+      <MetaverseThree />
     </div>
   );
 }
