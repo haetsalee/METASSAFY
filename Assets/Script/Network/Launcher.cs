@@ -36,6 +36,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
+            
         }
     }
     public override void OnJoinedRoom()
@@ -69,5 +70,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.NickName = name;
     }
+
+     
 
 }

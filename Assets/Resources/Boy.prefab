@@ -104,7 +104,7 @@ Transform:
   - {fileID: 2966040963133705588}
   - {fileID: 1023413775336927892}
   - {fileID: 8757043357201316207}
-  - {fileID: 5952695296354012495}
+  - {fileID: 3195787785658280452}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1480,7 +1480,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5952695296354012495}
+  - component: {fileID: 3195787785658280452}
   - component: {fileID: 4664906858370520244}
   - component: {fileID: 6120532041184813459}
   - component: {fileID: 1419399839616569438}
@@ -1492,21 +1492,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5952695296354012495
-Transform:
+--- !u!224 &3195787785658280452
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6456139858692443854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28, y: 2.06, z: 0.09}
+  m_LocalPosition: {x: 0, y: 0, z: 0.09}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3831919171396756091}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.28, y: 2.06}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4664906858370520244
 MeshRenderer:
   m_ObjectHideFlags: 0
