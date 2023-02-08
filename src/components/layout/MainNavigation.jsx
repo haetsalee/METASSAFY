@@ -1,28 +1,42 @@
 import { useContext } from 'react';
 // import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 function MainNavigation() {
   return (
     <HeaderStyle>
-      <LogoStyle>METASSAFY</LogoStyle>
+      <Link to="/">
+        <LogoStyle>METASSAFY</LogoStyle>
+      </Link>
       <nav>
         <UlStyle>
           <LiStyle>
             <NavLink to="/">MainPage</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/profile">UserProfilePage</NavLink>
+            <NavLink to="/page1">page1</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page1">Test Page1</NavLink>
+            <NavLink to="/page2">page2</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page2">Canvas</NavLink>
+            <NavLink to="/page3">page3</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/page3">Metaverse Test</NavLink>
+            <NavLink to="/intro">소개</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/board/list">게시판</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/profile">프로필</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/developers">개발팀</NavLink>
+          </LiStyle>
+          <LiStyle>
+            <NavLink to="/login">로그인</NavLink>
           </LiStyle>
         </UlStyle>
       </nav>
@@ -42,6 +56,8 @@ const HeaderStyle = styled.header`
   background: linear-gradient(to left, #c1a1d3, #c3ddff);
   /* background-color: #c1a1d3; */
   padding: 0 10%;
+  position: absolute;
+  top: 0;
 `;
 
 const LogoStyle = styled.div`
@@ -63,7 +79,7 @@ const LiStyle = styled.li`
 
   & > a {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
     :hover {
       color: navy;
