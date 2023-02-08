@@ -42,7 +42,7 @@ function App() {
         <Route path="debugging" element={<DebuggingPage />} />
         <Route path="intro" element={<IntroPage />} />
         <Route path="developers" element={<DevelopersPage />} />
-        <Route path="openvidu" element={<OpenViduPage />} />
+        <Route path="openvidu-page" element={<OpenViduPage />} />
         <Route element={<PublicRoute />}>
           {/* <Route path="login" element={<LoginPage />} /> */}
           <Route path="/register" element={<Register />} />
