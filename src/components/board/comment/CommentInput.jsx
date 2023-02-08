@@ -1,14 +1,28 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Avatar from '../article/Avatar';
 
 const CommentInput = () => {
+  const [text, setText] = useState('');
+
+  const textHandler = (e) => {
+    if (e.target.value.length > 300) {
+      return;
+    }
+    setText(e.target.value);
+  };
+
   return (
     <InputSection>
       <Avatar />
       <InputWrapperStyle>
-        <TextareaStyle placeholder="댓글로 의견을 나눠보세요" />
+        <TextareaStyle
+          value={text}
+          onChange={textHandler}
+          placeholder="댓글로 의견을 나눠보세요"
+        />
         <DivStyle>
-          <p>0/300</p>
+          <p>{text.length}/300</p>
           <ButtonStyle>등록</ButtonStyle>
         </DivStyle>
       </InputWrapperStyle>
@@ -80,4 +94,5 @@ const ButtonStyle = styled.button`
   border: none;
   background-color: #799fc1;
   color: white;
+  cursor: pointer;
 `;

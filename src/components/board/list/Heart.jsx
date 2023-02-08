@@ -44,7 +44,7 @@ const ButtonStyle = styled.button`
   cursor: pointer;
 
   & svg {
-    color: red;
+    color: #f0b0bc;
     font-size: 1.3rem;
   }
 
