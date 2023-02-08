@@ -13,6 +13,7 @@ import {
   FaCreativeCommonsBy,
 } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
+import { useParams } from 'react-router-dom';
 
 // const user = {
 //   age: 25,
@@ -33,13 +34,14 @@ import { HiOutlineMail } from 'react-icons/hi';
 //   user_id: 'ssafy',
 // };
 
-// function Profile({ user }) {
-function Profile() {
-  const user = useSelector((state) => state.auth.user);
+function Profile({ user }) {
+  // function Profile() {
+
+  // const user = useSelector((state) => state.auth.user);
 
   return (
     <PhoneUserProfileStyle>
-      <ScrollDivStyle>
+      <div>
         <BackgroundBox image={user.profile_img} />
         <TextGroupComponent
           name={user.name}
@@ -66,7 +68,7 @@ function Profile() {
           )}
           <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
         </InfoListStyle>
-      </ScrollDivStyle>
+      </div>
     </PhoneUserProfileStyle>
   );
 }
@@ -81,7 +83,7 @@ const PhoneUserProfileStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 0rem 1rem;
 `;
 
 const ScrollDivStyle = styled.div`

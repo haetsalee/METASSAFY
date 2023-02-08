@@ -141,7 +141,7 @@ const RegisterForm = (props) => {
           onChange={userIdChangeHandler}
           onBlur={userIdBlurHandler}
           hasError={userIdHasError}
-          errorText="아이디 중복 체크가 필요합니다."
+          errorText="아이디 확인이 필요합니다."
           marginBottom="0.1rem"
           color="#617485"
         />

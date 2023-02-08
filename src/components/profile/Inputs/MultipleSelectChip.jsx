@@ -8,6 +8,8 @@ import Select from '@mui/material/Select';
 import { useEffect, useState } from 'react';
 import { fetchAllStacks } from '../../../services/profile-service';
 import styled from 'styled-components';
+import API from '../../../utils/api';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,10 +32,12 @@ const MenuProps = {
 //   };
 // }
 
-const MultipleSelectChip = ({ setTechList }) => {
+const MultipleSelectChip = ({ setTechList, techList }) => {
   // const theme = useTheme();
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
   const [personName, setPersonName] = useState([]);
   const [names, setNames] = useState([]);
+  const [isFirst, setIsFirst] = useState(1);
 
   useEffect(() => {
     const getStacks = async () => {
@@ -41,6 +45,9 @@ const MultipleSelectChip = ({ setTechList }) => {
       setNames(data);
     };
     getStacks();
+    API.get(`/user/auth/techList/${user}`).then((res) => {
+      setPersonName(res.data);
+    });
   }, []);
 
   const handleChange = (event) => {
@@ -54,6 +61,13 @@ const MultipleSelectChip = ({ setTechList }) => {
     setTechList(event.target.value);
   };
 
+  function firstContect() {
+    if (isFirst === 1) {
+      setPersonName([]);
+      setIsFirst(isFirst + 1);
+    }
+  }
+
   return (
     <div>
       <FormControl sx={{ marginTop: 2, width: 300 }}>
@@ -63,18 +77,21 @@ const MultipleSelectChip = ({ setTechList }) => {
           id="demo-multiple-chip"
           multiple
           value={personName}
+          onClick={firstContect}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected, index) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
+              {selected.map((value) => {
                 // <Chip key={value} label={value.tech_name} />
-                <ImgStyle
-                  src={value.tech_logo}
-                  alt="tech logo"
-                  key={value.tech_id}
-                />
-              ))}
+                return (
+                  <ImgStyle
+                    src={value.tech_logo}
+                    alt="tech logo"
+                    key={value.tech_id}
+                  />
+                );
+              })}
             </Box>
           )}
           MenuProps={MenuProps}

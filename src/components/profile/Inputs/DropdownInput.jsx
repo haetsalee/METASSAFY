@@ -33,7 +33,7 @@ const DropdownInput = ({ data, width, value, defaultValue, onChange }) => {
       <SelectStyle
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
-        value={result}
+        value={value}
         onChange={handleChange}
         label={data.label}
         defaultValue={defaultValue}

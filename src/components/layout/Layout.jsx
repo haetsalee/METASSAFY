@@ -5,7 +5,9 @@ import MainNavigation from './MainNavigation';
 function Layout(props) {
   return (
     <div>
+      {/* <div style={{ display: 'flex', justifyContent: 'center' }}> */}
       <MainNavigation />
+      {/* </div> */}
       <MainStyle>
         <Outlet />
       </MainStyle>
@@ -17,9 +19,9 @@ export default Layout;
 
 const MainStyle = styled.main`
   // margin: 3rem auto;
-  width: 100%;
+  /* width: 100%; */
   min-height: 100vh;
-  // background-color: aqua;
+  background-color: #c2fbfb;
   /* position: absolute;
   top: 0; */
   // max-width: 40rem;

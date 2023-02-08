@@ -34,7 +34,7 @@ const RowRadioButtonsGroup = ({ data, defaultValue, value, onChange }) => {
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="radio-buttons-group"
         defaultValue={defaultValue}
-        value={result}
+        value={value}
         onChange={(e) => handleChange(e)}
       >
         {radio}

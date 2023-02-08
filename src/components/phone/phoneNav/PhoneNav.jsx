@@ -4,9 +4,12 @@ import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCi
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 
 function PhoneNav(props) {
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
   const goNavbar = (page) => {
@@ -17,7 +20,7 @@ function PhoneNav(props) {
     <NavDiv>
       <UlStyle>
         <LiStyle>
-          <NavLink to="profile">
+          <NavLink to={`profile/${user.user_id}`}>
             <User />
           </NavLink>
         </LiStyle>
@@ -46,6 +49,7 @@ const NavDiv = styled.div`
   background-color: white;
   padding-top: 10px;
   border-radius: 30px;
+  z-index: 11;
 `;
 
 const UlStyle = styled.ul`
