@@ -39,7 +39,6 @@ const FriendList = () => {
   return (
     <ul>
       <FriendListStyle>
-        <p>친구 목록</p>
         {friends.map((friend) => (
           <FriendListItem
             key={friend.user_id}
@@ -55,6 +54,6 @@ const FriendList = () => {
 export default FriendList;
 
 const FriendListStyle = styled.div`
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 1rem 1rem 1rem 0rem;
 `;

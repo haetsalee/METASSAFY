@@ -21,11 +21,13 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <FriendImgStyle
-              img
-              src={friendInfo.profile_img}
-              alt={friendInfo.name}
-            ></FriendImgStyle>
+            <NavLink to={`/metassafy/phone/profile/${friendInfo.user_id}`}>
+              <FriendImgStyle
+                img
+                src={friendInfo.profile_img}
+                alt={friendInfo.name}
+              ></FriendImgStyle>
+            </NavLink>
           </FriendImgDivStyle>
           <TextGroutStyle>
             <NameTextStyle>{friendInfo.name}</NameTextStyle>
