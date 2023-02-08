@@ -1,0 +1,85 @@
+# Blender MTL File: 'Display 1.blend'
+# Material Count: 7
+
+newmtl Diisplay_1_Centre
+Ns 56.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Display 1 - Centre Diffuse.jpeg
+
+newmtl Display_1_Left
+Ns 56.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Display 1 - Left Diffuse.jpeg
+
+newmtl Display_1_Right
+Ns 56.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Display 1 - Right Diffuse.jpeg
+
+newmtl Display_Fabric
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump FabricPolyester001_NRM_1K.jpg
+map_Kd FabricPolyester001_COL_VAR1_1K.jpg
+
+newmtl Metal_on_Display
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump -bm 1.500000 Metal010_2K_Normal.jpg
+map_Kd Metal010_2K_Color.jpg
+map_Ns Metal010_2K_Roughness.jpg
+refl Metal010_2K_Metalness.jpg
+
+newmtl Wood_Mahogany_Table
+Ns 56.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump WoodMahoganyHonduran001_NRM_1K.jpg
+map_Kd WoodMahoganyHonduran001_COL_1K.jpg
+
+newmtl Wooden_Floor
+Ns 56.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump WoodFlooringPoplarRefurbished001_NRM_1K.png
+map_Kd WoodFlooringPoplarRefurbished001_COL_1K.jpg
