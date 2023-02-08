@@ -31,6 +31,7 @@ class OpenViduPage extends Component {
     //this.handleMainScreenStream = this.handleMainScreenStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.publishScreenShare = this.publishScreenShare.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,20 @@ class OpenViduPage extends Component {
   //     });
   //   }
   // }
+
+  sendMessage() {
+    this.state.sessionCamera
+      .signal({
+        data: this.state.myUserName, // Any string (optional)
+        to: this.state.subscribers, // Array of Connection objects (optional. Broadcast to everyone if empty)
+      })
+      .then(() => {
+        console.log('Message successfully sent');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   deleteSubscriberScreens(streamManager) {
     let subscriberScreens = this.state.subscriberScreens;
@@ -143,6 +158,18 @@ class OpenViduPage extends Component {
               subscribers: subscribers,
             });
           }
+        });
+
+        sessionCamera.on('signal', (event) => {
+          console.log(event.data); // Message
+          console.log(event.from); // Connection object of the sender
+          console.log(event.type); // The type of message
+        });
+
+        sessionCamera.on('signal:my-chat', (event) => {
+          console.log(event.data); // Message
+          console.log(event.from); // Connection object of the sender
+          console.log(event.type); // The type of message ("my-chat")
         });
 
         sessionScreen.on('streamCreated', (event) => {
@@ -457,13 +484,13 @@ class OpenViduPage extends Component {
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
-                {/* <input
+                <input
                   className="btn btn-large btn-success"
                   type="button"
                   id="buttonSwitchCamera"
-                  onClick={this.switchCamera}
-                  value="Switch Camera"
-                /> */}
+                  onClick={this.sendMessage}
+                  value="SendMessage Test"
+                />
               </div>
             ) : null}
             <div id="video-container" className="col-md-6">
