@@ -11,7 +11,7 @@ public interface ChatService {
 
     public List<ChatRoomDto> findAllRooms(ChatParameterDto chatParameterDto) throws Exception;
     public ChatRoomDto getRoom(ChatParameterDto chatParameterDto) throws Exception;
-    public boolean createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws  Exception;
+    public int createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws  Exception;
     public boolean editChatRoom(ChatParameterDto chatParameterDto) throws Exception;
     public boolean deleteChatRoom(ChatParameterDto chatParameterDto) throws Exception;
     public List<ChatDto> findAllChat(ChatParameterDto chatParameterDto) throws Exception;

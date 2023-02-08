@@ -34,7 +34,7 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     @Transactional
-    public boolean createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws Exception {
+    public int createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws Exception {
         sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto);
         System.out.println(chatParameterDto.getCroom_no());
 
@@ -44,7 +44,7 @@ public class ChatServiceImpl implements ChatService{
         }
 
 
-        return true;
+        return chatParameterDto.getCroom_no();
     }
 
     @Override
