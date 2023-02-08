@@ -60,6 +60,7 @@ function PhoneFriendPage() {
       <PhoneFriendPageStyle>
         <MyProfile />
         <FriendButtonBar
+          show={show}
           onClickPage={onClickPage}
           onClickRequest={onClickRequest}
           onClickSearch={onClickSearch}
@@ -70,11 +71,11 @@ function PhoneFriendPage() {
           {show.Request && <FriendRequest />}
           {show.SendRequest && <FriendSendRequest />}
           {show.Search && (
-            <>
+            <StyledDiv>
               <FriendSearch />
               <RecommendButton />
               <RecommendList />
-            </>
+            </StyledDiv>
           )}
         </FriendListStyle>
       </PhoneFriendPageStyle>
@@ -104,4 +105,9 @@ const FriendListStyle = styled.div`
     background: #e0f4ff;
     border-radius: 6px;
   }
+`;
+
+const StyledDiv = styled.div`
+  /* padding: 1rem; */
+  border-radius: 1rem 1rem 1rem 0rem;
 `;
