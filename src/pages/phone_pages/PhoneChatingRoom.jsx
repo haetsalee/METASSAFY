@@ -62,6 +62,20 @@ function PhoneChatingRoom(props) {
 
           console.log(content.message);
           content.user_id = user;
+          // not_read 최신화
+          await API.put(`/chat`, JSON.stringify(content))
+            .then((res) => {})
+            .catch((err) => console.log(err));
+
+          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
+          //   method: 'put',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(content),
+          // });
+
+          console.log(2);
 
           // last_read_chat_id 최신화
           await API.put(
@@ -84,21 +98,6 @@ function PhoneChatingRoom(props) {
           // );
 
           console.log(1);
-
-          // not_read 최신화
-          await API.put(`/chat`, JSON.stringify(content))
-            .then((res) => {})
-            .catch((err) => console.log(err));
-
-          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
-          //   method: 'put',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(content),
-          // });
-
-          console.log(2);
 
           // let temp = [];
           console.log(startNo, '--startno--');

@@ -37,12 +37,13 @@ import { useParams } from 'react-router-dom';
 function Profile({ user }) {
   // function Profile() {
 
+  console.log(user, 'adsfad');
   // const user = useSelector((state) => state.auth.user);
 
   return (
     <PhoneUserProfileStyle>
       <div>
-        <BackgroundBox image={user.profile_img} />
+        <BackgroundBox image={user.profile_img} who={user.user_id} />
         <TextGroupComponent
           name={user.name}
           area={user.area}
@@ -108,4 +109,8 @@ const ScrollDivStyle = styled.div`
 const InfoListStyle = styled.div`
   padding: 0 1rem;
   width: 100%;
+`;
+
+const FloatDiv = styled.div`
+  float: left;
 `;
