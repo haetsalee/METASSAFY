@@ -78,6 +78,11 @@ public class ChatServiceImpl implements ChatService{
         return sqlSession.getMapper(ChatMapper.class).upScroll(chatParameterDto);
     }
 
+    @Override
+    public boolean leaveRoom(ParticipantDto participantDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).leaveRoom(participantDto) == 1;
+    }
+
     //not_read를 갱신 해줘야한다.
     @Override
     @Transactional

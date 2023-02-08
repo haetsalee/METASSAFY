@@ -33,4 +33,5 @@ public interface ChatMapper {
     public int getLowChatNo(ChatParameterDto chatParameterDto) throws SQLException;
     public int getStartNo(ChatParameterDto chatParameterDto) throws SQLException;
     public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws  SQLException;
+    public int leaveRoom(ParticipantDto participantDto) throws SQLException;
 }

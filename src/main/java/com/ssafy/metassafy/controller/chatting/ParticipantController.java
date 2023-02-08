@@ -52,4 +52,14 @@ public class ParticipantController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping(value = "/leave_room")
+    public ResponseEntity<String> leaveRoom(@RequestBody ParticipantDto  participantDto) throws Exception{
+        logger.info("leaveRoom - 호출");
+
+        if(chatService.leaveRoom(participantDto)){
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
 }

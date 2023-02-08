@@ -26,5 +26,5 @@ public interface ChatService {
     public boolean renewLastReadChatId(ParticipantDto participantDto) throws Exception;
     public int getChatNo(ChatDto chatDto) throws Exception;
     public List<ChatDto> upScroll(ChatParameterDto chatParameterDto) throws Exception;
-
+    public boolean leaveRoom(ParticipantDto participantDto) throws Exception;
 }
