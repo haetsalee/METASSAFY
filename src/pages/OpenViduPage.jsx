@@ -10,7 +10,6 @@ class OpenViduPage extends Component {
   constructor(props) {
     super(props);
 
-    // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: 'SessionA',
       myUserName: 'Participant' + Math.floor(Math.random() * 100),
@@ -18,7 +17,7 @@ class OpenViduPage extends Component {
       sessionScreen: undefined,
       shareScreen: undefined,
       screensharing: false,
-      mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
+      mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
       subscriberScreens: [],
@@ -26,11 +25,10 @@ class OpenViduPage extends Component {
 
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
-    this.switchCamera = this.switchCamera.bind(this);
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
-    this.handleMainScreenStream = this.handleMainScreenStream(this);
+    this.handleMainScreenStream = this.handleMainScreenStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.publishScreenShare = this.publishScreenShare.bind(this);
   }
@@ -261,15 +259,6 @@ class OpenViduPage extends Component {
       videoSource: 'screen', // The source of video. If undefined default webcam
     });
 
-    this.setState({
-      shareScreen: shareScreen,
-    });
-
-    console.log(
-      shareScreen,
-      '-----------------------shareScreen-----------------------------'
-    );
-
     shareScreen.once('accessAllowed', (event) => {
       document.getElementById('buttonScreenShare').style.visibility = 'hidden';
       this.setState({
@@ -282,19 +271,16 @@ class OpenViduPage extends Component {
         .getVideoTracks()[0]
         .addEventListener('ended', () => {
           console.log('User pressed the "Stop sharing" button');
-          this.sessionScreen.unpublish(shareScreen);
+          this.state.sessionScreen.unpublish(this.state.shareScreen);
           document.getElementById('buttonScreenShare').style.visibility =
             'visible';
 
           this.setState({
             screensharing: false,
-            shareScreen: shareScreen,
+            shareScreen: undefined,
           });
         });
-      console.log(
-        this.state.sessionScreen,
-        '-================================publish 안돼-========================================'
-      );
+
       this.state.sessionScreen.publish(shareScreen);
 
       this.setState({
@@ -314,10 +300,14 @@ class OpenViduPage extends Component {
   }
 
   leaveSession() {
-    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+    console.log(
+      '=======================================================leaveSession========================================================'
+    );
 
     const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;
+
+    console.log(sessionCamera, ' : ', sessionScreen);
 
     if (sessionCamera) {
       sessionCamera.disconnect();
@@ -326,66 +316,64 @@ class OpenViduPage extends Component {
       sessionScreen.disconnect();
     }
 
-    // Empty all properties...
     this.OV = null;
     this.setState({
-      session: undefined,
-      subscribers: [],
       mySessionId: 'SessionA',
       myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      sessionCamera: undefined,
+      sessionScreen: undefined,
+      shareScreen: undefined,
       screensharing: false,
       mainStreamManager: undefined,
       publisher: undefined,
+      subscribers: [],
+      subscriberScreens: [],
     });
   }
 
-  async switchCamera() {
-    try {
-      const devices = await this.OV.getDevices();
-      var videoDevices = devices.filter(
-        (device) => device.kind === 'videoinput'
-      );
+  // async switchCamera() {
+  //   try {
+  //     const devices = await this.OV.getDevices();
+  //     var videoDevices = devices.filter(
+  //       (device) => device.kind === 'videoinput'
+  //     );
 
-      if (videoDevices && videoDevices.length > 1) {
-        var newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
-        );
+  //     if (videoDevices && videoDevices.length > 1) {
+  //       var newVideoDevice = videoDevices.filter(
+  //         (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+  //       );
 
-        if (newVideoDevice.length > 0) {
-          // Creating a new publisher with specific videoSource
-          // In mobile devices the default and first camera is the front one
-          var newPublisher = this.OV.initPublisher(undefined, {
-            videoSource: newVideoDevice[0].deviceId,
-            publishAudio: true,
-            publishVideo: true,
-            mirror: true,
-          });
+  //       if (newVideoDevice.length > 0) {
+  //         // Creating a new publisher with specific videoSource
+  //         // In mobile devices the default and first camera is the front one
+  //         var newPublisher = this.OV.initPublisher(undefined, {
+  //           videoSource: newVideoDevice[0].deviceId,
+  //           publishAudio: true,
+  //           publishVideo: true,
+  //           mirror: true,
+  //         });
 
-          //newPublisher.once("accessAllowed", () => {
-          await this.state.sessionCamera.unpublish(
-            this.state.mainStreamManager
-          );
+  //         //newPublisher.once("accessAllowed", () => {
+  //         await this.state.sessionCamera.unpublish(
+  //           this.state.mainStreamManager
+  //         );
 
-          await this.state.sessionCamera.publish(newPublisher);
-          this.setState({
-            currentVideoDevice: newVideoDevice[0],
-            mainStreamManager: newPublisher,
-            publisher: newPublisher,
-          });
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  //         await this.state.sessionCamera.publish(newPublisher);
+  //         this.setState({
+  //           currentVideoDevice: newVideoDevice[0],
+  //           mainStreamManager: newPublisher,
+  //           publisher: newPublisher,
+  //         });
+  //       }
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
   render() {
-    // 1위에 있는거
-    //  mySessionId = document.getElementById("sessionId").value;
-    //  myUserName = document.getElementById("userName").value;
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
-    // const screensharing = this.state.screensharing;
 
     return (
       <div className="container">
@@ -460,13 +448,13 @@ class OpenViduPage extends Component {
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
-                <input
+                {/* <input
                   className="btn btn-large btn-success"
                   type="button"
                   id="buttonSwitchCamera"
                   onClick={this.switchCamera}
                   value="Switch Camera"
-                />
+                /> */}
               </div>
             ) : null}
             <div id="video-container" className="col-md-6">
@@ -491,7 +479,7 @@ class OpenViduPage extends Component {
               ))}
             </div>
             <div id="screen-container" className="col-md-6">
-              {this.state.sessionScreen !== undefined ? (
+              {this.state.shareScreen !== undefined ? (
                 <div
                   className="stream-container col-md-6 col-xs-6"
                   onClick={() =>
