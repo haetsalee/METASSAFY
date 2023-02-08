@@ -511,10 +511,14 @@ class OpenViduPage extends Component {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
     const mySession = this.state.session;
+    const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;
 
     if (mySession) {
       mySession.disconnect();
+    }
+    if (sessionCamera) {
+      sessionCamera.disconnect();
     }
     if (sessionScreen) {
       sessionScreen.disconnect();
