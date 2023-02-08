@@ -143,8 +143,8 @@ public class ChatServiceImpl implements ChatService{
 //    }
 
     @Override
-    public void deleteParticipant(ChatDto chatDto) throws Exception {
-        sqlSession.getMapper(ChatMapper.class).deleteParticipant(chatDto);
+    public boolean deleteParticipant(ParticipantDto participantDto) throws Exception {
+        return sqlSession.getMapper(ChatMapper.class).deleteParticipant(participantDto) == 1;
     }
 
     //마지막으로 읽은 chat_no 반환

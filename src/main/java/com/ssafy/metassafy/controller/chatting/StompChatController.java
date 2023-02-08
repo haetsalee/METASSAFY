@@ -57,14 +57,14 @@ public class StompChatController {
 //        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
 //    }
 
-    @MessageMapping(value = "/chat/room/leave")
-    public void leaveRoom(ChatDto message) throws Exception{
-        message.setMessage(message.getName() + "님이 채팅방을 떠났습니다.");
-        // 채팅 방에서 해당 인원 삭제
-        chatService.deleteParticipant(message);
-
-        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
-    }
+//    @MessageMapping(value = "/chat/room/leave")
+//    public void leaveRoom(ChatDto message) throws Exception{
+//        message.setMessage(message.getName() + "님이 채팅방을 떠났습니다.");
+//        // 채팅 방에서 해당 인원 삭제
+//        //chatService.deleteParticipant(message);
+//
+//        template.convertAndSend("/sub/chat/room/" + message.getCroom_no(), message);
+//    }
 
     //"/pub/chat/room/message"
     @MessageMapping(value = "/chat/room/message")

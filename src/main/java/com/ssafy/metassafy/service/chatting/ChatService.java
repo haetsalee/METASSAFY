@@ -18,7 +18,7 @@ public interface ChatService {
     public void createChat(ChatDto chatDto) throws Exception;
     public void updateLastChat(ChatDto chatDto) throws Exception;
 //    public void registParticipant(ChatDto chatDto) throws Exception;
-    public void deleteParticipant(ChatDto chatDto) throws Exception;
+    public boolean deleteParticipant(ParticipantDto participantDto) throws Exception;
     public int getLastReadChatId(int croom_no) throws Exception;
     public List<ParticipantDto> findAllParticipants(ChatParameterDto chatParameterDto) throws Exception;
     public boolean renewNotReadChat(List<ParticipantDto> participantDtos) throws Exception;

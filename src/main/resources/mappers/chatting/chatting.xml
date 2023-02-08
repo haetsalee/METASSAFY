@@ -168,7 +168,7 @@
 		VALUES (#{user_id}, #{croom_no}, #{croom_name}, 0, 0, now())
 	</insert>
 
-	<delete id="deleteParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ChatDto">
+	<delete id="deleteParticipant" parameterType="com.ssafy.metassafy.dto.chatting.ParticipantDto">
 		DELETE FROM participant
 		WHERE user_id = #{user_id} AND croom_no = #{croom_no}
 	</delete>

@@ -22,7 +22,7 @@ public interface ChatMapper {
     public int createChat(ChatDto chatDto) throws SQLException;
     public int updateLastChat(ChatDto chatDto) throws SQLException;
     public int registParticipants(ChatParameterDto ChatParameterDto) throws SQLException;
-    public int deleteParticipant(ChatDto chatDto) throws  SQLException;
+    public int deleteParticipant(ParticipantDto participantDto) throws SQLException;
     public int getLastReadChatId(int croom_no) throws SQLException;
     public List<ParticipantDto> findAllParticipants(ChatParameterDto chatParameterDto) throws SQLException;
     public int renewNotReadChat(List<ParticipantDto> participantDtos) throws SQLException;
