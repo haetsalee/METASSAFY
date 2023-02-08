@@ -49,7 +49,7 @@ function UnityPage() {
       )}
       <Unity
         unityProvider={unityProvider}
-        style={{ width: '100vw', height: '100vh' }}
+        style={{ width: '100%', height: '95%' }}
       />
     </div>
   );
