@@ -54,9 +54,9 @@ public class CameraSetup : MonoBehaviourPun
                 }
 
                 // √÷¥Î ¡‹ æ∆øÙ
-                else if (followCam.m_Lens.FieldOfView >= 60.0f && scroll > 0)
+                else if (followCam.m_Lens.FieldOfView >= 100.0f && scroll > 0)
                 {
-                    followCam.m_Lens.FieldOfView = 60.0f;
+                    followCam.m_Lens.FieldOfView = 100.0f;
                 }
 
                 // ¡‹¿Œ æ∆øÙ «œ±‚.
