@@ -61,7 +61,7 @@ function App() {
           />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="metassafy/" element={<Metaverse />}>
-            <Route path="videochat/" element={<VideoChatPage />} />
+            <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<Page1 />}>
               <Route
                 path="profile"
