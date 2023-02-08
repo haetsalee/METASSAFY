@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import ArticleButtonWrapper from './ArticleButtonWrapper';
 import ArticleInfoWriter from './ArticleInfoWriter';
@@ -16,7 +15,9 @@ const ArticleInfo = ({ article }) => {
       </ContentDivStyle>
       <WriteInfoDivStyle>
         <ArticleInfoWriter article={article} />
-        {!!article.my_article && <ArticleButtonWrapper />}
+        {!!article.my_article && (
+          <ArticleButtonWrapper article_no={article.article_no} />
+        )}
       </WriteInfoDivStyle>
     </SectionStyle>
   );

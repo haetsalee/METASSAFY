@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { fetchBoardGet } from '../../../services/board-service';
 import ArticleInfo from './ArticleInfo';
-import Comments from './Comments';
+import Comments from '../comment/Comments';
 
 const Article = () => {
   const user = useSelector((state) => state.auth.user);

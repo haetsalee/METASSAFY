@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Avatar from './Avatar';
+import Avatar from '../article/Avatar';
 import Heart from '../list/Heart';
 
 const CommentLiItem = () => {

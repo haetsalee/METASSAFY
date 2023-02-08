@@ -1,49 +1,44 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { BsPencilSquare } from 'react-icons/bs';
 import BoardWriteInput from './BoardWriteInput';
 import BoardWriteImage from './BoardWriteImage';
 import {
   fetchBoardImage,
   fetchBoardPost,
-  fetchBoardPut,
   fetchBoardGet,
 } from '../../../services/board-service';
-import { BsPencilSquare } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
-const BoardWrite = ({ type }) => {
+const BoardWrite = () => {
+  const { id: article_no } = useParams();
   const navigator = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const [article, setArticle] = useState({ title: '', content: '' });
   const [file, setFile] = useState();
-  const [thumbnail, setThumbnail] = useState('');
 
+  // 수정이면 기존 데이터 삽입
   useEffect(() => {
-    // 수정이면 기존 데이터 삽입
     const getArticle = async () => {
-      const { data } = fetchBoardGet();
-      console.log(data);
+      const { data } = await fetchBoardGet(article_no, user.user_id);
       setArticle({
         title: data.title,
         content: data.content,
-        file: data.thumbnail,
+        thumbnail: data.thumbnail,
       });
     };
-    if (type === 'PUT') {
+    if (article_no) {
       getArticle();
     }
-  }, []);
+  }, [article_no, user.user_id]);
 
   // 사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
   const setImgUrl = async () => {
     const formData = new FormData();
     formData.append('image', file);
     const { data } = await fetchBoardImage(formData); // ???
-    setThumbnail(data);
     return data;
   };
 

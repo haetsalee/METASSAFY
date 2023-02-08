@@ -137,3 +137,16 @@ export const fetchBoardGet = async (article_no, user_id) => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+export const fetchBoardDelete = async (article_no) => {
+  try {
+    const { data, status } = await API.delete(`/board/${article_no}`);
+    if (status === 200) {
+      console.log('board delete', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};

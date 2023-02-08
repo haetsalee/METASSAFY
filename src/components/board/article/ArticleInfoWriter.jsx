@@ -73,7 +73,7 @@ const LikeDivStyle = styled.div`
   margin: 1rem 0 0 1rem;
 
   & button svg {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-right: 0.6rem;
   }
 
