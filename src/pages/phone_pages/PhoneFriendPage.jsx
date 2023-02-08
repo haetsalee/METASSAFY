@@ -65,17 +65,18 @@ function PhoneFriendPage() {
           onClickSearch={onClickSearch}
           onClickSendRequest={onClickSendRequest}
         />
-
-        {show.Page && <FriendList />}
-        {show.Request && <FriendRequest />}
-        {show.SendRequest && <FriendSendRequest />}
-        {show.Search && (
-          <>
-            <FriendSearch />
-            <RecommendButton />
-            <RecommendList />
-          </>
-        )}
+        <FriendListStyle>
+          {show.Page && <FriendList />}
+          {show.Request && <FriendRequest />}
+          {show.SendRequest && <FriendSendRequest />}
+          {show.Search && (
+            <>
+              <FriendSearch />
+              <RecommendButton />
+              <RecommendList />
+            </>
+          )}
+        </FriendListStyle>
       </PhoneFriendPageStyle>
     </Phone>
   );
@@ -86,4 +87,21 @@ export default PhoneFriendPage;
 const PhoneFriendPageStyle = styled.div`
   padding: 1rem;
   height: 100%;
+`;
+
+const FriendListStyle = styled.div`
+  padding: 1rem;
+  border-radius: 1rem 1rem 1rem 0rem;
+  height: 23rem;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e0f4ff;
+    border-radius: 6px;
+  }
 `;

@@ -41,7 +41,7 @@ function Profile({ user }) {
 
   return (
     <PhoneUserProfileStyle>
-      <ScrollDivStyle>
+      <div>
         <BackgroundBox image={user.profile_img} />
         <TextGroupComponent
           name={user.name}
@@ -68,7 +68,7 @@ function Profile({ user }) {
           )}
           <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
         </InfoListStyle>
-      </ScrollDivStyle>
+      </div>
     </PhoneUserProfileStyle>
   );
 }
@@ -83,7 +83,7 @@ const PhoneUserProfileStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 0rem 1rem;
 `;
 
 const ScrollDivStyle = styled.div`
