@@ -32,7 +32,7 @@ public class MemoController {
 
     // 메모 create
     @PostMapping
-    public ResponseEntity<String> writeMemo(MemoDto memoDto) throws Exception {
+    public ResponseEntity<String> writeMemo(@RequestBody MemoDto memoDto) throws Exception {
         logger.info("writeMemo - 호출");
 
         if (memoService.writeMemo(memoDto)) {
