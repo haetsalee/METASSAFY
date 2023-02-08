@@ -141,7 +141,7 @@
 
 		UPDATE chat
 		SET not_read = IF(not_read > 0, not_read - 1, 0)
-		WHERE croom_no = #{croom_no} AND chat_no &gt;= @small AND chat_no &lt; @big
+		WHERE croom_no = #{croom_no} AND chat_no &gt; @small AND chat_no &lt;= @big
 	</update>
 
 
