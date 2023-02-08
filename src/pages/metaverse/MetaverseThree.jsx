@@ -23,7 +23,7 @@ function MetaverseThree() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v8.png');
+    const floorTexture = textureLoader.load('images/map_v9.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -202,7 +202,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'purple',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshBeakJoon.position.set(0.35, 0.005, 7);
@@ -216,7 +216,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'green',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshProgrammers.position.set(3, 0.005, 5.3);
@@ -230,7 +230,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshSSAFY.position.set(1.5, 0.005, -6.5);
@@ -244,7 +244,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshSWEA.position.set(5.25, 0.005, 3.6);
@@ -258,7 +258,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshMM.position.set(4.5, 0.005, -4.8);
@@ -272,7 +272,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshGitlab.position.set(6.8, 0.005, -3.35);
@@ -286,7 +286,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'blue',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshJira.position.set(7.9, 0.005, -0.3);

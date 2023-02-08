@@ -52,7 +52,12 @@ function MainNavigation() {
           </NavLink>
         )}
         {user && (
-          <NavLink to="/page3">
+          <NavLink
+            to="/metavssafy"
+            NavLink
+            to="/"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
             <img
               alt="MetaSSAFY logo"
               src="images/logo.png"
@@ -107,11 +112,15 @@ function MainNavigation() {
             <NavLink to="/page3">page3</NavLink>
           </LiStyle> */}
           <LiStyle>
+            {user && <NavLink to="/metassafy">MetaSSAFY</NavLink>}
+          </LiStyle>
+          <LiStyle>
             <NavLink to="/intro">소개</NavLink>
           </LiStyle>
           <LiStyle>
             <NavLink to="/developers">개발팀</NavLink>
           </LiStyle>
+
           <LiStyle>
             <NavLink to="/board/list">게시판</NavLink>
           </LiStyle>
