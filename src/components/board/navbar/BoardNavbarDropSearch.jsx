@@ -4,6 +4,7 @@ import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { getBoardList } from '../../../services/board-service';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const search = [
   { key: 'user_id', label: '글쓴이' },
@@ -11,7 +12,8 @@ const search = [
   { key: 'content', label: '본문' },
 ];
 
-const BoardNavbarDropSearch = ({ type, setBoardList }) => {
+const BoardNavbarDropSearch = () => {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState(0);
   const user = useSelector((state) => state.auth.user);
@@ -26,16 +28,8 @@ const BoardNavbarDropSearch = ({ type, setBoardList }) => {
   const searchHandler = (e) => {
     e.preventDefault();
 
-    const getBoard = async () => {
-      const newList = await getBoardList(
-        search[searchType].key,
-        false,
-        user.user_id,
-        searchValue
-      );
-      setBoardList(newList);
-    };
-    getBoard();
+    const query = `key=${search[searchType].key}&popularity=false&user_id=${user.user_id}&word=${searchValue}`;
+    navigate(`/board/list?${query}`);
 
     // setSearchValue('');
   };

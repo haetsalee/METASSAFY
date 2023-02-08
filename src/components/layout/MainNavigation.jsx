@@ -27,7 +27,7 @@ function MainNavigation() {
             <NavLink to="/intro">소개</NavLink>
           </LiStyle>
           <LiStyle>
-            <NavLink to="/board">게시판</NavLink>
+            <NavLink to="/board/list">게시판</NavLink>
           </LiStyle>
           <LiStyle>
             <NavLink to="/profile">프로필</NavLink>

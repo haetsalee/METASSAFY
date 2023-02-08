@@ -1,15 +1,9 @@
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { getBoardList } from '../../../services/board-service';
-
-const BoardNavbarItem = ({
-  menu,
-  index,
-  activeIndex,
-  setActiveIndex,
-  setBoardList,
-}) => {
+const BoardNavbarItem = ({ menu, index, activeIndex, setActiveIndex }) => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
   // 넷바 클릭 시 리스트 업데이트
@@ -21,23 +15,21 @@ const BoardNavbarItem = ({
       setActiveIndex(index);
     }
 
-    // api
-    // 넷바 클릭시 (전체, 인기순, 게시글)
+    // 넷바 클릭시 (전체, 인기순, 게시글) 검색
+    let key = null;
+    let popularity = false;
+    let user_id = user.user_id;
+    let word = null;
+    let query = '';
     if (menu.type === 'recent') {
-      const newList = await getBoardList(null, false, user.user_id, null);
-      setBoardList(newList);
     } else if (menu.type === 'like') {
-      const newList = await getBoardList(null, true, user.user_id, null);
-      setBoardList(newList);
+      popularity = true;
     } else if (menu.type === 'my') {
-      const newList = await getBoardList(
-        'user_id',
-        false,
-        user.user_id,
-        user.user_id
-      );
-      setBoardList(newList);
+      key = 'user_id';
+      query = user_id;
     }
+    query = `key=${key}&popularity=${popularity}&user_id=${user_id}&word=${word}`;
+    navigate(`/board/list?${query}`);
   };
 
   return (

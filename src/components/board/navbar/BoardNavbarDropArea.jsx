@@ -4,6 +4,7 @@ import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { getBoardList } from '../../../services/board-service';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const area = [
   { key: 'seoul', label: '서울' },
@@ -13,19 +14,15 @@ const area = [
   { key: 'bul', label: '부울경' },
 ];
 
-const BoardNavbarDropArea = ({ type, setBoardList }) => {
+const BoardNavbarDropArea = ({ type }) => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const list = area;
 
   // 지역별 검색
-  const clickHandler = async (index) => {
-    const newList = await getBoardList(
-      type,
-      false,
-      user.user_id,
-      list[index].label
-    );
-    setBoardList(newList);
+  const clickHandler = (index) => {
+    const query = `key=${type}&popularity=false&user_id=${user.user_id}&word=${list[index].label}`;
+    navigate(`/board/list?${query}`);
   };
 
   return (

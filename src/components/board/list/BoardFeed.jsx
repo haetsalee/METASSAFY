@@ -1,24 +1,34 @@
+import { useState } from 'react';
 import BoardCard from './BoardCard';
 import styled from 'styled-components';
-import { Masonry } from 'masonic';
+import Masonry from '@mui/lab/Masonry';
 
 const BoardFeed = ({ boardList }) => {
-  const renderer = (card) => <BoardCard key={card.index} card={card.data} />;
+  const [columns, setColumns] = useState(4);
+
+  window.addEventListener(`resize`, function () {
+    if (window.innerWidth > 1200) {
+      setColumns(4);
+    } else if (window.innerWidth > 950) {
+      setColumns(3);
+    } else if (window.innerWidth > 700) {
+      setColumns(2);
+    } else {
+      setColumns(1);
+    }
+  });
 
   return (
     <SectionStyle>
-      <Masonry
-        // Provides the data for our grid items
-        items={boardList}
-        // Adds 8px of space between the grid cells
-        columnGutter={8}
-        // Sets the minimum column width to 230px
-        columnWidth={230}
-        // Pre-renders 4 windows worth of content
-        overscanBy={4}
-        // This is the grid item component
-        render={renderer}
-      />
+      {boardList.length !== 0 ? (
+        <Masonry columns={columns} spacing={2}>
+          {boardList.map((card, index) => (
+            <BoardCard key={index} card={card} />
+          ))}
+        </Masonry>
+      ) : (
+        <DivStyle>검색 결과가 없습니다.</DivStyle>
+      )}
     </SectionStyle>
   );
 };
@@ -30,4 +40,11 @@ const SectionStyle = styled.section`
   width: 100%;
   padding: 2rem;
   flex-wrap: wrap;
+  min-height: 30rem;
+`;
+
+const DivStyle = styled.div`
+  width: 100%;
+  height: 5rem;
+  text-align: center;
 `;
