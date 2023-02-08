@@ -61,7 +61,10 @@ function App() {
           <Route path="board/list" element={<BoardPage />} />
           <Route path="board/:id" element={<ArticlePage />} />
           <Route path="board/write" element={<WritePage />} />
-          <Route path="profile" element={<ProfilePage user_id="ssafy" />} />
+          <Route
+            path="profile/:user_id"
+            element={<ProfilePage user_id={user?.user_id} />}
+          />
           <Route path="profile/modify" element={<ProfileModify />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<OpenViduPage />} />
