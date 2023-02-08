@@ -27,6 +27,7 @@ import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
 import Metaverse from './pages/Metaverse';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
 import { useSelector } from 'react-redux';
+import PhoneChatEdit from './pages/phone_pages/PhoneChatEdit';
 
 function App() {
   useInfo();
@@ -67,6 +68,7 @@ function App() {
               <Route path="profile/modify" element={<ProfileModify />}></Route>
               <Route path="chat/" element={<PhoneChatingList />} />
               <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
+              <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
               <Route path="friend" element={<PhoneFriendPage />}></Route>
             </Route>
           </Route>

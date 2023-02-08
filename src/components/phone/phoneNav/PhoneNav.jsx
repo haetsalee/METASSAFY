@@ -49,6 +49,7 @@ const NavDiv = styled.div`
   background-color: white;
   padding-top: 10px;
   border-radius: 30px;
+  z-index: 11;
 `;
 
 const UlStyle = styled.ul`

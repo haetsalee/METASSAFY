@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatRoomNavStatus from './ChatRoomNavStatus';
 
@@ -5,14 +7,11 @@ function ChatRoomNav(props) {
   return (
     <ChatRoomNavStyle>
       <ChatRoomNavImgStyle
-        onClick={() => {
-          props.setPage('chatlist');
-        }}
         src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg"
         alt=""
       />
       <ChatRoomNavStatus chatRoom={props.chatRoom} />
-      <ChatSettingButtonStyle>
+      <NavLink to={`edit`}>
         <ChatRoomSettingSvg
           width="24"
           height="24"
@@ -42,7 +41,7 @@ function ChatRoomNav(props) {
             </clipPath>
           </defs>
         </ChatRoomSettingSvg>
-      </ChatSettingButtonStyle>
+      </NavLink>
     </ChatRoomNavStyle>
   );
 }
@@ -59,12 +58,7 @@ const ChatRoomNavStyle = styled.div`
 const ChatRoomSettingSvg = styled.svg`
   width: 1.3rem;
   height: auto;
-`;
-
-const ChatSettingButtonStyle = styled.button`
-  background-color: #ffffff;
-  border: 0px;
-  cursor: pointer;
+  margin-top: 0.7rem;
 `;
 
 const ChatRoomNavImgStyle = styled.img`

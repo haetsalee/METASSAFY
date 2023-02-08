@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscCheck, VscChromeClose } from 'react-icons/vsc';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import API from '../../../utils/api';
 
 const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {

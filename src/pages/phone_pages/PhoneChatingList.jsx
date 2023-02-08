@@ -3,7 +3,6 @@ import Phone from '../../components/UI/Phone';
 import ChatRoomSearch from '../../components/phone/chat/ChatRoomSearch';
 import ChatRoomSearchResult from '../../components/phone/chat/ChatRoomSearchResult';
 import MyChatRoomList from '../../components/phone/chat/MyChatRoomList';
-import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
 import ChatInviteList from '../../components/phone/chat/ChatInviteList';
 
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
@@ -12,9 +11,6 @@ import { useState, useEffect } from 'react';
 import API from '../../utils/api';
 
 import styled from 'styled-components';
-
-import { useNavigate } from 'react-router';
-import { NavLink } from 'react-router-dom';
 
 function PhoneChatingList(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
@@ -25,8 +21,6 @@ function PhoneChatingList(props) {
   const [inviteList, setInviteList] = useState([]);
   console.log(roomList);
   const [forTime, setForTime] = useState(0);
-
-  const chatRoom = { croom_name: '채팅방' };
 
   useEffect(() => {
     API.get(`/user/searchUser/${search}`)
@@ -65,7 +59,9 @@ function PhoneChatingList(props) {
 
   return (
     <Phone>
-      <ChatRoomNav chatRoom={chatRoom} />
+      <ChatRoomNavStyle>
+        <ChatListP>채팅방</ChatListP>
+      </ChatRoomNavStyle>
       <PhoneChatingListStyle>
         <ChatInviteList inviteList={inviteList} />
         <ChatRoomSearch setSearch={setSearch} />
@@ -99,42 +95,14 @@ const PhoneChatingListStyle = styled.div`
   }
 `;
 
-const NavDiv = styled.div`
-  width: 95%;
-  height: 3rem;
-  position: absolute;
-  bottom: 0;
-  background-color: white;
-  padding-top: 10px;
-  border-radius: 30px;
-`;
-
-const UlStyle = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const ChatRoomNavStyle = styled.div`
+  padding: 0.5rem 2rem 0.5rem 2rem;
   display: flex;
-  justify-content: space-around;
-  align-items: baseline;
+  justify-content: space-between;
+  width: 95%;
 `;
 
-const LiStyle = styled.li`
-  & > a > svg {
-    text-decoration: none;
-    font-size: 1rem;
-    stroke: #aec6d7;
-    :hover {
-      stroke: navy;
-    }
-    :active {
-      stroke: navy;
-    }
-  }
-
-  & > a.active > svg {
-    stroke: #617485;
-  }
-  & > a.active:hover > svg {
-    stroke: #617485;
-  }
+const ChatListP = styled.p`
+  margin: 1rem 1rem 0rem 0rem;
+  font-size: 1.1rem;
 `;
