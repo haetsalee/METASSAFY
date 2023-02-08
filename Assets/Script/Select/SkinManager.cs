@@ -76,6 +76,6 @@ public class SkinManager : MonoBehaviour
     }
     public void moveScene()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("WorldMap");
     }
 }

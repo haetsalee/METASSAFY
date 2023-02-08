@@ -42,12 +42,13 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
             {
                 Debug.Log(hit.collider.name + " 선택");
                 //구미를 클릭 했으면
-                if (hit.collider.name == "Gumi")
+                if (hit.collider.name == "GumiCam")
                     goToGumi();
                 if (hit.collider.name == "Old Screen")
                 {
                     clickBoard();
                 }
+                 
 
 
             }
