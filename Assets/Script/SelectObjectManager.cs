@@ -1,20 +1,26 @@
  
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+ 
 
-public class SelectObjectManager : MonoBehaviourPunCallbacks
+public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 {
     
     [DllImport("__Internal")]
     private static extern void openPhone(string mode);
     Vector3 m_vecMouseDownPos;
+
+    Boolean isRoomInfoOpen = false;
+    public GameObject infoArea;
     void Update()
     {
         
@@ -22,7 +28,15 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
         
       
     }
-     
+    float distance = 10.0f;
+    public void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log("onDrag »£√‚");
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x,
+                Input.mousePosition.y, distance);
+        transform.position = mousePosition;
+    }
+
     void ClickEvent()
     {
  
@@ -82,12 +96,25 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks
 
     public void clickPhone()
     {
-       
+
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
     openPhone ("phone");
 #endif
     }
+    public void onClickOpen()
+    {
+        
+        isRoomInfoOpen = !isRoomInfoOpen;
+        if (isRoomInfoOpen)
+        {
+            infoArea.SetActive(true);
+        }
+        else
+        {
+            infoArea.SetActive(false);
+        } 
 
+    }
 
 
 }

@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a614db3e8c2d0544898c2833d96f83f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickname: 
+  nickname: fff
   skin: 0
 --- !u!1 &2050470304
 GameObject:
