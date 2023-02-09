@@ -52,7 +52,7 @@
 
 	<update id="editChatRoom" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
 		UPDATE chatroom
-		SET croom_name = #{croom_name} AND croom_img = #{croom_img}
+		SET croom_name = #{croom_name}, croom_img = #{croom_img}
 		WHERE croom_no = #{croom_no}
 	</update>
 
