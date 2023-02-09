@@ -45,8 +45,10 @@ function UnityPage() {
 
   useEffect(() => {
     if (isLoaded) {
-      console.log(loginUser.user_id + ' 가 메타싸피에 접속');
-      sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      // console.log(loginUser.user_id + ' 가 메타싸피에 접속');
+      // sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      console.log(loginUser.name + ' 가 메타싸피에 접속');
+      sendMessage('ValueManager', 'getUserId', loginUser.name);
     }
   }, [isLoaded]);
 

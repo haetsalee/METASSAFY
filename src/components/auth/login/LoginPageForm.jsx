@@ -90,7 +90,7 @@ const LoginForm = (props) => {
           errorText="필수 입력입니다."
         />
       </div>
-      <SubmitButton>로그인하기</SubmitButton>
+      <SubmitButton>Let's GO!</SubmitButton>
     </form>
   );
 };
