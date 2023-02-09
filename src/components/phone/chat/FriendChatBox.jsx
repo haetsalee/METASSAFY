@@ -9,7 +9,7 @@ function FriendChatBox(props) {
   // console.log(props.chat);
   return (
     <ChatBoxStyle>
-      <NavLink to={`/metassafy/phone/profile/${props.chat.user_id}`}>
+      <NavLink to={`../profile/${props.chat.user_id}`}>
         <ChatImgDivStyle>
           <ChatImgStyle src={props.chat.profile_img} alt="" />
         </ChatImgDivStyle>

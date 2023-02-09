@@ -9,7 +9,7 @@ const FriendSearchItem = (props) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <NavLink to={`/metassafy/phone/profile/${props.user_id}`}>
+            <NavLink to={`../profile/${props.user_id}`}>
               <FriendImgStyle
                 img
                 src={props.profile_img}

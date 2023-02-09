@@ -21,7 +21,7 @@ const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <NavLink to={`/metassafy/phone/profile/${friendInfo.user_id}`}>
+            <NavLink to={`../profile/${friendInfo.user_id}`}>
               <FriendImgStyle
                 img
                 src={friendInfo.profile_img}

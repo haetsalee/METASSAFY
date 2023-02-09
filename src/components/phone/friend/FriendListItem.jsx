@@ -9,7 +9,7 @@ const FriendItem = ({ friend, onDeleteFriend }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <NavLink to={`/metassafy/phone/profile/${friend.user_id}`}>
+            <NavLink to={`../profile/${friend.user_id}`}>
               <FriendImgStyle
                 img
                 src={friend.profile_img}
