@@ -17,7 +17,7 @@ function PhoneChatEdit() {
   };
 
   function changeName() {
-    API.put(`/chat/room`, content).then((res) => {
+    API.put(`/chat/room`, JSON.stringify(content)).then((res) => {
       console.log(res);
     });
   }
