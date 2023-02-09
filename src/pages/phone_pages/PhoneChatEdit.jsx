@@ -12,7 +12,8 @@ function PhoneChatEdit() {
   const content = {
     croom_name: newName,
     croom_no: room,
-    croom_img: null,
+    croom_img:
+      'https://kr.object.ncloudstorage.com/metassafy/445366e7-2a5a-4aba-bb4e-4a5d8dd4ca1fblob',
   };
 
   function changeName() {

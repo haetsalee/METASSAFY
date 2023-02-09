@@ -80,7 +80,7 @@ function PhoneChatingRoom(props) {
           //   body: JSON.stringify(content),
           // });
 
-          console.log(2);
+          console.log(1);
 
           // let temp = [];
           console.log(startNo, '--startno--');
@@ -104,7 +104,7 @@ function PhoneChatingRoom(props) {
           //   }
           // );
 
-          console.log(1);
+          console.log(2);
 
           // chat 리스트 다시 불러오기
           // 대화목록 가져오기
