@@ -46,7 +46,7 @@ public class ChatController {
 
     //채팅방 생성
     @PostMapping(value = "/room")
-    public ResponseEntity<Integer> createRoom(@RequestPart("chatParameterDto") ChatParameterDto chatParameterDto, @RequestPart("croom_img") MultipartFile croom_img) throws Exception{
+    public ResponseEntity<Integer> createRoom(@RequestPart("chatParameterDto") ChatParameterDto chatParameterDto, @RequestPart(value="croom_img", required = false) MultipartFile croom_img) throws Exception{
         logger.info("createRoom - 호출 #{croom_name}, #{croom_img}, user_id 리스트로");
 
         if(!croom_img.isEmpty()){
@@ -66,7 +66,7 @@ public class ChatController {
 
     //채팅방 이름 변경
     @PutMapping(value = "/room")
-    public ResponseEntity<String> editChatRoom(@RequestBody ChatParameterDto chatParameterDto) throws Exception{
+    public ResponseEntity<String> editChatRoom(ChatParameterDto chatParameterDto) throws Exception{
         logger.info("editChatRoom - 호출");
         if(chatService.editChatRoom(chatParameterDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
