@@ -286,7 +286,30 @@ function PhoneChatingRoom(props) {
 
   useEffect(() => {
     const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
-    getChat();
+    API.get(`/chat`, {
+      params: {
+        start_no: startNo,
+        user_id: user,
+        croom_no: room,
+      },
+    })
+      .then((res) => {
+        temp = res.data;
+        startNo = res.data[0]['chat_no'];
+        // console.log(
+        //   res.data,
+        //   '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
+        // );
+      })
+      .catch((err) => console.log(err));
+
+    // await fetch(
+    //   `http://i8d211.p.ssafy.io:8088/metassafy/chat?start_no=0&user_id=ssafy&croom_no=${room}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => (temp = data));
+    // console.log(temp, '========socket connect입니다=========');
+    setChatList(temp);
 
     return () => clearTimeout(timeout);
   }, [forTime]);
