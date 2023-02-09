@@ -19,6 +19,8 @@ class OpenViduPage extends Component {
       screensharing: false,
       mainStreamManager: undefined,
       publisher: undefined,
+      publishAudio: true,
+      publishVideo: true,
       subscribers: [],
       subscriberScreens: [],
     };
@@ -32,6 +34,8 @@ class OpenViduPage extends Component {
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.publishScreenShare = this.publishScreenShare.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.muteUnmuteVideo = this.muteUnmuteVideo.bind(this);
+    this.muteUnmuteAudio = this.muteUnmuteAudio.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +90,38 @@ class OpenViduPage extends Component {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  muteUnmuteVideo() {
+    if (this.state.publishVideo) {
+      this.state.publisher.publishVideo(false);
+
+      this.setState({
+        publishVideo: false,
+      });
+    } else {
+      this.state.publisher.publishVideo(true);
+
+      this.setState({
+        publishVideo: true,
+      });
+    }
+  }
+
+  muteUnmuteAudio() {
+    if (this.state.publishAudio) {
+      this.state.publisher.publishAudio(false);
+
+      this.setState({
+        publishAudio: false,
+      });
+    } else {
+      this.state.publisher.publishAudio(true);
+
+      this.setState({
+        publishAudio: true,
+      });
+    }
   }
 
   deleteSubscriberScreens(streamManager) {
@@ -477,6 +513,20 @@ class OpenViduPage extends Component {
                 id="buttonLeaveSession"
                 onClick={this.leaveSession}
                 value="Leave session"
+              />
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.muteUnmuteAudio}
+                value="Mute/Unmute Audio"
+              />
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.muteUnmuteVideo}
+                value="Mute/Unmute Video"
               />
             </div>
             {this.state.mainStreamManager !== undefined ? (
