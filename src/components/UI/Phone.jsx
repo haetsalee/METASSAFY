@@ -22,7 +22,7 @@ const PhoneStyle = styled.div`
   width: 22rem;
   height: 35rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
+  position: absolute;
   /* display: flex;
   flex-direction: column; */
   align-items: center;

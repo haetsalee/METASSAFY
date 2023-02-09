@@ -1,15 +1,19 @@
 import { Outlet } from 'react-router';
+import styled from 'styled-components';
 import MetaverseThree from './metaverse/MetaverseThree';
+
 const Metaverse = () => {
   return (
-    <div>
+    <FlexDiv>
       {/* <h1>meta</h1> */}
-      <div>
-        <MetaverseThree />
-      </div>
       <Outlet />
-    </div>
+      <MetaverseThree />
+    </FlexDiv>
   );
 };
 
 export default Metaverse;
+
+const FlexDiv = styled.div`
+  position: relative;
+`;

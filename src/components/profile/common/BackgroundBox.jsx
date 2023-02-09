@@ -1,10 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as Setting } from '../../../assets/icons/settings.svg';
+import { NavLink } from 'react-router-dom';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 
 function BackgroundBox(props) {
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
+  console.log(user, props.who, '--------');
+
   return (
     <WrapperStyle>
       <BackgroundBoxStyle>
+        {user === props.who && (
+          <SettingDiv>
+            <NavLink to="../profile/modify">
+              <Setting
+                stroke="#617485"
+                style={{ float: 'right', margin: '1rem' }}
+              />
+            </NavLink>
+          </SettingDiv>
+        )}
         <CircleBackgroundStyle>
           <CircleImgStyle src={props.image}></CircleImgStyle>
         </CircleBackgroundStyle>
@@ -51,4 +67,9 @@ const CircleImgStyle = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const SettingDiv = styled.div`
+  display: inline-block;
+  width: 100%;
 `;

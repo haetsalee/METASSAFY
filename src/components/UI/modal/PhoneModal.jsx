@@ -32,12 +32,25 @@ const Modal = (props) => {
 
 export default Modal;
 
+// const ModalStyle = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 30;
+//   background-color: rgba(0, 0, 0, 0.3);
+// `;
+
 const ModalStyle = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
+  width: 22rem;
+  height: 40rem;
   display: flex;
   justify-content: center;
   align-items: center;

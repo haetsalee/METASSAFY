@@ -31,7 +31,6 @@ const FriendSendRequest = () => {
 
   return (
     <FriendRequestStyle>
-      <p>보낸 친구 요청</p>
       {sendRequests.map((friend) => (
         <FriendSendRequestItem
           key={friend.friend_no}
@@ -46,6 +45,6 @@ const FriendSendRequest = () => {
 export default FriendSendRequest;
 
 const FriendRequestStyle = styled.div`
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 1rem 1rem 1rem 0rem;
 `;

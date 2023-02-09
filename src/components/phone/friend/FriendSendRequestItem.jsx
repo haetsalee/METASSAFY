@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import API from '../../../utils/api';
 
 const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
@@ -20,11 +21,13 @@ const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <FriendImgStyle
-              img
-              src={friendInfo.profile_img}
-              alt={friendInfo.name}
-            ></FriendImgStyle>
+            <NavLink to={`/metassafy/phone/profile/${friendInfo.user_id}`}>
+              <FriendImgStyle
+                img
+                src={friendInfo.profile_img}
+                alt={friendInfo.name}
+              ></FriendImgStyle>
+            </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
             <NameTextStyle>{friendInfo.name}</NameTextStyle>

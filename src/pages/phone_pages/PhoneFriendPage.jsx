@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Phone from '../../components/UI/Phone';
+//import Phone from '../../components/UI/Phone';
 import styled from 'styled-components';
 
 import FriendList from '../../components/phone/friend/FriendList';
@@ -56,10 +56,11 @@ function PhoneFriendPage() {
   };
 
   return (
-    <Phone>
+    <>
       <PhoneFriendPageStyle>
         <MyProfile />
         <FriendButtonBar
+          show={show}
           onClickPage={onClickPage}
           onClickRequest={onClickRequest}
           onClickSearch={onClickSearch}
@@ -70,15 +71,15 @@ function PhoneFriendPage() {
           {show.Request && <FriendRequest />}
           {show.SendRequest && <FriendSendRequest />}
           {show.Search && (
-            <>
+            <StyledDiv>
               <FriendSearch />
               <RecommendButton />
               <RecommendList />
-            </>
+            </StyledDiv>
           )}
         </FriendListStyle>
       </PhoneFriendPageStyle>
-    </Phone>
+    </>
   );
 }
 
@@ -104,4 +105,9 @@ const FriendListStyle = styled.div`
     background: #e0f4ff;
     border-radius: 6px;
   }
+`;
+
+const StyledDiv = styled.div`
+  /* padding: 1rem; */
+  border-radius: 1rem 1rem 1rem 0rem;
 `;
