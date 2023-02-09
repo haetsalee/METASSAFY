@@ -5,10 +5,15 @@ import { getLocalUserInfo } from '../utils/local-storage';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
 import PhoneTest from '../components/phone/PhoneTest';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import phoneImg from '../assets/images/phone.png';
 
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
 
   const loginUser = JSON.parse(user);
   const {
@@ -62,11 +67,22 @@ function UnityPage() {
           <FadeLoader color="#36d7b7" />
         </Loading>
       )}
+      <PositionDiv>
+        <ImgStyle
+          src={phoneImg}
+          alt="phone"
+          onClick={() => {
+            navigate(`phone/profile/${loginUser.user_id}`);
+          }}
+        />
+        <Outlet />
+      </PositionDiv>
       <Unity
         unityProvider={unityProvider}
         style={{ width: '100%', height: '95%' }}
       />
-      {modal && <PhoneTest onClose={onClose} />}
+
+      {/* {modal && <PhoneTest onClose={onClose} />} */}
     </div>
   );
 }
@@ -77,4 +93,20 @@ const Loading = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const ImgStyle = styled.img`
+  width: 4rem;
+  height: 6rem;
+  float: left;
+  top: 70%;
+  left: 5%;
+  position: absolute;
+`;
+
+const PositionDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  align-items: center;
 `;

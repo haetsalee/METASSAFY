@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import useInfo from '../../hooks/use-info';
 import { BiSave } from 'react-icons/bi';
 import MultipleSelectChip from './Inputs/MultipleSelectChip';
+import { useNavigate } from 'react-router-dom/dist';
 
 const genderList = {
   label: '성별',
@@ -54,6 +55,7 @@ const positionList = {
 };
 
 const InputBoxList = () => {
+  const navigate = useNavigate();
   const user = useInfo();
   // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
   // "student_no":"2222","name":"zzzzz",
@@ -113,6 +115,7 @@ const InputBoxList = () => {
     fetchProfileModify(info);
     const techs = techList.map((tech) => tech.tech_id);
     fetchTechSave(user.user_id, techs);
+    navigate(`../profile/${user.user_id}`);
   };
 
   return (
