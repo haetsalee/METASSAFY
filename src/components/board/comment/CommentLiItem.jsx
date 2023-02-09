@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
+  fetchCocommentGet,
   fetchCommentDelete,
   fetchCommentGet,
 } from '../../../services/board-service';
@@ -9,8 +10,9 @@ import Avatar from '../article/Avatar';
 import Heart from '../list/Heart';
 import CommentInput from './CommentInput';
 import { BsArrowReturnRight } from 'react-icons/bs';
+import CocomentItem from './CocomentItem';
 
-const CommentLiItem = ({ comment, setComments }) => {
+const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
   const user = useSelector((state) => state.auth.user);
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
@@ -63,12 +65,30 @@ const CommentLiItem = ({ comment, setComments }) => {
           <ContentStyle>{comment.content}</ContentStyle>
         </CommentDiv>
       </CommentWrapper>
-      {isWriting && (
-        <CocomentWrapper>
-          <BsArrowReturnRight />
-          <CommentInput />
-        </CocomentWrapper>
-      )}
+      <CocomentWrapper>
+        <CocommentUlStyle>
+          {cocomments.map((comment, index) => {
+            return (
+              <CocomentItem
+                type="2"
+                key={index}
+                comment={comment}
+                setComments={setCocomments}
+              />
+            );
+          })}
+        </CocommentUlStyle>
+        {isWriting && (
+          <CocomentWriteWrapper>
+            <BsArrowReturnRight />
+            <CommentInput
+              user_id={user.user_id}
+              article_no={comment.article_no}
+              setComments={setCocomments}
+            />
+          </CocomentWriteWrapper>
+        )}
+      </CocomentWrapper>
     </LiSection>
   );
 };
@@ -144,10 +164,20 @@ const ContentStyle = styled.div`
 
 const CocomentWrapper = styled.div`
   width: 85%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CocomentWriteWrapper = styled.div`
   height: 5rem;
   display: flex;
 
   & svg {
     margin-right: 1rem;
   }
+`;
+
+const CocommentUlStyle = styled.ul`
+  width: 100%;
+  margin-top: 1.2rem;
 `;

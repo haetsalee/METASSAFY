@@ -187,3 +187,48 @@ export const fetchCommentDelete = async (memo_no) => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+// 대댓글
+export const fetchCocommentPost = async ({ article_no, content, user_id }) => {
+  const requestBody = {
+    article_no,
+    content,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/mememo', requestBody);
+    if (status === 200) {
+      console.log('memo write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCocommentGet = async (article_no, user_id) => {
+  try {
+    const { data, status } = await API.get(
+      `/mememo?article_no=${article_no}&user_id=${user_id}`
+    );
+    console.log('memo list', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchCocommentDelete = async (memo_no) => {
+  try {
+    const { data, status } = await API.delete(`/mememo/${memo_no}`);
+    if (status === 200) {
+      console.log('memo delete', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};

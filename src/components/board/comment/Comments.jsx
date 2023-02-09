@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { fetchCommentGet } from '../../../services/board-service';
+import {
+  fetchCocommentGet,
+  fetchCommentGet,
+} from '../../../services/board-service';
 import CommentInput from './CommentInput';
 import CommentLiItem from './CommentLiItem';
 
 const Comments = ({ user_id, article_no }) => {
   const [comments, setComments] = useState([]);
+  const [cocomments, setCocomments] = useState([]);
 
   useEffect(() => {
     const getComment = async () => {
       const { data } = await fetchCommentGet(article_no, user_id);
       setComments(data);
     };
+    const getCocomment = async () => {
+      const { data } = await fetchCocommentGet(article_no, user_id);
+      setCocomments(data);
+    };
     if (article_no) {
       getComment();
+      getCocomment();
     }
   }, [user_id, article_no]);
 
@@ -35,6 +44,8 @@ const Comments = ({ user_id, article_no }) => {
                 key={index}
                 comment={comment}
                 setComments={setComments}
+                cocomments={cocomments}
+                setCocomments={setCocomments}
               />
             );
           })}
