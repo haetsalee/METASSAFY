@@ -67,7 +67,8 @@ const CommentInput = ({ user_id, article_no, setComments }) => {
 export default CommentInput;
 
 const InputSection = styled.section`
-  width: 80%;
+  width: 100%;
+  height: 100%;
   display: flex;
 `;
 
@@ -76,16 +77,19 @@ const InputWrapperStyle = styled.div`
   background-color: #f5fcff;
   border-radius: 15px;
   color: #868e96;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TextareaStyle = styled.textarea`
   width: 100%;
-  height: 6rem;
+  height: 100%;
   padding: 0.8rem;
   border: none;
   color: #868e96;
   border-radius: 15px;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 
   border: none;
   background-color: transparent;
@@ -111,6 +115,8 @@ const TextareaStyle = styled.textarea`
 `;
 
 const DivStyle = styled.div`
+  width: 100%;
+  height: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

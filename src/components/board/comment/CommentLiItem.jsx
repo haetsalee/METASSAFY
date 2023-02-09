@@ -7,11 +7,14 @@ import {
 } from '../../../services/board-service';
 import Avatar from '../article/Avatar';
 import Heart from '../list/Heart';
+import CommentInput from './CommentInput';
+import { BsArrowReturnRight } from 'react-icons/bs';
 
 const CommentLiItem = ({ comment, setComments }) => {
   const user = useSelector((state) => state.auth.user);
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
+  const [isWriting, setIsWriting] = useState(false);
 
   useEffect(() => {
     setLikeNum(comment.memo_like);
@@ -27,37 +30,45 @@ const CommentLiItem = ({ comment, setComments }) => {
 
   // 메메모 작성
   const showMememoHandler = () => {
-    console.log('?');
+    setIsWriting((preState) => !preState);
   };
 
   return (
     <LiSection>
-      <Avatar img={comment.profile_img} />
-      <InputWrapperStyle>
-        <DivStyle>
-          <TitleStyle>
-            {comment.name}
-            <span>{comment.regtime.slice(2)}</span>
-          </TitleStyle>
-          <ButtonWrapper>
-            {comment.user_id === user.user_id && (
-              <ButtonStyle onClick={deleteHandler}>삭제하기</ButtonStyle>
-            )}
-            <ButtonStyle onClick={showMememoHandler}>대댓글</ButtonStyle>
-            <LikeDivStyle>
-              <Heart
-                type="2"
-                no={comment.memo_no}
-                isLike={isLike}
-                setLikeNum={setLikeNum}
-                setIsLike={setIsLike}
-              />
-              <p style={{ marginLeft: '0.3rem' }}>{likeNum}</p>
-            </LikeDivStyle>
-          </ButtonWrapper>
-        </DivStyle>
-        <ContentStyle>{comment.content}</ContentStyle>
-      </InputWrapperStyle>
+      <CommentWrapper>
+        <Avatar img={comment.profile_img} />
+        <CommentDiv>
+          <DivStyle>
+            <TitleStyle>
+              {comment.name}
+              <span>{comment.regtime.slice(2)}</span>
+            </TitleStyle>
+            <ButtonWrapper>
+              {comment.user_id === user.user_id && (
+                <ButtonStyle onClick={deleteHandler}>삭제하기</ButtonStyle>
+              )}
+              <ButtonStyle onClick={showMememoHandler}>대댓글</ButtonStyle>
+              <LikeDivStyle>
+                <Heart
+                  type="2"
+                  no={comment.memo_no}
+                  isLike={isLike}
+                  setLikeNum={setLikeNum}
+                  setIsLike={setIsLike}
+                />
+                <p style={{ marginLeft: '0.3rem' }}>{likeNum}</p>
+              </LikeDivStyle>
+            </ButtonWrapper>
+          </DivStyle>
+          <ContentStyle>{comment.content}</ContentStyle>
+        </CommentDiv>
+      </CommentWrapper>
+      {isWriting && (
+        <CocomentWrapper>
+          <BsArrowReturnRight />
+          <CommentInput />
+        </CocomentWrapper>
+      )}
     </LiSection>
   );
 };
@@ -67,10 +78,17 @@ export default CommentLiItem;
 const LiSection = styled.li`
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   margin: 1rem 0;
 `;
 
-const InputWrapperStyle = styled.div`
+const CommentWrapper = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const CommentDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -118,7 +136,18 @@ const LikeDivStyle = styled.div`
 `;
 
 const ContentStyle = styled.div`
+  word-break: break-all;
   padding: 0.6rem 0;
   color: #3d4248;
   font-size: 0.8rem;
+`;
+
+const CocomentWrapper = styled.div`
+  width: 85%;
+  height: 5rem;
+  display: flex;
+
+  & svg {
+    margin-right: 1rem;
+  }
 `;

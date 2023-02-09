@@ -21,11 +21,13 @@ const Comments = ({ user_id, article_no }) => {
     <>
       <h1 style={{ fontSize: '1.2rem' }}>댓글</h1>
       <CommentWrapper>
-        <CommentInput
-          user_id={user_id}
-          article_no={article_no}
-          setComments={setComments}
-        />
+        <InputWrapper>
+          <CommentInput
+            user_id={user_id}
+            article_no={article_no}
+            setComments={setComments}
+          />
+        </InputWrapper>
         <CommentUlStyle>
           {comments.map((comment, index) => {
             return (
@@ -50,6 +52,11 @@ const CommentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 1.2rem;
+`;
+
+const InputWrapper = styled.div`
+  width: 80%;
+  height: 8rem;
 `;
 
 const CommentUlStyle = styled.ul`
