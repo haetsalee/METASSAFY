@@ -75,21 +75,14 @@ export const fetchBoardImage = async (formData) => {
   }
 };
 
-export const fetchBoardPost = async ({
-  user_id,
-  title,
-  content,
-  thumbnail,
-}) => {
-  const requestBody = {
-    user_id: user_id,
-    title: title,
-    content: content,
-    thumbnail: thumbnail,
-  };
-
+export const fetchBoardPost = async (formData) => {
   try {
-    const { data, status } = await API.post('/board/writeSimple', requestBody);
+    const { data, status } = await API.post('/board', formData, {
+      headers: {
+        'Contest-Type': 'multipart/form-data',
+      },
+      transformRequest: (formData) => formData,
+    });
     if (status === 200) {
       console.log('board write', data);
       return { data, status, error: null };
