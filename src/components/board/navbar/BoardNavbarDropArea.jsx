@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import { FiSearch } from 'react-icons/fi';
-import { useState } from 'react';
-import { getBoardList } from '../../../services/board-service';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const area = [
+  { key: 'null', label: '전국' },
   { key: 'seoul', label: '서울' },
   { key: 'gwang', label: '광주' },
   { key: 'gumi', label: '구미' },
@@ -21,7 +19,11 @@ const BoardNavbarDropArea = ({ type }) => {
 
   // 지역별 검색
   const clickHandler = (index) => {
-    const query = `key=${type}&popularity=false&user_id=${user.user_id}&word=${list[index].label}`;
+    let query = `key=${type}&popularity=false&user_id=${user.user_id}&word=${list[index].label}`;
+    // 전국
+    if (index === 0) {
+      query = `key=null&popularity=false&user_id=${user.user_id}&word=null`;
+    }
     navigate(`/board/list?${query}`);
   };
 

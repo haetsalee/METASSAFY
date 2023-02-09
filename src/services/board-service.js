@@ -75,24 +75,111 @@ export const fetchBoardImage = async (formData) => {
   }
 };
 
-export const fetchBoardPost = async ({
-  user_id,
-  title,
-  content,
-  thumbnail,
-}) => {
+export const fetchBoardPost = async (formData) => {
+  try {
+    const { data, status } = await API.post('/board', formData, {
+      headers: {
+        'Contest-Type': 'multipart/form-data',
+      },
+      transformRequest: (formData) => formData,
+    });
+    if (status === 200) {
+      console.log('board write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardPut = async ({ user_id, title, content, thumbnail }) => {
   const requestBody = {
     user_id: user_id,
     title: title,
     content: content,
     thumbnail: thumbnail,
   };
-  console.log(requestBody);
 
   try {
-    const { data, status } = await API.post('/board/writeSimple', requestBody);
+    const { data, status } = await API.put('/board/writeSimple', requestBody);
     if (status === 200) {
       console.log('board write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardGet = async (article_no, user_id) => {
+  const requestBody = {
+    article_no,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/board/article', requestBody);
+    if (status === 200) {
+      console.log('board get', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardDelete = async (article_no) => {
+  try {
+    const { data, status } = await API.delete(`/board/${article_no}`);
+    if (status === 200) {
+      console.log('board delete', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCommentPost = async ({ article_no, content, user_id }) => {
+  const requestBody = {
+    article_no,
+    content,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/memo', requestBody);
+    if (status === 200) {
+      console.log('memo write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCommentGet = async (article_no, user_id) => {
+  try {
+    const { data, status } = await API.get(
+      `/memo?article_no=${article_no}&user_id=${user_id}`
+    );
+    console.log('memo list', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchCommentDelete = async (memo_no) => {
+  try {
+    const { data, status } = await API.delete(`/memo/${memo_no}`);
+    if (status === 200) {
+      console.log('memo delete', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };

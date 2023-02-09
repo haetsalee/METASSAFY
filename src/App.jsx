@@ -61,6 +61,7 @@ function App() {
           <Route path="board/list" element={<BoardPage />} />
           <Route path="board/:id" element={<ArticlePage />} />
           <Route path="board/write" element={<WritePage />} />
+          <Route path="board/write/:id" element={<WritePage />} />
           <Route
             path="profile/:user_id"
             element={<ProfilePage user_id={user?.user_id} />}

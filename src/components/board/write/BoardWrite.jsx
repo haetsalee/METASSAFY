@@ -1,59 +1,76 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { BsPencilSquare } from 'react-icons/bs';
 import BoardWriteInput from './BoardWriteInput';
 import BoardWriteImage from './BoardWriteImage';
-import {
-  fetchBoardImage,
-  fetchBoardPost,
-} from '../../../services/board-service';
-import { BsPencilSquare } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { fetchBoardPost, fetchBoardGet } from '../../../services/board-service';
 
 const BoardWrite = () => {
+  const { id: article_no } = useParams();
   const navigator = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const [article, setArticle] = useState({ title: '', content: '' });
-  const [file, setFile] = useState();
-  const [thumbnail, setThumbnail] = useState('');
+  const [article, setArticle] = useState({
+    title: '',
+    content: '',
+    thumbnail: '',
+    files: [],
+  });
+  const [files, setFiles] = useState([]);
+  console.log(article);
 
-  // 사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
-  const setImgUrl = async () => {
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log(file, formData);
-    const { data } = await fetchBoardImage(formData); // ???
-    console.log(data);
-    setThumbnail(data);
-  };
+  // 수정이면 기존 데이터 삽입
+  useEffect(() => {
+    const getArticle = async () => {
+      const { data } = await fetchBoardGet(article_no, user.user_id);
+      setArticle({
+        title: data.title,
+        content: data.content,
+        thumbnail: data.thumbnail,
+        files: data.files,
+      });
+    };
+    if (article_no && user.user_id) {
+      getArticle();
+    }
+  }, [article_no, user.user_id]);
 
-  // 글 작성
+  // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!article.title || !article.content) {
-      alert('제목과 내용은 필수 입력입니다.');
-      return;
+
+    const boardDto = {
+      user_id: user.user_id,
+      title: article.title,
+      content: article.content,
+    };
+
+    const formData = new FormData();
+    formData.append(
+      'boardDto',
+      new Blob([JSON.stringify(boardDto)], {
+        type: 'application/json',
+      })
+    );
+    formData.append('thumbnail', files[0]);
+    if (files.length > 1) {
+      for (let i = 1; i < files.length; i++) {
+        formData.append('files', files[i]);
+      }
+    } else {
+      formData.append('files', null);
     }
 
-    const uploadArticle = async () => {
-      // thumbnail
-      if (file) {
-        await setImgUrl();
+    const uploadBoard = async () => {
+      // post, put !
+      const { status } = await fetchBoardPost(formData);
+      if (status) {
+        navigator('/board/list');
       }
-      console.log(thumbnail);
-      // article
-      const body = {
-        user_id: user.user_id,
-        title: article.title,
-        content: article.content,
-        thumbnail: thumbnail,
-      };
-      await fetchBoardPost(body);
     };
-    uploadArticle();
-    navigator('/board');
+    uploadBoard();
   };
 
   return (
@@ -73,7 +90,7 @@ const BoardWrite = () => {
           value={article.content}
           setValue={setArticle}
         />
-        <BoardWriteImage setFile={setFile} />
+        <BoardWriteImage files={files} setFiles={setFiles} />
         <HrStyle />
         <BoardWriteButtonStyle onClick={handleSubmit}>
           <BsPencilSquare style={{ fontSize: '0.9rem' }} />

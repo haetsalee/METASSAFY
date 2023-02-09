@@ -2,26 +2,26 @@ import styled from 'styled-components';
 import ArticleButtonWrapper from './ArticleButtonWrapper';
 import ArticleInfoWriter from './ArticleInfoWriter';
 
-const ArticleInfo = () => {
-  //   const date = new Date(card.regtime);
-  //   const strDate =
-  //     String(date.getFullYear()).slice(2, 4) +
-  //     '.' +
-  //     String(date.getMonth()).padStart(2, '0') +
-  //     '.' +
-  //     String(date.getDate()).padStart(2, '0');
+const ArticleInfo = ({ article }) => {
+  // useEffect(() => {
+  //   console.log(article);
+  // }, [article]);
 
   return (
     <SectionStyle style={{ width: '100%' }}>
       <ContentDivStyle>
-        <ImgStyle src="https://kr.object.ncloudstorage.com/metassafy/4410082f-7a3f-4478-8db1-74907d98284e스너프킨.jpg" />
-        <TextStyle>
-          게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글게시글
-        </TextStyle>
+        {/* <ImgStyle src={article.thumbnail} /> */}
+        {article.files &&
+          article.files.map((file, index) => {
+            return <ImgStyle src={file.path} alt="content img" key={index} />;
+          })}
+        <TextStyle>{article.content}</TextStyle>
       </ContentDivStyle>
       <WriteInfoDivStyle>
-        <ArticleInfoWriter />
-        <ArticleButtonWrapper />
+        <ArticleInfoWriter article={article} />
+        {!!article.my_article && (
+          <ArticleButtonWrapper article_no={article.article_no} />
+        )}
       </WriteInfoDivStyle>
     </SectionStyle>
   );
@@ -49,6 +49,7 @@ const ImgStyle = styled.img`
 
 const TextStyle = styled.div`
   width: 100%;
+  min-height: 5rem;
 `;
 
 const WriteInfoDivStyle = styled.div`
