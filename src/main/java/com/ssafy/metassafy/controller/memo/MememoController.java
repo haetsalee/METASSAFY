@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,9 +26,15 @@ public class MememoController {
 
     // 메메모 리스트 가져오기
     @GetMapping
-    public ResponseEntity<List<MememoDto>> listMememo(MemoParameterDto memoParameterDto) throws Exception {
+    public ResponseEntity<List<MememoDto>> listMememo(MemoParameterDto memoParameterDto) {
         logger.info("listMememo - 호출");
-        return new ResponseEntity<List<MememoDto>>(mememoService.listMememo(memoParameterDto), HttpStatus.OK);
+        try{
+            return new ResponseEntity<List<MememoDto>>(mememoService.listMememo(memoParameterDto), HttpStatus.OK);
+        }catch (Exception e){
+            List<MememoDto> list = new ArrayList<>();
+            return new ResponseEntity<List<MememoDto>>(list, HttpStatus.OK);
+        }
+
     }
 
     // 메메모 create
