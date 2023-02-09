@@ -40,32 +40,31 @@ function MainNavigation() {
     <HeaderStyle>
       <LogoStyle>
         {!user && (
-          <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
-            <img
-              alt="MetaSSAFY logo"
-              src="images/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            METASSAFY
+          <NavLink to="/">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img
+                alt="MetaSSAFY logo"
+                src="images/logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              METASSAFY
+            </div>
           </NavLink>
         )}
         {user && (
-          <NavLink
-            to="/metavssafy"
-            NavLink
-            to="/"
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <img
-              alt="MetaSSAFY logo"
-              src="images/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            METASSAFY
+          <NavLink to="/metassafy">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img
+                alt="MetaSSAFY logo"
+                src="images/logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              METASSAFY
+            </div>
           </NavLink>
         )}
         {/* <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
