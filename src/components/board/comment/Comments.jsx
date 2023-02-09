@@ -17,7 +17,7 @@ const Comments = ({ user_id, article_no }) => {
       setComments(data);
     };
     const getCocomment = async () => {
-      const { data } = await fetchCocommentGet(article_no, user_id);
+      const { data } = await fetchCocommentGet(41, user_id);
       setCocomments(data);
     };
     if (article_no) {

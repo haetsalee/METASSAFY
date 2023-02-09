@@ -208,10 +208,10 @@ export const fetchCocommentPost = async ({ article_no, content, user_id }) => {
   }
 };
 
-export const fetchCocommentGet = async (article_no, user_id) => {
+export const fetchCocommentGet = async (memo_no, user_id) => {
   try {
     const { data, status } = await API.get(
-      `/mememo?article_no=${article_no}&user_id=${user_id}`
+      `/mememo?memo_no=${memo_no}&user_id=${user_id}`
     );
     console.log('memo list', data, status);
     return { data, status, error: null };
