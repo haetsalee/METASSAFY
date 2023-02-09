@@ -35,7 +35,7 @@ public class BoardServiceImpl implements  BoardService{
         }
 
         System.out.println(thumbnail.isEmpty() + " 썸내일");
-        System.out.println(files.size() + " 파일");
+        //System.out.println(files.size() + " 파일");
 
         FileDto file = null;
 
@@ -57,7 +57,7 @@ public class BoardServiceImpl implements  BoardService{
             sqlSession.getMapper(BoardMapper.class).uploadFile(file);
         }
 
-        if(!files.get(0).isEmpty()){
+        if(files != null && !files.get(0).isEmpty()){
             logger.info("writeArticle_files - 업로드");
             for (MultipartFile multipartFile : files) {
                 logger.info(multipartFile.getOriginalFilename().length() + " 길이 몇?");
