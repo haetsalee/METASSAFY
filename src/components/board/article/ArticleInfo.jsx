@@ -10,7 +10,11 @@ const ArticleInfo = ({ article }) => {
   return (
     <SectionStyle style={{ width: '100%' }}>
       <ContentDivStyle>
-        <ImgStyle src={article.thumbnail} />
+        {/* <ImgStyle src={article.thumbnail} /> */}
+        {article.files &&
+          article.files.map((file, index) => {
+            return <ImgStyle src={file.path} alt="content img" key={index} />;
+          })}
         <TextStyle>{article.content}</TextStyle>
       </ContentDivStyle>
       <WriteInfoDivStyle>
