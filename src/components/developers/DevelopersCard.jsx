@@ -59,8 +59,9 @@ const NameP = styled.p`
   font-size: 2rem;
 `;
 
-const RoadMapP = styled.p`
+const RoadMapP = styled.pre`
   font-size: 1.5rem;
+  white-space: pre-wrap;
   color: #436b71c9;
 `;
 
