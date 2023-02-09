@@ -80,12 +80,26 @@ function App() {
               <Route path="friend" element={<PhoneFriendPage />}></Route>
             </Route>
           </Route>
+          <Route path="unity" element={<UnityPage />}>
+            <Route path="videochat/" element={<OpenViduPage />} />
+            <Route path="phone/" element={<Page1 />}>
+              <Route
+                path="profile/:user_id"
+                element={<ProfilePage user_id={user?.user_id} />}
+              />
+              <Route path="profile/modify" element={<ProfileModify />}></Route>
+              <Route path="chat/" element={<PhoneChatingList />} />
+              <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
+              <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
+              <Route path="friend" element={<PhoneFriendPage />}></Route>
+            </Route>
+          </Route>
         </Route>
       </Route>
       {/* Navbar 제외 */}
-      <Route path="/" element={<PrivateRoute />}>
-        <Route path="unity" element={<UnityPage />} />
-      </Route>
+      {/* <Route path="/" element={<PrivateRoute />}>
+        
+      </Route> */}
     </Routes>
   );
 }

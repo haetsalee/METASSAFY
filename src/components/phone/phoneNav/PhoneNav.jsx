@@ -36,7 +36,7 @@ function PhoneNav(props) {
           </NavLink>
         </LiStyle>
         <LiStyle>
-          <NavLink to="/metassafy">
+          <NavLink to="../">
             <Logout />
           </NavLink>
         </LiStyle>

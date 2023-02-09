@@ -14,11 +14,13 @@ import phoneImg from '../../assets/images/phone.png';
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
   const navigate = useNavigate();
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -567,7 +569,7 @@ function MetaverseThree() {
         src={phoneImg}
         alt="phone"
         onClick={() => {
-          navigate(`phone`);
+          navigate(`phone/profile/${user}`);
         }}
       />
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
