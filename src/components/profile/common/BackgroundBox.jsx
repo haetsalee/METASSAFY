@@ -3,10 +3,24 @@ import styled from 'styled-components';
 import { ReactComponent as Setting } from '../../../assets/icons/settings.svg';
 import { NavLink } from 'react-router-dom';
 import { getJsonLocalUserInfo } from '../../../utils/local-storage';
+import { TbUserPlus } from 'react-icons/tb';
+import API from '../../../utils/api';
 
 function BackgroundBox(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
   console.log(user, props.who, '--------');
+
+  function onAddFriend() {
+    API.get('friend/call/notify/' + user + '/' + props.who)
+      .then((res) => {
+        if (res.data === true) {
+          alert('신청 보냄');
+        } else {
+          alert('이미 친구거나 방치한 친구요청이 있습니다.');
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <WrapperStyle>
@@ -23,11 +37,11 @@ function BackgroundBox(props) {
         )}
         {user !== props.who && (
           <SettingDiv>
-            <Setting
+            <TbUserPlus
               stroke="#617485"
-              style={{ float: 'right', margin: '1rem' }}
+              style={{ float: 'right', margin: '1rem', cursor: 'pointer' }}
+              onClick={onAddFriend}
             />
-            친구추가 들어갈 예정
           </SettingDiv>
         )}
         <CircleBackgroundStyle>
