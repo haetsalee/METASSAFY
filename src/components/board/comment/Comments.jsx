@@ -1,28 +1,20 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {
-  fetchCocommentGet,
-  fetchCommentGet,
-} from '../../../services/board-service';
+import { fetchCommentGet } from '../../../services/board-service';
 import CommentInput from './CommentInput';
-import CommentLiItem from './CommentLiItem';
+import CommentItem from './CommentItem';
 
 const Comments = ({ user_id, article_no }) => {
   const [comments, setComments] = useState([]);
-  const [cocomments, setCocomments] = useState([]);
 
   useEffect(() => {
     const getComment = async () => {
       const { data } = await fetchCommentGet(article_no, user_id);
       setComments(data);
     };
-    const getCocomment = async () => {
-      const { data } = await fetchCocommentGet(41, user_id);
-      setCocomments(data);
-    };
+
     if (article_no) {
       getComment();
-      getCocomment();
     }
   }, [user_id, article_no]);
 
@@ -31,21 +23,16 @@ const Comments = ({ user_id, article_no }) => {
       <h1 style={{ fontSize: '1.2rem' }}>댓글</h1>
       <CommentWrapper>
         <InputWrapper>
-          <CommentInput
-            user_id={user_id}
-            article_no={article_no}
-            setComments={setComments}
-          />
+          <CommentInput article_no={article_no} setComments={setComments} />
         </InputWrapper>
         <CommentUlStyle>
           {comments.map((comment, index) => {
             return (
-              <CommentLiItem
+              <CommentItem
                 key={index}
                 comment={comment}
                 setComments={setComments}
-                cocomments={cocomments}
-                setCocomments={setCocomments}
+                user_id={user_id}
               />
             );
           })}

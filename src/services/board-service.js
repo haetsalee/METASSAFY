@@ -144,7 +144,7 @@ export const fetchBoardDelete = async (article_no) => {
   }
 };
 
-export const fetchCommentPost = async ({ article_no, content, user_id }) => {
+export const fetchCommentPost = async (article_no, content, user_id) => {
   const requestBody = {
     article_no,
     content,
@@ -189,13 +189,13 @@ export const fetchCommentDelete = async (memo_no) => {
 };
 
 // 대댓글
-export const fetchCocommentPost = async ({ article_no, content, user_id }) => {
+export const fetchCocommentPost = async (memo_no, content, user_id) => {
   const requestBody = {
-    article_no,
+    memo_no,
     content,
     user_id,
   };
-
+  console.log(requestBody);
   try {
     const { data, status } = await API.post('/mememo', requestBody);
     if (status === 200) {

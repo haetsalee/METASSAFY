@@ -1,50 +1,44 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
   fetchCocommentDelete,
   fetchCocommentGet,
-  fetchCommentDelete,
-  fetchCommentGet,
 } from '../../../services/board-service';
 import Avatar from '../article/Avatar';
 
-const CocomentItem = ({ type, comment, setComments }) => {
-  const user = useSelector((state) => state.auth.user);
-
+const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
   // 댓글 삭제
   const deleteHandler = async () => {
-    if (type == 2) {
-      await fetchCocommentDelete(comment.memo_no);
-      const { data } = await fetchCocommentGet(
-        comment.article_no,
-        user.user_id
-      );
-      setComments(data);
+    await fetchCocommentDelete(cocomment.memo_no);
+    const { data, status } = await fetchCocommentGet(
+      cocomment.memo_no,
+      user_id
+    );
+    // 대댓 없으면
+    if (status === 500) {
+      setCocomments([]);
     } else {
-      await fetchCommentDelete(comment.memo_no);
-      const { data } = await fetchCommentGet(comment.article_no, user.user_id);
-      setComments(data);
+      // 있으면
+      setCocomments(data);
     }
   };
 
   return (
     <LiSection>
       <CommentWrapper>
-        <Avatar img={comment.profile_img} />
+        <Avatar img={cocomment.profile_img} />
         <CommentDiv>
           <DivStyle>
             <TitleStyle>
-              {comment.name}
-              <span>{comment.regtime.slice(2)}</span>
+              {cocomment.name}
+              <span>{cocomment.regtime.slice(2)}</span>
             </TitleStyle>
             <ButtonWrapper>
-              {comment.user_id === user.user_id && (
+              {cocomment.user_id === user_id && (
                 <ButtonStyle onClick={deleteHandler}>삭제하기</ButtonStyle>
               )}
             </ButtonWrapper>
           </DivStyle>
-          <ContentStyle>{comment.content}</ContentStyle>
+          <ContentStyle>{cocomment.content}</ContentStyle>
         </CommentDiv>
       </CommentWrapper>
     </LiSection>

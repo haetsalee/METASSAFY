@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
   fetchCocommentGet,
@@ -12,21 +11,43 @@ import CommentInput from './CommentInput';
 import { BsArrowReturnRight } from 'react-icons/bs';
 import CocomentItem from './CocomentItem';
 
-const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
-  const user = useSelector((state) => state.auth.user);
+const CommentItem = ({ comment, setComments, user_id }) => {
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
   const [isWriting, setIsWriting] = useState(false);
+  const [cocomments, setCocomments] = useState([]);
 
+  // 댓글 좋아요 갱신
   useEffect(() => {
     setLikeNum(comment.memo_like);
     setIsLike(comment.my_like);
   }, [comment]);
 
+  // 대댓글 가져오기
+  useEffect(() => {
+    const getCocomment = async () => {
+      const { data, status } = await fetchCocommentGet(
+        comment.memo_no,
+        user_id
+      );
+      console.log(data, status);
+      // 대댓 없으면
+      if (status === 500) {
+        setCocomments([]);
+      } else {
+        // 있으면
+        setCocomments(data);
+      }
+    };
+    if (user_id) {
+      getCocomment();
+    }
+  }, [comment, user_id]);
+
   // 댓글 삭제
   const deleteHandler = async () => {
     await fetchCommentDelete(comment.memo_no);
-    const { data } = await fetchCommentGet(comment.article_no, user.user_id);
+    const { data } = await fetchCommentGet(comment.article_no, user_id);
     setComments(data);
   };
 
@@ -35,8 +56,10 @@ const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
     setIsWriting((preState) => !preState);
   };
 
+  console.log(cocomments);
   return (
     <LiSection>
+      {/* 댓글 */}
       <CommentWrapper>
         <Avatar img={comment.profile_img} />
         <CommentDiv>
@@ -46,7 +69,7 @@ const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
               <span>{comment.regtime.slice(2)}</span>
             </TitleStyle>
             <ButtonWrapper>
-              {comment.user_id === user.user_id && (
+              {comment.user_id === user_id && (
                 <ButtonStyle onClick={deleteHandler}>삭제하기</ButtonStyle>
               )}
               <ButtonStyle onClick={showMememoHandler}>대댓글</ButtonStyle>
@@ -65,25 +88,27 @@ const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
           <ContentStyle>{comment.content}</ContentStyle>
         </CommentDiv>
       </CommentWrapper>
+      {/* 대댓글 */}
       <CocomentWrapper>
         <CocommentUlStyle>
-          {cocomments.map((comment, index) => {
-            return (
-              <CocomentItem
-                type="2"
-                key={index}
-                comment={comment}
-                setComments={setCocomments}
-              />
-            );
-          })}
+          {cocomments &&
+            cocomments.map((cocomment, index) => {
+              return (
+                <CocomentItem
+                  key={index}
+                  cocomment={cocomment}
+                  setCocomments={setCocomments}
+                  user_id={user_id}
+                />
+              );
+            })}
         </CocommentUlStyle>
         {isWriting && (
           <CocomentWriteWrapper>
             <BsArrowReturnRight />
             <CommentInput
-              user_id={user.user_id}
-              article_no={comment.article_no}
+              isCocomment={true}
+              article_no={comment.memo_no}
               setComments={setCocomments}
             />
           </CocomentWriteWrapper>
@@ -93,7 +118,7 @@ const CommentLiItem = ({ comment, setComments, cocomments, setCocomments }) => {
   );
 };
 
-export default CommentLiItem;
+export default CommentItem;
 
 const LiSection = styled.li`
   width: 100%;
