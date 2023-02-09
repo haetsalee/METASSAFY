@@ -176,7 +176,7 @@
 	<!-- last_read_chat_id 갱신 -->
 	<update id="renewLastReadChatId" parameterType="com.ssafy.metassafy.dto.chatting.ParticipantDto">
 		UPDATE participant
-		SET last_read_chat_id = (SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC LIMIT 1)
+		SET last_read_chat_id = IF((SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC LIMIT 1) = NULL, 0, (SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC LIMIT 1))
 		WHERE user_id = #{user_id} and croom_no = #{croom_no}
 	</update>
 
