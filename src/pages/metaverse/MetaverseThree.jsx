@@ -10,9 +10,15 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
 import { DoubleSide } from 'three';
 
+import phoneImg from '../../assets/images/phone.png';
+
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -545,7 +551,7 @@ function MetaverseThree() {
   }, []);
 
   return (
-    <div
+    <PositionDiv
       className="canvas_Wrap"
       style={{
         display: 'flex',
@@ -556,13 +562,33 @@ function MetaverseThree() {
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
+      <ImgStyle
+        src={phoneImg}
+        alt="phone"
+        onClick={() => {
+          navigate(`phone`);
+        }}
+      />
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
-    </div>
+    </PositionDiv>
   );
 }
 
 export default MetaverseThree;
+
+const PositionDiv = styled.div`
+  position: absolute;
+`;
+
+const ImgStyle = styled.img`
+  width: 4rem;
+  height: 6rem;
+  float: left;
+  top: 70%;
+  left: 5%;
+  position: absolute;
+`;
 
 ///잠시 save
 // function draw() {
