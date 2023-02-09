@@ -294,7 +294,7 @@ function PhoneChatingRoom(props) {
       },
     })
       .then((res) => {
-        temp = res.data;
+        setChatList(res.data);
         startNo = res.data[0]['chat_no'];
         // console.log(
         //   res.data,
@@ -309,7 +309,6 @@ function PhoneChatingRoom(props) {
     //   .then((res) => res.json())
     //   .then((data) => (temp = data));
     // console.log(temp, '========socket connect입니다=========');
-    setChatList(temp);
 
     return () => clearTimeout(timeout);
   }, [forTime]);
