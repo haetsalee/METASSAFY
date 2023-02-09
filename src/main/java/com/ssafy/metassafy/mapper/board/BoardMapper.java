@@ -22,4 +22,5 @@ public interface BoardMapper {
     public int uploadFile(FileDto fileDto) throws SQLException;
     public int uploadLike(LikeDto likeDto) throws SQLException;
     public int deleteLike(LikeDto likeDto) throws SQLException;
+    public List<FileDto> getFiles(int articleNo) throws SQLException;
 }

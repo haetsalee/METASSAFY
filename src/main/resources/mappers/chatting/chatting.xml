@@ -180,7 +180,7 @@
 	<update id="renewNotReadChat" parameterType="java.util.List">
 		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
 			UPDATE participant
-			SET not_read_chat = (SELECT count(*) FROM chat WHERE croom_no = #{item.croom_no} AND chat_no > #{item.last_read_chat_id})
+			SET not_read_chat = (SELECT count(*) FROM chat WHERE croom_no = #{item.croom_no} AND chat_no >= #{item.last_read_chat_id})
 			WHERE user_id = #{item.user_id} AND croom_no = #{item.croom_no}
 		</foreach>
 	</update>

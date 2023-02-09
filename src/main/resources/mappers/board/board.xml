@@ -106,6 +106,12 @@
 		where a.article_no = #{article_no}
 	</select>
 
+	<select id="getFiles" parameterType="int" resultType="com.ssafy.metassafy.dto.file.FileDto">
+		select article_no, origin_name, saved_name, path
+		from article_file
+		where article_no = #{article_no}
+	</select>
+
 	<update id="updateHit" parameterType="int">
 		update article
 		set hit = hit + 1

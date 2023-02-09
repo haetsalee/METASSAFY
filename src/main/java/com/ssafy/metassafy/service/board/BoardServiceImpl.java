@@ -107,6 +107,13 @@ public class BoardServiceImpl implements  BoardService{
 
     @Override
     public boolean deleteArticle(int article_no) throws Exception {
+
+        List<FileDto> files = sqlSession.getMapper(BoardMapper.class).getFiles(article_no);
+
+        for(int i = 0; i < files.size(); i++){
+            fileService.deleteFile(files.get(i));
+        }
+
         return sqlSession.getMapper(BoardMapper.class).deleteArticle(article_no) == 1;
     }
 
