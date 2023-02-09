@@ -20,7 +20,7 @@ export default Layout;
 const MainStyle = styled.main`
   // margin: 3rem auto;
   /* width: 100%; */
-  min-height: 100vh;
+  min-height: 100vh - 60px;
   /* background-color: #c2fbfb; */
   /* position: absolute;
   top: 0; */

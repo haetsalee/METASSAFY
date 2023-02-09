@@ -10,9 +10,15 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
 import { DoubleSide } from 'three';
 
+import phoneImg from '../../assets/images/phone.png';
+
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,7 +29,7 @@ function MetaverseThree() {
 
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v8.png');
+    const floorTexture = textureLoader.load('images/map_v9.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -61,7 +67,7 @@ function MetaverseThree() {
       -1000,
       1000
     );
-    const cameraPosition = new THREE.Vector3(1, 5, 5);
+    const cameraPosition = new THREE.Vector3(1, 6, 5);
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     camera.zoom = 0.2;
     camera.updateProjectionMatrix();
@@ -141,7 +147,7 @@ function MetaverseThree() {
     meshes.push(floorMesh);
 
     const portalMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
+      new THREE.PlaneGeometry(2, 2),
       new THREE.MeshStandardMaterial({
         map: portalTexture,
         alphaMap: portalTexture,
@@ -152,7 +158,8 @@ function MetaverseThree() {
     portalMesh.name = 'protal';
     portalMesh.rotation.y = Math.PI / 3;
     portalMesh.receiveShadow = true;
-    portalMesh.position.set(-5, 1, 0);
+    // portalMesh.castShadow = true;
+    portalMesh.position.set(-5, 2, 0);
     scene.add(portalMesh);
     meshes.push(portalMesh);
 
@@ -166,7 +173,7 @@ function MetaverseThree() {
       new THREE.MeshBasicMaterial({
         // color: 'skyblue',
         // transparent: true,
-        // opacity: 0.5,
+        // opacity: 0,
         map: pointerMeshTexture,
         // size: 0.1,
         transparent: true,
@@ -219,7 +226,7 @@ function MetaverseThree() {
         opacity: 0,
       })
     );
-    spotMeshProgrammers.position.set(3, 0.005, 5.3);
+    spotMeshProgrammers.position.set(2.8, 0.005, 5.3);
     spotMeshProgrammers.rotation.x = -Math.PI / 2;
     spotMeshProgrammers.receiveShadow = true;
     scene.add(spotMeshProgrammers);
@@ -545,7 +552,7 @@ function MetaverseThree() {
   }, []);
 
   return (
-    <div
+    <PositionDiv
       className="canvas_Wrap"
       style={{
         display: 'flex',
@@ -556,13 +563,33 @@ function MetaverseThree() {
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
+      <ImgStyle
+        src={phoneImg}
+        alt="phone"
+        onClick={() => {
+          navigate(`phone`);
+        }}
+      />
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
-    </div>
+    </PositionDiv>
   );
 }
 
 export default MetaverseThree;
+
+const PositionDiv = styled.div`
+  position: absolute;
+`;
+
+const ImgStyle = styled.img`
+  width: 4rem;
+  height: 6rem;
+  float: left;
+  top: 70%;
+  left: 5%;
+  position: absolute;
+`;
 
 ///잠시 save
 // function draw() {

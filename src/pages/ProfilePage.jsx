@@ -23,7 +23,6 @@ function ProfilePage() {
         <Profile user={user}></Profile>
         {/* <GetUserStack name="ssafy"></GetUserStack> */}
       </ProfileDiv>
-      <WhiteBoxt />
     </Phone>
   );
 }
@@ -47,9 +46,4 @@ const ProfileDiv = styled.div`
 const WhiteBox = styled.div`
   width: 100%;
   height: 5%;
-`;
-
-const WhiteBoxt = styled.div`
-  width: 100%;
-  height: 15%;
 `;

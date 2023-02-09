@@ -22,9 +22,9 @@ const ButtonStyle = styled.button`
   font-size: 12px;
   ${(props) => {
     return css`
-      color: ${props.color || 'white'};
-      background-color: ${props.backgroundColor || '#799FC0'};
-      border-color: ${props.borderColor || '#799FC1'};
+      color: ${props.color || 'black'};
+      background-color: ${props.backgroundColor || '#98c3e9'};
+      border-color: ${props.borderColor || '#98c3e9'};
       height: ${props.height || '36px'};
     `;
   }}

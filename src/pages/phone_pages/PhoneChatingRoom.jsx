@@ -23,7 +23,7 @@ function PhoneChatingRoom(props) {
   // // 파람스 시도
   const params = useParams();
   const room = params.id;
-  console.log('room', room);
+  // console.log('room', room);
 
   // const room = props.croom_no;
   // console.log(props.croom, '==================');
@@ -64,6 +64,25 @@ function PhoneChatingRoom(props) {
           content.user_id = user;
 
           // last_read_chat_id 최신화
+
+          // not_read 최신화
+          await API.put(`/chat`, JSON.stringify(content))
+            .then((res) => {})
+            .catch((err) => console.log(err));
+
+          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
+          //   method: 'put',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(content),
+          // });
+
+          console.log(2);
+
+          // let temp = [];
+          console.log(startNo, '--startno--');
+
           await API.put(
             `/participant/last_read_chat_id`,
             JSON.stringify(content)
@@ -85,24 +104,6 @@ function PhoneChatingRoom(props) {
 
           console.log(1);
 
-          // not_read 최신화
-          await API.put(`/chat`, JSON.stringify(content))
-            .then((res) => {})
-            .catch((err) => console.log(err));
-
-          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
-          //   method: 'put',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(content),
-          // });
-
-          console.log(2);
-
-          // let temp = [];
-          console.log(startNo, '--startno--');
-
           // chat 리스트 다시 불러오기
           // 대화목록 가져오기
           await API.get(`/chat`, {
@@ -114,10 +115,10 @@ function PhoneChatingRoom(props) {
           })
             .then((res) => {
               temp = res.data;
-              console.log(
-                res.data
-                // '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
-              );
+              // console.log(
+              //   res.data,
+              //   '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
+              // );
             })
             .catch((err) => console.log(err));
 
@@ -161,49 +162,112 @@ function PhoneChatingRoom(props) {
     setSending(sending + 1);
   };
 
-  useEffect(() => {
-    API.put(
-      `/participant/last_read_chat_id`,
-      JSON.stringify({ user_id: user, croom_no: room })
-    )
-      .then((res) => {
-        console.log('최신화 중');
-      })
-      .catch((err) => console.log(err));
-    connect();
-
-    return () => {
-      startNo = 0;
-      stompClient.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
+  const getChat = async () => {
     const data = {
       croom_no: room,
       user_id: user,
     };
-    // not_read 갱신하기
-    API.put('/chat', JSON.stringify(data))
-      .then((res) => console.log(res))
-      .then(() => {
-        API.get('/chat', {
-          params: {
-            start_no: startNo,
-            user_id: user,
-            croom_no: room,
-          },
-        })
-          .then((res) => {
-            setChatList(res.data);
-            startNo = res.data[0]['chat_no'];
-            // console.log(res.data[0]['chat_no'], '--startno--');
-            // console.log(startNo, '--startno--');
-            // console.log(res.data, '------useEffect입니다--------');
-          })
-          .catch((err) => console.log(err));
-      });
+
+    // not_read 최신화
+    await API.put('/chat', JSON.stringify(data)).then((res) => {});
+
+    // last_read_chat_id 최신화
+    await API.put(`/participant/last_read_chat_id`, JSON.stringify(data))
+      .then((res) => {})
+      .catch((err) => console.log(err));
+
+    console.log(1, 'get');
+
+    // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
+    //   method: 'put',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(content),
+    // });
+
+    console.log(2, 'get');
+
+    // chat 리스트 다시 불러오기
+    // 대화목록 가져오기
+    await API.get(`/chat`, {
+      params: {
+        start_no: startNo,
+        user_id: user,
+        croom_no: room,
+      },
+    })
+      .then((res) => {
+        temp = res.data;
+        startNo = res.data[0]['chat_no'];
+        // console.log(
+        //   res.data,
+        //   '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
+        // );
+      })
+      .catch((err) => console.log(err));
+
+    // await fetch(
+    //   `http://i8d211.p.ssafy.io:8088/metassafy/chat?start_no=0&user_id=ssafy&croom_no=${room}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => (temp = data));
+    // console.log(temp, '========socket connect입니다=========');
+    setChatList(temp);
+    // setChatList((_chat_list) => [..._chat_list, content]);
+
+    console.log(3, 'get');
+  };
+
+  useEffect(() => {
+    getChat();
+    // API.put(
+    //   `/participant/last_read_chat_id`,
+    //   JSON.stringify({ user_id: user, croom_no: room })
+    // )
+    //   .then((res) => {
+    //     console.log('최신화 중');
+    //   })
+    //   .catch((err) => console.log(err));
+    connect();
+
+    return () => {
+      startNo = 0;
+      API.put(
+        `/participant/leave_room`,
+        JSON.stringify({ user_id: user, croom_no: room })
+      ).then((res) => {});
+      console.log('disconnect ------------------------------------------');
+      stompClient.disconnect();
+    };
   }, []);
+
+  // useEffect(() => {
+  //   const data = {
+  //     croom_no: room,
+  //     user_id: user,
+  //   };
+  //   // not_read 갱신하기
+  //   API.put('/chat', JSON.stringify(data))
+  //     .then((res) => console.log(res))
+  //     .then(() => {
+  //       API.get('/chat', {
+  //         params: {
+  //           start_no: startNo,
+  //           user_id: user,
+  //           croom_no: room,
+  //         },
+  //       })
+  //         .then((res) => {
+  //           setChatList(res.data);
+  //           startNo = res.data[0]['chat_no'];
+  //           // console.log(res.data[0]['chat_no'], '--startno--');
+  //           // console.log(startNo, '--startno--');
+  //           // console.log(res.data, '------useEffect입니다--------');
+  //         })
+  //         .catch((err) => console.log(err));
+  //     });
+  // }, []);
 
   useEffect(() => {
     API.get(`/chat/room`, {

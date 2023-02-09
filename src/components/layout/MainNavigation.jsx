@@ -40,27 +40,31 @@ function MainNavigation() {
     <HeaderStyle>
       <LogoStyle>
         {!user && (
-          <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
-            <img
-              alt="MetaSSAFY logo"
-              src="images/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            METASSAFY
+          <NavLink to="/">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img
+                alt="MetaSSAFY logo"
+                src="images/logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              METASSAFY
+            </div>
           </NavLink>
         )}
         {user && (
-          <NavLink to="/page3">
-            <img
-              alt="MetaSSAFY logo"
-              src="images/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            METASSAFY
+          <NavLink to="/metassafy">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img
+                alt="MetaSSAFY logo"
+                src="images/logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              METASSAFY
+            </div>
           </NavLink>
         )}
         {/* <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
@@ -107,11 +111,15 @@ function MainNavigation() {
             <NavLink to="/page3">page3</NavLink>
           </LiStyle> */}
           <LiStyle>
+            {user && <NavLink to="/metassafy">MetaSSAFY</NavLink>}
+          </LiStyle>
+          <LiStyle>
             <NavLink to="/intro">소개</NavLink>
           </LiStyle>
           <LiStyle>
             <NavLink to="/developers">개발팀</NavLink>
           </LiStyle>
+
           <LiStyle>
             <NavLink to="/board/list">게시판</NavLink>
           </LiStyle>
