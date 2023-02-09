@@ -136,12 +136,15 @@
 	</update>
 
 	<update id="updateNotRead" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto">
+        SET @small := (SELECT last_read_chat_id FROM participant WHERE croom_no = #{croom_no} AND user_id = #{user_id})
+        SET @big := (SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC limit 1)
+
 		UPDATE chat
-		SET not_read = IF(not_read > 0, not_read - 1, 0)
-		WHERE croom_no = #{croom_no} AND chat_no BETWEEN (SELECT last_read_chat_id FROM participant WHERE croom_no = #{croom_no} AND user_id = #{user_id}) AND (SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC limit 1)
+		SET not_read = IF(@small > @big, not_read ,IF(not_read > 0, not_read - 1, 0))
+		WHERE croom_no = #{croom_no} AND IF(@small > @big, chat_no = @big, chat_no BETWEEN @small AND @big)
 	</update>
 
-
+<!--	IF(PAMENT_SECONDS = 1 , 'CASH', 'OTHER')-->
 
 <!--	private int chat_no;-->
 <!--	private int croom_no;-->
