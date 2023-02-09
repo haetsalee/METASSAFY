@@ -43,6 +43,8 @@ function PhoneChatingRoom(props) {
 
   const [sending, setSending] = useState(0);
 
+  const [forTime, setForTime] = useState(0);
+
   let temp = [];
 
   const connect = () => {
@@ -281,6 +283,13 @@ function PhoneChatingRoom(props) {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
+    getChat();
+
+    return () => clearTimeout(timeout);
+  }, [forTime]);
 
   useEffect(() => {
     console.log(chatBoxRef.current.scrollTop, '스크롤 시작');

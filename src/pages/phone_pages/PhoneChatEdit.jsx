@@ -9,10 +9,14 @@ function PhoneChatEdit() {
   const room = params.id;
   const [newName, setNewName] = useState('');
 
+  const content = {
+    croom_name: newName,
+    croom_no: room,
+    croom_img: null,
+  };
+
   function changeName() {
-    API.put(`/chat/room`, {
-      params: { croom_name: newName, croom_no: room },
-    }).then((res) => {
+    API.put(`/chat/room`, content).then((res) => {
       console.log(res);
     });
   }
