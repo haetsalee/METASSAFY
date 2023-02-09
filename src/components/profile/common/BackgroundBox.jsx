@@ -21,6 +21,15 @@ function BackgroundBox(props) {
             </NavLink>
           </SettingDiv>
         )}
+        {user !== props.who && (
+          <SettingDiv>
+            <Setting
+              stroke="#617485"
+              style={{ float: 'right', margin: '1rem' }}
+            />
+            친구추가 들어갈 예정
+          </SettingDiv>
+        )}
         <CircleBackgroundStyle>
           <CircleImgStyle src={props.image}></CircleImgStyle>
         </CircleBackgroundStyle>
