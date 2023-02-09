@@ -12,8 +12,14 @@ const BoardWrite = () => {
   const { id: article_no } = useParams();
   const navigator = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const [article, setArticle] = useState({ title: '', content: '' });
+  const [article, setArticle] = useState({
+    title: '',
+    content: '',
+    thumbnail: '',
+    files: [],
+  });
   const [files, setFiles] = useState([]);
+  console.log(article);
 
   // 수정이면 기존 데이터 삽입
   useEffect(() => {
@@ -23,13 +29,15 @@ const BoardWrite = () => {
         title: data.title,
         content: data.content,
         thumbnail: data.thumbnail,
+        files: data.files,
       });
     };
-    if (article_no) {
+    if (article_no && user.user_id) {
       getArticle();
     }
   }, [article_no, user.user_id]);
 
+  // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
 
