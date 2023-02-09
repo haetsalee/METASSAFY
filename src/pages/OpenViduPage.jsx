@@ -9,6 +9,8 @@ import { OutlinedInput, InputAdornment } from '@mui/material';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+import useMyFetch from '../hooks/use-my-fetch';
+
 const APPLICATION_SERVER_URL = 'https://www.metassafy.store/api/session';
 
 class OpenViduPage extends Component {
@@ -46,9 +48,6 @@ class OpenViduPage extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
-    // this.setState({
-    //   myUserName: this.props.user.name,
-    // });
   }
 
   componentWillUnmount() {
@@ -400,7 +399,8 @@ class OpenViduPage extends Component {
     this.OV = null;
     this.setState({
       mySessionId: 'SessionA',
-      myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      // myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      myUserName: this.props.user.name + '_' + this.props.user.user_id,
       sessionCamera: undefined,
       sessionScreen: undefined,
       shareScreen: undefined,
@@ -483,11 +483,11 @@ class OpenViduPage extends Component {
                       className="form-control"
                       type="text"
                       id="userName"
-                      value={myUserName}
-                      // value={
-                      //   this.props.user.name + '_' + this.props.user.user_id ||
-                      //   ''
-                      // }
+                      // value={myUserName}
+                      value={
+                        this.props.user.name + '_' + this.props.user.user_id ||
+                        ''
+                      }
                       onChange={this.handleChangeUserName}
                       required
                       // 읽기 전용
