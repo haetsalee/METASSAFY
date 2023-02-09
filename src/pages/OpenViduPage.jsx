@@ -483,11 +483,11 @@ class OpenViduPage extends Component {
                       className="form-control"
                       type="text"
                       id="userName"
-                      // value={myUserName}
-                      value={
-                        this.props.user.name + '_' + this.props.user.user_id ||
-                        ''
-                      }
+                      value={myUserName}
+                      // value={
+                      //   this.props.user.name + '_' + this.props.user.user_id ||
+                      //   ''
+                      // }
                       onChange={this.handleChangeUserName}
                       required
                       // 읽기 전용
