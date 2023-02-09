@@ -34,7 +34,6 @@ public class MememoController {
             List<MememoDto> list = new ArrayList<>();
             return new ResponseEntity<List<MememoDto>>(list, HttpStatus.OK);
         }
-
     }
 
     // 메메모 create

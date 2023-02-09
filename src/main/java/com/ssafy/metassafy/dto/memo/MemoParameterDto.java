@@ -12,4 +12,5 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class MemoParameterDto {
     private String user_id;
     private int article_no;
+    private int memo_no;
 }
