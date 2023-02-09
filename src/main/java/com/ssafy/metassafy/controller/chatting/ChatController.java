@@ -67,7 +67,7 @@ public class ChatController {
     //채팅방 이름 변경
     @PutMapping(value = "/room")
     public ResponseEntity<String> editChatRoom(ChatParameterDto chatParameterDto) throws Exception{
-        logger.info("editChatRoom - 호출");
+        logger.info("editChatRoom - 호출" + chatParameterDto);
         if(chatService.editChatRoom(chatParameterDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
