@@ -4,8 +4,12 @@ import { useEffect, useCallback, useState } from 'react';
 import { getLocalUserInfo } from '../utils/local-storage';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
+import PhoneTest from '../components/phone/PhoneTest';
+
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
+  const [modal, setModal] = useState(false);
+
   const loginUser = JSON.parse(user);
   const {
     unityProvider,
@@ -20,12 +24,17 @@ function UnityPage() {
     codeUrl: 'Build/Build.wasm',
   });
 
-  const handleClick = useCallback((mode) => {
-    console.log('이벤트 발생:' + mode);
-    if (mode == 'phone') {
-      alert('여기에 핸드폰 모달을 띄우세요.');
-    }
-  }, []);
+  const onClose = () => {
+    setModal(false);
+    console.log(modal);
+  };
+
+  // const handleClick = useCallback((mode) => {
+  //   console.log('이벤트 발생:' + mode);
+  //   if (mode == 'phone') {
+  //     alert('여기에 핸드폰 모달을 띄우세요.');
+  //   }
+  // }, []);
 
   useEffect(() => {});
 
@@ -37,11 +46,14 @@ function UnityPage() {
   }, [isLoaded]);
 
   useEffect(() => {
-    addEventListener('openPhone', handleClick);
+    addEventListener('openPhone', () => {
+      setModal(!modal);
+      console.log(modal);
+    });
     return () => {
-      removeEventListener('openPhone', handleClick);
+      removeEventListener('openPhone', () => {});
     };
-  }, [addEventListener, removeEventListener, handleClick]);
+  });
 
   return (
     <div>
@@ -54,6 +66,7 @@ function UnityPage() {
         unityProvider={unityProvider}
         style={{ width: '100%', height: '95%' }}
       />
+      {modal && <PhoneTest onClose={onClose} />}
     </div>
   );
 }

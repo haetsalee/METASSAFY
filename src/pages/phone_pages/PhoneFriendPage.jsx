@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Phone from '../../components/UI/Phone';
+//import Phone from '../../components/UI/Phone';
 import styled from 'styled-components';
 
 import FriendList from '../../components/phone/friend/FriendList';
@@ -56,7 +56,7 @@ function PhoneFriendPage() {
   };
 
   return (
-    <Phone>
+    <>
       <PhoneFriendPageStyle>
         <MyProfile />
         <FriendButtonBar
@@ -79,7 +79,7 @@ function PhoneFriendPage() {
           )}
         </FriendListStyle>
       </PhoneFriendPageStyle>
-    </Phone>
+    </>
   );
 }
 
