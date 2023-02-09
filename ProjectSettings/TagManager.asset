@@ -9,6 +9,7 @@ TagManager:
   - Selectable
   - Desk
   - CinemachineTarget
+  - RoomInfo
   layers:
   - Default
   - TransparentFX

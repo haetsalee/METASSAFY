@@ -5,6 +5,7 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Utility;
+using Photon.Realtime;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -36,6 +37,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
+            
         }
     }
     public override void OnJoinedRoom()
@@ -50,8 +52,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             skin = 0;
          
         GameObject p= PhotonNetwork.Instantiate(playerPrefabs[skin].name, Vector3.zero, Quaternion.identity);
-
-        
+       
         Transform t = p.GetComponent<Transform>();
        // GameObject.Find("Main Camera").GetComponent<SmoothFollowCam>().target = t.Find("CamPivot").transform;
 
@@ -69,5 +70,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.NickName = name;
     }
+
+     
 
 }

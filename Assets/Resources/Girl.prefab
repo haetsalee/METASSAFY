@@ -837,7 +837,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Grounded
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: FreeFall
   - Type: 1
     SynchronizeType: 2
