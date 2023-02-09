@@ -144,18 +144,6 @@
 		WHERE croom_no = #{croom_no} AND IF(@small > @big, chat_no = @big, chat_no BETWEEN @small AND @big)
 	</update>
 
-<!--	IF(PAMENT_SECONDS = 1 , 'CASH', 'OTHER')-->
-
-<!--	private int chat_no;-->
-<!--	private int croom_no;-->
-<!--	private String croom_name;-->
-<!--	private String chatroom_img;-->
-<!--	private String user_id;-->
-<!--	private String name;-->
-<!--	private int start_no;-->
-<!--	private int cur_no;-->
-<!--	private List<String> participants;-->
-
 	<!-- 모든 participant 리스트 -->
 	<select id="findAllParticipants" parameterType="com.ssafy.metassafy.dto.chatting.ChatParameterDto" resultType="com.ssafy.metassafy.dto.chatting.ParticipantDto">
 		SELECT p.user_id, p.croom_no, p.croom_name, p.not_read_chat, p.last_read_chat_id, p.regtime
@@ -188,7 +176,7 @@
 	<!-- last_read_chat_id 갱신 -->
 	<update id="renewLastReadChatId" parameterType="com.ssafy.metassafy.dto.chatting.ParticipantDto">
 		UPDATE participant
-		SET last_read_chat_id = (SELECT chat_no + 1 FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC LIMIT 1)
+		SET last_read_chat_id = (SELECT chat_no FROM chat WHERE croom_no = #{croom_no} ORDER BY chat_no DESC LIMIT 1)
 		WHERE user_id = #{user_id} and croom_no = #{croom_no}
 	</update>
 
