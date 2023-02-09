@@ -141,7 +141,7 @@
 
 		UPDATE chat
 		SET not_read = IF(@small = @big, not_read ,IF(not_read > 0, not_read - 1, 0))
-		WHERE croom_no = #{croom_no} AND chat_no BETWEEN @small AND @big
+		WHERE croom_no = #{croom_no} AND chat_no BETWEEN @small + 1 AND @big
 	</update>
 
 	<!-- 모든 participant 리스트 -->
