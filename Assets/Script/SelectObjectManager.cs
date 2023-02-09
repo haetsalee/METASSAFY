@@ -20,7 +20,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     Vector3 m_vecMouseDownPos;
 
     Boolean isRoomInfoOpen = false;
-    public GameObject infoArea;
+    public GameObject tree;
     void Update()
     {
         
@@ -62,13 +62,22 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     clickBoard();
                 }
+                if (hit.collider.name == "tree")
+                {
+                  // GameObject tree= GameObject.FindGameObjectWithTag("tree");
+                   tree.SetActive(true);
+                }
                 
 
             }
 
         }
     }
-
+    public void cancleTree()
+    {
+        //GameObject tree = GameObject.FindGameObjectWithTag("tree");
+        tree.SetActive(false);
+    }
     void goToGumi()
     {
         Debug.Log("구미 클릭");
@@ -100,20 +109,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     openPhone ("phone");
 #endif
     }
-    public void onClickOpen()
-    {
-        
-        isRoomInfoOpen = !isRoomInfoOpen;
-        if (isRoomInfoOpen)
-        {
-            infoArea.SetActive(true);
-        }
-        else
-        {
-            infoArea.SetActive(false);
-        } 
-
-    }
+     
 
 
 }
