@@ -234,9 +234,7 @@ function PhoneChatingRoom(props) {
       API.put(
         `/participant/leave_room`,
         JSON.stringify({ user_id: user, croom_no: room })
-      ).then((res) => {
-        console.log(res, 'chatroom 떠나기');
-      });
+      ).then((res) => {});
       stompClient.disconnect();
     };
   }, []);

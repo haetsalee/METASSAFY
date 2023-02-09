@@ -18,8 +18,8 @@ function PhoneChatEdit() {
   }
 
   return (
-    <div>
-      <p>나가기</p>
+    <CenterDiv>
+      !!둘다 아직 안됨!!
       <p>이름 수정</p>
       <InputName
         value={newName}
@@ -29,7 +29,9 @@ function PhoneChatEdit() {
       />
       <button onClick={changeName}>수정!</button>
       {newName}
-    </div>
+      <p>채팅방 나가기</p>
+      <button>out</button>
+    </CenterDiv>
   );
 }
 
@@ -37,4 +39,9 @@ export default PhoneChatEdit;
 
 const InputName = styled.input`
   border: 1px solid black;
+`;
+
+const CenterDiv = styled.div`
+  text-align: center;
+  margin: 3rem;
 `;
