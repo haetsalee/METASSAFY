@@ -12,23 +12,10 @@ const CommentLiItem = ({ comment, setComments }) => {
   const user = useSelector((state) => state.auth.user);
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
-  const [isTouched, setIsTouched] = useState(false);
 
-  const date = new Date(comment.regtime);
-  const strDate =
-    String(date.getFullYear()).slice(2, 4) +
-    '.' +
-    String(date.getMonth()).padStart(2, '0') +
-    '.' +
-    String(date.getDate()).padStart(2, '0');
-
-  // 초기만 하트 업데이트
   useEffect(() => {
-    if (!isTouched) {
-      setLikeNum(comment.memo_like);
-      setIsLike(comment.my_like);
-    }
-    setIsTouched(true);
+    setLikeNum(comment.memo_like);
+    setIsLike(comment.my_like);
   }, [comment]);
 
   // 댓글 삭제
@@ -50,7 +37,7 @@ const CommentLiItem = ({ comment, setComments }) => {
         <DivStyle>
           <TitleStyle>
             {comment.name}
-            <span>{strDate}</span>
+            <span>{comment.regtime.slice(2)}</span>
           </TitleStyle>
           <ButtonWrapper>
             {comment.user_id === user.user_id && (
@@ -98,7 +85,7 @@ const DivStyle = styled.div`
 
 const TitleStyle = styled.div`
   & span {
-    padding-left: 0.7rem;
+    padding-left: 0.5rem;
     font-size: 0.7rem;
     color: #868e96;
   }
@@ -123,6 +110,7 @@ const ButtonStyle = styled.button`
 
 const LikeDivStyle = styled.div`
   display: flex;
+  align-items: center;
   font-size: 0.8rem;
   & svg {
     font-size: 0.8rem;

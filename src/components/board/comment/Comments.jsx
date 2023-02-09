@@ -27,7 +27,7 @@ const Comments = ({ user_id, article_no }) => {
           setComments={setComments}
         />
         <CommentUlStyle>
-          {comments.reverse().map((comment, index) => {
+          {comments.map((comment, index) => {
             return (
               <CommentLiItem
                 key={index}

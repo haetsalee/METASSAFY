@@ -19,7 +19,6 @@ const BoardWrite = () => {
     files: [],
   });
   const [files, setFiles] = useState([]);
-  console.log(article);
 
   // 수정이면 기존 데이터 삽입
   useEffect(() => {
