@@ -32,7 +32,7 @@ public class MememoController {
 
     // 메메모 create
     @PostMapping
-    public ResponseEntity<String> writeMememo(MememoDto mememoDto) throws Exception {
+    public ResponseEntity<String> writeMememo(@RequestBody MememoDto mememoDto) throws Exception {
         logger.info("writeMememo - 호출");
 
         if (mememoService.writeMememo(mememoDto)) {
@@ -50,7 +50,7 @@ public class MememoController {
 
     // 메메모 edit
     @PutMapping
-    public ResponseEntity<String> editMememo(MememoDto mememoDto) throws Exception {
+    public ResponseEntity<String> editMememo(@RequestBody MememoDto mememoDto) throws Exception {
         logger.info("editMememo" , mememoDto);
 
         if (mememoService.editMememo(mememoDto)) {
