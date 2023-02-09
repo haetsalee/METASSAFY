@@ -1,6 +1,7 @@
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
+import { ReactComponent as Logout } from '../../../assets/icons/log-out.svg';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
@@ -34,6 +35,11 @@ function PhoneNav(props) {
             <CircleMessage />
           </NavLink>
         </LiStyle>
+        <LiStyle>
+          <NavLink to="/metassafy">
+            <Logout />
+          </NavLink>
+        </LiStyle>
       </UlStyle>
     </NavDiv>
   );
@@ -55,7 +61,7 @@ const NavDiv = styled.div`
 const UlStyle = styled.ul`
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0rem 2rem;
   display: flex;
   justify-content: space-around;
   align-items: baseline;
