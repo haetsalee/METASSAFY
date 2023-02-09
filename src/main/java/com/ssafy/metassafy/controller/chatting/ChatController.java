@@ -66,7 +66,7 @@ public class ChatController {
 
     //채팅방 이름 변경
     @PutMapping(value = "/room")
-    public ResponseEntity<String> editChatRoom(ChatParameterDto chatParameterDto) throws Exception{
+    public ResponseEntity<String> editChatRoom(@RequestBody ChatParameterDto chatParameterDto) throws Exception{
         logger.info("editChatRoom - 호출");
         if(chatService.editChatRoom(chatParameterDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -77,7 +77,7 @@ public class ChatController {
 
     //채팅방 삭제
     @DeleteMapping(value = "/room")
-    public ResponseEntity<String> deleteChatRoom(ChatParameterDto chatParameterDto) throws Exception{
+    public ResponseEntity<String> deleteChatRoom(@RequestBody ChatParameterDto chatParameterDto) throws Exception{
         logger.info("deleteChatRoom - 호출");
         if(chatService.deleteChatRoom(chatParameterDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
