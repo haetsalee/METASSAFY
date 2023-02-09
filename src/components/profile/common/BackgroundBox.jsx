@@ -13,7 +13,7 @@ function BackgroundBox(props) {
       <BackgroundBoxStyle>
         {user === props.who && (
           <SettingDiv>
-            <NavLink to="/profile/modify">
+            <NavLink to="../profile/modify">
               <Setting
                 stroke="#617485"
                 style={{ float: 'right', margin: '1rem' }}
