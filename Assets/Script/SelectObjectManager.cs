@@ -62,6 +62,10 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     clickBoard();
                 }
+                if (hit.collider.name == "GoLobby")
+                {
+                    goToLobby();
+                }
                 if (hit.collider.name == "tree")
                 {
                   // GameObject tree= GameObject.FindGameObjectWithTag("tree");
@@ -94,6 +98,23 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
         //씬 이동
         SceneManager.LoadScene("Gumi");
 
+    }
+
+    void goToLobby()
+    {
+        Debug.Log("로비 클릭");
+
+        //모든 플레이어 중에서
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {    //이동한 애(=자기 자신)을 네트워크에서 끊고 
+            if (players[i].GetComponent<PhotonView>().IsMine)
+            {
+                PhotonNetwork.Disconnect();
+            }
+        }
+        //씬 이동
+        SceneManager.LoadScene("WorldMap");
     }
     private void clickBoard()
     {
