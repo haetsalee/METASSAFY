@@ -19,7 +19,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     private static extern void openPhone(string mode);
     Vector3 m_vecMouseDownPos;
 
-    Boolean isRoomInfoOpen = false;
+    Boolean isRoomInfoOpen = true; //¿·Ω√ πŸ≤ﬁ
     public GameObject tree;
     void Update()
     {

@@ -34,8 +34,16 @@ public class ChatManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
-         
+
         //if (EventSystem.current.IsPointerOverGameObject())
+        if (m_inputField.isFocused) // 포커스가 되어있을때
+        {
+            Input.imeCompositionMode = IMECompositionMode.Off;
+        }
+        else
+        {
+            Input.imeCompositionMode = IMECompositionMode.Auto;
+        }
 
     }
     
@@ -83,6 +91,7 @@ public class ChatManager : MonoBehaviourPunCallbacks
     {
          
         //모든 플레이어 중에서
+        
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {    
@@ -91,7 +100,7 @@ public class ChatManager : MonoBehaviourPunCallbacks
                 players[i].GetComponent<PlayerInput>().enabled = chatmode;
                 players[i].GetComponent<CameraSetup>().enabled = chatmode;
             }
-        }
+        } 
         chatmode = !chatmode;
         setModeText();
     }
