@@ -10,11 +10,11 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
- 
+
 
 public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 {
-    
+
     [DllImport("__Internal")]
     private static extern void openPhone(string mode);
     Vector3 m_vecMouseDownPos;
@@ -23,10 +23,10 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     public GameObject tree;
     void Update()
     {
-        
+
         ClickEvent();
-        
-      
+
+
     }
     float distance = 10.0f;
     public void OnDrag(PointerEventData eventData)
@@ -39,14 +39,15 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     void ClickEvent()
     {
- 
+
         // 마우스 클릭 시
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             // Debug.Log("클릭이벤트 발생: "+photonView.ViewID);
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
             m_vecMouseDownPos = Input.mousePosition;
- 
+
             // 카메라에서 스크린에 마우스 클릭 위치를 통과하는 광선을 반환합니다.
             Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);
             RaycastHit hit;
@@ -68,17 +69,16 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 }
                 if (hit.collider.name == "tree")
                 {
-                  // GameObject tree= GameObject.FindGameObjectWithTag("tree");
-                   tree.SetActive(true);
+                    // GameObject tree= GameObject.FindGameObjectWithTag("tree");
+                    tree.SetActive(true);
                 }
                 if (hit.collider.tag == "Player")
                 {
                     GameObject hitTarget = hit.collider.gameObject;
-                    Debug.Log(hitTarget.GetComponentInChildren<TextMesh>().text);
-                   // hitTarget.GetComponentInChildren<TextMesh>().text;
-
+                    // Debug.Log(hitTarget.GetComponentInChildren<TextMesh>().text);
+                    name = hitTarget.GetComponentInChildren<TextMesh>().text;
+                    clickUser();
                 }
-
 
             }
 
@@ -92,16 +92,16 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     void goToGumi()
     {
         Debug.Log("구미 클릭");
-        
+
         //모든 플레이어 중에서
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); 
-        for (int i=0;i< players.Length; i++)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
         {    //이동한 애(=자기 자신)을 네트워크에서 끊고 
             if (players[i].GetComponent<PhotonView>().IsMine)
             {
                 PhotonNetwork.Disconnect();
             }
-        } 
+        }
         //씬 이동
         SceneManager.LoadScene("Gumi");
 
@@ -137,7 +137,13 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     openPhone ("phone");
 #endif
     }
-     
 
+    public void clickUser()
+    {
+
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone (name);
+#endif
+    }
 
 }
