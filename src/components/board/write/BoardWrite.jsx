@@ -43,6 +43,10 @@ const BoardWrite = () => {
   // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!article.title || !article.content) {
+      alert('제목과 내용은 필수 입력입니다.');
+      return;
+    }
 
     const boardDto = {
       user_id: user.user_id,

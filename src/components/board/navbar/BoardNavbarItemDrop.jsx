@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import BoardNavbarDropArea from './BoardNavbarDropArea';
@@ -13,6 +13,12 @@ const BoardNavbarItemDrop = ({
   setBoardList,
 }) => {
   const [isShow, setIsShow] = useState(false);
+
+  useEffect(() => {
+    if (activeIndex !== index) {
+      setIsShow(false);
+    }
+  }, [activeIndex]);
 
   // 넷바 클릭 시 드롭박스 보여주기
   const clickHandler = async () => {
