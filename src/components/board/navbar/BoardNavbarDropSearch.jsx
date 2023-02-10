@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
-import { getBoardList } from '../../../services/board-service';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,6 +47,7 @@ const BoardNavbarDropSearch = () => {
     <UlStyle>
       <SearchformStyle>
         <input
+          placeholder="검색어 입력하기"
           onKeyDown={keyHandler}
           onChange={inputHandler}
           value={searchValue}
@@ -108,6 +108,9 @@ const SearchformStyle = styled.form`
     &:active,
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: #7d78787b;
     }
   }
 

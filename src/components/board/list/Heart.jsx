@@ -1,15 +1,27 @@
-import { useState } from 'react';
 import { Fragment } from 'react';
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   fetchBoardLikeDelete,
   fetchBoardLikePost,
+  getBoardList,
 } from '../../../services/board-service';
 
-const Heart = ({ type, no, isLike, setLikeNum, setIsLike }) => {
+const Heart = ({ type, no, isLike, setBoardList, setLikeNum, setIsLike }) => {
+  const navigate = useNavigate;
   const user = useSelector((state) => state.auth.user);
+  const [searchParams] = useSearchParams();
+  const key = searchParams.get('key');
+  const popularity = searchParams.get('popularity');
+  const word = searchParams.get('word');
+
+  const move = () => {
+    const query = `key=${key}&popularity=${popularity}&user_id=${user.user_id}&word=${word}`;
+    console.log(query);
+    navigate(`/board/list?${query}`);
+  };
 
   const heartHandler = async (e) => {
     e.preventDefault();
@@ -17,12 +29,18 @@ const Heart = ({ type, no, isLike, setLikeNum, setIsLike }) => {
     const data = { type, no, user_id };
     if (isLike === 0) {
       await fetchBoardLikePost(data); // 좋아요 요청
-      setLikeNum((preState) => preState + 1);
+      setLikeNum && setLikeNum((preState) => preState + 1);
+      setIsLike && setIsLike(true);
     } else {
       await fetchBoardLikeDelete(data); // 싫어요 요청
-      setLikeNum((preState) => preState - 1);
+      setLikeNum && setLikeNum((preState) => preState - 1);
+      setIsLike && setIsLike(false);
     }
-    setIsLike((preState) => (preState === 0 ? 1 : 0));
+
+    if (setBoardList) {
+      const newList = await getBoardList(key, popularity, user.user_id, word);
+      setBoardList(newList);
+    }
   };
 
   return (

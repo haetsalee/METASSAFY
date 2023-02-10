@@ -60,35 +60,3 @@ const LiStyle = styled.li`
     background-color: #e0f4ff;
   }
 `;
-
-const SearchformStyle = styled.form`
-  display: flex;
-  width: 100%;
-
-  & > input {
-    width: 7rem;
-    height: 1.3rem;
-    margin: 0.4rem;
-    border: none;
-    border-style: none;
-    border-bottom: 1px solid #8a8a8a;
-    &:active,
-    &:focus {
-      outline: none;
-    }
-  }
-
-  & > button {
-    border: none;
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-  }
-
-  & > button > svg {
-    font-size: 1.2rem;
-    margin: 0.4rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-  }
-`;
