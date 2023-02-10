@@ -21,7 +21,7 @@ public class ValueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        setUnityFalse();
     }
 
     // Update is called once per frame
@@ -43,10 +43,26 @@ public class ValueManager : MonoBehaviour
         this.nickname= user_id;
         //Debug.Log($"유저 {user_id} 아이디 가져옴");
         Debug.Log("유저 아이디 가져옴:"+user_id);
-        Debug.Log("이제 닉넴은 " + nickname);
+       // Debug.Log("이제 닉넴은 " + nickname);
 
     }
-    
+
+    public void setUnityFalse()
+    {
+#if (UNITY_WEBGL == true && UNITY_EDITOR == false)
+     WebGLInput . captureAllKeyboardInput = false ; 
+#endif
+    }
+
+    public void setUnityTrue()
+    {
+#if (UNITY_WEBGL == true && UNITY_EDITOR == false)
+     WebGLInput . captureAllKeyboardInput = true; 
+#endif
+    }
+
+
+
     public void setNickname(string name)
     {
         Debug.Log("setNickname 호출됨");
