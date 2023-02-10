@@ -13,6 +13,7 @@ import phoneImg from '../assets/images/phone.png';
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
   const [modal, setModal] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
   const navigate = useNavigate();
 
   const loginUser = JSON.parse(user);
@@ -74,7 +75,13 @@ function UnityPage() {
           src={phoneImg}
           alt="phone"
           onClick={() => {
-            navigate(`phone/profile/${loginUser.user_id}`);
+            if (isPhone === false) {
+              setIsPhone(true);
+              navigate(`phone/profile/${loginUser.user_id}`);
+            } else {
+              setIsPhone(false);
+              navigate(`/unity`);
+            }
           }}
         />
         <Outlet />

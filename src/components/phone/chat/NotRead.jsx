@@ -11,7 +11,7 @@ function NotRead(props) {
 export default NotRead;
 
 const ChatText = styled.p`
-  font-size: 0.3rem;
+  font-size: 0.5rem;
   align-self: flex-end;
   padding: 0rem 0.3rem;
   color: #50a6b6a1;

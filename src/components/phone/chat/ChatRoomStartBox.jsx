@@ -69,5 +69,5 @@ const ChatResultNameStyle = styled.p`
 `;
 
 const ChatResultIDStyle = styled.p`
-  font-size: 0.3rem;
+  font-size: 0.5rem;
 `;
