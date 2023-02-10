@@ -610,7 +610,11 @@ function MetaverseThree() {
           }
         }}
       /> */}
-      <canvas id="metassafy" className="meta-ssafy2" ref={canvasRef}></canvas>
+      <canvas
+        id="react-unity-webgl-canvas-1"
+        className="meta-ssafy2"
+        ref={canvasRef}
+      ></canvas>
       {/* </Card> */}
     </PositionDiv>
   );

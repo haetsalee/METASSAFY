@@ -4,9 +4,11 @@ import html2canvas from 'html2canvas';
 function PhoneApp() {
   function onCapture() {
     console.log('onCapture');
-    html2canvas(document.getElementById('metassafy')).then((canvas) => {
-      onSaveAs(canvas.toDataURL('image/png'), 'image-download.png');
-    });
+    html2canvas(document.getElementById('react-unity-webgl-canvas-1'))
+      .then((canvas) => {
+        onSaveAs(canvas.toDataURL('image/png'), 'image-download.png');
+      })
+      .catch((err) => console.log(err));
   }
 
   function onSaveAs(url, filename) {
