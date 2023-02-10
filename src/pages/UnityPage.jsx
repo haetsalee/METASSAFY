@@ -13,6 +13,7 @@ import phoneImg from '../assets/images/phone.png';
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
   const [modal, setModal] = useState(false);
+
   const navigate = useNavigate();
 
   const loginUser = JSON.parse(user);
@@ -77,12 +78,21 @@ function UnityPage() {
         />
         <Outlet />
       </PositionDiv>
+      <ModalDiv>
+        <button
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          큰 모달 띄우기
+        </button>
+      </ModalDiv>
       <Unity
         unityProvider={unityProvider}
         style={{ width: '100%', height: '95%' }}
       />
 
-      {/* {modal && <PhoneTest onClose={onClose} />} */}
+      {modal && <PhoneTest onClose={onClose} />}
     </div>
   );
 }
@@ -109,4 +119,11 @@ const PositionDiv = styled.div`
   height: 100%;
   position: relative;
   align-items: center;
+`;
+const ModalDiv = styled.div`
+  height: 6rem;
+  float: left;
+  top: 20%;
+  left: 5%;
+  position: absolute;
 `;
