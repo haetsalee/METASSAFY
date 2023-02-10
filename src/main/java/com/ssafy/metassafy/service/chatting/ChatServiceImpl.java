@@ -5,21 +5,22 @@ import com.ssafy.metassafy.dto.chatting.ChatParameterDto;
 import com.ssafy.metassafy.dto.chatting.ChatRoomDto;
 import com.ssafy.metassafy.dto.chatting.ParticipantDto;
 import com.ssafy.metassafy.mapper.chatting.ChatMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService{
 
     private static final Logger logger = LoggerFactory.getLogger(ChatServiceImpl.class);
-    @Autowired
-    private SqlSession sqlSession;
+
+    private final SqlSession sqlSession;
 
 
     @Override
@@ -36,7 +37,7 @@ public class ChatServiceImpl implements ChatService{
     @Transactional
     public int createChatRoom(ChatParameterDto chatParameterDto, List<String> participants) throws Exception {
         sqlSession.getMapper(ChatMapper.class).createChatRoom(chatParameterDto);
-        System.out.println(chatParameterDto.getCroom_no());
+        logger.info("createChatRoom croom_no : "+ chatParameterDto.getCroom_no());
 
         for(String user_id : participants){
             chatParameterDto.setUser_id(user_id);
@@ -69,7 +70,7 @@ public class ChatServiceImpl implements ChatService{
 
         if(num > 10){
             int start_no = sqlSession.getMapper(ChatMapper.class).getStartNo(chatParameterDto);
-            System.out.println(start_no + "  start_no");
+            logger.info("upScroll start_no : "+ start_no);
             chatParameterDto.setStart_no(start_no);
         }else{
             chatParameterDto.setStart_no(0);
@@ -93,20 +94,18 @@ public class ChatServiceImpl implements ChatService{
             int cur_no = sqlSession.getMapper(ChatMapper.class).getUserLastReadChatId(chatParameterDto);
 
 
-            System.out.println(cur_no + " last_read_chat_id(cur_no) ---------------------------------------------------");
-
+            logger.info("findAllChat cur_no : "+ cur_no);
 
             chatParameterDto.setCur_no(cur_no);
 
             // 현재 cur_no 보다 값이 작은 채팅의 개수가 10개 보다 많은지 적은지 알 수 있었으면 좋겠다.
             int num = sqlSession.getMapper(ChatMapper.class).getLowChatNo(chatParameterDto);
 
-            System.out.println(num + " num ---------------------------------------------------");
-
+            logger.info("findAllChat num : "+ num);
 
             if(num > 10){
                 int start_no = sqlSession.getMapper(ChatMapper.class).getStartNo(chatParameterDto);
-                System.out.println(start_no + "  start_no");
+                logger.info("findAllChat start_no : "+ start_no);
                 chatParameterDto.setStart_no(start_no);
             }else{
                 chatParameterDto.setStart_no(0);
@@ -126,7 +125,7 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public int getChatNo(ChatDto chatDto) throws Exception {
-        System.out.println(chatDto + "  getChatNo");
+        logger.info("getChatNo chatDto : "+ chatDto);
         return sqlSession.getMapper(ChatMapper.class).getChatNo(chatDto);
     }
 

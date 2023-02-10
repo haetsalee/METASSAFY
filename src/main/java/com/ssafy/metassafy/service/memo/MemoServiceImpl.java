@@ -4,6 +4,7 @@ package com.ssafy.metassafy.service.memo;
 import com.ssafy.metassafy.dto.memo.MemoDto;
 import com.ssafy.metassafy.dto.memo.MemoParameterDto;
 import com.ssafy.metassafy.mapper.memo.MemoMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemoServiceImpl implements MemoService{
     private static final Logger logger = LoggerFactory.getLogger(MemoServiceImpl.class);
-    @Autowired
-    private SqlSession sqlSession;
+
+    private final SqlSession sqlSession;
 
     @Override
     public List<MemoDto> listMemo(MemoParameterDto memoParameterDto) throws Exception {

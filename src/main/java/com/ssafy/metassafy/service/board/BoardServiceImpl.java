@@ -7,6 +7,7 @@ import com.ssafy.metassafy.dto.file.FileDto;
 import com.ssafy.metassafy.dto.like.LikeDto;
 import com.ssafy.metassafy.mapper.board.BoardMapper;
 import com.ssafy.metassafy.service.file.FileService;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class BoardServiceImpl implements  BoardService{
 
     private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
-    @Autowired
-    private SqlSession sqlSession;
-    @Autowired
-    private FileService fileService;
+//    @Autowired
+    private final SqlSession sqlSession;
+//    @Autowired
+    private final FileService fileService;
 
     @Override
     @Transactional
@@ -32,6 +34,7 @@ public class BoardServiceImpl implements  BoardService{
             throw new Exception();
         }
 
+        //TODO : logger로 바꾸기
         System.out.println(thumbnail.isEmpty() + " 썸내일");
         //System.out.println(files.size() + " 파일");
 

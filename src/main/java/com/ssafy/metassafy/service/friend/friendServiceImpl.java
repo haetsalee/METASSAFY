@@ -3,6 +3,7 @@ package com.ssafy.metassafy.service.friend;
 import com.ssafy.metassafy.dto.friend.FriendDto;
 import com.ssafy.metassafy.dto.user.User;
 import com.ssafy.metassafy.mapper.friend.FriendMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@RequiredArgsConstructor
 public class friendServiceImpl implements  FriendService{
 
     private static final Logger logger = LoggerFactory.getLogger(friendServiceImpl.class);
-
-    @Autowired
-    FriendMapper mapper;
+    private final FriendMapper mapper;
     private Map<String, SseEmitter> connectedUser = new ConcurrentHashMap<>();
 
 

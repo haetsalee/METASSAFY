@@ -6,6 +6,7 @@ import com.ssafy.metassafy.mapper.friend.FriendMapper;
 import com.ssafy.metassafy.mapper.team.TeamMapper;
 import com.ssafy.metassafy.mapper.user.UserMapper;
 import com.ssafy.metassafy.service.friend.friendServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService{
 
-    @Autowired
-    TeamMapper mapper;
-
-    @Autowired
-    UserMapper usermapper;
+    private final TeamMapper mapper;
+    private final UserMapper usermapper;
     private static final Logger logger = LoggerFactory.getLogger(friendServiceImpl.class);
     @Override
     public boolean makeTeam(Team team) {
@@ -82,10 +81,6 @@ public class TeamServiceImpl implements TeamService{
     public boolean isAlone(int team_no) {
         return false;
     }
-
-
-
-
 
     @Override
     public void acceptUser(int team_no, String user_id) {
