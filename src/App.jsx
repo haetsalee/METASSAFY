@@ -32,6 +32,7 @@ import WritePage from './pages/WritePage';
 import { useSelector } from 'react-redux';
 import PhoneHomePage from './pages/phone_pages/PhoneHomePage';
 import PhoneApp from './pages/phone_pages/PhoneApp';
+import NotFound from './pages/NotFound';
 
 function App() {
   useInfo();
@@ -106,6 +107,8 @@ function App() {
           </Route>
         </Route>
       </Route>
+      {/* 404 */}
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }
