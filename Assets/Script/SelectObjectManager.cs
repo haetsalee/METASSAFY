@@ -71,7 +71,14 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                   // GameObject tree= GameObject.FindGameObjectWithTag("tree");
                    tree.SetActive(true);
                 }
-                
+                if (hit.collider.tag == "Player")
+                {
+                    GameObject hitTarget = hit.collider.gameObject;
+                    Debug.Log(hitTarget.GetComponentInChildren<TextMesh>().text);
+                   // hitTarget.GetComponentInChildren<TextMesh>().text;
+
+                }
+
 
             }
 
