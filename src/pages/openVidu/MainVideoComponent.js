@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import OpenViduVideoComponent from './OvVideo';
 import './UserVideo.css';
 
-export default class UserVideoComponent extends Component {
+export default class MainVideoComponent extends Component {
   getNicknameTag() {
     // Gets the nickName of the user
     return JSON.parse(this.props.streamManager.stream.connection.data)
@@ -31,5 +31,6 @@ export default class UserVideoComponent extends Component {
 
 const VideoDivStyle = styled.div`
   /* border: 10px gray solid; */
-  width: 200px;
+  width: 650px;
+  height: 200px;
 `;
