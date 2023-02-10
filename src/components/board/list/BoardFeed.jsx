@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Masonry from '@mui/lab/Masonry';
 import { useEffect } from 'react';
 
-const BoardFeed = ({ boardList }) => {
+const BoardFeed = ({ boardList, setBoardList }) => {
   const [columns, setColumns] = useState(4);
 
   const resize = () => {
@@ -30,7 +30,7 @@ const BoardFeed = ({ boardList }) => {
       {boardList.length !== 0 ? (
         <Masonry columns={columns} spacing={2}>
           {boardList.map((card, index) => (
-            <BoardCard key={index} card={card} />
+            <BoardCard key={index} card={card} setBoardList={setBoardList} />
           ))}
         </Masonry>
       ) : (

@@ -21,18 +21,20 @@ const BoardMainSection = () => {
       const popularity = querys.get('popularity') || 'false';
       const user_id = querys.get('user_id') || user.user_id;
       const word = querys.get('word') || 'null';
-
       setQueryString(
         `key=${key}&popularity=${popularity}&user_id=${user_id}&word=${word}`
       );
-      // const newList = await getBoardList(null, false, user.user_id, null);
       const newList = await getBoardList(key, popularity, user_id, word);
       setBoardList(newList);
     };
-    if (user.user_id) {
-      setBoard();
-    }
-  }, [user, querys]);
+    setBoard();
+  }, [
+    user,
+    querys.get('key'),
+    querys.get('popularity'),
+    querys.get('user_id'),
+    querys.get('word'),
+  ]);
 
   const goWrite = () => {
     navigate('/board/write');
@@ -44,7 +46,11 @@ const BoardMainSection = () => {
         <BoardNavbar setBoardList={setBoardList}></BoardNavbar>
         <DivStyle>
           <ButtonStyle onClick={goWrite}>글쓰기</ButtonStyle>
-          <BoardFeed page={queryString} boardList={boardList}></BoardFeed>
+          <BoardFeed
+            page={queryString}
+            boardList={boardList}
+            setBoardList={setBoardList}
+          ></BoardFeed>
         </DivStyle>
       </WrapperStyle>
     </SectionStyle>
