@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public interface BoardService {
-    public boolean writeArticle(BoardDto boardDto,MultipartFile thumbnail,List<MultipartFile> files) throws Exception;
+    public boolean writeArticle(BoardDto boardDto,List<MultipartFile> files) throws Exception;
     public boolean makeLike(LikeDto likeDto) throws Exception;
     public List<BoardDto> listArticle(BoardParameterDto boardParameterDto) throws Exception;
     public BoardDto getArticle(BoardParameterDto boardParameterDto) throws Exception;

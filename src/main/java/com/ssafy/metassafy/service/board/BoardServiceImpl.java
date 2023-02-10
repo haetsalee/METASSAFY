@@ -28,42 +28,44 @@ public class BoardServiceImpl implements  BoardService{
 
     @Override
     @Transactional
-    public boolean writeArticle(BoardDto boardDto, MultipartFile thumbnail, List<MultipartFile> files) throws Exception {
+    public boolean writeArticle(BoardDto boardDto, List<MultipartFile> files) throws Exception {
 
         if(boardDto.getTitle() == null || boardDto.getContent() == null) {
             throw new Exception();
         }
 
         //TODO : logger로 바꾸기
-        System.out.println(thumbnail.isEmpty() + " 썸내일");
+        //System.out.println(thumbnail.isEmpty() + " 썸내일");
         //System.out.println(files.size() + " 파일");
 
-        FileDto file = null;
+        FileDto file;
 
-        if (thumbnail != null && !thumbnail.isEmpty()) {
-            logger.info("thumbnail - 업로드");
-            file = fileService.saveFile(thumbnail);
-            boardDto.setThumbnail(file.getPath());
-        }
+//        if (thumbnail != null && !thumbnail.isEmpty()) {
+//            logger.info("thumbnail - 업로드");
+//            file = fileService.saveFile(thumbnail);
+//            boardDto.setThumbnail(file.getPath());
+//        }
 
-        sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
+//        sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
 
 
         System.out.println();
         System.out.println(boardDto);
 
-        if(file != null){
-            System.out.println(file + " 1");
-            file.setArticle_no(boardDto.getArticle_no());
-            sqlSession.getMapper(BoardMapper.class).uploadFile(file);
-        }
 
         if(files != null && !files.get(0).isEmpty()){
-            logger.info("writeArticle_files - 업로드");
-            for (MultipartFile multipartFile : files) {
-                logger.info(multipartFile.getOriginalFilename().length() + " 길이 몇?");
-                file = fileService.saveFile(multipartFile);
+            logger.info("modifyArticle files - 업로드 :" + files);
+            file = fileService.saveFile(files.get(0));
+            boardDto.setThumbnail(file.getPath());
+            sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
+
+            file.setArticle_no(boardDto.getArticle_no());
+            sqlSession.getMapper(BoardMapper.class).uploadFile(file);
+
+            for(int i = 1; i < files.size(); i++){
+                file = fileService.saveFile(files.get(i));
                 file.setArticle_no(boardDto.getArticle_no());
+
                 sqlSession.getMapper(BoardMapper.class).uploadFile(file);
             }
         }
