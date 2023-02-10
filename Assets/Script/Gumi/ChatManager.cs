@@ -30,20 +30,15 @@ public class ChatManager : MonoBehaviourPunCallbacks
         m_ContentText = m_Content.transform.GetChild(0).gameObject;
         photonview = GetComponent<PhotonView>();
         m_inputField.enabled = false;
+        Input.imeCompositionMode = IMECompositionMode.Auto;
+
+ 
     }
 
     void Update()
     {
 
-        //if (EventSystem.current.IsPointerOverGameObject())
-        if (m_inputField.isFocused) // 포커스가 되어있을때
-        {
-            Input.imeCompositionMode = IMECompositionMode.Off;
-        }
-        else
-        {
-            Input.imeCompositionMode = IMECompositionMode.Auto;
-        }
+        
 
     }
     

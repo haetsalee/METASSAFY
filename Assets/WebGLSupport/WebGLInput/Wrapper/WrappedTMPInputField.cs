@@ -7,7 +7,6 @@ using UnityEngine;
 using TMPro;
 using WebGLSupport.Detail;
 using UnityEngine.UI;
-using System;
 
 namespace WebGLSupport
 {
@@ -25,33 +24,8 @@ namespace WebGLSupport
         public string text
         {
             get { return input.text; }
-            set { input.text = FixContentTypeByInputField(value); }
+            set { input.text = value; }
         }
-
-        /// <summary>
-        /// workaround!!
-        /// when use TMP_InputField.text = "xxx"; is will set the text directly.
-        /// so, use InputField for match the ContentType!
-        /// </summary>
-        /// <param name="inText"></param>
-        /// <returns></returns>
-        private string FixContentTypeByInputField(string inText)
-        {
-            var go = new GameObject("FixContentTypeByInputField for WebGLInput");
-            go.SetActive(false);
-            var i = go.AddComponent<InputField>();
-            i.contentType = (InputField.ContentType)Enum.Parse(typeof(InputField.ContentType), input.contentType.ToString());
-            i.lineType = (InputField.LineType)Enum.Parse(typeof(InputField.LineType), input.lineType.ToString());
-            i.inputType = (InputField.InputType)Enum.Parse(typeof(InputField.InputType), input.inputType.ToString());
-            i.keyboardType = input.keyboardType;
-            i.characterValidation = (InputField.CharacterValidation)Enum.Parse(typeof(InputField.CharacterValidation), input.characterValidation.ToString());
-            i.characterLimit = input.characterLimit;
-            i.text = inText;
-            var res = i.text;
-            GameObject.Destroy(go);
-            return res;
-        }
-
         public string placeholder
         {
             get
