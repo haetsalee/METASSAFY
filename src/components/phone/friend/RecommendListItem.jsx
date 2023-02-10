@@ -8,7 +8,7 @@ const RecommendListItem = ({ friend }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <NavLink to={`/metassafy/phone/profile/${friend.user_id}`}>
+            <NavLink to={`../profile/${friend.user_id}`}>
               <FriendImgStyle
                 img
                 src={friend.image}
@@ -17,7 +17,9 @@ const RecommendListItem = ({ friend }) => {
             </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
-            <NameTextStyle>{friend.name}</NameTextStyle>
+            <NameTextStyle>
+              <strong>{friend.name}</strong>
+            </NameTextStyle>
             <StateTextStyle>{friend.user_id}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>

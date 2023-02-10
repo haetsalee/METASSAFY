@@ -1,19 +1,53 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Heart from '../list/Heart';
 
-const ArticleInfoWriter = ({ card }) => {
+//   const date = new Date(card.regtime);
+//   const strDate =
+//     String(date.getFullYear()).slice(2, 4) +
+//     '.' +
+//     String(date.getMonth()).padStart(2, '0') +
+//     '.' +
+//     String(date.getDate()).padStart(2, '0');
+
+const ArticleInfoWriter = ({ article }) => {
+  const [likeNum, setLikeNum] = useState(article.like);
+  const [isLike, setIsLike] = useState(article.my_like);
+  const [isTouched, setIsTouched] = useState(false);
+
+  useEffect(() => {
+    if (!isTouched) {
+      setLikeNum(article.like);
+      setIsLike(article.my_like);
+    }
+    if (Object.keys(article).length) {
+      setIsTouched(true);
+    }
+  }, [article]);
+
   return (
     <>
       <div>
-        <WriterStyle>글 작성자</WriterStyle>
-        <TimeStyle>작성 시간 : 2022.22.22</TimeStyle>
-        <TimeStyle>수정 시간 : 2022.22.22</TimeStyle>
+        <WriterStyle>{article.name}</WriterStyle>
+        <TimeStyle>
+          <div>작성 시간</div>
+          {article.regtime}
+        </TimeStyle>
+        <TimeStyle>
+          <div>수정 시간</div>
+          {article.modtime}
+        </TimeStyle>
       </div>
       <LikeDivStyle>
-        {/* <Heart type="1" no={card.article_no} isLike={card.my_like} /> */}
-        {/* <p>{card.like}</p> */}
-        <Heart type="1" no="1" isLike="1" />
-        <p>12</p>
+        <Heart
+          type="1"
+          no={article.article_no}
+          isLike={isLike}
+          setLikeNum={setLikeNum}
+          setIsLike={setIsLike}
+        />
+        <p>{likeNum}</p>
       </LikeDivStyle>
     </>
   );
@@ -39,7 +73,7 @@ const LikeDivStyle = styled.div`
   margin: 1rem 0 0 1rem;
 
   & button svg {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-right: 0.6rem;
   }
 

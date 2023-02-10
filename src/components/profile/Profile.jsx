@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import MajorPositionClass from '../phone/MajorPositionClass';
@@ -13,7 +12,6 @@ import {
   FaCreativeCommonsBy,
 } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
-import { useParams } from 'react-router-dom';
 
 // const user = {
 //   age: 25,

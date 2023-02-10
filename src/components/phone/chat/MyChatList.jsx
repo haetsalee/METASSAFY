@@ -13,7 +13,9 @@ function MyChatList(props) {
         />
         <ChatTextBoxDiv>
           <FlexDiv>
-            <ChatRoomNameStyle>{props.room.croom_name}</ChatRoomNameStyle>
+            <ChatRoomNameStyle>
+              <strong>{props.room.croom_name}</strong>
+            </ChatRoomNameStyle>
             <NotReadSpanStyle>{props.room.not_read_chat}</NotReadSpanStyle>
           </FlexDiv>
           <ChatTextStyle>
@@ -52,7 +54,7 @@ const ChatTextBoxDiv = styled.div`
 `;
 
 const ChatTextStyle = styled.p`
-  font-size: 0.3rem;
+  font-size: 0.5rem;
   color: #000000b3;
   display: flex;
   justify-content: space-between;

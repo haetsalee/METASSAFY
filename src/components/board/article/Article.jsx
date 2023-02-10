@@ -1,14 +1,36 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
+import { fetchBoardGet } from '../../../services/board-service';
 import ArticleInfo from './ArticleInfo';
-import Comments from './Comments';
+import Comments from '../comment/Comments';
 
 const Article = () => {
+  const user = useSelector((state) => state.auth.user);
+  const { id } = useParams();
+  const [article, setArticle] = useState({});
+
+  useEffect(() => {
+    const getArticle = async () => {
+      const { data } = await fetchBoardGet(id, user.user_id);
+      setArticle(data);
+    };
+    if (user.user_id) {
+      getArticle();
+    }
+  }, [user, id]);
+
   return (
     <ArticleSection>
-      <TitleDiv>게시글 제목</TitleDiv>
-      <ArticleInfo></ArticleInfo>
+      <TitleDiv>{article.title}</TitleDiv>
+      <ArticleInfo article={article}></ArticleInfo>
       <HrStyle />
-      <Comments></Comments>
+      <Comments
+        user_id={user.user_id}
+        article_no={article.article_no}
+      ></Comments>
     </ArticleSection>
   );
 };

@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Heart from './Heart';
 
 const BoardCard = ({ card }) => {
+  const [likeNum, setLikeNum] = useState(card.like);
+  const [isLike, setIsLike] = useState(card.my_like);
+  const [isTouched, setIsTouched] = useState(false);
+
   const date = new Date(card.regtime);
   const strDate =
     String(date.getFullYear()).slice(2, 4) +
@@ -10,6 +16,15 @@ const BoardCard = ({ card }) => {
     String(date.getMonth()).padStart(2, '0') +
     '.' +
     String(date.getDate()).padStart(2, '0');
+
+  // 초기만 업데이트
+  useEffect(() => {
+    if (!isTouched) {
+      setLikeNum(card.like);
+      setIsLike(card.my_like);
+    }
+    setIsTouched(true);
+  }, [card]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -19,8 +34,17 @@ const BoardCard = ({ card }) => {
       >
         <CardSection>
           <LikeDivStyle>
-            <Heart type="1" no={card.article_no} isLike={card.my_like} />
-            <p>{card.like}</p>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Heart
+                type="1"
+                no={card.article_no}
+                isLike={isLike}
+                setLikeNum={setLikeNum}
+                setIsLike={setIsLike}
+              />
+              <p style={{ marginLeft: '0.3rem' }}>{likeNum}</p>
+            </div>
+            <SubTitleStyle color="#AECBDB">조회수: {card.hit}</SubTitleStyle>
           </LikeDivStyle>
           {card.thumbnail ? (
             <ImgStyle src={card.thumbnail} alt="article img"></ImgStyle>
@@ -29,7 +53,6 @@ const BoardCard = ({ card }) => {
           )}
           <LineDivStyle>
             <TitleStyle>{card.title}</TitleStyle>
-            <SubTitleStyle color="#AECBDB">{card.hit}</SubTitleStyle>
           </LineDivStyle>
           <LineDivStyle>
             <SubTitleStyle>
@@ -54,9 +77,10 @@ const CardSection = styled.section`
   padding: 0.8rem 1rem;
   margin: 0.3rem;
   background-color: white;
-  border: 1px solid #617485;
+  border: 1px solid #9fc0dc56;
   border-radius: 20px;
   cursor: pointer;
+  box-shadow: 0px 0px 10px 2px #62b1cb84;
 
   &:hover {
     transform: scale(1.05);
@@ -76,7 +100,7 @@ const ImgStyle = styled.img`
   width: auto;
   height: 12rem;
   margin: 0.3rem 0;
-  border: 1px solid #4ea7f8;
+  border: 1px solid #4ea6f8a9;
   border-radius: 8px;
 `;
 
@@ -94,12 +118,12 @@ const TitleStyle = styled.section`
 
 const SubTitleStyle = styled.section`
   color: ${(props) => props.color || '#adb5bd'};
-  font-size: 0.5rem;
+  font-size: 0.7rem;
 `;
 
 const ContentStyle = styled.div`
   width: 100%;
-  height: 1.3rem;
+  height: 1.2rem;
   color: #799fc0;
   font-size: 0.5rem;
   margin-top: 0.5rem;

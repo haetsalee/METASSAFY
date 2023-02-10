@@ -9,7 +9,7 @@ const FriendItem = ({ friend, onDeleteFriend }) => {
       <GroupStyle>
         <FriendItemStyle>
           <FriendImgDivStyle>
-            <NavLink to={`/metassafy/phone/profile/${friend.user_id}`}>
+            <NavLink to={`../profile/${friend.user_id}`}>
               <FriendImgStyle
                 img
                 src={friend.profile_img}
@@ -18,7 +18,9 @@ const FriendItem = ({ friend, onDeleteFriend }) => {
             </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
-            <NameTextStyle>{friend.name}</NameTextStyle>
+            <NameTextStyle>
+              <strong>{friend.name}</strong>
+            </NameTextStyle>
             <StateTextStyle>{`@${friend.user_id}`}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>

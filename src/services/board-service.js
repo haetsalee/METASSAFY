@@ -18,7 +18,7 @@ export const fetchBoardList = async ({ key, popularity, user_id, word }) => {
 
   try {
     const { data, status } = await API.get(`/board?${query}`);
-    console.log('board list', data, status);
+    // console.log('board list', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -66,7 +66,6 @@ export const fetchBoardImage = async (formData) => {
     );
     API.defaults.headers['Content-Type'] = 'application/json';
     if (status === 200) {
-      console.log('upload img', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -75,24 +74,169 @@ export const fetchBoardImage = async (formData) => {
   }
 };
 
-export const fetchBoardPost = async ({
-  user_id,
-  title,
-  content,
-  thumbnail,
-}) => {
+export const fetchBoardImageDelete = async ({ article_no, saved_name }) => {
   const requestBody = {
-    user_id: user_id,
-    title: title,
-    content: content,
-    thumbnail: thumbnail,
+    article_no,
+    saved_name,
   };
-  console.log(requestBody);
 
   try {
-    const { data, status } = await API.post('/board/writeSimple', requestBody);
+    const { data, status } = await API.delete('/board/file', {
+      data: requestBody,
+    });
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchBoardPost = async (formData) => {
+  try {
+    const { data, status } = await API.post('/board', formData, {
+      headers: {
+        'Contest-Type': 'multipart/form-data',
+      },
+      transformRequest: (formData) => formData,
+    });
     if (status === 200) {
-      console.log('board write', data);
+      // console.log('board write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardPut = async (formData) => {
+  try {
+    const { data, status } = await API.put('/board', formData, {
+      headers: {
+        'Contest-Type': 'multipart/form-data',
+      },
+      transformRequest: (formData) => formData,
+    });
+    if (status === 200) {
+      // console.log('board modify', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardGet = async (article_no, user_id) => {
+  const requestBody = {
+    article_no,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/board/article', requestBody);
+    if (status === 200) {
+      // console.log('board get', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchBoardDelete = async (article_no) => {
+  try {
+    const { data, status } = await API.delete(`/board/${article_no}`);
+    if (status === 200) {
+      // console.log('board delete', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCommentPost = async (article_no, content, user_id) => {
+  const requestBody = {
+    article_no,
+    content,
+    user_id,
+  };
+
+  try {
+    const { data, status } = await API.post('/memo', requestBody);
+    if (status === 200) {
+      // console.log('memo write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCommentGet = async (article_no, user_id) => {
+  try {
+    const { data, status } = await API.get(
+      `/memo?article_no=${article_no}&user_id=${user_id}`
+    );
+    // console.log('memo list', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchCommentDelete = async (memo_no) => {
+  try {
+    const { data, status } = await API.delete(`/memo/${memo_no}`);
+    if (status === 200) {
+      // console.log('memo delete', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+// 대댓글
+export const fetchCocommentPost = async (memo_no, content, user_id) => {
+  const requestBody = {
+    memo_no,
+    content,
+    user_id,
+  };
+  try {
+    const { data, status } = await API.post('/mememo', requestBody);
+    if (status === 200) {
+      // console.log('memo write', data);
+      return { data, status, error: null };
+    }
+    return { data, status, error: 'Fail' };
+  } catch (error) {
+    return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchCocommentGet = async (memo_no, user_id) => {
+  try {
+    const { data, status } = await API.get(
+      `/mememo?memo_no=${memo_no}&user_id=${user_id}`
+    );
+    // console.log('memo list', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
+export const fetchCocommentDelete = async (mememo_no) => {
+  try {
+    const { data, status } = await API.delete(`/mememo/${mememo_no}`);
+    if (status === 200) {
+      // console.log('memo delete', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };

@@ -49,7 +49,7 @@ const ModalStyle = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 22rem;
+  width: 80rem;
   height: 40rem;
   display: flex;
   justify-content: center;
@@ -70,7 +70,7 @@ const slideDown = keyframes`
 `;
 
 const ModalContentStyle = styled.div`
-  width: 22rem;
+  width: 80rem;
   height: 40rem;
   background-color: white;
   padding: 27px;

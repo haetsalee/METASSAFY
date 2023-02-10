@@ -12,43 +12,43 @@ function DevelopersList() {
         />
         <DevelopersCard
           work="팀장"
-          name="김뫄뫄"
+          name="오주영"
           career="career"
-          describe="describe"
+          describe="FrontEnd & BackEnd"
         />
       </FlexDiv>
       <FlexDiv>
         <DevelopersCard
-          work="팀장"
-          name="김뫄뫄"
+          work="팀원"
+          name="윤소현"
           career="career"
-          describe="describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribe"
+          describe="FrontEnd & BackEnd"
         />
-        <InvitedImgStyle
-          src="https://em-content.zobj.net/source/noto-emoji-animations/344/gem-stone_1f48e.gif"
-          alt=""
-        />
-        <BlankDiv />
-      </FlexDiv>
-      <FlexDiv>
-        <BlankDiv />
         <InvitedImgStyle
           src="https://em-content.zobj.net/thumbs/120/openmoji/338/guitar_1f3b8.png"
           alt=""
         />
+        <BlankDiv />
+      </FlexDiv>
+      <FlexDiv>
+        <BlankDiv />
+        <InvitedImgStyle
+          src="https://em-content.zobj.net/source/noto-emoji-animations/344/gem-stone_1f48e.gif"
+          alt=""
+        />
         <DevelopersCard
-          work="팀장"
-          name="김뫄뫄"
+          work="팀원"
+          name="이시준"
           career="career"
-          describe="describe"
+          describe="FrontEnd & BackEnd"
         />
       </FlexDiv>
       <FlexDiv>
         <DevelopersCard
-          work="팀장"
-          name="김뫄뫄"
+          work="팀원"
+          name="이햇살"
           career="career"
-          describe="describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribe"
+          describe="FrontEnd & BackEnd"
         />
         <InvitedImgStyle
           src="https://em-content.zobj.net/source/microsoft-teams/337/sun-with-face_1f31e.png"
@@ -64,17 +64,17 @@ function DevelopersList() {
         />
         <DevelopersCard
           work="팀장"
-          name="김뫄뫄"
+          name="최지원"
           career="career"
-          describe="describe"
+          describe="FrontEnd & BackEnd"
         />
       </FlexDiv>
       <FlexDiv>
         <DevelopersCard
           work="팀장"
-          name="김뫄뫄"
+          name="이석원"
           career="career"
-          describe="describedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribedescribe"
+          describe="FrontEnd & BackEnd"
         />
         <InvitedImgStyle
           src="https://em-content.zobj.net/source/microsoft-teams/337/new-moon-face_1f31a.png"

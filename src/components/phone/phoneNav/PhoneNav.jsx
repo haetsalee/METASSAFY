@@ -1,7 +1,8 @@
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
-import { ReactComponent as Logout } from '../../../assets/icons/log-out.svg';
+import { ReactComponent as Apps } from '../../../assets/icons/grid.svg';
+import { ReactComponent as Home } from '../../../assets/icons/home.svg';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
@@ -12,10 +13,6 @@ import styled from 'styled-components';
 function PhoneNav(props) {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-
-  const goNavbar = (page) => {
-    navigate(page);
-  };
 
   return (
     <NavDiv>
@@ -31,13 +28,18 @@ function PhoneNav(props) {
           </NavLink>
         </LiStyle>
         <LiStyle>
+          <NavLink to="home">
+            <Home />
+          </NavLink>
+        </LiStyle>
+        <LiStyle>
           <NavLink to="chat">
             <CircleMessage />
           </NavLink>
         </LiStyle>
         <LiStyle>
-          <NavLink to="/metassafy">
-            <Logout />
+          <NavLink to="app">
+            <Apps />
           </NavLink>
         </LiStyle>
       </UlStyle>

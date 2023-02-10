@@ -68,10 +68,10 @@ const LoginForm = (props) => {
     <form onSubmit={submitHandler}>
       <div>
         <AuthInput
-          label="아이디"
+          label="SSAFY 학번"
           type="text"
           id="userId"
-          placeholder="아이디 입력"
+          placeholder="SSAFY 학번 입력"
           value={userIdValue}
           onChange={userIdChangeHandler}
           onBlur={userIdBlurHandler}
@@ -90,7 +90,7 @@ const LoginForm = (props) => {
           errorText="필수 입력입니다."
         />
       </div>
-      <SubmitButton>로그인하기</SubmitButton>
+      <SubmitButton>Let's GO!</SubmitButton>
     </form>
   );
 };

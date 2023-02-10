@@ -5,10 +5,16 @@ import { getLocalUserInfo } from '../utils/local-storage';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
 import PhoneTest from '../components/phone/PhoneTest';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import phoneImg from '../assets/images/phone.png';
 
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
   const [modal, setModal] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const navigate = useNavigate();
 
   const loginUser = JSON.parse(user);
   const {
@@ -40,8 +46,10 @@ function UnityPage() {
 
   useEffect(() => {
     if (isLoaded) {
-      console.log(loginUser.user_id + ' 가 메타싸피에 접속');
-      sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      // console.log(loginUser.user_id + ' 가 메타싸피에 접속');
+      // sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      console.log(loginUser.name + ' 가 메타싸피에 접속');
+      sendMessage('ValueManager', 'getUserId', loginUser.name);
     }
   }, [isLoaded]);
 
@@ -62,10 +70,40 @@ function UnityPage() {
           <FadeLoader color="#36d7b7" />
         </Loading>
       )}
+      <PositionDiv>
+        <ImgStyle
+          src={phoneImg}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
+              navigate(`/unity`);
+            }
+          }}
+        />
+        <Outlet />
+      </PositionDiv>
+      <ModalDiv>
+        <button
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          큰 모달 띄우기
+        </button>
+      </ModalDiv>
       <Unity
         unityProvider={unityProvider}
+        tabIndex={1}
         style={{ width: '100%', height: '95%' }}
+        id="metassafy"
       />
+
       {modal && <PhoneTest onClose={onClose} />}
     </div>
   );
@@ -77,4 +115,27 @@ const Loading = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const ImgStyle = styled.img`
+  width: 4rem;
+  height: 6rem;
+  float: left;
+  top: 70%;
+  left: 5%;
+  position: absolute;
+`;
+
+const PositionDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  align-items: center;
+`;
+const ModalDiv = styled.div`
+  height: 6rem;
+  float: left;
+  top: 20%;
+  left: 5%;
+  position: absolute;
 `;

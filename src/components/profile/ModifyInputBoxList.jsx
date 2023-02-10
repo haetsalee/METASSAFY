@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import useInfo from '../../hooks/use-info';
 import { BiSave } from 'react-icons/bi';
 import MultipleSelectChip from './Inputs/MultipleSelectChip';
+import { useNavigate } from 'react-router-dom/dist';
 
 const genderList = {
   label: '성별',
@@ -54,6 +55,7 @@ const positionList = {
 };
 
 const InputBoxList = () => {
+  const navigate = useNavigate();
   const user = useInfo();
   // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
   // "student_no":"2222","name":"zzzzz",
@@ -72,6 +74,7 @@ const InputBoxList = () => {
     birthday: '',
     generation: 0, // 기수
     area: '', // 지역
+    common_class: '',
     first_semester: '', // 트랙
     major: '', // 전공
     interest: '', // 희망 포지션
@@ -87,6 +90,7 @@ const InputBoxList = () => {
       birthday: user.birthday || '',
       generation: user.generation || '', // 기수
       area: user.area || '', // 지역
+      common_class: user.common_class || '',
       first_semester: user.first_semester || '', // 트랙
       major: user.major || '', // 전공
       interest: user.interest || '', // 희망 포지션
@@ -113,22 +117,40 @@ const InputBoxList = () => {
     fetchProfileModify(info);
     const techs = techList.map((tech) => tech.tech_id);
     fetchTechSave(user.user_id, techs);
+    setTimeout(() => navigate(`../profile/${user.user_id}`), 200);
   };
 
   return (
     <InputListStyle>
       {/* 이름 */}
-      <InputLineStyle>
-        <LabelStyle>이름</LabelStyle>
-        <InputsStyle>
-          <TextField
-            id="standard-basic"
-            variant="standard"
-            value={info.name || ''}
-            onChange={(e) => handleChange(e, 'name')}
-          />
-        </InputsStyle>
-      </InputLineStyle>
+      <FlexDiv>
+        <InputLineStyle>
+          <LabelStyle>이름</LabelStyle>
+          <InputsStyle>
+            <TextField
+              id="standard-basic"
+              variant="standard"
+              value={info.name || ''}
+              onChange={(e) => handleChange(e, 'name')}
+            />
+          </InputsStyle>
+        </InputLineStyle>
+        <InputLineStyle>
+          <LabelStyle style={{ margin: '0rem 0rem 0.2rem 2rem' }}>
+            반
+          </LabelStyle>
+          <InputsStyle>
+            <TextField
+              style={{ width: '6.5rem', margin: '0rem 0rem 0rem 2rem' }}
+              type="number"
+              id="standard-basic"
+              variant="standard"
+              value={info.common_class || ''}
+              onChange={(e) => handleChange(e, 'common_class')}
+            />
+          </InputsStyle>
+        </InputLineStyle>
+      </FlexDiv>
       {/* 개인정보 */}
       <InputLineStyle>
         <LabelStyle>개인정보</LabelStyle>
@@ -327,4 +349,10 @@ const ButtonStyle = styled.button`
   padding: 1rem;
   font-family: 'korail_bold';
   cursor: pointer;
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;

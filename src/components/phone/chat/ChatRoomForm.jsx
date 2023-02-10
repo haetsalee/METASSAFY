@@ -22,9 +22,11 @@ function ChatRoomForm({ setChat, send }) {
   }
 
   function submitText() {
+    if (chatText.trim() !== '') {
+      send();
+      setChatText('');
+    }
     // 제출
-    send();
-    setChatText('');
   }
 
   return (

@@ -7,7 +7,7 @@ const PhoneTest = (props) => {
   return (
     <PhoneModal>
       <PhoneClose onClose={props.onClose} />
-      <PhoneFriendPage unityKeyX={props.unityKeyX} />
+      <p>게시판(방명록) 혹은 화상채팅 자리</p>
     </PhoneModal>
   );
 };

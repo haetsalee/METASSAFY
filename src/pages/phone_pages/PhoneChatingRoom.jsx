@@ -43,6 +43,8 @@ function PhoneChatingRoom(props) {
 
   const [sending, setSending] = useState(0);
 
+  const [forTime, setForTime] = useState(0);
+
   let temp = [];
 
   const connect = () => {
@@ -64,6 +66,25 @@ function PhoneChatingRoom(props) {
           content.user_id = user;
 
           // last_read_chat_id 최신화
+
+          // not_read 최신화
+          await API.put(`/chat`, JSON.stringify(content))
+            .then((res) => {})
+            .catch((err) => console.log(err));
+
+          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
+          //   method: 'put',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(content),
+          // });
+
+          console.log(1);
+
+          // let temp = [];
+          console.log(startNo, '--startno--');
+
           await API.put(
             `/participant/last_read_chat_id`,
             JSON.stringify(content)
@@ -83,25 +104,7 @@ function PhoneChatingRoom(props) {
           //   }
           // );
 
-          console.log(1);
-
-          // not_read 최신화
-          await API.put(`/chat`, JSON.stringify(content))
-            .then((res) => {})
-            .catch((err) => console.log(err));
-
-          // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
-          //   method: 'put',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(content),
-          // });
-
           console.log(2);
-
-          // let temp = [];
-          console.log(startNo, '--startno--');
 
           // chat 리스트 다시 불러오기
           // 대화목록 가져오기
@@ -166,15 +169,16 @@ function PhoneChatingRoom(props) {
       croom_no: room,
       user_id: user,
     };
+
+    // not_read 최신화
+    await API.put('/chat', JSON.stringify(data)).then((res) => {});
+
     // last_read_chat_id 최신화
     await API.put(`/participant/last_read_chat_id`, JSON.stringify(data))
       .then((res) => {})
       .catch((err) => console.log(err));
 
     console.log(1, 'get');
-
-    // not_read 최신화
-    await API.put('/chat', JSON.stringify(data)).then((res) => {});
 
     // await fetch(`http://i8d211.p.ssafy.io:8088/metassafy/chat`, {
     //   method: 'put',
@@ -235,6 +239,7 @@ function PhoneChatingRoom(props) {
         `/participant/leave_room`,
         JSON.stringify({ user_id: user, croom_no: room })
       ).then((res) => {});
+      console.log('disconnect ------------------------------------------');
       stompClient.disconnect();
     };
   }, []);
@@ -267,6 +272,7 @@ function PhoneChatingRoom(props) {
   // }, []);
 
   useEffect(() => {
+    const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
     API.get(`/chat/room`, {
       params: {
         croom_no: room,
@@ -277,7 +283,26 @@ function PhoneChatingRoom(props) {
         setRoomList(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+
+    API.get(`/chat`, {
+      params: {
+        start_no: startNo,
+        user_id: user,
+        croom_no: room,
+      },
+    })
+      .then((res) => {
+        setChatList(res.data);
+        startNo = res.data[0]['chat_no'];
+        // console.log(
+        //   res.data,
+        //   '-=-=-=-=-=-=socket await api-=-=-=-=-=-=-='
+        // );
+      })
+      .catch((err) => console.log(err));
+
+    return () => clearTimeout(timeout);
+  }, [forTime]);
 
   useEffect(() => {
     console.log(chatBoxRef.current.scrollTop, '스크롤 시작');
