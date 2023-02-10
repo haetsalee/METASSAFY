@@ -29,6 +29,9 @@ function UnityPage() {
     dataUrl: 'Build/Build.data',
     frameworkUrl: 'Build/Build.framework.js',
     codeUrl: 'Build/Build.wasm',
+    webglContextAttributes: {
+      preserveDrawingBuffer: true,
+    },
   });
 
   const onClose = () => {
