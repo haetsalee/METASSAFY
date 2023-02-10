@@ -11,6 +11,8 @@ TagManager:
   - CinemachineTarget
   - RoomInfo
   - tree
+  - UserInfo
+  - 1
   layers:
   - Default
   - TransparentFX
