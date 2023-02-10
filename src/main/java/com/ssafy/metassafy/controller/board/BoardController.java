@@ -60,12 +60,12 @@ public class BoardController {
 
     @ApiOperation(value = "게시글 수정", notes = "게시글 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PutMapping
-    public ResponseEntity<String> modifyArticle(@RequestPart("boardDto") @ApiParam(value = "게시글 정보(user_id, title, content, thumbnail)", required = true) BoardDto boardDto,@RequestPart(value = "uploadfiles", required = false) @ApiParam(value = "업로드 파일 정보.", required = false) List<MultipartFile> uploadfiles,@RequestPart(value = "deletefiles", required = false) @ApiParam(value = "삭제 파일 정보.", required = false) List<String> deletefiles) throws Exception {
+    public ResponseEntity<String> modifyArticle(@RequestPart("boardDto") @ApiParam(value = "게시글 정보(user_id, title, content, thumbnail)", required = true) BoardDto boardDto,@RequestPart(value ="thumbnail", required = false) @ApiParam(value = "썸내일 정보.", required = false) MultipartFile thumbnail, @RequestPart(value = "files", required = false) @ApiParam(value = "업로드 파일 정보.", required = false) List<MultipartFile> files) throws Exception {
         logger.info("modifyArticle - {article_no, title, content}", boardDto);
-        logger.info("modifyArticle - {uploadfiles}", uploadfiles);
-        logger.info("modifyArticle - {deletefiles}", deletefiles);
+        logger.info("modifyArticle - {thumbnail}", thumbnail);
+        logger.info("modifyArticle - {files}", files);
 
-        if (boardService.modifyArticle(boardDto, uploadfiles, deletefiles)) {
+        if (boardService.modifyArticle(boardDto, thumbnail, files)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.OK);
