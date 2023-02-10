@@ -32,11 +32,11 @@ const ArticleInfoWriter = ({ article }) => {
         <WriterStyle>{article.name}</WriterStyle>
         <TimeStyle>
           <div>작성 시간</div>
-          {article.modtime}
+          {article.regtime}
         </TimeStyle>
         <TimeStyle>
           <div>수정 시간</div>
-          {article.regtime}
+          {article.modtime}
         </TimeStyle>
       </div>
       <LikeDivStyle>
