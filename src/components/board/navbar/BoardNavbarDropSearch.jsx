@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
-import { getBoardList } from '../../../services/board-service';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

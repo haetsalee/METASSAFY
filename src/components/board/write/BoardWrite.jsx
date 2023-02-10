@@ -10,7 +10,6 @@ import {
   fetchBoardPost,
   fetchBoardGet,
   fetchBoardPut,
-  fetchBoardThumbnailDelete,
 } from '../../../services/board-service';
 
 const BoardWrite = () => {
