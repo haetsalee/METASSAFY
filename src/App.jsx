@@ -50,7 +50,6 @@ function App() {
         <Route path="openvidu-page" element={<OpenViduPage />} />
         <Route element={<PublicRoute />}>
           {/* <Route path="login" element={<LoginPage />} /> */}
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>
         {/* 로그인 필요한 라우터 */}
@@ -89,6 +88,8 @@ function App() {
       </Route>
       {/* Navbar 제외 */}
       <Route path="/" element={<PrivateRoute />}>
+        <Route path="/register" element={<Register />} />
+
         <Route path="unity" element={<UnityPage />}>
           <Route path="videochat/" element={<OpenViduPage />} />
           <Route path="phone/" element={<Page1 />}>
