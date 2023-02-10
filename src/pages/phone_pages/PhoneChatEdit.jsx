@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import { BiCheckCircle } from 'react-icons/bi';
 import Phone from '../../components/UI/Phone';
 import API from '../../utils/api';
+import { getJsonLocalUserInfo } from '../../utils/local-storage';
 
 function PhoneChatEdit() {
   const params = useParams();
   const room = params.id;
   const [newName, setNewName] = useState('');
+  const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
   const navigation = useNavigate();
 
   const content = {
@@ -32,6 +34,26 @@ function PhoneChatEdit() {
     }
   }
 
+  const chatOut = async () => {
+    const data = {
+      croom_no: room,
+      user_id: user,
+    };
+
+    // not_read 최신화
+    await API.put('/chat', JSON.stringify(data)).then((res) => {});
+
+    // chat 나가기
+    await API.delete(`/participant`, { data: data })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigation(`../chat`);
+  };
+
   return (
     <CenterDiv>
       <BoxP>
@@ -53,7 +75,7 @@ function PhoneChatEdit() {
       <BoxForRoomP onClick={() => navigation(`../chat/room/${room}`)}>
         <storng>채팅방으로 되돌아가기</storng>
       </BoxForRoomP>
-      <BoxForOUTP>
+      <BoxForOUTP onClick={chatOut}>
         <storng>채팅방 나가기</storng>
       </BoxForOUTP>
     </CenterDiv>
