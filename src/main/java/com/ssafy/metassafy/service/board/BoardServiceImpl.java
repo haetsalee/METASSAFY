@@ -68,6 +68,8 @@ public class BoardServiceImpl implements  BoardService{
 
                 sqlSession.getMapper(BoardMapper.class).uploadFile(file);
             }
+        }else{
+            sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
         }
 
         LikeDto likeDto = new LikeDto();

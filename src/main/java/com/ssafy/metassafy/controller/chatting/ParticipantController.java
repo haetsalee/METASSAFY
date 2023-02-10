@@ -64,7 +64,7 @@ public class ParticipantController {
 
     @DeleteMapping
     public ResponseEntity<String> deleteParticipant(@RequestBody ParticipantDto  participantDto) throws Exception{
-        logger.info("leaveRoom - 호출");
+        logger.info("leaveRoom - 호출 user_id, croom_no");
 
         if(chatService.deleteParticipant(participantDto)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
