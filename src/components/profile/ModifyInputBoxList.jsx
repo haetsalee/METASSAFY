@@ -115,7 +115,7 @@ const InputBoxList = () => {
     fetchProfileModify(info);
     const techs = techList.map((tech) => tech.tech_id);
     fetchTechSave(user.user_id, techs);
-    navigate(`../profile/${user.user_id}`);
+    setTimeout(() => navigate(`../profile/${user.user_id}`), 200);
   };
 
   return (

@@ -1,15 +1,8 @@
 import { OpenVidu } from 'openvidu-browser';
-import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 import React, { Component } from 'react';
 import UserVideoComponent from './openVidu/UserVideoComponent';
-
-import { OutlinedInput, InputAdornment } from '@mui/material';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-import useMyFetch from '../hooks/use-my-fetch';
 
 const APPLICATION_SERVER_URL = 'https://www.metassafy.store/api/session';
 
@@ -19,8 +12,7 @@ class OpenViduPage extends Component {
 
     this.state = {
       mySessionId: 'SessionA',
-      // myUserName: 'Participant' + Math.floor(Math.random() * 100),
-      myUserName: this.props.user.name + '_' + this.props.user.user_id,
+      myUserName: 'Participant' + Math.floor(Math.random() * 100),
       sessionCamera: undefined,
       sessionScreen: undefined,
       shareScreen: undefined,
@@ -89,7 +81,7 @@ class OpenViduPage extends Component {
   sendMessage() {
     this.state.sessionCamera
       .signal({
-        data: this.state.myUserName, // Any string (optional)
+        data: this.state.myUserName, // Any string (optional) 일단은 보내는 유저네임넣어놓음
         to: this.state.subscribers, // Array of Connection objects (optional. Broadcast to everyone if empty)
       })
       .then(() => {
@@ -208,13 +200,14 @@ class OpenViduPage extends Component {
           console.log(event.data); // Message
           console.log(event.from); // Connection object of the sender
           console.log(event.type); // The type of message
+          // data를 리스트 저장 후 화면에
         });
 
-        sessionCamera.on('signal:my-chat', (event) => {
-          console.log(event.data); // Message
-          console.log(event.from); // Connection object of the sender
-          console.log(event.type); // The type of message ("my-chat")
-        });
+        // sessionCamera.on('signal:my-chat', (event) => {
+        //   console.log(event.data); // Message
+        //   console.log(event.from); // Connection object of the sender
+        //   console.log(event.type); // The type of message ("my-chat")
+        // });
 
         sessionScreen.on('streamCreated', (event) => {
           if (event.stream.typeOfVideo == 'SCREEN') {
@@ -399,8 +392,7 @@ class OpenViduPage extends Component {
     this.OV = null;
     this.setState({
       mySessionId: 'SessionA',
-      // myUserName: 'Participant' + Math.floor(Math.random() * 100),
-      myUserName: this.props.user.name + '_' + this.props.user.user_id,
+      myUserName: 'Participant' + Math.floor(Math.random() * 100),
       sessionCamera: undefined,
       sessionScreen: undefined,
       shareScreen: undefined,
@@ -457,169 +449,145 @@ class OpenViduPage extends Component {
     const myUserName = this.state.myUserName;
 
     return (
-      <div>
-        {/* <div>{this.props.user.name}</div> */}
-        <div className="container">
-          {this.state.sessionCamera === undefined ? (
-            <div
-              id="join"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <div id="img-div">
-                <img
-                  src="images/logo.png"
-                  style={{ width: '100px' }}
-                  alt="회의실"
-                />
-              </div>
-              <div id="join-dialog" className="jumbotron vertical-center">
-                <p> 회의실에 참여하세요 </p>
-                <br />
-                <form className="form-group" onSubmit={this.joinSession}>
-                  <p>
-                    <label>참여자 이름 </label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="userName"
-                      // value={myUserName}
-                      value={
-                        this.props.user.name + '_' + this.props.user.user_id ||
-                        ''
-                      }
-                      onChange={this.handleChangeUserName}
-                      required
-                      // 읽기 전용
-                      readOnly
-                    />
-                  </p>
-                  <br />
-                  <p>
-                    <label> Session</label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={this.handleChangeSessionId}
-                      required
-                      // 읽기 전용
-                      readOnly
-                    />
-                  </p>
-                  <br />
-                  <p className="text-center">
-                    <BtnStyle>Join</BtnStyle>
-                    {/* <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="JOIN"
-                    /> */}
-                  </p>
-                  <br />
-                </form>
-              </div>
+      <div className="container">
+        {this.state.sessionCamera === undefined ? (
+          <div id="join">
+            <div id="img-div">
+              <img
+                src="resources/images/openvidu_grey_bg_transp_cropped.png"
+                alt="OpenVidu logo"
+              />
             </div>
-          ) : null}
+            <div id="join-dialog" className="jumbotron vertical-center">
+              <h1> Join a video session </h1>
+              <form className="form-group" onSubmit={this.joinSession}>
+                <p>
+                  <label>Participant: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="userName"
+                    value={myUserName}
+                    onChange={this.handleChangeUserName}
+                    required
+                  />
+                </p>
+                <p>
+                  <label> Session: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="sessionId"
+                    value={mySessionId}
+                    onChange={this.handleChangeSessionId}
+                    required
+                  />
+                </p>
+                <p className="text-center">
+                  <input
+                    className="btn btn-lg btn-success"
+                    name="commit"
+                    type="submit"
+                    value="JOIN"
+                  />
+                </p>
+              </form>
+            </div>
+          </div>
+        ) : null}
 
-          {this.state.sessionCamera !== undefined ? (
-            <div id="session">
-              <div id="session-header">
-                <h1 id="session-title">{mySessionId}</h1>
-                <input
-                  className="btn btn-large"
-                  type="button"
-                  id="buttonScreenShare"
-                  onClick={this.publishScreenShare}
-                  value="Screen share"
-                  style={{ visibility: 'hidden' }}
+        {this.state.sessionCamera !== undefined ? (
+          <div id="session">
+            <div id="session-header">
+              <h1 id="session-title">{mySessionId}</h1>
+              <input
+                className="btn btn-large"
+                type="button"
+                id="buttonScreenShare"
+                onClick={this.publishScreenShare}
+                value="Screen share"
+                style={{ visibility: 'hidden' }}
+              />
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.leaveSession}
+                value="Leave session"
+              />
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.muteUnmuteAudio}
+                value="Mute/Unmute Audio"
+              />
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.muteUnmuteVideo}
+                value="Mute/Unmute Video"
+              />
+            </div>
+            {this.state.mainStreamManager !== undefined ? (
+              <div id="main-video" className="col-md-6">
+                <UserVideoComponent
+                  streamManager={this.state.mainStreamManager}
                 />
                 <input
-                  className="btn btn-large btn-danger"
+                  className="btn btn-large btn-success"
                   type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.leaveSession}
-                  value="Leave session"
-                />
-                <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteAudio}
-                  value="Mute/Unmute Audio"
-                />
-                <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteVideo}
-                  value="Mute/Unmute Video"
+                  id="buttonSwitchCamera"
+                  onClick={this.sendMessage}
+                  value="SendMessage Test"
                 />
               </div>
-              {this.state.mainStreamManager !== undefined ? (
-                <div id="main-video" className="col-md-6">
-                  <UserVideoComponent
-                    streamManager={this.state.mainStreamManager}
-                  />
-                  <input
-                    className="btn btn-large btn-success"
-                    type="button"
-                    id="buttonSwitchCamera"
-                    onClick={this.sendMessage}
-                    value="SendMessage Test"
-                  />
+            ) : null}
+            <div id="video-container" className="col-md-6">
+              {this.state.publisher !== undefined ? (
+                <div
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() =>
+                    this.handleMainVideoStream(this.state.publisher)
+                  }
+                >
+                  <UserVideoComponent streamManager={this.state.publisher} />
                 </div>
               ) : null}
-              <div id="video-container" className="col-md-6">
-                {this.state.publisher !== undefined ? (
-                  <div
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() =>
-                      this.handleMainVideoStream(this.state.publisher)
-                    }
-                  >
-                    <UserVideoComponent streamManager={this.state.publisher} />
-                  </div>
-                ) : null}
-                {this.state.subscribers.map((sub, i) => (
-                  <div
-                    key={i}
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() => this.handleMainVideoStream(sub)}
-                  >
-                    <UserVideoComponent streamManager={sub} />
-                  </div>
-                ))}
-              </div>
-              <div id="screen-container" className="col-md-6">
-                {this.state.shareScreen !== undefined ? (
-                  <div
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() =>
-                      this.handleMainVideoStream(this.state.shareScreen)
-                    }
-                  >
-                    <UserVideoComponent
-                      streamManager={this.state.shareScreen}
-                    />
-                  </div>
-                ) : null}
-                {this.state.subscriberScreens.map((sub, i) => (
-                  <div
-                    key={i}
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() => this.handleMainVideoStream(sub)}
-                  >
-                    <UserVideoComponent streamManager={sub} />
-                  </div>
-                ))}
-              </div>
+              {this.state.subscribers.map((sub, i) => (
+                <div
+                  key={i}
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() => this.handleMainVideoStream(sub)}
+                >
+                  <UserVideoComponent streamManager={sub} />
+                </div>
+              ))}
             </div>
-          ) : null}
-        </div>
+            <div id="screen-container" className="col-md-6">
+              {this.state.shareScreen !== undefined ? (
+                <div
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() =>
+                    this.handleMainVideoStream(this.state.shareScreen)
+                  }
+                >
+                  <UserVideoComponent streamManager={this.state.shareScreen} />
+                </div>
+              ) : null}
+              {this.state.subscriberScreens.map((sub, i) => (
+                <div
+                  key={i}
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() => this.handleMainVideoStream(sub)}
+                >
+                  <UserVideoComponent streamManager={sub} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -652,56 +620,4 @@ class OpenViduPage extends Component {
   }
 }
 
-// export default OpenViduPage;
-
-const mapStateToProps = (state) => ({
-  user: state.auth.user,
-});
-
-export default connect(mapStateToProps)(OpenViduPage);
-
-const BtnStyle = styled.button`
-  position: relative;
-  border: none;
-  min-width: 200px;
-  min-height: 50px;
-  background: linear-gradient(90deg, #cec2f4 0%, #d0a9e5 100%);
-  border-radius: 1000px;
-  color: 'white';
-  cursor: pointer;
-  box-shadow: 12px 12px 24px rgba(164, 141, 237, 0.64);
-  font-weight: 700;
-  font-size: 20px;
-  transition: 0.3s;
-
-  :hover {
-    transform: scale(1.2);
-  }
-
-  :hover::after {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    border: 6px solid #c5c7ff;
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: ring 1.5s infinite;
-  }
-
-  @keyframes ring {
-    0% {
-      width: 30px;
-      height: 30px;
-      opacity: 1;
-    }
-    100% {
-      width: 300px;
-      height: 300px;
-      opacity: 0;
-    }
-  }
-`;
+export default OpenViduPage;

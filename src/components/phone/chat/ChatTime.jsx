@@ -20,7 +20,7 @@ const ChatTextBox = styled.div`
 `;
 
 const ChatText = styled.p`
-  font-size: 0.3rem;
+  font-size: 0.5rem;
   color: #0000006a;
   width: auto;
   overflow: hidden;

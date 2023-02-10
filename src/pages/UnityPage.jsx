@@ -13,7 +13,7 @@ import phoneImg from '../assets/images/phone.png';
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
   const [modal, setModal] = useState(false);
-
+  const [isPhone, setIsPhone] = useState(false);
   const navigate = useNavigate();
 
   const loginUser = JSON.parse(user);
@@ -46,8 +46,10 @@ function UnityPage() {
 
   useEffect(() => {
     if (isLoaded) {
-      console.log(loginUser.user_id + ' 가 메타싸피에 접속');
-      sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      // console.log(loginUser.user_id + ' 가 메타싸피에 접속');
+      // sendMessage('ValueManager', 'getUserId', loginUser.user_id);
+      console.log(loginUser.name + ' 가 메타싸피에 접속');
+      sendMessage('ValueManager', 'getUserId', loginUser.name);
     }
   }, [isLoaded]);
 
@@ -73,7 +75,13 @@ function UnityPage() {
           src={phoneImg}
           alt="phone"
           onClick={() => {
-            navigate(`phone/profile/${loginUser.user_id}`);
+            if (isPhone === false) {
+              setIsPhone(true);
+              navigate(`phone/profile/${loginUser.user_id}`);
+            } else {
+              setIsPhone(false);
+              navigate(`/unity`);
+            }
           }}
         />
         <Outlet />

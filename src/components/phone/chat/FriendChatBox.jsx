@@ -41,13 +41,13 @@ const ChatBoxStyle = styled.div`
 `;
 
 const ChatImgDivStyle = styled.div`
-  padding: 0.3rem;
+  padding: 0.5rem;
   padding-bottom: 1rem;
 `;
 
 const UserIdStyle = styled.p`
   padding: 0.2rem;
-  font-size: 0.3rem;
+  font-size: 0.5rem;
 `;
 
 const UnderDiv = styled.div`
