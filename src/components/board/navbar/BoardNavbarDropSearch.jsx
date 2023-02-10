@@ -48,6 +48,7 @@ const BoardNavbarDropSearch = () => {
     <UlStyle>
       <SearchformStyle>
         <input
+          placeholder="검색어 입력하기"
           onKeyDown={keyHandler}
           onChange={inputHandler}
           value={searchValue}
@@ -108,6 +109,9 @@ const SearchformStyle = styled.form`
     &:active,
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: #7d78787b;
     }
   }
 

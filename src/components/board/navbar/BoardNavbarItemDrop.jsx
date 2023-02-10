@@ -17,18 +17,14 @@ const BoardNavbarItemDrop = ({
   // 넷바 클릭 시 드롭박스 보여주기
   const clickHandler = async () => {
     // button active css
-    if (index === activeIndex) {
-      setActiveIndex(0);
-    } else {
-      setActiveIndex(index);
-    }
+    setActiveIndex(index);
 
     // 드롭박스 보여주기
     setIsShow(!isShow);
   };
 
   return (
-    <LiStyle index={index} activeIndex={activeIndex}>
+    <LiStyle index={index} activeIndex={activeIndex} isShow={isShow}>
       <button onClick={clickHandler}>
         {menu.label}
         <BiChevronDown />
@@ -81,8 +77,13 @@ const LiStyle = styled.li`
     }
   }
 
+  & > button > svg {
+    transition: all ease-in-out 0.5s;
+    transform: ${(props) => (props.isShow ? 'rotate(180deg)' : 'rotate(0deg)')};
+  }
+
   &:hover > ul {
-    animation: growDown 600ms ease-in-out;
+    /* animation: growDown 600ms ease-in-out; */
     transform-origin: top center;
   }
 

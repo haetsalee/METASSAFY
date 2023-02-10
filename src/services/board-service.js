@@ -18,7 +18,7 @@ export const fetchBoardList = async ({ key, popularity, user_id, word }) => {
 
   try {
     const { data, status } = await API.get(`/board?${query}`);
-    // console.log('board list', data, status);
+    console.log('board list', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
