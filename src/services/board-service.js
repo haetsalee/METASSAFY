@@ -18,7 +18,7 @@ export const fetchBoardList = async ({ key, popularity, user_id, word }) => {
 
   try {
     const { data, status } = await API.get(`/board?${query}`);
-    console.log('board list', data, status);
+    // console.log('board list', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -66,7 +66,6 @@ export const fetchBoardImage = async (formData) => {
     );
     API.defaults.headers['Content-Type'] = 'application/json';
     if (status === 200) {
-      console.log('upload img', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -100,7 +99,7 @@ export const fetchBoardPost = async (formData) => {
       transformRequest: (formData) => formData,
     });
     if (status === 200) {
-      console.log('board write', data);
+      // console.log('board write', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -118,7 +117,7 @@ export const fetchBoardPut = async (formData) => {
       transformRequest: (formData) => formData,
     });
     if (status === 200) {
-      console.log('board modify', data);
+      // console.log('board modify', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -136,7 +135,7 @@ export const fetchBoardGet = async (article_no, user_id) => {
   try {
     const { data, status } = await API.post('/board/article', requestBody);
     if (status === 200) {
-      console.log('board get', data);
+      // console.log('board get', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -149,7 +148,7 @@ export const fetchBoardDelete = async (article_no) => {
   try {
     const { data, status } = await API.delete(`/board/${article_no}`);
     if (status === 200) {
-      console.log('board delete', data);
+      // console.log('board delete', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -168,7 +167,7 @@ export const fetchCommentPost = async (article_no, content, user_id) => {
   try {
     const { data, status } = await API.post('/memo', requestBody);
     if (status === 200) {
-      console.log('memo write', data);
+      // console.log('memo write', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -182,7 +181,7 @@ export const fetchCommentGet = async (article_no, user_id) => {
     const { data, status } = await API.get(
       `/memo?article_no=${article_no}&user_id=${user_id}`
     );
-    console.log('memo list', data, status);
+    // console.log('memo list', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -193,7 +192,7 @@ export const fetchCommentDelete = async (memo_no) => {
   try {
     const { data, status } = await API.delete(`/memo/${memo_no}`);
     if (status === 200) {
-      console.log('memo delete', data);
+      // console.log('memo delete', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -209,11 +208,10 @@ export const fetchCocommentPost = async (memo_no, content, user_id) => {
     content,
     user_id,
   };
-  console.log(requestBody);
   try {
     const { data, status } = await API.post('/mememo', requestBody);
     if (status === 200) {
-      console.log('memo write', data);
+      // console.log('memo write', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -227,7 +225,7 @@ export const fetchCocommentGet = async (memo_no, user_id) => {
     const { data, status } = await API.get(
       `/mememo?memo_no=${memo_no}&user_id=${user_id}`
     );
-    console.log('memo list', data, status);
+    // console.log('memo list', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -238,7 +236,7 @@ export const fetchCocommentDelete = async (mememo_no) => {
   try {
     const { data, status } = await API.delete(`/mememo/${mememo_no}`);
     if (status === 200) {
-      console.log('memo delete', data);
+      // console.log('memo delete', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };

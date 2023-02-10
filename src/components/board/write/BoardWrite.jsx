@@ -56,7 +56,6 @@ const BoardWrite = () => {
       boardDto.article_no = article_no;
       boardDto.thumbnail = originFiles[0] ? originFiles[0].path : null;
     }
-    console.log(boardDto);
 
     const formData = new FormData();
     formData.append(
@@ -78,14 +77,12 @@ const BoardWrite = () => {
     const uploadBoard = async () => {
       // put
       if (!!article_no) {
-        console.log('putt');
         const { status } = await fetchBoardPut(formData);
         if (status) {
           navigator(-1);
         }
       } // post
       else {
-        console.log('post');
         const { status } = await fetchBoardPost(formData);
         if (status) {
           navigator('/board/list');
