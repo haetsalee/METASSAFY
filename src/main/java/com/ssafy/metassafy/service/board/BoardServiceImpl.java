@@ -33,25 +33,9 @@ public class BoardServiceImpl implements  BoardService{
         if(boardDto.getTitle() == null || boardDto.getContent() == null) {
             throw new Exception();
         }
-
         //TODO : logger로 바꾸기
-        //System.out.println(thumbnail.isEmpty() + " 썸내일");
-        //System.out.println(files.size() + " 파일");
 
         FileDto file;
-
-//        if (thumbnail != null && !thumbnail.isEmpty()) {
-//            logger.info("thumbnail - 업로드");
-//            file = fileService.saveFile(thumbnail);
-//            boardDto.setThumbnail(file.getPath());
-//        }
-
-//        sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
-
-
-        System.out.println();
-        System.out.println(boardDto);
-
 
         if(files != null && !files.get(0).isEmpty()){
             logger.info("modifyArticle files - 업로드 :" + files);
@@ -72,13 +56,13 @@ public class BoardServiceImpl implements  BoardService{
             sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
         }
 
-        LikeDto likeDto = new LikeDto();
-        likeDto.setLike_type(1);
-        likeDto.setUser_id(boardDto.getUser_id());
-        likeDto.setNo(boardDto.getArticle_no());
-        System.out.println(likeDto);
+//        LikeDto likeDto = new LikeDto();
+//        likeDto.setLike_type(1);
+//        likeDto.setUser_id(boardDto.getUser_id());
+//        likeDto.setNo(boardDto.getArticle_no());
+//        System.out.println(likeDto);
 
-        return makeLike(likeDto);
+        return true;
     }
 
 
