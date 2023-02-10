@@ -32,7 +32,9 @@ public class ChatManager : MonoBehaviourPunCallbacks
         m_inputField.enabled = false;
         //Input.imeCompositionMode = IMECompositionMode.Auto;
 
- 
+        GameObject.Find("ValueManager").GetComponent<ValueManager>().setUnityTrue();
+
+
     }
 
     void Update()
