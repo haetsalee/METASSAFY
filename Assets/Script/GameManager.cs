@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- 
+
         StartCoroutine(CreatePlayer());    
     }
 
@@ -43,4 +43,6 @@ public class GameManager : MonoBehaviour
         GameObject playerTemp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 
     }
+
+
 }
