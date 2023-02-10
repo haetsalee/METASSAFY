@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import phoneImg from '../assets/images/phone.png';
+import phoneImgFront from '../assets/images/phone_front.png';
 
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
@@ -71,7 +72,40 @@ function UnityPage() {
         </Loading>
       )}
       <PositionDiv>
-        <ImgStyle
+        {isPhone ? (
+          <ImgStyle
+            src={phoneImgFront}
+            alt="phone"
+            onClick={() => {
+              if (isPhone === false) {
+                setIsPhone(true);
+                sendMessage('ValueManager', 'setUnityFalse');
+                navigate(`phone/home`);
+              } else {
+                setIsPhone(false);
+                sendMessage('ValueManager', 'setUnityTrue');
+                navigate(`/unity`);
+              }
+            }}
+          />
+        ) : (
+          <ImgStyle
+            src={phoneImg}
+            alt="phone"
+            onClick={() => {
+              if (isPhone === false) {
+                setIsPhone(true);
+                sendMessage('ValueManager', 'setUnityFalse');
+                navigate(`phone/home`);
+              } else {
+                setIsPhone(false);
+                sendMessage('ValueManager', 'setUnityTrue');
+                navigate(`/unity`);
+              }
+            }}
+          />
+        )}
+        {/* <ImgStyle
           src={phoneImg}
           alt="phone"
           onClick={() => {
@@ -85,7 +119,7 @@ function UnityPage() {
               navigate(`/unity`);
             }
           }}
-        />
+        /> */}
         <Outlet />
       </PositionDiv>
       <ModalDiv>
