@@ -11,6 +11,7 @@ import gsap from 'gsap';
 import { DoubleSide } from 'three';
 
 import phoneImg from '../../assets/images/phone.png';
+import phoneImgFront from '../../assets/images/phone_front.png';
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -567,7 +568,36 @@ function MetaverseThree() {
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
-      <ImgStyle
+      {isPhone ? (
+        <ImgStyle
+          src={phoneImgFront}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              navigate(`/metassafy`);
+            }
+          }}
+        />
+      ) : (
+        <ImgStyle
+          src={phoneImg}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              navigate(`/metassafy`);
+            }
+          }}
+        />
+      )}
+      {/* <ImgStyle
         src={phoneImg}
         alt="phone"
         onClick={() => {
@@ -579,7 +609,7 @@ function MetaverseThree() {
             navigate(`/metassafy`);
           }
         }}
-      />
+      /> */}
       <canvas id="metassafy" className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
     </PositionDiv>
