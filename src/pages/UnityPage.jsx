@@ -77,9 +77,11 @@ function UnityPage() {
           onClick={() => {
             if (isPhone === false) {
               setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
               navigate(`phone/home`);
             } else {
               setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
               navigate(`/unity`);
             }
           }}
@@ -97,6 +99,7 @@ function UnityPage() {
       </ModalDiv>
       <Unity
         unityProvider={unityProvider}
+        tabIndex={1}
         style={{ width: '100%', height: '95%' }}
       />
 
