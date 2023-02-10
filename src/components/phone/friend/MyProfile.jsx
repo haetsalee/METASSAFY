@@ -16,7 +16,9 @@ const MyProfile = () => {
           alt={user.name}
         ></MyProfileImgStyle>
       </MyProfileImgDivStyle>
-      <NameTextStyle>{user.name}</NameTextStyle>
+      <NameTextStyle>
+        <strong>{user.name}</strong>
+      </NameTextStyle>
     </MyProfileDivStyle>
   );
 };

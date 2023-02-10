@@ -12,10 +12,14 @@ function ChatRoomNavStatus(props) {
   return (
     <ChatRoomNavStatusStyle>
       <div>
-        <ChatRoomNameStyle>{props.chatRoom?.croom_name}</ChatRoomNameStyle>
+        <ChatRoomNameStyle>
+          <strong>{props.chatRoom?.croom_name}</strong>
+        </ChatRoomNameStyle>
         <ChatRoomMemberStyle>{CurrentUser}</ChatRoomMemberStyle>
       </div>
-      <UserNumP>{userNum}</UserNumP>
+      <UserNumP>
+        <strong>{userNum}</strong>
+      </UserNumP>
     </ChatRoomNavStatusStyle>
   );
 }

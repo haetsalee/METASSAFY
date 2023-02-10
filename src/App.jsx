@@ -30,6 +30,7 @@ import PhoneChatEdit from './pages/phone_pages/PhoneChatEdit';
 import ArticlePage from './pages/ArticlePage';
 import WritePage from './pages/WritePage';
 import { useSelector } from 'react-redux';
+import PhoneHomePage from './pages/phone_pages/PhoneHomePage';
 
 function App() {
   useInfo();
@@ -70,6 +71,7 @@ function App() {
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<Page1 />}>
+              <Route path="home" element={<PhoneHomePage />} />
               <Route
                 path="profile/:user_id"
                 element={<ProfilePage user_id={user?.user_id} />}
@@ -88,6 +90,7 @@ function App() {
         <Route path="unity" element={<UnityPage />}>
           <Route path="videochat/" element={<OpenViduPage />} />
           <Route path="phone/" element={<Page1 />}>
+            <Route path="home" element={<PhoneHomePage />} />
             <Route
               path="profile/:user_id"
               element={<ProfilePage user_id={user?.user_id} />}

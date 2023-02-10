@@ -2,6 +2,7 @@ import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
 import { ReactComponent as Logout } from '../../../assets/icons/log-out.svg';
+import { ReactComponent as Home } from '../../../assets/icons/home.svg';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
@@ -13,13 +14,14 @@ function PhoneNav(props) {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  const goNavbar = (page) => {
-    navigate(page);
-  };
-
   return (
     <NavDiv>
       <UlStyle>
+        <LiStyle>
+          <NavLink to="home">
+            <Home />
+          </NavLink>
+        </LiStyle>
         <LiStyle>
           <NavLink to={`profile/${user.user_id}`}>
             <User />
@@ -35,11 +37,11 @@ function PhoneNav(props) {
             <CircleMessage />
           </NavLink>
         </LiStyle>
-        <LiStyle>
+        {/* <LiStyle>
           <NavLink to="../">
             <Logout />
           </NavLink>
-        </LiStyle>
+        </LiStyle> */}
       </UlStyle>
     </NavDiv>
   );
