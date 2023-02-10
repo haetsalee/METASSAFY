@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { fetchCommentGet } from '../../../services/board-service';
 import CommentInput from './CommentInput';
-import CommentLiItem from './CommentLiItem';
+import CommentItem from './CommentItem';
 
 const Comments = ({ user_id, article_no }) => {
   const [comments, setComments] = useState([]);
@@ -12,6 +12,7 @@ const Comments = ({ user_id, article_no }) => {
       const { data } = await fetchCommentGet(article_no, user_id);
       setComments(data);
     };
+
     if (article_no) {
       getComment();
     }
@@ -21,18 +22,17 @@ const Comments = ({ user_id, article_no }) => {
     <>
       <h1 style={{ fontSize: '1.2rem' }}>댓글</h1>
       <CommentWrapper>
-        <CommentInput
-          user_id={user_id}
-          article_no={article_no}
-          setComments={setComments}
-        />
+        <InputWrapper>
+          <CommentInput article_no={article_no} setComments={setComments} />
+        </InputWrapper>
         <CommentUlStyle>
-          {comments.reverse().map((comment, index) => {
+          {comments.map((comment, index) => {
             return (
-              <CommentLiItem
+              <CommentItem
                 key={index}
                 comment={comment}
                 setComments={setComments}
+                user_id={user_id}
               />
             );
           })}
@@ -50,6 +50,11 @@ const CommentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 1.2rem;
+`;
+
+const InputWrapper = styled.div`
+  width: 80%;
+  height: 8rem;
 `;
 
 const CommentUlStyle = styled.ul`

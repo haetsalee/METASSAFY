@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
+  fetchCocommentGet,
+  fetchCocommentPost,
   fetchCommentGet,
   fetchCommentPost,
 } from '../../../services/board-service';
 import Avatar from '../article/Avatar';
 
-const CommentInput = ({ user_id, article_no, setComments }) => {
+const CommentInput = ({ isCocomment, article_no, setComments }) => {
   const user = useSelector((state) => state.auth.user);
   const [disable, setDisable] = useState(true);
   const [text, setText] = useState('');
@@ -25,15 +27,27 @@ const CommentInput = ({ user_id, article_no, setComments }) => {
   };
 
   const submitHandler = async () => {
-    const body = {
-      article_no,
-      content: text,
-      user_id,
-    };
-    await fetchCommentPost(body);
-    // list update
-    const { data } = await fetchCommentGet(article_no, user_id);
-    setComments(data);
+    // 대댓 작성
+    if (isCocomment) {
+      await fetchCocommentPost(article_no, text, user.user_id); // 대댓일 경우는 댓 번호
+      const { data, status } = await fetchCocommentGet(
+        article_no,
+        user.user_id
+      );
+      // 대댓 없으면
+      if (status === 500) {
+        setComments([]);
+      } else {
+        // 있으면
+        setComments(data);
+      }
+    } else {
+      // 댓 작성
+      await fetchCommentPost(article_no, text, user.user_id);
+      // list update
+      const { data } = await fetchCommentGet(article_no, user.user_id);
+      setComments(data);
+    }
     setText('');
   };
 
@@ -67,7 +81,8 @@ const CommentInput = ({ user_id, article_no, setComments }) => {
 export default CommentInput;
 
 const InputSection = styled.section`
-  width: 80%;
+  width: 100%;
+  height: 100%;
   display: flex;
 `;
 
@@ -76,16 +91,19 @@ const InputWrapperStyle = styled.div`
   background-color: #f5fcff;
   border-radius: 15px;
   color: #868e96;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TextareaStyle = styled.textarea`
   width: 100%;
-  height: 6rem;
+  height: 100%;
   padding: 0.8rem;
   border: none;
   color: #868e96;
   border-radius: 15px;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 
   border: none;
   background-color: transparent;
@@ -111,10 +129,13 @@ const TextareaStyle = styled.textarea`
 `;
 
 const DivStyle = styled.div`
+  width: 100%;
+  height: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+  margin-bottom: 0.3rem;
 
   & p {
     font-size: 0.8rem;

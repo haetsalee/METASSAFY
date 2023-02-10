@@ -62,7 +62,9 @@ function ChatInviteList(props) {
       {newChatRoomName.length !== name.length && (
         <>
           <ChatInviteDiv>
-            <ChatInviteText>초대된 목록</ChatInviteText>
+            <ChatInviteText>
+              <strong>초대된 목록</strong>
+            </ChatInviteText>
             <ChatInviteBtn onClick={makeChatRoom}>
               <BiMessageSquareAdd />
             </ChatInviteBtn>

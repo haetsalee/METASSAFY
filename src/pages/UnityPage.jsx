@@ -77,7 +77,7 @@ function UnityPage() {
           onClick={() => {
             if (isPhone === false) {
               setIsPhone(true);
-              navigate(`phone/profile/${loginUser.user_id}`);
+              navigate(`phone/home`);
             } else {
               setIsPhone(false);
               navigate(`/unity`);

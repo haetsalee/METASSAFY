@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const RecommendButton = () => {
   return (
     <RecommendStyle>
-      <StyledP>추천 친구</StyledP>
+      <StyledP>
+        <strong>추천 친구</strong>
+      </StyledP>
     </RecommendStyle>
   );
 };

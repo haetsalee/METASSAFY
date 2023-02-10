@@ -30,7 +30,9 @@ const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
             </NavLink>
           </FriendImgDivStyle>
           <TextGroupStyle>
-            <NameTextStyle>{friendInfo.name}</NameTextStyle>
+            <NameTextStyle>
+              <strong>{friendInfo.name}</strong>
+            </NameTextStyle>
             <StateTextStyle>{`@${friendInfo.user_id}`}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>

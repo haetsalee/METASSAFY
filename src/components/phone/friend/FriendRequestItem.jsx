@@ -30,7 +30,9 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
             </NavLink>
           </FriendImgDivStyle>
           <TextGroutStyle>
-            <NameTextStyle>{friendInfo.name}</NameTextStyle>
+            <NameTextStyle>
+              <strong>{friendInfo.name}</strong>
+            </NameTextStyle>
             <StateTextStyle>{`@${friendInfo.user_id}`}</StateTextStyle>
           </TextGroutStyle>
         </FriendItemStyle>
