@@ -19,5 +19,5 @@ const InfoDivStyle = styled.div`
   border-bottom: 2px solid lightgray;
   margin-bottom: 1rem;
   padding-bottom: 0.3rem;
-  width; 100%;
+  width: 100%;
 `;

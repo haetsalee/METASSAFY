@@ -572,7 +572,7 @@ function MetaverseThree() {
         onClick={() => {
           if (isPhone === false) {
             setIsPhone(true);
-            navigate(`phone/profile/${user}`);
+            navigate(`phone/home`);
           } else {
             setIsPhone(false);
             navigate(`/metassafy`);

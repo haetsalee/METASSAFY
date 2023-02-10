@@ -34,7 +34,9 @@ function PhoneChatEdit() {
 
   return (
     <CenterDiv>
-      <BoxP>이름 수정</BoxP>
+      <BoxP>
+        <strong>이름 수정</strong>
+      </BoxP>
       <FlexDiv>
         <InputName
           placeholder="수정할 이름을 작성해주세요"
@@ -49,9 +51,11 @@ function PhoneChatEdit() {
         </BtnDiv>
       </FlexDiv>
       <BoxForRoomP onClick={() => navigation(`../chat/room/${room}`)}>
-        채팅방으로 되돌아가기
+        <storng>채팅방으로 되돌아가기</storng>
       </BoxForRoomP>
-      <BoxForOUTP>채팅방 나가기</BoxForOUTP>
+      <BoxForOUTP>
+        <storng>채팅방 나가기</storng>
+      </BoxForOUTP>
     </CenterDiv>
   );
 }

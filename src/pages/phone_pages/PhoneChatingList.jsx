@@ -60,7 +60,9 @@ function PhoneChatingList(props) {
   return (
     <Phone>
       <ChatRoomNavStyle>
-        <ChatListP>채팅방</ChatListP>
+        <ChatListP>
+          <strong>채팅방</strong>
+        </ChatListP>
       </ChatRoomNavStyle>
       <PhoneChatingListStyle>
         <ChatInviteList inviteList={inviteList} />
