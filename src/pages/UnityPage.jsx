@@ -77,21 +77,33 @@ function UnityPage() {
           onClick={() => {
             if (isPhone === false) {
               setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
               navigate(`phone/home`);
             } else {
               setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
               navigate(`/unity`);
             }
           }}
         />
         <Outlet />
       </PositionDiv>
+      <ModalDiv>
+        <button
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          큰 모달 띄우기
+        </button>
+      </ModalDiv>
       <Unity
         unityProvider={unityProvider}
+        tabIndex={1}
         style={{ width: '100%', height: '95%' }}
       />
 
-      {/* {modal && <PhoneTest onClose={onClose} />} */}
+      {modal && <PhoneTest onClose={onClose} />}
     </div>
   );
 }
@@ -118,4 +130,11 @@ const PositionDiv = styled.div`
   height: 100%;
   position: relative;
   align-items: center;
+`;
+const ModalDiv = styled.div`
+  height: 6rem;
+  float: left;
+  top: 20%;
+  left: 5%;
+  position: absolute;
 `;
