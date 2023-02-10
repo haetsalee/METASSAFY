@@ -4,7 +4,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { getLocalUserInfo } from '../utils/local-storage';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
-import PhoneTest from '../components/phone/PhoneTest';
+import OpenViduInModal from '../components/phone/OpenViduInModal';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -104,7 +104,7 @@ function UnityPage() {
         id="metassafy"
       />
 
-      {modal && <PhoneTest onClose={onClose} />}
+      {modal && <OpenViduInModal onClose={onClose} />}
     </div>
   );
 }
