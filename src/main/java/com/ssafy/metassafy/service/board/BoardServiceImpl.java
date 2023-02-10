@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
 @Service
 public class BoardServiceImpl implements  BoardService{
@@ -101,7 +99,28 @@ public class BoardServiceImpl implements  BoardService{
     }
 
     @Override
-    public boolean modifyArticle(BoardDto boardDto) throws Exception {
+    @Transactional
+    public boolean modifyArticle(BoardDto boardDto,List<MultipartFile> uploadfiles, List<String> deletefiles) throws Exception {
+
+        FileDto file = new FileDto();
+        file.setArticle_no(boardDto.getArticle_no());
+
+        for(String savedName : deletefiles){
+            file.setSaved_name(savedName);
+            fileService.deleteFile(file);
+            sqlSession.getMapper(BoardMapper.class).deleteFile(file);
+        }
+
+        if(uploadfiles != null && !uploadfiles.get(0).isEmpty()){
+            logger.info("writeArticle_files - 업로드");
+            for (MultipartFile multipartFile : uploadfiles) {
+                logger.info(multipartFile.getOriginalFilename().length() + " 길이 몇?");
+                file = fileService.saveFile(multipartFile);
+                file.setArticle_no(boardDto.getArticle_no());
+                sqlSession.getMapper(BoardMapper.class).uploadFile(file);
+            }
+        }
+
         return sqlSession.getMapper(BoardMapper.class).modifyArticle(boardDto) == 1;
     }
 

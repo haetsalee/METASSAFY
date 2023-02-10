@@ -60,10 +60,12 @@ public class BoardController {
 
     @ApiOperation(value = "게시글 수정", notes = "게시글 정보를 수정한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PutMapping
-    public ResponseEntity<String> modifyArticle(@ApiParam(value = "게시글 정보(article_no, title, content)", required = true) BoardDto boardDto) throws Exception {
+    public ResponseEntity<String> modifyArticle(@RequestPart("boardDto") @ApiParam(value = "게시글 정보(user_id, title, content, thumbnail)", required = true) BoardDto boardDto,@RequestPart(value = "uploadfiles", required = false) @ApiParam(value = "업로드 파일 정보.", required = false) List<MultipartFile> uploadfiles,@RequestPart(value = "deletefiles", required = false) @ApiParam(value = "삭제 파일 정보.", required = false) List<String> deletefiles) throws Exception {
         logger.info("modifyArticle - {article_no, title, content}", boardDto);
+        logger.info("modifyArticle - {uploadfiles}", uploadfiles);
+        logger.info("modifyArticle - {deletefiles}", deletefiles);
 
-        if (boardService.modifyArticle(boardDto)) {
+        if (boardService.modifyArticle(boardDto, uploadfiles, deletefiles)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.OK);
@@ -92,7 +94,7 @@ public class BoardController {
 
     @ApiOperation(value = "파일 삭제", notes = "파일 정보를 삭제한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @DeleteMapping("/file")
-    public ResponseEntity<String> deleteFile(@RequestBody @ApiParam(value = "삭제할 파일 정보(article_no, saved_name)", required = true) FileDto fileDto) throws Exception {
+    public ResponseEntity<String> deleteFile(@RequestBody @ApiParam(value = "삭제할 파일 정보(article_no, saved_name)", required = false) FileDto fileDto) throws Exception {
         logger.info("deleteFile - " + fileDto);
         if (boardService.deleteFile(fileDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
