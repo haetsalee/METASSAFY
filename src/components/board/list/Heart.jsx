@@ -9,7 +9,7 @@ import {
   getBoardList,
 } from '../../../services/board-service';
 
-const Heart = ({ type, no, isLike, setLikeNum, setIsLike, setBoardList }) => {
+const Heart = ({ type, no, isLike, setBoardList, setLikeNum, setIsLike }) => {
   const navigate = useNavigate;
   const user = useSelector((state) => state.auth.user);
   const [searchParams] = useSearchParams();
@@ -29,15 +29,18 @@ const Heart = ({ type, no, isLike, setLikeNum, setIsLike, setBoardList }) => {
     const data = { type, no, user_id };
     if (isLike === 0) {
       await fetchBoardLikePost(data); // 좋아요 요청
+      setLikeNum && setLikeNum((preState) => preState + 1);
+      setIsLike && setIsLike(true);
     } else {
       await fetchBoardLikeDelete(data); // 싫어요 요청
+      setLikeNum && setLikeNum((preState) => preState - 1);
+      setIsLike && setIsLike(false);
     }
-    // move();
-    // const query = `key=${key}&popularity=${popularity}&user_id=${user.user_id}&word=${word}`;
-    // console.log(query);
-    // navigate(`/board/list?${query}`);
-    const newList = await getBoardList(key, popularity, user.user_id, word);
-    setBoardList(newList);
+
+    if (setBoardList) {
+      const newList = await getBoardList(key, popularity, user.user_id, word);
+      setBoardList(newList);
+    }
   };
 
   return (
