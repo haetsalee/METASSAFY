@@ -52,7 +52,7 @@ function ChatInviteList(props) {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((res) => {
-        // navigate(`room/${res.data}`);
+        navigate(`room/${res.data}`);
       })
       .catch((err) => console.log(err));
   }

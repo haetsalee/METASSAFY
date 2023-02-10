@@ -272,6 +272,7 @@ function PhoneChatingRoom(props) {
   // }, []);
 
   useEffect(() => {
+    const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
     API.get(`/chat/room`, {
       params: {
         croom_no: room,
@@ -282,7 +283,9 @@ function PhoneChatingRoom(props) {
         setRoomList(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+
+    return () => clearTimeout(timeout);
+  }, [forTime]);
 
   useEffect(() => {
     const timeout = setTimeout(() => setForTime(forTime + 1), 2000);
