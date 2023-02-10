@@ -49,7 +49,7 @@ public class MememoController {
 
     // 메메모 한개 가져오기
     @GetMapping(value = "/{mememo_no}")
-    public ResponseEntity<MememoDto> getMememo(@PathVariable("mememo_no") int mememo_no) throws Exception {
+    public ResponseEntity<MememoDto> getMememo(@PathVariable int mememo_no) throws Exception {
         logger.info("getMememo - 호출");
         return new ResponseEntity<MememoDto>(mememoService.getMememo(mememo_no), HttpStatus.OK);
     }
@@ -67,7 +67,7 @@ public class MememoController {
 
     // 메메모 delete like 삭제도 처리....
     @DeleteMapping("/{mememo_no}")
-    public ResponseEntity<String> deleteMememo(@PathVariable("mememo_no") int mememo_no) throws Exception {
+    public ResponseEntity<String> deleteMememo(@PathVariable int mememo_no) throws Exception {
         logger.info("deleteMememo - ", mememo_no);
         if (mememoService.deleteMememo(mememo_no)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
