@@ -121,7 +121,7 @@
 
 	<update id="modifyArticle" parameterType="com.ssafy.metassafy.dto.board.BoardDto">
 		update article
-		set title = #{title}, content = #{content}
+		set title = #{title}, content = #{content}, thumbnail = #{thumbnail}, modtime = now()
 		where article_no = #{article_no}
 	</update>
 
