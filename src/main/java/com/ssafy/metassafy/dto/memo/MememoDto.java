@@ -19,4 +19,5 @@ public class MememoDto {
     private int my_like;
     private String regtime;
     private String name;
+    private String profile_img;
 }
