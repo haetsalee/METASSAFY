@@ -8,7 +8,7 @@ import Avatar from '../article/Avatar';
 const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
   // 댓글 삭제
   const deleteHandler = async () => {
-    await fetchCocommentDelete(cocomment.memo_no);
+    await fetchCocommentDelete(cocomment.mememo_no);
     const { data, status } = await fetchCocommentGet(
       cocomment.memo_no,
       user_id

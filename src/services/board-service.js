@@ -220,9 +220,9 @@ export const fetchCocommentGet = async (memo_no, user_id) => {
   }
 };
 
-export const fetchCocommentDelete = async (memo_no) => {
+export const fetchCocommentDelete = async (mememo_no) => {
   try {
-    const { data, status } = await API.delete(`/mememo/${memo_no}`);
+    const { data, status } = await API.delete(`/mememo/${mememo_no}`);
     if (status === 200) {
       console.log('memo delete', data);
       return { data, status, error: null };
