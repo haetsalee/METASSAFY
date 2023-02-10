@@ -37,23 +37,78 @@ public class SkinManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.collider.name + " º±≈√");
-                if (hit.collider.name=="Boy")
+                if (hit.collider.name== "WhiteBoy")
                 {
-                    GameObject.Find("Boy").GetComponent<Outline>().enabled = true;
-                    GameObject.Find("Girl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(0);
                     setSkinRes(hit.collider.name);
                 }
-                else if (hit.collider.name == "Girl")
+                else if (hit.collider.name == "BlackBoy")
                 {
-                    GameObject.Find("Boy").GetComponent<Outline>().enabled = false;
-                    GameObject.Find("Girl").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
+
                     setSkinNo(1);
                     setSkinRes(hit.collider.name);
                 }
-                 
-                
+                else if (hit.collider.name == "BlueBoy")
+                {
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
+
+                    setSkinNo(2);
+                    setSkinRes(hit.collider.name);
+                }
+                else if (hit.collider.name == "WhiteGirl")
+                {
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
+
+                    setSkinNo(3);
+                    setSkinRes(hit.collider.name);
+                }
+                else if (hit.collider.name == "BlackGirl")
+                {
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = true;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
+
+                    setSkinNo(4);
+                    setSkinRes(hit.collider.name);
+                }
+                else if (hit.collider.name == "BlueGirl")
+                {
+                    GameObject.Find("WhiteBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueBoy").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("WhiteGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlackGirl").GetComponent<Outline>().enabled = false;
+                    GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = true;
+
+                    setSkinNo(5);
+                    setSkinRes(hit.collider.name);
+                }
 
             }
 
