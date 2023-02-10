@@ -40,7 +40,7 @@ public class BoardServiceImpl implements  BoardService{
 
         FileDto file = null;
 
-        if (!thumbnail.isEmpty()) {
+        if (thumbnail != null && !thumbnail.isEmpty()) {
             logger.info("thumbnail - 업로드");
             file = fileService.saveFile(thumbnail);
             boardDto.setThumbnail(file.getPath());
@@ -107,7 +107,7 @@ public class BoardServiceImpl implements  BoardService{
 
         FileDto file;
 
-        if (!thumbnail.isEmpty()) {
+        if (thumbnail != null && !thumbnail.isEmpty()) {
             logger.info("thumbnail modify - 업로드");
             file = fileService.saveFile(thumbnail);
             boardDto.setThumbnail(file.getPath());
