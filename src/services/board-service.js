@@ -75,6 +75,22 @@ export const fetchBoardImage = async (formData) => {
   }
 };
 
+export const fetchBoardImageDelete = async ({ article_no, saved_name }) => {
+  const requestBody = {
+    article_no,
+    saved_name,
+  };
+
+  try {
+    const { data, status } = await API.delete('/board/file', {
+      data: requestBody,
+    });
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
+
 export const fetchBoardPost = async (formData) => {
   try {
     const { data, status } = await API.post('/board', formData, {
@@ -93,18 +109,16 @@ export const fetchBoardPost = async (formData) => {
   }
 };
 
-export const fetchBoardPut = async ({ user_id, title, content, thumbnail }) => {
-  const requestBody = {
-    user_id: user_id,
-    title: title,
-    content: content,
-    thumbnail: thumbnail,
-  };
-
+export const fetchBoardPut = async (formData) => {
   try {
-    const { data, status } = await API.put('/board/writeSimple', requestBody);
+    const { data, status } = await API.put('/board', formData, {
+      headers: {
+        'Contest-Type': 'multipart/form-data',
+      },
+      transformRequest: (formData) => formData,
+    });
     if (status === 200) {
-      console.log('board write', data);
+      console.log('board modify', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };

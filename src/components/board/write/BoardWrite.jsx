@@ -6,7 +6,12 @@ import styled from 'styled-components';
 import { BsPencilSquare } from 'react-icons/bs';
 import BoardWriteInput from './BoardWriteInput';
 import BoardWriteImage from './BoardWriteImage';
-import { fetchBoardPost, fetchBoardGet } from '../../../services/board-service';
+import {
+  fetchBoardPost,
+  fetchBoardGet,
+  fetchBoardPut,
+  fetchBoardThumbnailDelete,
+} from '../../../services/board-service';
 
 const BoardWrite = () => {
   const { id: article_no } = useParams();
@@ -15,12 +20,11 @@ const BoardWrite = () => {
   const [article, setArticle] = useState({
     title: '',
     content: '',
-    thumbnail: '',
-    files: [],
   });
   const [files, setFiles] = useState([]);
+  const [originFiles, setOriginFiles] = useState([]);
 
-  // 수정이면 기존 데이터 삽입
+  // 수정 모드면 기존 데이터 삽입
   useEffect(() => {
     const getArticle = async () => {
       const { data } = await fetchBoardGet(article_no, user.user_id);
@@ -28,14 +32,15 @@ const BoardWrite = () => {
         title: data.title,
         content: data.content,
         thumbnail: data.thumbnail,
-        files: data.files,
       });
+      setOriginFiles(data.files);
     };
     if (article_no && user.user_id) {
       getArticle();
     }
   }, [article_no, user.user_id]);
 
+  console.log(files);
   // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +51,13 @@ const BoardWrite = () => {
       content: article.content,
     };
 
+    if (!!article_no) {
+      // 수정 시 추가 정보
+      boardDto.article_no = article_no;
+      boardDto.thumbnail = originFiles[0] ? originFiles[0].path : null;
+    }
+    console.log(boardDto);
+
     const formData = new FormData();
     formData.append(
       'boardDto',
@@ -53,20 +65,31 @@ const BoardWrite = () => {
         type: 'application/json',
       })
     );
-    formData.append('thumbnail', files[0]);
-    if (files.length > 1) {
-      for (let i = 1; i < files.length; i++) {
-        formData.append('files', files[i]);
-      }
-    } else {
+
+    // 파일 추가
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+    if (files.length === 0) {
       formData.append('files', null);
     }
 
+    // 글 업로드 요청
     const uploadBoard = async () => {
-      // post, put !
-      const { status } = await fetchBoardPost(formData);
-      if (status) {
-        navigator('/board/list');
+      // put
+      if (!!article_no) {
+        console.log('putt');
+        const { status } = await fetchBoardPut(formData);
+        if (status) {
+          navigator(-1);
+        }
+      } // post
+      else {
+        console.log('post');
+        const { status } = await fetchBoardPost(formData);
+        if (status) {
+          navigator('/board/list');
+        }
       }
     };
     uploadBoard();
@@ -89,7 +112,12 @@ const BoardWrite = () => {
           value={article.content}
           setValue={setArticle}
         />
-        <BoardWriteImage files={files} setFiles={setFiles} />
+        <BoardWriteImage
+          setFiles={setFiles}
+          originFiles={originFiles}
+          setOriginFiles={setOriginFiles}
+          article_no={article_no}
+        />
         <HrStyle />
         <BoardWriteButtonStyle onClick={handleSubmit}>
           <BsPencilSquare style={{ fontSize: '0.9rem' }} />

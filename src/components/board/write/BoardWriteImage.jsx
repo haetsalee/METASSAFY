@@ -2,9 +2,22 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { FiImage, FiDelete } from 'react-icons/fi';
+import { useEffect } from 'react';
+import { fetchBoardImageDelete } from '../../../services/board-service';
 
-const BoardWriteImage = ({ files, setFiles }) => {
+const BoardWriteImage = ({
+  setFiles,
+  originFiles,
+  setOriginFiles,
+  article_no,
+}) => {
   const [preImages, setPreImages] = useState([]); // img src, name
+  const [originPreImages, setOriginPreImages] = useState([]); // img src, name
+
+  // 수정 모드에서 미리보기 이미지 초기화
+  useEffect(() => {
+    setOriginPreImages(originFiles);
+  }, [originFiles]);
 
   // 제출한 이미지 미리보기
   const encodeFileToBase64 = (fileBlobs) => {
@@ -27,9 +40,36 @@ const BoardWriteImage = ({ files, setFiles }) => {
     }
   };
 
+  // 수정 모드에서 원래 파일 삭제 API
+  const originImgDeleteHandler = async (index, e) => {
+    e.preventDefault();
+
+    const currentFile = originPreImages[index];
+
+    // 서버에 삭제 요청
+    const body = {
+      article_no,
+      saved_name: currentFile.saved_name,
+    };
+    await fetchBoardImageDelete(body);
+
+    // 파일, 미리보기 state 관리
+    setOriginFiles((preState) => {
+      const newList = [...preState];
+      newList.splice(index, 1);
+      return newList;
+    });
+    setOriginPreImages((preState) => {
+      const newList = [...preState];
+      newList.splice(index, 1);
+      return newList;
+    });
+  };
+
   // 이미지 삭제
   const imgDeleteHandler = (index, e) => {
     e.preventDefault();
+
     setPreImages((preState) => {
       const newList = [...preState];
       newList.splice(index, 1);
@@ -44,7 +84,11 @@ const BoardWriteImage = ({ files, setFiles }) => {
 
   const handleUploadImg = (e) => {
     const files = e.target.files;
-    setFiles(files);
+    console.log(files);
+    // setFiles(files);
+    setFiles((preState) => {
+      return [...preState, ...files];
+    });
     encodeFileToBase64(files);
   };
 
@@ -61,6 +105,20 @@ const BoardWriteImage = ({ files, setFiles }) => {
           </ImgSelectDivStyle>
         </label>
         <div>
+          {originPreImages.map((image, index) => {
+            return (
+              <PreImgDivStyle key={index}>
+                <img src={image.path} alt="preview-img" />
+                <div>{image.origin_name}</div>
+                <button
+                  type="button"
+                  onClick={originImgDeleteHandler.bind(null, index)}
+                >
+                  <FiDelete />
+                </button>
+              </PreImgDivStyle>
+            );
+          })}
           {preImages.map((image, index) => {
             return (
               <PreImgDivStyle key={index}>
