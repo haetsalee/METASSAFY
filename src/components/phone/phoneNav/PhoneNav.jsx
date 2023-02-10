@@ -1,7 +1,7 @@
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Users } from '../../../assets/icons/users.svg';
 import { ReactComponent as CircleMessage } from '../../../assets/icons/messageCircle.svg';
-import { ReactComponent as Logout } from '../../../assets/icons/log-out.svg';
+import { ReactComponent as Apps } from '../../../assets/icons/grid.svg';
 import { ReactComponent as Home } from '../../../assets/icons/home.svg';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
@@ -18,11 +18,6 @@ function PhoneNav(props) {
     <NavDiv>
       <UlStyle>
         <LiStyle>
-          <NavLink to="home">
-            <Home />
-          </NavLink>
-        </LiStyle>
-        <LiStyle>
           <NavLink to={`profile/${user.user_id}`}>
             <User />
           </NavLink>
@@ -33,15 +28,20 @@ function PhoneNav(props) {
           </NavLink>
         </LiStyle>
         <LiStyle>
+          <NavLink to="home">
+            <Home />
+          </NavLink>
+        </LiStyle>
+        <LiStyle>
           <NavLink to="chat">
             <CircleMessage />
           </NavLink>
         </LiStyle>
-        {/* <LiStyle>
-          <NavLink to="../">
-            <Logout />
+        <LiStyle>
+          <NavLink to="app">
+            <Apps />
           </NavLink>
-        </LiStyle> */}
+        </LiStyle>
       </UlStyle>
     </NavDiv>
   );

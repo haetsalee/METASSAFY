@@ -31,6 +31,7 @@ import ArticlePage from './pages/ArticlePage';
 import WritePage from './pages/WritePage';
 import { useSelector } from 'react-redux';
 import PhoneHomePage from './pages/phone_pages/PhoneHomePage';
+import PhoneApp from './pages/phone_pages/PhoneApp';
 
 function App() {
   useInfo();
@@ -72,6 +73,7 @@ function App() {
             <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<Page1 />}>
               <Route path="home" element={<PhoneHomePage />} />
+              <Route path="app" element={<PhoneApp />} />
               <Route
                 path="profile/:user_id"
                 element={<ProfilePage user_id={user?.user_id} />}
@@ -91,6 +93,7 @@ function App() {
           <Route path="videochat/" element={<OpenViduPage />} />
           <Route path="phone/" element={<Page1 />}>
             <Route path="home" element={<PhoneHomePage />} />
+            <Route path="app" element={<PhoneApp />} />
             <Route
               path="profile/:user_id"
               element={<ProfilePage user_id={user?.user_id} />}

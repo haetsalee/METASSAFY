@@ -50,6 +50,7 @@ function MetaverseThree() {
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
+      preserveDrawingBuffer: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
@@ -579,7 +580,7 @@ function MetaverseThree() {
           }
         }}
       />
-      <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
+      <canvas id="metassafy" className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
     </PositionDiv>
   );

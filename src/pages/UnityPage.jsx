@@ -101,6 +101,7 @@ function UnityPage() {
         unityProvider={unityProvider}
         tabIndex={1}
         style={{ width: '100%', height: '95%' }}
+        id="metassafy"
       />
 
       {modal && <PhoneTest onClose={onClose} />}
