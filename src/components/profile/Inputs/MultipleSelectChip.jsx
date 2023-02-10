@@ -37,6 +37,7 @@ const MultipleSelectChip = ({ setTechList, techList }) => {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
   const [personName, setPersonName] = useState([]);
   const [names, setNames] = useState([]);
+  const [isFirst, setIsFirst] = useState(false);
 
   useEffect(() => {
     const getStacks = async () => {
@@ -44,9 +45,10 @@ const MultipleSelectChip = ({ setTechList, techList }) => {
       setNames(data);
     };
     getStacks();
-    // API.get(`/user/auth/techList/${user}`).then((res) => {
-    //   setPersonName(res.data);
-    // });
+    API.get(`/user/auth/techList/${user}`).then((res) => {
+      setTechList(res.data);
+      setPersonName(res.data);
+    });
   }, []);
 
   const handleChange = (event) => {
@@ -70,6 +72,13 @@ const MultipleSelectChip = ({ setTechList, techList }) => {
           multiple
           value={personName}
           onChange={handleChange}
+          onClick={() => {
+            if (isFirst === false) {
+              setIsFirst(true);
+              setPersonName([]);
+              setTechList([]);
+            }
+          }}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected, index) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>

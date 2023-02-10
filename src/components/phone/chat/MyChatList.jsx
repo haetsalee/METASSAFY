@@ -52,7 +52,7 @@ const ChatTextBoxDiv = styled.div`
 `;
 
 const ChatTextStyle = styled.p`
-  font-size: 0.3rem;
+  font-size: 0.5rem;
   color: #000000b3;
   display: flex;
   justify-content: space-between;

@@ -19,6 +19,7 @@ import { getJsonLocalUserInfo } from '../../utils/local-storage';
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
   const [canvasTag, setCanvasTag] = useState([]);
+  const [isPhone, setIsPhone] = useState(false);
   const navigate = useNavigate();
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
 
@@ -569,7 +570,13 @@ function MetaverseThree() {
         src={phoneImg}
         alt="phone"
         onClick={() => {
-          navigate(`phone/profile/${user}`);
+          if (isPhone === false) {
+            setIsPhone(true);
+            navigate(`phone/profile/${user}`);
+          } else {
+            setIsPhone(false);
+            navigate(`/metassafy`);
+          }
         }}
       />
       <canvas className="meta-ssafy2" ref={canvasRef}></canvas>
