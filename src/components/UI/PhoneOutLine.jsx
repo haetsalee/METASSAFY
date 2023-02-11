@@ -4,7 +4,7 @@ import TextGroupComponent from '../profile/common/TextGroupComponent';
 import styled from 'styled-components';
 // import PhoneNav from '../phone/phoneNav/PhoneNav';
 
-function Phone(props) {
+function PhoneOutLine(props) {
   return (
     <PhoneStyle>
       {props.children}
@@ -13,7 +13,7 @@ function Phone(props) {
   );
 }
 
-export default Phone;
+export default PhoneOutLine;
 
 const PhoneStyle = styled.div`
   background-color: white;
@@ -27,5 +27,4 @@ const PhoneStyle = styled.div`
   flex-direction: column; */
   align-items: center;
   z-index: 10;
-  margin: 5rem;
 `;

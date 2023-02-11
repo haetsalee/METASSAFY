@@ -1,4 +1,4 @@
-import Phone from '../components/UI/Phone';
+import PhoneOutLine from '../components/UI/PhoneOutLine';
 import Profile from '../components/profile/Profile';
 // import GetUserStack from '../components/phone/GetUserStack';
 
@@ -17,13 +17,13 @@ function ProfilePage() {
   const user = my.user_id === user_id ? my : other;
 
   return (
-    <Phone>
+    <PhoneOutLine>
       <WhiteBox />
       <ProfileDiv>
         <Profile user={user}></Profile>
         {/* <GetUserStack name="ssafy"></GetUserStack> */}
       </ProfileDiv>
-    </Phone>
+    </PhoneOutLine>
   );
 }
 

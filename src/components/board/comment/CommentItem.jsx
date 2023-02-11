@@ -10,12 +10,14 @@ import Heart from '../list/Heart';
 import CommentInput from './CommentInput';
 import { BsArrowReturnRight } from 'react-icons/bs';
 import CocomentItem from './CocomentItem';
+import { useNavigate } from 'react-router-dom';
 
 const CommentItem = ({ comment, setComments, user_id }) => {
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
   const [isWriting, setIsWriting] = useState(false);
   const [cocomments, setCocomments] = useState([]);
+  const navigation = useNavigate();
 
   // 댓글 좋아요 갱신
   useEffect(() => {
@@ -64,7 +66,11 @@ const CommentItem = ({ comment, setComments, user_id }) => {
         <Avatar img={comment.profile_img} />
         <CommentDiv>
           <DivStyle>
-            <TitleStyle>
+            <TitleStyle
+              onClick={() => {
+                navigation(`/profile/${comment.user_id}`);
+              }}
+            >
               {comment.name}
               <span>{comment.regtime.slice(2)}</span>
             </TitleStyle>

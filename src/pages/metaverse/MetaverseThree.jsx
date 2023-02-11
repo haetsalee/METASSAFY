@@ -630,8 +630,8 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 70%;
-  left: 5%;
+  top: 80%;
+  left: 85%;
   position: absolute;
 `;
 

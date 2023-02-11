@@ -81,46 +81,7 @@ function UnityPage() {
 
   return (
     <div>
-      {!isLoaded && (
-        <Loading>
-          <FadeLoader color="#36d7b7" />
-        </Loading>
-      )}
-      <PositionDiv>
-        {isPhone ? (
-          <ImgStyle
-            src={phoneImgFront}
-            alt="phone"
-            onClick={() => {
-              if (isPhone === false) {
-                setIsPhone(true);
-                sendMessage('ValueManager', 'setUnityFalse');
-                navigate(`phone/home`);
-              } else {
-                setIsPhone(false);
-                sendMessage('ValueManager', 'setUnityTrue');
-                navigate(`/unity`);
-              }
-            }}
-          />
-        ) : (
-          <ImgStyle
-            src={phoneImg}
-            alt="phone"
-            onClick={() => {
-              if (isPhone === false) {
-                setIsPhone(true);
-                sendMessage('ValueManager', 'setUnityFalse');
-                navigate(`phone/home`);
-              } else {
-                setIsPhone(false);
-                sendMessage('ValueManager', 'setUnityTrue');
-                navigate(`/unity`);
-              }
-            }}
-          />
-        )}
-        {/* <ImgStyle
+      {/* <ImgStyle
           src={phoneImg}
           alt="phone"
           onClick={() => {
@@ -135,8 +96,45 @@ function UnityPage() {
             }
           }}
         /> */}
-        <Outlet />
-      </PositionDiv>
+      <Outlet />
+      {!isLoaded && (
+        <Loading>
+          <FadeLoader color="#36d7b7" />
+        </Loading>
+      )}
+      {isPhone ? (
+        <ImgStyle
+          src={phoneImgFront}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
+              navigate(`/unity`);
+            }
+          }}
+        />
+      ) : (
+        <ImgStyle
+          src={phoneImg}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
+              navigate(`/unity`);
+            }
+          }}
+        />
+      )}
       <ModalDiv>
         <button
           onClick={() => {
@@ -170,17 +168,11 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 70%;
-  left: 5%;
+  top: 80%;
+  left: 85%;
   position: absolute;
 `;
 
-const PositionDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  align-items: center;
-`;
 const ModalDiv = styled.div`
   height: 6rem;
   float: left;

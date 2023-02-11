@@ -1,5 +1,5 @@
 import FriendChatBox from '../../components/phone/chat/FriendChatBox';
-import Phone from '../../components/UI/Phone';
+import PhoneOutLine from '../../components/UI/PhoneOutLine';
 
 import styled from 'styled-components';
 import ChatRoomNav from '../../components/phone/chat/ChatRoomNav';
@@ -362,7 +362,7 @@ function PhoneChatingRoom(props) {
   }, [target]);
 
   return (
-    <Phone>
+    <PhoneOutLine>
       <ChatRoomNav chatRoom={chatRoom} />
       <ChatRoomDiv ref={chatBoxRef}>
         <PhoneChatingRoomStyle>
@@ -377,7 +377,7 @@ function PhoneChatingRoom(props) {
         </PhoneChatingRoomStyle>
       </ChatRoomDiv>
       <ChatRoomForm setChat={setChat} send={send} />
-    </Phone>
+    </PhoneOutLine>
   );
 }
 
