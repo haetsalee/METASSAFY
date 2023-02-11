@@ -70,7 +70,7 @@ const InputBoxList = () => {
   const [info, setInfo] = useState({
     user_id: '',
     name: '',
-    genderF: '', // w, m
+    genderF: '', //남성, 여성
     birthday: '',
     generation: 0, // 기수
     area: '', // 지역
@@ -86,7 +86,7 @@ const InputBoxList = () => {
     const initInfo = {
       user_id: user.user_id,
       name: user.name || '',
-      genderF: user.genderF || '', // w, m
+      genderF: user.genderF || '', // 남성, 여성
       birthday: user.birthday || '',
       generation: user.generation || '', // 기수
       area: user.area || '', // 지역

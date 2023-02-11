@@ -12,6 +12,7 @@ import {
   FaCreativeCommonsBy,
 } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
+import { useEffect } from 'react';
 
 // const user = {
 //   age: 25,
@@ -35,8 +36,13 @@ import { HiOutlineMail } from 'react-icons/hi';
 function Profile({ user }) {
   // function Profile() {
 
-  console.log(user, 'adsfad');
   // const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (Object.keys(user).length) {
+      console.log('!!!!!!!', user);
+    }
+  }, [user]);
 
   return (
     <PhoneUserProfileStyle>
@@ -59,10 +65,10 @@ function Profile({ user }) {
         <InfoListStyle>
           <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
           <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
-          {user.gender !== '미정' && (
+          {user.gender !== 'z' && (
             <InfoBox
               icon={<FaCreativeCommonsBy />}
-              text={user.gender}
+              text={user.gender === 'w' ? '여성' : '남성'}
             ></InfoBox>
           )}
           <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>

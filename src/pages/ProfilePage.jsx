@@ -4,7 +4,7 @@ import Profile from '../components/profile/Profile';
 
 import useOtherFetch from '../hooks/use-other-fetch';
 import useMyFetch from '../hooks/use-my-fetch';
-import useInfo from '../hooks/use-info';
+// import useInfo from '../hooks/use-info';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ function ProfilePage() {
   const user_id = params.user_id;
   const my = useMyFetch();
   const other = useOtherFetch(user_id);
-  console.log(my, other, '-----');
+  // console.log(my, other, '-----');
   const user = my.user_id === user_id ? my : other;
 
   return (
