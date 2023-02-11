@@ -1,28 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import styled from 'styled-components';
 import { FiCamera } from 'react-icons/fi';
-import { fetchProfileImage } from '../../../services/profile-service';
+import {
+  fetchGetImageUrl,
+  fetchProfileImage,
+} from '../../../services/profile-service';
 
-function BackgroundModifyBox({ image }) {
+function BackgroundModifyBox({ user_id, image, isSubmit }) {
   const [thumbnail, setThumbnail] = useState(image);
+  const [file, setFile] = useState();
 
-  const handleUploadImg = (e) => {
-    const file = e.target.files[0];
-    setImgUrl(file);
-  };
+  useEffect(() => {
+    if (isSubmit) {
+      submitFile();
+    }
+  }, [isSubmit]);
 
   //사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
-  const setImgUrl = (file) => {
-    const uploadImage = async () => {
-      const formData = new FormData();
-      formData.append('profile_img', file);
-      const { data } = await fetchProfileImage(formData);
-      console.log(data);
-      setThumbnail(data);
+  const submitFile = async () => {
+    const formData = new FormData();
+    formData.append('profile_img', file);
+    const { data: url } = await fetchGetImageUrl(formData);
+    const { data } = await fetchProfileImage(url, user_id);
+    console.log(data);
+  };
+
+  const encodeFileToBase64 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setThumbnail(reader.result);
     };
-    uploadImage();
+  };
+
+  const handlePreImg = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+    encodeFileToBase64(file);
   };
 
   return (
@@ -43,8 +59,8 @@ function BackgroundModifyBox({ image }) {
             type="file"
             id="chooseFile"
             name="chooseFile"
-            accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-            onChange={handleUploadImg}
+            accept="image/*"
+            onChange={handlePreImg}
             style={{ display: 'none' }}
           />
         </form>

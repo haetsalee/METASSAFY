@@ -8,7 +8,6 @@ import {
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
-import dayjs from 'dayjs';
 import useInfo from '../../hooks/use-info';
 import { BiSave } from 'react-icons/bi';
 import MultipleSelectChip from './Inputs/MultipleSelectChip';
@@ -54,19 +53,10 @@ const positionList = {
   ],
 };
 
-const InputBoxList = () => {
+const InputBoxList = ({ setIsSubmit }) => {
   const navigate = useNavigate();
   const user = useInfo();
-  // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
-  // "student_no":"2222","name":"zzzzz",
-  // "area":"구미","email":"zz@z","gender":"w",
-  // "birthday":"2023-02-03T04:09:23.840Z","age":10,"interest":"BE",
-  // "regtime":1675121266000,
-  // "profile_img":"https://kr.object.ncloudstorage.com/metassafy/06c4fb8f-7409-40c0-a2b7-6e83f0ca0cebdefault.png",
-  // "profile_txt":"앙뇽~~~~~~~~~~~~~~~~!!!!",
-  // "first_semester":"파이썬","common":null,"special":null,"free":null,"first_semester_class":0,"common_class":0,"special_class":0,"free_class":0,"x":0,"y":0,"z":0,"common_team":0,"special_team":0,"free_team":0,"current_role":null,
-  // "generation":8,"major":"비전공",
-  // "common_jo":"미정","special_jo":"미정","free_jo":"미정"};
+
   const [info, setInfo] = useState({
     user_id: '',
     name: '',
@@ -99,10 +89,6 @@ const InputBoxList = () => {
     setInfo({ ...initInfo });
   }, [user]);
 
-  useEffect(() => {
-    console.log('변화 정보!!!', info);
-  }, [info]);
-
   const handleChange = (e, key) => {
     setInfo((preState) => {
       const state = { ...preState };
@@ -113,8 +99,11 @@ const InputBoxList = () => {
 
   const onSubmitHandler = () => {
     // submit
+    setIsSubmit(true); // 제출 체크
+
     console.log('제출!!', info, techList);
     fetchProfileModify(info);
+
     const techs = techList.map((tech) => tech.tech_id);
     fetchTechSave(user.user_id, techs);
     setTimeout(() => navigate(`../profile/${user.user_id}`), 200);
