@@ -15,6 +15,8 @@ import ProfileModify from './components/profile/ProfileModify';
 import IntroPage from './pages/IntroPage';
 import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
+import WebProfilePage from './pages/WebProfilePage';
+import WebProfileModify from './pages/WebProfileModify';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
 import UnityPage from './pages/UnityPage';
@@ -66,9 +68,9 @@ function App() {
           <Route path="board/write/:id" element={<WritePage />} />
           <Route
             path="profile/:user_id"
-            element={<ProfilePage user_id={user?.user_id} />}
+            element={<WebProfilePage user_id={user?.user_id} />}
           />
-          <Route path="profile/modify" element={<ProfileModify />} />
+          <Route path="profile/modify" element={<WebProfileModify />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<Page1 />}>

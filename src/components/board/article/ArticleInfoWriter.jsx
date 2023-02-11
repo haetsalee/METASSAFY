@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Heart from '../list/Heart';
 
@@ -15,6 +16,7 @@ const ArticleInfoWriter = ({ article }) => {
   const [likeNum, setLikeNum] = useState(article.like);
   const [isLike, setIsLike] = useState(article.my_like);
   const [isTouched, setIsTouched] = useState(false);
+  const navigation = useNavigate();
 
   useEffect(() => {
     if (!isTouched) {
@@ -29,7 +31,9 @@ const ArticleInfoWriter = ({ article }) => {
   return (
     <>
       <div>
-        <WriterStyle>{article.name}</WriterStyle>
+        <WriterStyle onClick={() => navigation(`/profile/${article.user_id}`)}>
+          {article.name}
+        </WriterStyle>
         <TimeStyle>
           <div>작성 시간</div>
           {article.regtime}
@@ -59,6 +63,9 @@ const WriterStyle = styled.div`
   color: #799fc1;
   font-size: 1.2rem;
   margin-bottom: 0.9rem;
+  :hover {
+    cursor: pointer;
+  }
 `;
 const TimeStyle = styled.div`
   color: #adb5bd;
