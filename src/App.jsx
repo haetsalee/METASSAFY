@@ -108,7 +108,9 @@ function App() {
         </Route>
       </Route>
       {/* 404 */}
-      <Route path="/*" element={<NotFound />} />
+      <Route element={<Layout />}>
+        <Route path="/*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }
