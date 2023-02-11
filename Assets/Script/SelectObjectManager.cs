@@ -61,14 +61,14 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 Debug.Log(hit.collider.name + " 선택");
                 //구미를 클릭 했으면
                 if (hit.collider.name == "GumiCam")
-                    goToGumi();
-                if (hit.collider.name == "Old Screen")
+                    goToRoom("Gumi");
+                if(hit.collider.name== "SeoulCam")
                 {
-                    clickBoard();
+                    goToRoom("Seoul");
                 }
                 if (hit.collider.name == "GoLobby")
                 {
-                    goToLobby();
+                    goToRoom("WorldMap");
                 }
                 if (hit.collider.name == "tree")
                 {
@@ -96,7 +96,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
         tree.SetActive(false);
     }
-    void goToGumi()
+    void goToRoom(string name)
     {
         Debug.Log("구미 클릭");
 
@@ -110,7 +110,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
             }
         }
         //씬 이동
-        SceneManager.LoadScene("Gumi");
+        SceneManager.LoadScene(name);
 
     }
 
