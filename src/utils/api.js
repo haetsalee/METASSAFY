@@ -51,10 +51,10 @@ API.interceptors.response.use(
     const {
       response: { status },
     } = error;
-    console.log(error);
+    // console.log(error);
 
     if (status === 401) {
-      console.log('401');
+      // console.log('401');
 
       try {
         const response = await API.get('/user/getNewAccessToken');
