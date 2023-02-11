@@ -51,6 +51,9 @@ public class UserService {
         }else{
             user.setGenderF("미정");
         }
+
+        user.setUser_pwd(null);
+
         return user;
     }
 

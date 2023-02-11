@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,12 +54,6 @@ public class BoardServiceImpl implements  BoardService{
         }else{
             sqlSession.getMapper(BoardMapper.class).writeArticle(boardDto);
         }
-
-//        LikeDto likeDto = new LikeDto();
-//        likeDto.setLike_type(1);
-//        likeDto.setUser_id(boardDto.getUser_id());
-//        likeDto.setNo(boardDto.getArticle_no());
-//        System.out.println(likeDto);
 
         return true;
     }

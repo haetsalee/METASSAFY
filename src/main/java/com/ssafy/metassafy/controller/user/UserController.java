@@ -275,6 +275,7 @@ public class UserController {
 
     @GetMapping("/auth/getUserById/{user_id}")
     public User getInfo(@PathVariable String user_id){
+
         return service.getUser(user_id);
     }
 

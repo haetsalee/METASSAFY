@@ -28,6 +28,7 @@ public class JwtInterceptor implements HandlerInterceptor {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 만료되었습니다. 다시 로그인하거나 토큰을 갱신 api 호출하세요.");
                     //throw new Exception("토큰이 만료되었습니다. 다시 로그인하거나 토큰을 갱신 api 호출하세요.");
                 }
+
                 return true;
             } else {
                 // 유효한 인증토큰이 아닐 경우
