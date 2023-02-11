@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WorldMap.unity
     guid: de293b12077c8a1449542d894cf8457d
+  - enabled: 1
+    path: Assets/Scenes/Seoul.unity
+    guid: 276464ec519de1d41a19baab9a51dbe2
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
