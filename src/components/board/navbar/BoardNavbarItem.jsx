@@ -26,6 +26,7 @@ const BoardNavbarItem = ({ menu, index, activeIndex, setActiveIndex }) => {
       popularity = true;
     } else if (menu.type === 'my') {
       key = 'user_id';
+      word = user_id;
       query = user_id;
     }
 

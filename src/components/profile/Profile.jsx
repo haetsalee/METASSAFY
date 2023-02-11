@@ -35,8 +35,12 @@ import { HiOutlineMail } from 'react-icons/hi';
 function Profile({ user }) {
   // function Profile() {
 
-  console.log(user, 'adsfad');
   // const user = useSelector((state) => state.auth.user);
+
+  if (!Object.keys(user).length) {
+    return;
+    // console.log('!@@@@@@2!!', user);
+  }
 
   return (
     <PhoneUserProfileStyle>
@@ -59,10 +63,10 @@ function Profile({ user }) {
         <InfoListStyle>
           <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
           <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
-          {user.gender !== '미정' && (
+          {user.gender !== 'z' && (
             <InfoBox
               icon={<FaCreativeCommonsBy />}
-              text={user.gender}
+              text={user.gender === 'w' ? '여성' : '남성'}
             ></InfoBox>
           )}
           <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>
