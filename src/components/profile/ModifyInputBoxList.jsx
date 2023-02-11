@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -56,6 +56,7 @@ const positionList = {
 const InputBoxList = ({ setIsSubmit }) => {
   const navigate = useNavigate();
   const user = useInfo();
+  const [isLoad, setIsLoad] = useState(false);
 
   const [info, setInfo] = useState({
     user_id: '',
@@ -98,17 +99,18 @@ const InputBoxList = ({ setIsSubmit }) => {
   };
 
   const onSubmitHandler = async () => {
-    // submit
-    setIsSubmit(true); // 제출 체크 -> 프로필 이미지 업로드
-
     console.log('제출!!', info, techList);
+    setIsLoad(true);
     await fetchProfileModify(info);
 
     const techs = techList.map((tech) => tech.tech_id);
-    console.log(techs);
     await fetchTechSave(user.user_id, techs);
+    // submit
+    setIsSubmit(true); // 제출 체크 -> 프로필 이미지 업로드
 
-    navigate(`/profile/${user.user_id}`);
+    setTimeout(() => {
+      navigate(`/profile/${user.user_id}`);
+    }, '2000');
   };
 
   return (
@@ -275,10 +277,16 @@ const InputBoxList = ({ setIsSubmit }) => {
           ></MultipleSelectChip>
         </InputsStyle>
       </InputLineStyle>
+
       <ButtonStyle onClick={onSubmitHandler}>
         저장
         <BiSave />
       </ButtonStyle>
+      {isLoad && (
+        <ProgressStyle>
+          <CircularProgress />
+        </ProgressStyle>
+      )}
     </InputListStyle>
   );
 };
@@ -292,6 +300,7 @@ const InputListStyle = styled.div`
   padding: 0.3rem 2rem;
   width: 100%;
   overflow: auto;
+  position: relative;
   &::-webkit-scrollbar {
     width: 0.2rem;
   }
@@ -346,4 +355,9 @@ const FlexDiv = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+`;
+
+const ProgressStyle = styled.div`
+  position: sticky;
+  bottom: 9rem;
 `;

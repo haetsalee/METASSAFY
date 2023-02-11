@@ -25,8 +25,7 @@ function BackgroundModifyBox({ user_id, image, isSubmit }) {
       const formData = new FormData();
       formData.append('profile_img', file);
       const { data: url } = await fetchGetImageUrl(formData);
-      const { data } = await fetchProfileImage(url, user_id);
-      console.log(data);
+      fetchProfileImage(url, user_id);
     }
   };
 
