@@ -11,4 +11,8 @@ const ImgStyle = styled.img`
   height: 2.7rem;
   margin-right: 0.8rem;
   border-radius: 50%;
+  @media screen and (max-width: 500px) {
+    width: 2rem;
+    height: 2rem;
+  }
 `;

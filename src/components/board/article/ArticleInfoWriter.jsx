@@ -27,18 +27,20 @@ const ArticleInfoWriter = ({ article }) => {
   }, [article]);
 
   return (
-    <>
-      <div>
+    <WrapperStyle>
+      <DivStyle>
         <WriterStyle>{article.name}</WriterStyle>
-        <TimeStyle>
-          <div>작성 시간</div>
-          {article.regtime}
-        </TimeStyle>
-        <TimeStyle>
-          <div>수정 시간</div>
-          {article.modtime}
-        </TimeStyle>
-      </div>
+        <TimeDivStyle>
+          <TimeStyle>
+            <div>작성 시간</div>
+            {article.regtime}
+          </TimeStyle>
+          <TimeStyle>
+            <div>수정 시간</div>
+            {article.modtime}
+          </TimeStyle>
+        </TimeDivStyle>
+      </DivStyle>
       <LikeDivStyle>
         <Heart
           type="1"
@@ -49,21 +51,50 @@ const ArticleInfoWriter = ({ article }) => {
         />
         <p>{likeNum}</p>
       </LikeDivStyle>
-    </>
+    </WrapperStyle>
   );
 };
 
 export default ArticleInfoWriter;
 
+const WrapperStyle = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const DivStyle = styled.div`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const TimeDivStyle = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+  }
+`;
+
 const WriterStyle = styled.div`
   color: #799fc1;
   font-size: 1.2rem;
   margin-bottom: 0.9rem;
+  @media screen and (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 const TimeStyle = styled.div`
   color: #adb5bd;
   font-size: 0.8rem;
   margin-bottom: 0.4rem;
+  @media screen and (max-width: 500px) {
+    font-size: 0.3rem;
+    margin-left: 0.4rem;
+  }
 `;
 
 const LikeDivStyle = styled.div`

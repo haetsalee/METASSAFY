@@ -19,7 +19,7 @@ const ArticleButtonWrapper = ({ article_no }) => {
   };
 
   return (
-    <div>
+    <DivStyle>
       <ButtonStyle onClick={moveHandler}>
         <BsBookmark />
         <p>수정하기</p>
@@ -28,11 +28,19 @@ const ArticleButtonWrapper = ({ article_no }) => {
         <BsTrash />
         <p>삭제하기</p>
       </ButtonStyle>
-    </div>
+    </DivStyle>
   );
 };
 
 export default ArticleButtonWrapper;
+
+const DivStyle = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+`;
 
 const ButtonStyle = styled.button`
   width: 100%;
@@ -50,5 +58,10 @@ const ButtonStyle = styled.button`
 
   & svg {
     margin-right: 0.2rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 30%;
+    margin-left: 1rem;
   }
 `;

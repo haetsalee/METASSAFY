@@ -39,7 +39,6 @@ const BoardWrite = () => {
     }
   }, [article_no, user.user_id]);
 
-  console.log('files', files);
   // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -134,6 +133,9 @@ export default BoardWrite;
 const WriteSection = styled.section`
   width: 70%;
   margin-top: 8rem;
+  @media screen and (max-width: 500px) {
+    margin-top: 2rem;
+  }
 `;
 
 const HrStyle = styled.hr`

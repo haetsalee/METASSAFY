@@ -45,4 +45,8 @@ export default BoardNavbar;
 
 const UlStyle = styled.ul`
   width: 12rem;
+  @media screen and (max-width: 500px) {
+    display: flex;
+    width: 100%;
+  }
 `;

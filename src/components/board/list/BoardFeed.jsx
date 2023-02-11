@@ -48,6 +48,11 @@ const SectionStyle = styled.section`
   padding: 2rem;
   flex-wrap: wrap;
   min-height: 30rem;
+  @media screen and (max-width: 500px) {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const DivStyle = styled.div`
