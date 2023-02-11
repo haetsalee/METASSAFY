@@ -29,6 +29,7 @@ function UnityPage() {
     dataUrl: 'Build/Build.data',
     frameworkUrl: 'Build/Build.framework.js',
     codeUrl: 'Build/Build.wasm',
+    streamingAssetsUrl: 'streamingassets',
     webglContextAttributes: {
       preserveDrawingBuffer: true,
     },
@@ -50,17 +51,23 @@ function UnityPage() {
 
   useEffect(() => {
     if (isLoaded) {
-      // console.log(loginUser.user_id + ' 가 메타싸피에 접속');
-      // sendMessage('ValueManager', 'getUserId', loginUser.user_id);
-      console.log(loginUser.name + ' 가 메타싸피에 접속');
-      sendMessage('ValueManager', 'getUserId', loginUser.name);
+      // console.log(loginUser.name + ' 가 메타싸피에 접속');
+      // sendMessage('ValueManager', 'getUserId', loginUser.name);
+      console.log(`${loginUser.name}(${loginUser.user_id}) 가 메타싸피에 접속`);
+      sendMessage(
+        'ValueManager',
+        'getUserId',
+        `${loginUser.name}(${loginUser.user_id})`
+      );
     }
   }, [isLoaded]);
 
   useEffect(() => {
-    addEventListener('openPhone', () => {
-      setModal(!modal);
-      console.log(modal);
+    addEventListener('openPhone', (mode) => {
+      const userId = mode.split('(')[1].split(')');
+      setIsPhone(true);
+      sendMessage('ValueManager', 'setUnityFalse');
+      navigate(`phone/profile/${userId[0]}`);
     });
     return () => {
       removeEventListener('openPhone', () => {});
