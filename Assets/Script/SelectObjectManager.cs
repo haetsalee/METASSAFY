@@ -10,6 +10,7 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 
 public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
@@ -21,6 +22,8 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     Boolean isRoomInfoOpen = true; //¿·Ω√ πŸ≤ﬁ
     public GameObject tree;
+    public VideoPlayer my_video;
+
     void Update()
     {
 
@@ -79,6 +82,10 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                     name = hitTarget.GetComponentInChildren<TextMesh>().text;
                     clickUser();
                 }
+                if (hit.collider.name == "VideoPlane")
+                {
+                    playVideo();
+                }
 
             }
 
@@ -123,6 +130,21 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
         //æ¿ ¿Ãµø
         SceneManager.LoadScene("WorldMap");
     }
+    void playVideo()
+    {
+        if (my_video != null)
+        {
+            if (my_video.isPlaying)
+            {
+                my_video.Pause();
+            }
+            else
+            {
+                my_video.Play();
+            }
+        }
+    }
+
     private void clickBoard()
     {
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
