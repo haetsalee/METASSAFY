@@ -32,11 +32,17 @@ export default ArticleInfo;
 const SectionStyle = styled.div`
   display: flex;
   padding: 1.5rem;
+  @media screen and (max-width: 500px) {
+    flex-flow: column-reverse;
+  }
 `;
 
 const ContentDivStyle = styled.div`
   width: 85%;
   margin-right: 1rem;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const ImgStyle = styled.img`
@@ -59,4 +65,9 @@ const WriteInfoDivStyle = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.8rem;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
 `;

@@ -55,10 +55,16 @@ const CommentWrapper = styled.div`
 const InputWrapper = styled.div`
   width: 80%;
   height: 8rem;
+  @media screen and (max-width: 500px) {
+    width: 90%;
+  }
 `;
 
 const CommentUlStyle = styled.ul`
   width: 80%;
   margin-top: 1.2rem;
   margin-bottom: 7rem;
+  @media screen and (max-width: 500px) {
+    width: 90%;
+  }
 `;

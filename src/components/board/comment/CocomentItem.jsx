@@ -86,6 +86,13 @@ const TitleStyle = styled.div`
     font-size: 0.7rem;
     color: #868e96;
   }
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    & span {
+      padding: 0;
+    }
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -93,6 +100,9 @@ const ButtonWrapper = styled.div`
   padding-left: 1.5rem;
   padding-right: 1rem;
   color: #868e96;
+  @media screen and (max-width: 500px) {
+    padding: 0;
+  }
 `;
 
 const ButtonStyle = styled.button`
@@ -103,6 +113,9 @@ const ButtonStyle = styled.button`
   color: #799fc1;
   padding-right: 0.6rem;
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    padding: 0;
+  }
 `;
 
 const ContentStyle = styled.div`

@@ -104,4 +104,12 @@ const LiStyle = styled.li`
       transform: scaleY(1);
     }
   }
+
+  @media screen and (max-width: 500px) {
+    width: 12rem;
+    & > button {
+      font-size: 0.7rem;
+      word-break: keep-all;
+    }
+  }
 `;

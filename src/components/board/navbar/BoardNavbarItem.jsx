@@ -79,4 +79,12 @@ const LiStyle = styled.li`
       background-color: #e0f4ff;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    width: 12rem;
+    & > button {
+      font-size: 0.7rem;
+      word-break: keep-all;
+    }
+  }
 `;
