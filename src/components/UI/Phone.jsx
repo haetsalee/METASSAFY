@@ -27,4 +27,5 @@ const PhoneStyle = styled.div`
   flex-direction: column; */
   align-items: center;
   z-index: 10;
+  margin: 5rem;
 `;

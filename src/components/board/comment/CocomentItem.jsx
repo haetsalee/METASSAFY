@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   fetchCocommentDelete,
@@ -6,6 +7,8 @@ import {
 import Avatar from '../article/Avatar';
 
 const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
+  const navigation = useNavigate();
+
   // 댓글 삭제
   const deleteHandler = async () => {
     await fetchCocommentDelete(cocomment.mememo_no);
@@ -28,7 +31,11 @@ const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
         <Avatar img={cocomment.profile_img} />
         <CommentDiv>
           <DivStyle>
-            <TitleStyle>
+            <TitleStyle
+              onClick={() => {
+                navigation(`/profile/${cocomment.user_id}`);
+              }}
+            >
               {cocomment.name}
               <span>{cocomment.regtime.slice(2)}</span>
             </TitleStyle>

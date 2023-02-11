@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import Phone from '../UI/Phone';
+import PhoneOutLine from '../UI/PhoneOutLine';
 import ModifyInputBoxList from './ModifyInputBoxList';
 import BackgroundModifyBox from './common/BackgroundModifyBox';
 import { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ const ProfileModify = () => {
   }, [user]);
 
   return (
-    <Phone style={{ margin: '0' }}>
+    <PhoneOutLine style={{ margin: '0' }}>
       <ProfileContainer>
         <BackgroundModifyBox
           user_id={user.user_id}
@@ -24,7 +24,7 @@ const ProfileModify = () => {
         />
         <ModifyInputBoxList setIsSubmit={setIsSubmit} />
       </ProfileContainer>
-    </Phone>
+    </PhoneOutLine>
   );
 };
 

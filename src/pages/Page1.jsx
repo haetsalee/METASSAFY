@@ -22,7 +22,11 @@ function Page1() {
 
   return (
     <section
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
     >
       <Phone>
         <Outlet />

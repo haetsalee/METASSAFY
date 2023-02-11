@@ -35,23 +35,25 @@ function PhoneChatEdit() {
   }
 
   const chatOut = async () => {
-    const data = {
-      croom_no: room,
-      user_id: user,
-    };
+    if (window.confirm('채팅방을 나가시겠습니까?') === true) {
+      const data = {
+        croom_no: room,
+        user_id: user,
+      };
 
-    // not_read 최신화
-    await API.put('/chat', JSON.stringify(data)).then((res) => {});
+      // not_read 최신화
+      await API.put('/chat', JSON.stringify(data)).then((res) => {});
 
-    // chat 나가기
-    await API.delete(`/participant`, { data: data })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    navigation(`../chat`);
+      // chat 나가기
+      await API.delete(`/participant`, { data: data })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      navigation(`../chat`);
+    }
   };
 
   return (

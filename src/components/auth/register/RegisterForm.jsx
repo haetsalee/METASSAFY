@@ -9,6 +9,7 @@ import RegisterSelectorInfo from './RegisterSelectInfo';
 import SubmitButton from '../SubmitButton';
 
 import { fetchRegister } from '../../../services/auth-service';
+import styled from 'styled-components';
 
 const isNotEmpty = (value) => value.trim() !== '';
 const isValidId = (isExist, preId, value) => {
@@ -214,9 +215,14 @@ const RegisterForm = (props) => {
           setArea={setArea}
         />
       </div>
+      <WhiteDiv />
       <SubmitButton height="2.8rem">회원가입</SubmitButton>
     </form>
   );
 };
 
 export default RegisterForm;
+
+const WhiteDiv = styled.div`
+  height: 3rem;
+`;

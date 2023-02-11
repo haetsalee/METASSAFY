@@ -1,4 +1,4 @@
-import Phone from '../../components/UI/Phone';
+import PhoneOutLine from '../../components/UI/PhoneOutLine';
 
 import ChatRoomSearch from '../../components/phone/chat/ChatRoomSearch';
 import ChatRoomSearchResult from '../../components/phone/chat/ChatRoomSearchResult';
@@ -58,7 +58,7 @@ function PhoneChatingList(props) {
   }, [forTime]);
 
   return (
-    <Phone>
+    <PhoneOutLine>
       <ChatRoomNavStyle>
         <ChatListP>
           <strong>채팅방</strong>
@@ -77,7 +77,7 @@ function PhoneChatingList(props) {
           setCroom={props.setCroom}
         />
       </PhoneChatingListStyle>
-    </Phone>
+    </PhoneOutLine>
   );
 }
 

@@ -15,6 +15,8 @@ import ProfileModify from './components/profile/ProfileModify';
 import IntroPage from './pages/IntroPage';
 import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
+import WebProfilePage from './pages/WebProfilePage';
+import WebProfileModify from './pages/WebProfileModify';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
 import UnityPage from './pages/UnityPage';
@@ -51,7 +53,6 @@ function App() {
         <Route path="openvidu-page" element={<OpenViduPage />} />
         <Route element={<PublicRoute />}>
           {/* <Route path="login" element={<LoginPage />} /> */}
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>
         {/* 로그인 필요한 라우터 */}
@@ -67,9 +68,9 @@ function App() {
           <Route path="board/write/:id" element={<WritePage />} />
           <Route
             path="profile/:user_id"
-            element={<ProfilePage user_id={user?.user_id} />}
+            element={<WebProfilePage user_id={user?.user_id} />}
           />
-          <Route path="profile/modify" element={<ProfileModify />} />
+          <Route path="profile/modify" element={<WebProfileModify />} />
           <Route path="metassafy/" element={<Metaverse />}>
             <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<Page1 />}>
@@ -90,6 +91,8 @@ function App() {
       </Route>
       {/* Navbar 제외 */}
       <Route path="/" element={<PrivateRoute />}>
+        <Route path="/register" element={<Register />} />
+
         <Route path="unity" element={<UnityPage />}>
           <Route path="videochat/" element={<OpenViduPage />} />
           <Route path="phone/" element={<Page1 />}>
@@ -99,6 +102,8 @@ function App() {
               path="profile/:user_id"
               element={<ProfilePage user_id={user?.user_id} />}
             />
+            <Route path="openvidu-page" element={<OpenViduPage />} />
+
             <Route path="profile/modify" element={<ProfileModify />}></Route>
             <Route path="chat/" element={<PhoneChatingList />} />
             <Route path="chat/room/:id" element={<PhoneChatingRoom />} />

@@ -18,6 +18,11 @@ function PhoneNav(props) {
     <NavDiv>
       <UlStyle>
         <LiStyle>
+          <NavLink to="home">
+            <Home />
+          </NavLink>
+        </LiStyle>
+        <LiStyle>
           <NavLink to={`profile/${user.user_id}`}>
             <User />
           </NavLink>
@@ -25,11 +30,6 @@ function PhoneNav(props) {
         <LiStyle>
           <NavLink to="friend">
             <Users />
-          </NavLink>
-        </LiStyle>
-        <LiStyle>
-          <NavLink to="home">
-            <Home />
           </NavLink>
         </LiStyle>
         <LiStyle>

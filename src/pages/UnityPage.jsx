@@ -4,11 +4,12 @@ import { useEffect, useCallback, useState } from 'react';
 import { getLocalUserInfo } from '../utils/local-storage';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
-import PhoneTest from '../components/phone/PhoneTest';
+import OpenViduInModal from '../components/phone/OpenViduInModal';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import phoneImg from '../assets/images/phone.png';
+import phoneImgFront from '../assets/images/phone_front.png';
 
 function UnityPage() {
   const [user, setUser] = useState(getLocalUserInfo());
@@ -28,6 +29,10 @@ function UnityPage() {
     dataUrl: 'Build/Build.data',
     frameworkUrl: 'Build/Build.framework.js',
     codeUrl: 'Build/Build.wasm',
+    streamingAssetsUrl: 'streamingassets',
+    webglContextAttributes: {
+      preserveDrawingBuffer: true,
+    },
   });
 
   const onClose = () => {
@@ -46,17 +51,28 @@ function UnityPage() {
 
   useEffect(() => {
     if (isLoaded) {
-      // console.log(loginUser.user_id + ' 가 메타싸피에 접속');
-      // sendMessage('ValueManager', 'getUserId', loginUser.user_id);
-      console.log(loginUser.name + ' 가 메타싸피에 접속');
-      sendMessage('ValueManager', 'getUserId', loginUser.name);
+      // console.log(loginUser.name + ' 가 메타싸피에 접속');
+      // sendMessage('ValueManager', 'getUserId', loginUser.name);
+      console.log(`${loginUser.name}(${loginUser.user_id}) 가 메타싸피에 접속`);
+      sendMessage(
+        'ValueManager',
+        'getUserId',
+        `${loginUser.name}(${loginUser.user_id})`
+      );
     }
   }, [isLoaded]);
 
   useEffect(() => {
-    addEventListener('openPhone', () => {
-      setModal(!modal);
-      console.log(modal);
+    addEventListener('openPhone', (mode) => {
+      if (mode == 'video') {
+        sendMessage('ValueManager', 'setUnityFalse');
+        setModal(true);
+      } else {
+        const userId = mode.split('(')[1].split(')');
+        setIsPhone(true);
+        sendMessage('ValueManager', 'setUnityFalse');
+        navigate(`phone/profile/${userId[0]}`);
+      }
     });
     return () => {
       removeEventListener('openPhone', () => {});
@@ -65,12 +81,44 @@ function UnityPage() {
 
   return (
     <div>
+      {/* <ImgStyle
+          src={phoneImg}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
+              navigate(`/unity`);
+            }
+          }}
+        /> */}
+      <Outlet />
       {!isLoaded && (
         <Loading>
           <FadeLoader color="#36d7b7" />
         </Loading>
       )}
-      <PositionDiv>
+      {isPhone ? (
+        <ImgStyle
+          src={phoneImgFront}
+          alt="phone"
+          onClick={() => {
+            if (isPhone === false) {
+              setIsPhone(true);
+              sendMessage('ValueManager', 'setUnityFalse');
+              navigate(`phone/home`);
+            } else {
+              setIsPhone(false);
+              sendMessage('ValueManager', 'setUnityTrue');
+              navigate(`/unity`);
+            }
+          }}
+        />
+      ) : (
         <ImgStyle
           src={phoneImg}
           alt="phone"
@@ -86,8 +134,7 @@ function UnityPage() {
             }
           }}
         />
-        <Outlet />
-      </PositionDiv>
+      )}
       <ModalDiv>
         <button
           onClick={() => {
@@ -104,7 +151,7 @@ function UnityPage() {
         id="metassafy"
       />
 
-      {modal && <PhoneTest onClose={onClose} />}
+      {modal && <OpenViduInModal onClose={onClose} />}
     </div>
   );
 }
@@ -121,17 +168,11 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 70%;
-  left: 5%;
+  top: 80%;
+  left: 85%;
   position: absolute;
 `;
 
-const PositionDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  align-items: center;
-`;
 const ModalDiv = styled.div`
   height: 6rem;
   float: left;
