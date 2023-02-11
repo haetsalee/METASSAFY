@@ -18,7 +18,7 @@ const NotFound = () => {
       }}
     >
       <div>
-        <h1>죄송합니다.</h1>
+        <h1 style={{ textAlign: 'center', color: '#bbb' }}>죄송합니다.</h1>
         <p className={styled.zoom_area}>
           요청하신 페이지는 없는 페이지 입니다.
         </p>
