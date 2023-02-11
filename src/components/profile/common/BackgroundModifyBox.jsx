@@ -11,6 +11,7 @@ import {
 function BackgroundModifyBox({ user_id, image, isSubmit }) {
   const [thumbnail, setThumbnail] = useState(image);
   const [file, setFile] = useState();
+  const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
     if (isSubmit) {
@@ -20,11 +21,13 @@ function BackgroundModifyBox({ user_id, image, isSubmit }) {
 
   //사용자가 올린 이미지를 db에 넣고 스토리지에 올라간 링크로 받아옴
   const submitFile = async () => {
-    const formData = new FormData();
-    formData.append('profile_img', file);
-    const { data: url } = await fetchGetImageUrl(formData);
-    const { data } = await fetchProfileImage(url, user_id);
-    console.log(data);
+    if (isChange) {
+      const formData = new FormData();
+      formData.append('profile_img', file);
+      const { data: url } = await fetchGetImageUrl(formData);
+      const { data } = await fetchProfileImage(url, user_id);
+      console.log(data);
+    }
   };
 
   const encodeFileToBase64 = (file) => {
@@ -37,6 +40,7 @@ function BackgroundModifyBox({ user_id, image, isSubmit }) {
 
   const handlePreImg = (e) => {
     const file = e.target.files[0];
+    setIsChange(true);
     setFile(file);
     encodeFileToBase64(file);
   };

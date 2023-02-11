@@ -83,7 +83,6 @@ export const fetchProfileImage = async (url, user_id) => {
     url,
     user_id,
   };
-  console.log(body);
   try {
     const { data, status } = await API.post('/user/auth/setProfileImg', body);
     if (status === 200) {

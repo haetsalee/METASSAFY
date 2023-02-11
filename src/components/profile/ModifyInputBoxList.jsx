@@ -97,16 +97,18 @@ const InputBoxList = ({ setIsSubmit }) => {
     });
   };
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = async () => {
     // submit
-    setIsSubmit(true); // 제출 체크
+    setIsSubmit(true); // 제출 체크 -> 프로필 이미지 업로드
 
     console.log('제출!!', info, techList);
-    fetchProfileModify(info);
+    await fetchProfileModify(info);
 
     const techs = techList.map((tech) => tech.tech_id);
-    fetchTechSave(user.user_id, techs);
-    setTimeout(() => navigate(`../profile/${user.user_id}`), 200);
+    console.log(techs);
+    await fetchTechSave(user.user_id, techs);
+
+    navigate(`/profile/${user.user_id}`);
   };
 
   return (

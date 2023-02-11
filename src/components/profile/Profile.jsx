@@ -12,7 +12,6 @@ import {
   FaCreativeCommonsBy,
 } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
-import { useEffect } from 'react';
 
 // const user = {
 //   age: 25,
@@ -38,11 +37,10 @@ function Profile({ user }) {
 
   // const user = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    if (Object.keys(user).length) {
-      console.log('!!!!!!!', user);
-    }
-  }, [user]);
+  if (!Object.keys(user).length) {
+    return;
+    // console.log('!@@@@@@2!!', user);
+  }
 
   return (
     <PhoneUserProfileStyle>
