@@ -10,6 +10,7 @@ public class ValueManager : MonoBehaviour
     public string nickname;
     public int skin;
 
+
     public static ValueManager instance;
     private void Awake()
     {
