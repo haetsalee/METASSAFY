@@ -25,14 +25,12 @@ public class ChatManager : MonoBehaviourPunCallbacks
   
     void Start()
     {
-        //Screen.SetResolution(960, 600, false);
-        //PhotonNetwork.ConnectUsingSettings();
+       
         m_ContentText = m_Content.transform.GetChild(0).gameObject;
         photonview = GetComponent<PhotonView>();
-        m_inputField.enabled = false;
-        //Input.imeCompositionMode = IMECompositionMode.Auto;
+        // m_inputField.enabled = false;
 
-        GameObject.Find("ValueManager").GetComponent<ValueManager>().setUnityTrue();
+        setUnityTrue();
 
 
     }
@@ -99,7 +97,7 @@ public class ChatManager : MonoBehaviourPunCallbacks
             }
         } 
         chatmode = !chatmode;
-        setModeText();
+       // setModeText();
     }
      
     void setModeText()
@@ -115,4 +113,28 @@ public class ChatManager : MonoBehaviourPunCallbacks
             m_inputField.enabled = false;
         }
     }
+
+    public void onEdit()
+    {
+        setUnityFalse();
+    }
+    public void onEditEnd()
+    {
+        setUnityTrue();
+    }
+
+    public void setUnityFalse()
+    {
+#if (UNITY_WEBGL == true && UNITY_EDITOR == false)
+     WebGLInput.captureAllKeyboardInput = false ; 
+#endif
+    }
+
+    public void setUnityTrue()
+    {
+#if (UNITY_WEBGL == true && UNITY_EDITOR == false)
+     WebGLInput.captureAllKeyboardInput = true; 
+#endif
+    }
+
 }

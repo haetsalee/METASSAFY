@@ -10,6 +10,7 @@ public class ValueManager : MonoBehaviour
     public string nickname;
     public int skin;
 
+
     public static ValueManager instance;
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class ValueManager : MonoBehaviour
 
     public void setUnityFalse()
     {
-        Debug.Log("유니티 키보드 입력 끔");
+        //Debug.Log("유니티 키보드 입력 끔");
 #if (UNITY_WEBGL == true && UNITY_EDITOR == false)
      WebGLInput . captureAllKeyboardInput = false ; 
 #endif
@@ -59,7 +60,7 @@ public class ValueManager : MonoBehaviour
 
     public void setUnityTrue()
     {
-        Debug.Log("유니티 키보드 입력 킴");
+        //Debug.Log("유니티 키보드 입력 킴");
 #if (UNITY_WEBGL == true && UNITY_EDITOR == false)
      WebGLInput . captureAllKeyboardInput = true; 
 #endif
