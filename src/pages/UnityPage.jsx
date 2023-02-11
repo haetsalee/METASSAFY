@@ -64,10 +64,15 @@ function UnityPage() {
 
   useEffect(() => {
     addEventListener('openPhone', (mode) => {
-      const userId = mode.split('(')[1].split(')');
-      setIsPhone(true);
-      sendMessage('ValueManager', 'setUnityFalse');
-      navigate(`phone/profile/${userId[0]}`);
+      if (mode == 'video') {
+        sendMessage('ValueManager', 'setUnityFalse');
+        setModal(true);
+      } else {
+        const userId = mode.split('(')[1].split(')');
+        setIsPhone(true);
+        sendMessage('ValueManager', 'setUnityFalse');
+        navigate(`phone/profile/${userId[0]}`);
+      }
     });
     return () => {
       removeEventListener('openPhone', () => {});
