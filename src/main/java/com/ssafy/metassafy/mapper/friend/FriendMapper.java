@@ -1,6 +1,7 @@
 package com.ssafy.metassafy.mapper.friend;
 
 import com.ssafy.metassafy.dto.friend.FriendDto;
+import com.ssafy.metassafy.dto.friend.RecommendDto;
 import com.ssafy.metassafy.dto.user.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,5 @@ public interface FriendMapper {
     void deleteFriend(String user_id1, String user_id2);
 
     List<FriendDto> getSendList(String user_id);
+    List<User> getRecommendFriendList(RecommendDto recommendDto);
 }

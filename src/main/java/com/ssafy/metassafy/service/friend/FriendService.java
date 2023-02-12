@@ -1,6 +1,7 @@
 package com.ssafy.metassafy.service.friend;
 
 import com.ssafy.metassafy.dto.friend.FriendDto;
+import com.ssafy.metassafy.dto.friend.RecommendDto;
 import com.ssafy.metassafy.dto.user.User;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -24,4 +25,5 @@ public interface FriendService {
     void deleteFriend(String user_id1, String user_id2);
 
     List<FriendDto> getSendList(String user_id);
+    List<User> getRecommendFriendList(RecommendDto recommendDto);
 }

@@ -12,6 +12,13 @@
 	    ]]>
     </select>
 
+    <select id="getRecommendFriendList" parameterType="com.ssafy.metassafy.dto.friend.RecommendDto" resultType="com.ssafy.metassafy.dto.user.User">
+        SELECT *
+        FROM User
+        WHERE user_id != #{user_id} AND user_id NOT IN (SELECT to_user_id FROM Friend WHERE from_user_id = #{user_id}) AND user_id NOT IN (SELECT from_user_id FROM Friend WHERE to_user_id = #{user_id})
+        ORDER BY FIELD(area, #{area}) DESC, area ASC, FIELD(interest, #{interest}) DESC, interest ASC, rand() LIMIT 10
+    </select>
+
     <select id="getFriendNum" resultType="string">
         <![CDATA[
 		select count(*) from Friend where (from_user_id=#{user_id} or to_user_id=#{user_id}) and accept=true ;

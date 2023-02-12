@@ -279,10 +279,4 @@ public class UserController {
         return service.getUser(user_id);
     }
 
-
-
-
-
-
-
 }

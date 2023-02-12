@@ -1,6 +1,7 @@
 package com.ssafy.metassafy.service.friend;
 
 import com.ssafy.metassafy.dto.friend.FriendDto;
+import com.ssafy.metassafy.dto.friend.RecommendDto;
 import com.ssafy.metassafy.dto.user.User;
 import com.ssafy.metassafy.mapper.friend.FriendMapper;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,11 @@ public class friendServiceImpl implements  FriendService{
     @Override
     public List<FriendDto> getSendList(String user_id) {
         return mapper.getSendList(user_id);
+    }
+
+    @Override
+    public List<User> getRecommendFriendList(RecommendDto recommendDto) {
+        return mapper.getRecommendFriendList(recommendDto);
     }
 
     @Override

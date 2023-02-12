@@ -1,6 +1,7 @@
 package com.ssafy.metassafy.controller.friend;
 
 import com.ssafy.metassafy.dto.friend.FriendDto;
+import com.ssafy.metassafy.dto.friend.RecommendDto;
 import com.ssafy.metassafy.dto.user.User;
 
 import com.ssafy.metassafy.service.friend.FriendService;
@@ -117,5 +118,13 @@ public class FriendController {
     public void deleteFriend(@PathVariable("user_id1") String user_id1, @PathVariable("user_id2") String user_id2){
         service.deleteFriend(user_id1,user_id2);
     }
+
+    //친구 추천 리스트
+    @ApiOperation(value = "user_id의 친구 목록 조회", notes = "user_id의 친구 목록을 조회한다." )
+    @GetMapping("/getRecommendFriendList")
+    public List<User> getRecommendFriendList(RecommendDto recommendDto){
+        return service.getRecommendFriendList(recommendDto);
+    }
+
 
 }
