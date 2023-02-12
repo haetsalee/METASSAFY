@@ -58,8 +58,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
             // 광선으로 충돌된 collider를 hit에 넣습니다.
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.name + " 선택");
-                //구미를 클릭 했으면
+                
                 if (hit.collider.name == "GumiCam")
                     goToRoom("Gumi");
                 if(hit.collider.name== "SeoulCam")
@@ -149,6 +148,13 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     {
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
     openPhone ("board");
+#endif
+    }
+    public void enterVideo()
+    {
+//리액트 측에 비디오라는 메세지 보내기
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone ("video");
 #endif
     }
 
