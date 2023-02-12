@@ -28,14 +28,10 @@ const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
   return (
     <LiSection>
       <CommentWrapper>
-        <Avatar img={cocomment.profile_img} />
+        <Avatar img={cocomment.profile_img} user={cocomment.user_id} />
         <CommentDiv>
           <DivStyle>
-            <TitleStyle
-              onClick={() => {
-                navigation(`/profile/${cocomment.user_id}`);
-              }}
-            >
+            <TitleStyle>
               {cocomment.name}
               <span>{cocomment.regtime.slice(2)}</span>
             </TitleStyle>

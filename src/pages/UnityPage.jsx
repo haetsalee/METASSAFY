@@ -65,9 +65,11 @@ function UnityPage() {
         setModal(true);
       } else {
         const userId = mode.split('(')[1].split(')');
-        setIsPhone(true);
-        sendMessage('ValueManager', 'setUnityFalse');
-        navigate(`phone/profile/${userId[0]}`);
+        if (userId[0] !== loginUser.user_id) {
+          setIsPhone(true);
+          sendMessage('ValueManager', 'setUnityFalse');
+          navigate(`phone/profile/${userId[0]}`);
+        }
       }
     });
     return () => {
