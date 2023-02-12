@@ -11,7 +11,7 @@ const RecommendListItem = ({ friend }) => {
             <NavLink to={`../profile/${friend.user_id}`}>
               <FriendImgStyle
                 img
-                src={friend.image}
+                src={friend.profile_img}
                 alt={friend.name}
               ></FriendImgStyle>
             </NavLink>
@@ -20,7 +20,7 @@ const RecommendListItem = ({ friend }) => {
             <NameTextStyle>
               <strong>{friend.name}</strong>
             </NameTextStyle>
-            <StateTextStyle>{friend.user_id}</StateTextStyle>
+            <StateTextStyle>@{friend.user_id}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>

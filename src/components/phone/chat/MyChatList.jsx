@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import chatImg from '../../../assets/images/chatroom.png';
 
 function MyChatList(props) {
   // console.log('----------------');
@@ -7,10 +8,7 @@ function MyChatList(props) {
   return (
     <NavLink style={NavStyles} to={`room/${props.room.croom_no}`}>
       <ChatRoomListStyle>
-        <ChatRoomNavImgStyle
-          src="https://kr.object.ncloudstorage.com/metassafy/06c4fb8f-7409-40c0-a2b7-6e83f0ca0cebdefault.png"
-          alt={props.room.croom_name}
-        />
+        <ChatRoomNavImgStyle src={chatImg} alt={props.room.croom_name} />
         <ChatTextBoxDiv>
           <FlexDiv>
             <ChatRoomNameStyle>
