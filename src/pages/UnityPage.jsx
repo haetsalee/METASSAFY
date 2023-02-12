@@ -35,17 +35,12 @@ function UnityPage() {
     },
   });
 
+  //비디오 룸 닫기
   const onClose = () => {
     setModal(false);
+    sendMessage('videoRoom', 'restartUntiy');
     console.log(modal);
   };
-
-  // const handleClick = useCallback((mode) => {
-  //   console.log('이벤트 발생:' + mode);
-  //   if (mode == 'phone') {
-  //     alert('여기에 핸드폰 모달을 띄우세요.');
-  //   }
-  // }, []);
 
   useEffect(() => {});
 
@@ -65,6 +60,7 @@ function UnityPage() {
   useEffect(() => {
     addEventListener('openPhone', (mode) => {
       if (mode == 'video') {
+        //비디오룸 들어가서 회의실 입장 클릭
         sendMessage('ValueManager', 'setUnityFalse');
         setModal(true);
       } else {
@@ -135,15 +131,7 @@ function UnityPage() {
           }}
         />
       )}
-      <ModalDiv>
-        <button
-          onClick={() => {
-            setModal(!modal);
-          }}
-        >
-          큰 모달 띄우기
-        </button>
-      </ModalDiv>
+
       <Unity
         unityProvider={unityProvider}
         tabIndex={1}
@@ -170,13 +158,5 @@ const ImgStyle = styled.img`
   float: left;
   top: 80%;
   left: 85%;
-  position: absolute;
-`;
-
-const ModalDiv = styled.div`
-  height: 6rem;
-  float: left;
-  top: 20%;
-  left: 5%;
   position: absolute;
 `;
