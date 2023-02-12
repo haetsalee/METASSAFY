@@ -45,7 +45,7 @@ public class ValueManager : MonoBehaviour
     {
         this.nickname= user_id;
         //Debug.Log($"유저 {user_id} 아이디 가져옴");
-        Debug.Log("유저 아이디 가져옴:"+user_id);
+       
        // Debug.Log("이제 닉넴은 " + nickname);
 
     }
@@ -65,25 +65,6 @@ public class ValueManager : MonoBehaviour
      WebGLInput . captureAllKeyboardInput = true; 
 #endif
     }
-
-
-
-    public void setNickname(string name)
-    {
-        Debug.Log("setNickname 호출됨");
-        //모든 플레이어 중에서
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < players.Length; i++)
-        {    //이동한 애(=자기 자신)을 리액트에서 보내준 이름으로 설정
-              if (players[i].GetComponent<PhotonView>().IsMine)
-              {
-            Transform t = players[i].GetComponent<Transform>();
-            t.Find("name").GetComponent<TextMesh>().text = name+"님";
-
-              }
-        }
-    }
-    
  
 
 }
