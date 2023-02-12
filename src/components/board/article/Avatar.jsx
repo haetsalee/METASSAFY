@@ -1,7 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Avatar = ({ img }) => {
-  return <ImgStyle src={img} alt="avatar img" />;
+const Avatar = ({ img, user }) => {
+  const navigation = useNavigate();
+  console.log(user, '------------???');
+  return (
+    <ImgStyle
+      src={img}
+      alt="avatar img"
+      onClick={() => {
+        navigation(`/profile/${user}`);
+      }}
+    />
+  );
 };
 
 export default Avatar;
@@ -14,5 +25,8 @@ const ImgStyle = styled.img`
   @media screen and (max-width: 500px) {
     width: 2rem;
     height: 2rem;
+  }
+  :hover {
+    cursor: pointer;
   }
 `;

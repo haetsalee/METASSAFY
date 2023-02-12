@@ -63,14 +63,10 @@ const CommentItem = ({ comment, setComments, user_id }) => {
     <LiSection>
       {/* 댓글 */}
       <CommentWrapper>
-        <Avatar img={comment.profile_img} />
+        <Avatar img={comment.profile_img} user={comment.user_id} />
         <CommentDiv>
           <DivStyle>
-            <TitleStyle
-              onClick={() => {
-                navigation(`/profile/${comment.user_id}`);
-              }}
-            >
+            <TitleStyle>
               {comment.name}
               <span>{comment.regtime.slice(2)}</span>
             </TitleStyle>

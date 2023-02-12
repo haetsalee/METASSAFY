@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import html2canvas from 'html2canvas';
 import { ReactComponent as Meta } from '../../assets/icons/meta.svg';
+import { useState } from 'react';
 
 function PhoneHomePage() {
   const navigate = useNavigate();
+  const [camera, setCamera] = useState(false);
   function onCapture() {
     console.log('onCapture');
     html2canvas(document.getElementById('react-unity-webgl-canvas-1'))
@@ -43,27 +45,44 @@ function PhoneHomePage() {
           navigate('/');
         }}
       /> */}
-      <p>↓↓↓글자 누르면 url 바뀜</p>
-      <br />
-      <hr />
-      <p
-        onClick={() => {
-          navigate('/');
-        }}
-      >
-        홈으로 가기
-      </p>
-      <br />
-      <p
-        onClick={() => {
-          navigate('/metassafy');
-        }}
-      >
-        1인메타로 가기=유니티 나가기
-      </p>
-      <br />
-      <button onClick={onCapture}>캡쳐 실험</button>
-      <ImgDiv id="captures"></ImgDiv>
+      {!camera && (
+        <div>
+          <p>↓↓↓글자 누르면 url 바뀜</p>
+          <br />
+          <hr />
+          <p
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            홈으로 가기
+          </p>
+          <br />
+          <p
+            onClick={() => {
+              navigate('/metassafy');
+            }}
+          >
+            1인메타로 가기=유니티 나가기
+          </p>
+          <br />
+          <button
+            onClick={() => {
+              setCamera(true);
+            }}
+          >
+            카메라 키기
+          </button>
+        </div>
+      )}
+      {camera && (
+        <div>
+          <button onClick={onCapture}>캡쳐 실험</button>
+          <ImgDiv id="captures"></ImgDiv>
+          <p onClick={() => setCamera(false)}>홈 가기</p>
+        </div>
+      )}
+
       <p>그외 이것저것 추가 예정</p>
       <br />
     </CenterDiv>
