@@ -1,7 +1,6 @@
 import React from 'react';
 import PhoneModal from '../UI/modal/PhoneModal';
 import PhoneClose from './PhoneClose';
-import PhoneFriendPage from '../../pages/phone_pages/PhoneFriendPage';
 import OpenViduPage from '../../pages/OpenViduPage';
 
 const OpenViduInModal = (props) => {
