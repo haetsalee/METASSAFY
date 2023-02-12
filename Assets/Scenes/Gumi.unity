@@ -1058,8 +1058,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101920286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.08, y: 2.5193, z: -14.5249}
-  m_LocalScale: {x: 7.568827, y: 5.8635206, z: -7.1243205}
+  m_LocalPosition: {x: 9.0692, y: 2.5193, z: -13.9477}
+  m_LocalScale: {x: 7.5129066, y: 5.8635206, z: -5.969976}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1061404211}
@@ -9477,21 +9477,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1693971392}
-        m_TargetAssemblyTypeName: SelectObjectManager, Assembly-CSharp
-        m_MethodName: enterVideo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1450215148}
         m_TargetAssemblyTypeName: videoRoom, Assembly-CSharp
-        m_MethodName: stopWithoutVideo
+        m_MethodName: enterVideo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14650,8 +14638,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209429058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.08, y: 2.4755, z: -0.0286}
-  m_LocalScale: {x: 7.568827, y: 5.951, z: -7.474109}
+  m_LocalPosition: {x: 8.9166, y: 2.4755, z: -0.4985}
+  m_LocalScale: {x: 7.215219, y: 5.951, z: -6.2153015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1061404211}
@@ -18162,8 +18150,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450215143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4108, y: 2.4755, z: -0.0755}
-  m_LocalScale: {x: 7.4749737, y: 5.951, z: -7.381107}
+  m_LocalPosition: {x: -0.2866, y: 2.4755, z: -0.4539}
+  m_LocalScale: {x: 7.1717653, y: 5.951, z: -6.4539165}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1061404211}
