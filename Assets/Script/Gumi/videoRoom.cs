@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,9 @@ public class videoRoom : MonoBehaviour
     // Start is called before the first frame update
     public GameObject enterBtn;
     public TMP_InputField m_inputField;
+     
+    [DllImport("__Internal")]
+    private static extern void openPhone(string mode);
     void Start()
     {
         
@@ -17,6 +21,7 @@ public class videoRoom : MonoBehaviour
     private void OnTriggerEnter(Collider other)
 
     {
+       
         enterBtn.SetActive(true);
  
     }
@@ -61,5 +66,14 @@ public class videoRoom : MonoBehaviour
     void Update()
     {
         
+    }
+    public void enterVideo()
+    {
+        
+        stopWithoutVideo();
+        //리액트 측에 비디오라는 메세지 보내기
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone (this.gameObject.name);
+#endif
     }
 }
