@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import RecommendListItem from './RecommendListItem';
+import API from '../../../utils/api';
+import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 
 const RecommendList = () => {
-  const [friends, setFriends] = useState(FriendData);
+  const [friends, setFriends] = useState([]);
+  const user = getJsonLocalUserInfo();
+  console.log(user, '---------------');
+  API.get(`/friend/getRecommendFriendList`, {
+    params: { user_id: user.user_id, area: user.area, interest: user.interest },
+  }).then((res) => {
+    setFriends(res.data);
+  });
 
   return (
     <FriendListStyle>
@@ -13,15 +22,6 @@ const RecommendList = () => {
     </FriendListStyle>
   );
 };
-
-const FriendData = [
-  {
-    id: 1,
-    name: '김싸피',
-    user_id: '@aaaaa',
-    image: `https://i.pinimg.com/736x/6f/39/6a/6f396afe45a5ec6c600a4e60afc7bfe0.jpg`,
-  },
-];
 
 export default RecommendList;
 
