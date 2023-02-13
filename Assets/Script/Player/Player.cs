@@ -7,40 +7,90 @@ using System;
 
 public class Player : MonoBehaviourPunCallbacks
 {
-    public float Speed = 10.0f;
-
-    public float rotateSpeed = 2.0f;       // 회전 속도
-    float h, v;
-    private Rigidbody m_rigidbody;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        m_rigidbody = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-         
-    }
-    private void FixedUpdate()
-    {
-        if (photonView.IsMine)
+        if (photonView!= null)
         {
-            
-            Move();
+            if (photonView.IsMine)
+            {
+                animator = GetComponent<Animator>();
+                Dance1();
+                Dance2();
+                Joyful();
+                Kick();
+                Wave();
 
+            }
+        }
+
+    }
+
+    void Dance1()
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            animator.SetBool("isDance1", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isDance1", false);
         }
     }
-    private void Move()
-    {
-        
 
-        float x = Input.GetAxis("Horizontal") * 5f * Time.deltaTime;
-        float z = Input.GetAxis("Vertical") * 5f * Time.deltaTime;
-        
-        transform.Translate(x, 0, z);
- 
+    void Dance2()
+    {
+        if (Input.GetKey(KeyCode.X))
+        {
+            animator.SetBool("isDance2", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isDance2", false);
+        }
+    }
+
+    void Joyful()
+    {
+        if (Input.GetKey(KeyCode.C))
+        {
+            animator.SetBool("isJoyful", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isJoyful", false);
+        }
+    }
+
+    void Kick()
+    {
+        if (Input.GetKey(KeyCode.V))
+        {
+            animator.SetBool("isKick", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isKick", false);
+        }
+    }
+
+    void Wave()
+    {
+        if (Input.GetKey(KeyCode.B))
+        {
+            animator.SetBool("isWave", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isWave", false);
+        }
     }
    
 }

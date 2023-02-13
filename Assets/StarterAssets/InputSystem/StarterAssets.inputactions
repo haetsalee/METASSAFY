@@ -42,9 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dance",
+                    "name": "Dance1",
                     "type": "Button",
-                    "id": "c3605750-be97-4644-b2b2-2d55d3796be5",
+                    "id": "8ffd0b38-31ef-41ad-bc49-1bebd48b7146",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -230,12 +230,12 @@
                 },
                 {
                     "name": "",
-                    "id": "3e2b944b-452f-4d28-bd92-31774f6ac29b",
-                    "path": "<Keyboard>/q",
+                    "id": "58f7b1f2-330e-42e3-a2ae-1117f2b1d67e",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Dance",
+                    "action": "Dance1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
