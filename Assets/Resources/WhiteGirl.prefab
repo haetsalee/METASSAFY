@@ -718,6 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 326208169784662138}
   - component: {fileID: 7641745844224193792}
+  - component: {fileID: 664094220324285533}
   - component: {fileID: 4255249056724277099}
   - component: {fileID: 4238540619718735083}
   - component: {fileID: 5959398296835619782}
@@ -772,6 +773,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &664094220324285533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665284970266405481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3cb4e8170c84540949385a501910a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4255249056724277099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,6 +855,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: MotionSpeed
+  - Type: 9
+    SynchronizeType: 2
+    Name: isDance
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
