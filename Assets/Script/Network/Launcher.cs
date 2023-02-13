@@ -34,6 +34,14 @@ public class Launcher : MonoBehaviourPunCallbacks
             Debug.Log("구미 연결..");
             PhotonNetwork.JoinOrCreateRoom("Gumi", null, null);
         }
+        else if (SceneManager.GetActiveScene().name=="Seoul")
+        {
+            PhotonNetwork.JoinOrCreateRoom("Seoul", null, null);
+        }
+        else if (SceneManager.GetActiveScene().name == "Gumi")
+        {
+            PhotonNetwork.JoinOrCreateRoom("BUK", null, null);
+        }
         else
         {
             PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
