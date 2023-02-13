@@ -69,6 +69,10 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     goToRoom("WorldMap");
                 }
+                if (hit.collider.name == "ºÎ¿ï°æ")
+                {
+                    goToRoom("BUK");
+                }
                 if (hit.collider.name == "tree")
                 {
                     // GameObject tree= GameObject.FindGameObjectWithTag("tree");
@@ -85,6 +89,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     playVideo();
                 }
+                
 
             }
 
