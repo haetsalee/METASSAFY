@@ -1,24 +1,16 @@
-import { OpenVidu } from 'openvidu-browser';
-import { useSelector } from 'react-redux';
-
 import axios from 'axios';
 import React, { Component } from 'react';
-import UserVideoComponent from './openVidu/UserVideoComponent';
-
-import { OutlinedInput, InputAdornment } from '@mui/material';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import useMyFetch from '../hooks/use-my-fetch';
+import { OpenVidu } from 'openvidu-browser';
+import UserVideoComponent from './openVidu/UserVideoComponent';
 import MainVideoComponent from './openVidu/MainVideoComponent';
 
-import {
-  BiVolumeFull,
-  BiVolumeMute,
-  BiVideo,
-  BiVideoOff,
-} from 'react-icons/bi';
-import { FiAirplay, FiPhoneOff, FiX } from 'react-icons/fi';
+import { FiX, FiAirplay, FiPhoneOff } from 'react-icons/fi';
+import { BiVolumeFull, BiVolumeMute } from 'react-icons/bi';
+import { BiVideo, BiVideoOff } from 'react-icons/bi';
+
+import styled from 'styled-components';
 
 const APPLICATION_SERVER_URL = 'https://www.metassafy.store/api/session';
 
@@ -468,235 +460,178 @@ class OpenViduPage extends Component {
     const myUserName = this.state.myUserName;
 
     return (
-      <div>
+      <SectionStyle>
         {/* <div>{this.props.user.name}</div> */}
-        <div className="container" style={{ height: '75vh' }}>
-          {this.state.sessionCamera === undefined ? (
-            <div
-              id="join"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <div id="img-div">
-                <img
-                  src="images/logo.png"
-                  style={{ width: '100px' }}
-                  alt="회의실"
-                />
-              </div>
-              <div id="join-dialog" className="jumbotron vertical-center">
-                <p> 회의실에 참여하세요 </p>
-                <br />
-                <form className="form-group" onSubmit={this.joinSession}>
-                  <p>
-                    <label>참여자 이름 </label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="userName"
-                      value={myUserName}
-                      // value={
-                      //   this.props.user.name + '_' + this.props.user.user_id ||
-                      //   'Me'
-                      // }
-                      onChange={this.handleChangeUserName}
-                      required
-                      // 읽기 전용
-                      // readOnly
-                    />
-                  </p>
-                  <br />
-                  <p>
-                    <label> Session</label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={this.handleChangeSessionId}
-                      required
-                      // 읽기 전용
-                      // readOnly
-                    />
-                  </p>
-                  <br />
-                  <p className="text-center">
-                    <BtnStyle>Join</BtnStyle>
-                    {/* <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="JOIN"
-                    /> */}
-                  </p>
-                  <br />
-                </form>
-              </div>
-            </div>
-          ) : null}
+        {!this.state.sessionCamera && (
+          <WaitingRoomStyle>
+            <LogoDivStyle id="img-div">
+              <img
+                src="images/logo.png"
+                style={{ width: '200px' }}
+                alt="회의실"
+              />
+            </LogoDivStyle>
+            <JoinDivStyle>
+              <TitleStyle>회의실에 참여하세요</TitleStyle>
+              <form onSubmit={this.joinSession}>
+                <InputWrapperStyle>
+                  <LabelStyle>참여자 이름</LabelStyle>
+                  <InputStyle
+                    type="text"
+                    id="userName"
+                    value={myUserName}
+                    // value={
+                    //   this.props.user.name + '_' + this.props.user.user_id ||
+                    //   'Me'
+                    // }
+                    onChange={this.handleChangeUserName}
+                    required
+                    // 읽기 전용 readOnly
+                  />
+                </InputWrapperStyle>
+                <InputWrapperStyle>
+                  <LabelStyle>Session</LabelStyle>
+                  <InputStyle
+                    type="text"
+                    id="sessionId"
+                    value={mySessionId}
+                    onChange={this.handleChangeSessionId}
+                    required
+                    // 읽기 전용 readOnly
+                  />
+                </InputWrapperStyle>
+                <ButtonWrapperStyle>
+                  <BtnStyle>Join</BtnStyle>
+                </ButtonWrapperStyle>
+              </form>
+            </JoinDivStyle>
+          </WaitingRoomStyle>
+        )}
 
-          {this.state.sessionCamera !== undefined ? (
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ fontSize: '15px' }} id="session-title">
-                {mySessionId}
-              </p>
-              <div
-                id="session-header"
-                style={{ display: 'flex', justifyContent: 'center' }}
-              >
-                {/* <input
-                  className="btn btn-large"
-                  type="button"
+        {this.state.sessionCamera && (
+          <MeetingRoomStyle>
+            <BottomDivStyle>
+              <MeetingTitleStyle>{mySessionId}</MeetingTitleStyle>
+              <ControlButtonWrapperStyle>
+                <ControlButtonStyle
                   id="buttonScreenShare"
                   onClick={this.publishScreenShare}
-                  value="화면 공유하기"
-                  style={{ visibility: 'hidden' }}
-                /> */}
-                <HeadBtnStyle
-                  id="buttonScreenShare"
-                  onClick={this.publishScreenShare}
+                  color={!this.state.shareScreen}
                 >
-                  {this.state.shareScreen == true ? <FiX /> : <FiAirplay />}
-                </HeadBtnStyle>
-
-                {/* <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteAudio}
-                  value={
-                    this.state.publishAudio == true ? '소리끄기' : '소리켜기'
-                  }
-                /> */}
-                <HeadBtnStyle
+                  {!!this.state.shareScreen ? <FiX /> : <FiAirplay />}
+                </ControlButtonStyle>
+                <ControlButtonStyle
                   id="buttonMuteAudio"
                   onClick={this.muteUnmuteAudio}
+                  color={!!this.state.publishAudio}
                 >
-                  {this.state.publishAudio == true ? (
-                    <BiVolumeMute />
-                  ) : (
+                  {this.state.publishAudio ? (
                     <BiVolumeFull />
+                  ) : (
+                    <BiVolumeMute />
                   )}
-                </HeadBtnStyle>
-                {/* <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteVideo}
-                  value={
-                    this.state.publishVideo == true ? '화면끄기' : '화면켜기'
-                  }
-                /> */}
-                <HeadBtnStyle
+                </ControlButtonStyle>
+                <ControlButtonStyle
                   id="buttonMuteVideo"
                   onClick={this.muteUnmuteVideo}
+                  color={!!this.state.publishVideo}
                 >
-                  {this.state.publishVideo == true ? (
-                    <BiVideoOff />
-                  ) : (
-                    <BiVideo />
-                  )}
-                </HeadBtnStyle>
-                {/* <input
-                  className="btn btn-large btn-danger"
-                  type="button"
+                  {this.state.publishVideo ? <BiVideo /> : <BiVideoOff />}
+                </ControlButtonStyle>
+
+                <ControlButtonStyle
                   id="buttonLeaveSession"
                   onClick={this.leaveSession}
-                  value="회의실 나가기"
-                /> */}
-                <OutBtnStyle
-                  id="buttonLeaveSession"
-                  onClick={this.leaveSession}
+                  color={false}
                 >
                   <FiPhoneOff />
-                </OutBtnStyle>
-              </div>
-              <div id="session" style={{ display: 'flex' }}>
-                {this.state.mainStreamManager !== undefined ? (
-                  <div id="main-video" className="col-md-6">
-                    <MainVideoComponent
-                      streamManager={this.state.mainStreamManager}
-                    />
-                    {/* <input
-                      className="btn btn-large btn-success"
-                      type="button"
-                      id="buttonSwitchCamera"
-                      onClick={this.sendMessage}
-                      value="SendMessage Test"
-                    /> */}
-                  </div>
-                ) : null}
-                <div>
-                  <div
-                    id="video-container"
-                    style={{
-                      display: 'flex',
-                      overflowX: 'auto',
-                      maxWidth: '500px',
-                    }}
-                    className="col-md-6"
-                  >
-                    {this.state.publisher !== undefined ? (
-                      <div
-                        className="stream-container col-md-6 col-xs-6"
-                        onClick={() =>
-                          this.handleMainVideoStream(this.state.publisher)
-                        }
-                      >
-                        <UserVideoComponent
-                          streamManager={this.state.publisher}
-                        />
-                      </div>
-                    ) : null}
-                    {this.state.subscribers.map((sub, i) => (
-                      <div
-                        key={i}
-                        className="stream-container col-md-6 col-xs-6"
-                        onClick={() => this.handleMainVideoStream(sub)}
-                      >
-                        <UserVideoComponent streamManager={sub} />
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    id="screen-container"
-                    style={{
-                      display: 'flex',
-                      overflowX: 'auto',
+                </ControlButtonStyle>
+              </ControlButtonWrapperStyle>
+            </BottomDivStyle>
+            <div id="session" style={{ display: 'flex' }}>
+              {this.state.mainStreamManager !== undefined ? (
+                <div id="main-video" className="col-md-6">
+                  <MainVideoComponent
+                    streamManager={this.state.mainStreamManager}
+                  />
+                  {/* <input
+                  className="btn btn-large btn-success"
+                  type="button"
+                  id="buttonSwitchCamera"
+                  onClick={this.sendMessage}
+                  value="SendMessage Test"
+                /> */}
+                </div>
+              ) : null}
+              <div>
+                <div
+                  id="video-container"
+                  style={{
+                    display: 'flex',
+                    overflowX: 'auto',
+                    maxWidth: '500px',
+                  }}
+                  className="col-md-6"
+                >
+                  {this.state.publisher !== undefined ? (
+                    <div
+                      className="stream-container col-md-6 col-xs-6"
+                      onClick={() =>
+                        this.handleMainVideoStream(this.state.publisher)
+                      }
+                    >
+                      <UserVideoComponent
+                        streamManager={this.state.publisher}
+                      />
+                    </div>
+                  ) : null}
+                  {this.state.subscribers.map((sub, i) => (
+                    <div
+                      key={i}
+                      className="stream-container col-md-6 col-xs-6"
+                      onClick={() => this.handleMainVideoStream(sub)}
+                    >
+                      <UserVideoComponent streamManager={sub} />
+                    </div>
+                  ))}
+                </div>
+                <div
+                  id="screen-container"
+                  style={{
+                    display: 'flex',
+                    overflowX: 'auto',
 
-                      maxWidth: '500px',
-                    }}
-                    className="col-md-6"
-                  >
-                    {this.state.shareScreen !== undefined ? (
-                      <div
-                        className="stream-container col-md-6 col-xs-6"
-                        onClick={() =>
-                          this.handleMainVideoStream(this.state.shareScreen)
-                        }
-                      >
-                        <UserVideoComponent
-                          streamManager={this.state.shareScreen}
-                        />
-                      </div>
-                    ) : null}
-                    {this.state.subscriberScreens.map((sub, i) => (
-                      <div
-                        key={i}
-                        className="stream-container col-md-6 col-xs-6"
-                        onClick={() => this.handleMainVideoStream(sub)}
-                      >
-                        <UserVideoComponent streamManager={sub} />
-                      </div>
-                    ))}
-                  </div>
+                    maxWidth: '500px',
+                  }}
+                  className="col-md-6"
+                >
+                  {this.state.shareScreen !== undefined ? (
+                    <div
+                      className="stream-container col-md-6 col-xs-6"
+                      onClick={() =>
+                        this.handleMainVideoStream(this.state.shareScreen)
+                      }
+                    >
+                      <UserVideoComponent
+                        streamManager={this.state.shareScreen}
+                      />
+                    </div>
+                  ) : null}
+                  {this.state.subscriberScreens.map((sub, i) => (
+                    <div
+                      key={i}
+                      className="stream-container col-md-6 col-xs-6"
+                      onClick={() => this.handleMainVideoStream(sub)}
+                    >
+                      <UserVideoComponent streamManager={sub} />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          ) : null}
-        </div>
-      </div>
+          </MeetingRoomStyle>
+        )}
+      </SectionStyle>
     );
   }
 
@@ -735,6 +670,69 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(OpenViduPage);
+
+const SectionStyle = styled.section`
+  width: 100%;
+  height: 100%;
+`;
+
+const WaitingRoomStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const LogoDivStyle = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
+  width: 40%;
+`;
+
+const JoinDivStyle = styled.div`
+  width: 60%;
+  padding: 1rem;
+`;
+
+const TitleStyle = styled.p`
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+`;
+
+const InputWrapperStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+`;
+
+const LabelStyle = styled.label`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+`;
+
+const InputStyle = styled.input`
+  width: 50%;
+  padding: 0.3rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #2c343b;
+  border-bottom: 1px solid #cccccc;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+`;
+
+const ButtonWrapperStyle = styled.div`
+  margin-top: 2.5rem;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+`;
 
 const BtnStyle = styled.button`
   position: relative;
@@ -782,8 +780,15 @@ const BtnStyle = styled.button`
   }
 `;
 
-const HeadBtnStyle = styled.button`
-  background-color: #eadcff;
+const MeetingRoomStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const ControlButtonStyle = styled.button`
+  background-color: ${(props) => (props.color ? '#eadcff' : '#fd4242')};
+  color: ${(props) => (props.color ? 'gray' : 'white')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -792,7 +797,7 @@ const HeadBtnStyle = styled.button`
   margin: 10px;
   padding: 10px;
   font-size: 30px;
-  color: gray;
+  cursor: pointer;
 `;
 
 const OutBtnStyle = styled.button`
@@ -806,4 +811,19 @@ const OutBtnStyle = styled.button`
   padding: 10px;
   font-size: 30px;
   color: white;
+  cursor: pointer;
+`;
+
+const BottomDivStyle = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const MeetingTitleStyle = styled.p`
+  font-size: 1.5rem;
+`;
+
+const ControlButtonWrapperStyle = styled.div`
+  display: flex;
+  justify-content: center;
 `;
