@@ -48,9 +48,11 @@ const CommentItem = ({ comment, setComments, user_id }) => {
 
   // 댓글 삭제
   const deleteHandler = async () => {
-    await fetchCommentDelete(comment.memo_no);
-    const { data } = await fetchCommentGet(comment.article_no, user_id);
-    setComments(data);
+    if (window.confirm('댓글을 삭제하시겠습니까?')) {
+      await fetchCommentDelete(comment.memo_no);
+      const { data } = await fetchCommentGet(comment.article_no, user_id);
+      setComments(data);
+    }
   };
 
   // 메메모 작성

@@ -43,10 +43,8 @@ function ChatRoomStartBox(props) {
         src={props.result.profile_img}
         alt={props.result.name}
       />
-      <ChatResultNameStyle>
-        <strong>{props.result.name}</strong>
-      </ChatResultNameStyle>
-      <ChatResultIDStyle>{props.result.user_id}</ChatResultIDStyle>
+      <ChatResultNameStyle>{props.result.name}</ChatResultNameStyle>
+      <ChatResultIDStyle>@{props.result.user_id}</ChatResultIDStyle>
       {isCheck && <ChatResultNameStyle>✔</ChatResultNameStyle>}
     </ChatRoomStartBoxDivStyle>
   );
