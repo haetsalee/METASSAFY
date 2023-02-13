@@ -58,7 +58,9 @@ function UnityPage() {
   }, [isLoaded]);
 
   useEffect(() => {
+    console.log('dddd');
     addEventListener('openPhone', (mode) => {
+      console.log(mode);
       if (mode == 'videoRoom' || mode == 'videoRoom2' || mode == 'videoRoom3') {
         //비디오룸 들어가서 회의실 입장 클릭
         sendMessage('ValueManager', 'setUnityFalse');
