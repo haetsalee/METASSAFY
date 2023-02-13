@@ -59,7 +59,7 @@ const CommentInput = ({ isCocomment, article_no, setComments }) => {
 
   return (
     <InputSection>
-      <Avatar img={user.profile_img} />
+      <Avatar img={user.profile_img} user={user.user_id} />
       <InputWrapperStyle>
         <TextareaStyle
           value={text}
