@@ -14,7 +14,7 @@ const BoardCard = ({ card, setBoardList }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Link
-        to={'/board/' + card.article_no}
+        to={'../' + card.article_no}
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <CardSection>

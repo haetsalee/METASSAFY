@@ -37,7 +37,7 @@ const BoardMainSection = () => {
   ]);
 
   const goWrite = () => {
-    navigate('/board/write');
+    navigate('../write');
   };
 
   return (

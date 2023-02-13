@@ -28,7 +28,7 @@ const BoardNavbarDropSearch = () => {
     e.preventDefault();
 
     const query = `key=${search[searchType].key}&popularity=false&user_id=${user.user_id}&word=${searchValue}`;
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
 
     // setSearchValue('');
   };

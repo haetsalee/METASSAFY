@@ -32,7 +32,7 @@ const CommentItem = ({ comment, setComments, user_id }) => {
         comment.memo_no,
         user_id
       );
-      console.log(data, status);
+      // console.log(data, status);
       // 대댓 없으면
       if (status === 500) {
         setCocomments([]);
@@ -58,7 +58,7 @@ const CommentItem = ({ comment, setComments, user_id }) => {
     setIsWriting((preState) => !preState);
   };
 
-  console.log(cocomments);
+  // console.log(cocomments);
   return (
     <LiSection>
       {/* 댓글 */}

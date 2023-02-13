@@ -7,14 +7,16 @@ const ArticleButtonWrapper = ({ article_no }) => {
   const navigate = useNavigate();
 
   const moveHandler = () => {
-    navigate(`/board/write/${article_no}`);
+    navigate(`../write/${article_no}`);
   };
 
   const removeHandler = async () => {
-    const { status } = await fetchBoardDelete(article_no);
-    if (status === 200) {
-      alert('게시물이 삭제 되었습니다.');
-      navigate(-1);
+    if (window.confirm('게시물을 삭제하시겠습니까?')) {
+      const { status } = await fetchBoardDelete(article_no);
+      if (status === 200) {
+        alert('게시물이 삭제 되었습니다.');
+        navigate(-1);
+      }
     }
   };
 
