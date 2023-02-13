@@ -10,6 +10,6 @@ public class VideoManager : MonoBehaviour
     void Start()
     {
         videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "ssafy_video.ogv");
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "ssafy_video.webm");
     }
 }
