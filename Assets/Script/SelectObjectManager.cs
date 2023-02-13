@@ -73,6 +73,10 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     goToRoom("BUK");
                 }
+                if (hit.collider.name=="±¤ÁÖÄ·ÆÛ½º"|| hit.collider.name == "´ëÀüÄ·ÆÛ½º")
+                {
+                    Debug.Log("À¸¾î");
+                }
                 if (hit.collider.name == "tree")
                 {
                     // GameObject tree= GameObject.FindGameObjectWithTag("tree");
@@ -91,7 +95,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 }
                 if (hit.collider.name == "record") {
                     Debug.Log(hit.collider.name);
-
+                    playMusic();
                 }
                 
 
@@ -176,6 +180,18 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
     openPhone (name);
+#endif
+    }
+
+    public void clickBoard() {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone ("board");
+#endif
+    }
+
+    public void playMusic() {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone ("music");
 #endif
     }
 
