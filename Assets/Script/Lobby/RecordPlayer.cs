@@ -130,6 +130,7 @@ void Update()
     }
     public void SetMusic(int idx)
     {
+        Debug.Log("À½¾Ç ½ºÅ¸Æ®");
         updateCheckBtn(idx);
         GetComponent<AudioSource>().clip = BGMList[idx];
         GetComponent<AudioSource>().Play();
