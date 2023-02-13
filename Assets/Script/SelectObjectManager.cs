@@ -56,7 +56,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
             RaycastHit hit;
 
             // 광선으로 충돌된 collider를 hit에 넣습니다.
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 20.0f))
             {
                 
                 if (hit.collider.name == "GumiCam")
@@ -88,6 +88,22 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 if (hit.collider.name == "VideoPlane")
                 {
                     playVideo();
+                }
+                if (hit.collider.name == "record") {
+                    RecordPlayer record = hit.collider.gameObject.GetComponent<RecordPlayer>();
+
+                    Debug.log(record.recordPlayerActive);
+
+                    if (record.recordPlayerActive == false)
+                    {
+                        record.recordPlayerActive = true;
+                    }
+
+                    if (record.recordPlayerActive == true)
+                    {
+                        record.recordPlayerActive = false;
+                    }
+
                 }
                 
 
