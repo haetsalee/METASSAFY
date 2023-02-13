@@ -109,7 +109,7 @@ const InputBoxList = ({ setIsSubmit }) => {
     setIsSubmit(true); // 제출 체크 -> 프로필 이미지 업로드
 
     setTimeout(() => {
-      navigate(`/profile/${user.user_id}`);
+      navigate(`../profile/${user.user_id}`);
     }, '2000');
   };
 

@@ -11,9 +11,7 @@ function MyChatList(props) {
         <ChatRoomNavImgStyle src={chatImg} alt={props.room.croom_name} />
         <ChatTextBoxDiv>
           <FlexDiv>
-            <ChatRoomNameStyle>
-              <strong>{props.room.croom_name}</strong>
-            </ChatRoomNameStyle>
+            <ChatRoomNameStyle>{props.room.croom_name}</ChatRoomNameStyle>
             <NotReadSpanStyle>{props.room.not_read_chat}</NotReadSpanStyle>
           </FlexDiv>
           <ChatTextStyle>

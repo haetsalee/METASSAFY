@@ -11,17 +11,19 @@ const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
 
   // 댓글 삭제
   const deleteHandler = async () => {
-    await fetchCocommentDelete(cocomment.mememo_no);
-    const { data, status } = await fetchCocommentGet(
-      cocomment.memo_no,
-      user_id
-    );
-    // 대댓 없으면
-    if (status === 500) {
-      setCocomments([]);
-    } else {
-      // 있으면
-      setCocomments(data);
+    if (window.confirm('대댓글을 삭제하시겠습니까?')) {
+      await fetchCocommentDelete(cocomment.mememo_no);
+      const { data, status } = await fetchCocommentGet(
+        cocomment.memo_no,
+        user_id
+      );
+      // 대댓 없으면
+      if (status === 500) {
+        setCocomments([]);
+      } else {
+        // 있으면
+        setCocomments(data);
+      }
     }
   };
 

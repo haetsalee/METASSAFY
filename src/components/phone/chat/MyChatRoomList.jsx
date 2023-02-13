@@ -6,9 +6,7 @@ function MyChatRoomList(props) {
   return (
     <div>
       <ChatRoomFormStyle>
-        <MyChatListStyle>
-          <strong>채팅 목록</strong>
-        </MyChatListStyle>
+        <MyChatListStyle>채팅 목록</MyChatListStyle>
       </ChatRoomFormStyle>
       {props.roomList.map((room) => {
         return (
