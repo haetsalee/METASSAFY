@@ -1,4 +1,4 @@
-.stream-container {
+/* .stream-container {
   padding: 0;
 }
 
@@ -187,7 +187,7 @@ a:hover .demo-logo {
 	height: auto;
 }*/
 
-#main-video p {
+/* #main-video p {
   position: absolute;
   display: inline-block;
   background: #f8f8f8;
@@ -221,7 +221,6 @@ a:hover .demo-logo {
   height: 180px;
 }
 
-/* xs ans md screen resolutions*/
 
 @media screen and (max-width: 991px) {
   .vertical-center {
@@ -247,4 +246,4 @@ video {
 }
 p {
   margin: 0;
-}
+}  */

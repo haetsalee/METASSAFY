@@ -1,13 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Unity, useUnityContext } from 'react-unity-webgl';
 import FadeLoader from 'react-spinners/FadeLoader';
 import OpenViduInModal from '../components/phone/OpenViduInModal';
-import Audio from '../components/audio/Audio';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
 import { getJsonLocalUserInfo } from '../utils/local-storage';
@@ -19,7 +17,6 @@ function UnityPage() {
 
   const [isVideo, setIsVideo] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
-  const [isAudio, setIsAudio] = useState(false);
 
   const {
     unityProvider,
@@ -58,8 +55,6 @@ function UnityPage() {
         setIsVideo(true);
       } else if (mode === 'board') {
         boardHandler();
-      } else if (mode === 'music') {
-        setIsAudio((preState) => !preState);
       } else {
         const userId = mode.split('(')[1].split(')');
         if (userId[0] !== user.user_id) {
@@ -92,11 +87,6 @@ function UnityPage() {
     }
   };
 
-  // 브금 모달 닫기
-  const closeAudio = () => {
-    setIsAudio(false);
-  };
-
   // 게시판 클릭하면 이동
   const boardHandler = () => {
     navigate('board/list');
@@ -122,8 +112,6 @@ function UnityPage() {
       />
       {/* 비디오 모달 */}
       {isVideo && <OpenViduInModal onClose={closeVideo} />}
-      {/* 브금 모달 */}
-      {isAudio && <Audio onClose={closeAudio} />}
 
       <Unity
         unityProvider={unityProvider}

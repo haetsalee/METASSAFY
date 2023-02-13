@@ -22,35 +22,28 @@ export default class OpenViduVideoComponent extends Component {
 
   render() {
     return (
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyItems: 'ceneter',
-            margin: '5px',
-          }}
-        >
-          <VideoStyle autoPlay={true} ref={this.videoRef} />
-          <UserNameStyle>{this.props.name}</UserNameStyle>
-        </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyItems: 'center',
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <VideoStyle autoPlay={true} ref={this.videoRef} />
+        <UserNameStyle>{this.props.name}</UserNameStyle>
       </div>
     );
   }
 }
 
 const VideoStyle = styled.video`
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-radius: 10px 10px 0 0;
 `;
 
 const UserNameStyle = styled.div`
-  border-top-right-radius: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 0 10px 10px;
   color: white;
 
   width: 100%;
