@@ -7,7 +7,7 @@ import {
 import Avatar from '../article/Avatar';
 
 const CocomentItem = ({ cocomment, setCocomments, user_id }) => {
-  const navigation = useNavigate();
+  // const navigation = useNavigate();
 
   // 댓글 삭제
   const deleteHandler = async () => {

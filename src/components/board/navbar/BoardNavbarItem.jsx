@@ -31,7 +31,7 @@ const BoardNavbarItem = ({ menu, index, activeIndex, setActiveIndex }) => {
     }
 
     query = `key=${key}&popularity=${popularity}&user_id=${user_id}&word=${word}`;
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
   };
 
   return (

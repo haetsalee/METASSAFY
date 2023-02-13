@@ -31,7 +31,11 @@ const ArticleInfoWriter = ({ article }) => {
   return (
     <WrapperStyle>
       <DivStyle>
-        <WriterStyle onClick={() => navigation(`/profile/${article.user_id}`)}>{article.name}</WriterStyle>
+        <WriterStyle
+          onClick={() => navigation(`../profile/${article.user_id}`)}
+        >
+          {article.name}
+        </WriterStyle>
         <TimeDivStyle>
           <TimeStyle>
             <div>작성 시간</div>
