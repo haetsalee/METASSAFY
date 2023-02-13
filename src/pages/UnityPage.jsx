@@ -8,7 +8,6 @@ import { Unity, useUnityContext } from 'react-unity-webgl';
 import FadeLoader from 'react-spinners/FadeLoader';
 import OpenViduInModal from '../components/phone/OpenViduInModal';
 import Audio from '../components/audio/Audio';
-import BoardModalVersion from '../components/board/BoardModalVersion';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
 
