@@ -19,7 +19,6 @@ function UnityPage() {
   const [isVideo, setIsVideo] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isAudio, setIsAudio] = useState(false);
-  const [isBoard, setIsBoard] = useState(false);
 
   const {
     unityProvider,
@@ -45,18 +44,8 @@ function UnityPage() {
     }
   }, [isLoaded]);
 
-  // 게시판 열기 닫기
   useEffect(() => {
-    if (isBoard === false) {
-      setIsBoard(true);
-      navigate('board/list');
-    } else {
-      setIsBoard(false);
-      navigate('/unity');
-    }
-  }, [isBoard]);
-
-  useEffect(() => {
+    console.log('add event');
     addEventListener('openPhone', (mode) => {
       if (
         mode === 'videoRoom' ||
@@ -68,7 +57,7 @@ function UnityPage() {
         setIsVideo(true);
       } else if (mode === 'board') {
         console.log('보드 누름');
-        setIsBoard(true);
+        boardHandler();
       } else if (mode === 'music') {
         console.log('뮤직 누름');
         setIsAudio(true);
@@ -110,10 +99,10 @@ function UnityPage() {
     setIsAudio(false);
   };
 
-  // // 게시판 모달 닫기
-  // const closeBoard = () => {
-  //   setIsBoard(false);
-  // };
+  // 게시판 클릭하면 이동
+  const boardHandler = () => {
+    navigate('board/list');
+  };
 
   return (
     <div>
@@ -138,7 +127,7 @@ function UnityPage() {
       {/* 브금 모달 */}
       {isAudio && <Audio onClose={closeAudio} />}
       {/* 게시판 모달 */}
-      <button onClick={() => setIsBoard(true)}></button>
+      {/* <button onClick={() => setIsBoard(true)}></button> */}
 
       <Unity
         unityProvider={unityProvider}
