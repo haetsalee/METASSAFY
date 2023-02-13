@@ -28,7 +28,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     {
 
         ClickEvent();
-
+       // PressEvent();
 
     }
     float distance = 10.0f;
@@ -90,19 +90,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                     playVideo();
                 }
                 if (hit.collider.name == "record") {
-                    RecordPlayer record = hit.collider.gameObject.GetComponent<RecordPlayer>();
-
-                    Debug.log(record.recordPlayerActive);
-
-                    if (record.recordPlayerActive == false)
-                    {
-                        record.recordPlayerActive = true;
-                    }
-
-                    if (record.recordPlayerActive == true)
-                    {
-                        record.recordPlayerActive = false;
-                    }
+                    Debug.Log(hit.collider.name);
 
                 }
                 
@@ -111,6 +99,8 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
         }
     }
+
+
     public void cancleTree()
     {
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
