@@ -128,7 +128,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     }
 
-    void goToLobby()
+    public void goToLobby()
     {
         Debug.Log("로비 클릭");
 
