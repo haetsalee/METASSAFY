@@ -717,6 +717,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: MotionSpeed
+  - Type: 4
+    SynchronizeType: 2
+    Name: Dance
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -783,6 +786,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
+  dance: 0
   sprint: 0
   analogMovement: 0
   cursorLocked: 0
