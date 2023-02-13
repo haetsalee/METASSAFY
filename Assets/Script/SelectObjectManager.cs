@@ -24,7 +24,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     public GameObject tree;
     public GameObject popup;
     public VideoPlayer my_video;
-
+    
     void Update()
     {
 
@@ -198,9 +198,13 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     }
 
     public void playMusic() {
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-    openPhone ("music");
-#endif
+        /*
+        #if UNITY_WEBGL == true && UNITY_EDITOR == false
+            openPhone ("music");
+        #endif
+        */
+       
+
     }
 
 }
