@@ -24,7 +24,7 @@ const BoardNavbarDropArea = ({ type }) => {
     if (index === 0) {
       query = `key=null&popularity=false&user_id=${user.user_id}&word=null`;
     }
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
   };
 
   return (

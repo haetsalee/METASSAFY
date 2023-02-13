@@ -59,7 +59,7 @@ const BoardWrite = () => {
       boardDto.thumbnail = originFiles[0] ? originFiles[0].path : null;
     }
 
-    console.log(boardDto);
+    // console.log(boardDto);
 
     const formData = new FormData();
     formData.append(
@@ -89,7 +89,7 @@ const BoardWrite = () => {
       else {
         const { status } = await fetchBoardPost(formData);
         if (status) {
-          navigator('/board/list');
+          navigator('../list');
         }
       }
     };

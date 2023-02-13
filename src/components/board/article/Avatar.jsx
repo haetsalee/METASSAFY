@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 const Avatar = ({ img, user }) => {
   const navigation = useNavigate();
-  console.log(user, '------------???');
+
   return (
     <ImgStyle
       src={img}
       alt="avatar img"
       onClick={() => {
-        navigation(`/profile/${user}`);
+        navigation(`../profile/${user}`);
       }}
     />
   );

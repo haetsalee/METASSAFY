@@ -1,23 +1,26 @@
 import React from 'react';
-import { Unity, useUnityContext } from 'react-unity-webgl';
-import { useEffect, useCallback, useState } from 'react';
-import { getLocalUserInfo } from '../utils/local-storage';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+
+import { Unity, useUnityContext } from 'react-unity-webgl';
 import FadeLoader from 'react-spinners/FadeLoader';
 import OpenViduInModal from '../components/phone/OpenViduInModal';
-import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import Audio from '../components/audio/Audio';
+import BoardModalVersion from '../components/board/BoardModalVersion';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
 
 function UnityPage() {
-  const [user, setUser] = useState(getLocalUserInfo());
-  const [modal, setModal] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  const loginUser = JSON.parse(user);
+  const [isVideo, setIsVideo] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isAudio, setIsAudio] = useState(false);
+  const [isBoard, setIsBoard] = useState(false);
+
   const {
     unityProvider,
     addEventListener,
@@ -35,37 +38,43 @@ function UnityPage() {
     },
   });
 
-  //비디오 룸 닫기
-  const onClose = () => {
-    setModal(false);
-    sendMessage('videoRoom', 'restartUntiy');
-    console.log(modal);
-  };
-
-  useEffect(() => {});
-
   useEffect(() => {
     if (isLoaded) {
-      // console.log(loginUser.name + ' 가 메타싸피에 접속');
-      // sendMessage('ValueManager', 'getUserId', loginUser.name);
-      console.log(`${loginUser.name}(${loginUser.user_id}) 가 메타싸피에 접속`);
-      sendMessage(
-        'ValueManager',
-        'getUserId',
-        `${loginUser.name}(${loginUser.user_id})`
-      );
+      console.log(`${user.name}(${user.user_id}) 가 메타싸피에 접속`);
+      sendMessage('ValueManager', 'getUserId', `${user.name}(${user.user_id})`);
     }
   }, [isLoaded]);
 
+  // 게시판 열기 닫기
+  useEffect(() => {
+    if (isBoard === false) {
+      setIsBoard(true);
+      navigate('board/list');
+    } else {
+      setIsBoard(false);
+      navigate('/unity');
+    }
+  }, [isBoard]);
+
   useEffect(() => {
     addEventListener('openPhone', (mode) => {
-      if (mode == 'videoRoom' || mode == 'videoRoom2' || mode == 'videoRoom3') {
+      if (
+        mode === 'videoRoom' ||
+        mode === 'videoRoom2' ||
+        mode === 'videoRoom3'
+      ) {
         //비디오룸 들어가서 회의실 입장 클릭
         sendMessage('ValueManager', 'setUnityFalse');
-        setModal(true);
+        setIsVideo(true);
+      } else if (mode === 'board') {
+        console.log('보드 누름');
+        setIsBoard(true);
+      } else if (mode === 'music') {
+        console.log('뮤직 누름');
+        setIsAudio(true);
       } else {
         const userId = mode.split('(')[1].split(')');
-        if (userId[0] !== loginUser.user_id) {
+        if (userId[0] !== user.user_id) {
           setIsPhone(true);
           sendMessage('ValueManager', 'setUnityFalse');
           navigate(`phone/profile/${userId[0]}`);
@@ -75,64 +84,61 @@ function UnityPage() {
     return () => {
       removeEventListener('openPhone', () => {});
     };
-  });
+  }, []);
+
+  // 비디오 룸 닫기
+  const closeVideo = () => {
+    setIsVideo(false);
+    sendMessage('videoRoom', 'restartUntiy');
+  };
+
+  // 폰 모달
+  const phoneHandler = () => {
+    if (isPhone === false) {
+      setIsPhone(true);
+      sendMessage('ValueManager', 'setUnityFalse');
+      navigate(`phone/home`);
+    } else {
+      setIsPhone(false);
+      sendMessage('ValueManager', 'setUnityTrue');
+      navigate(`/unity`);
+    }
+  };
+
+  // 브금 모달 닫기
+  const closeAudio = () => {
+    setIsAudio(false);
+  };
+
+  // // 게시판 모달 닫기
+  // const closeBoard = () => {
+  //   setIsBoard(false);
+  // };
 
   return (
     <div>
-      {/* <ImgStyle
-          src={phoneImg}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              sendMessage('ValueManager', 'setUnityFalse');
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              sendMessage('ValueManager', 'setUnityTrue');
-              navigate(`/unity`);
-            }
-          }}
-        /> */}
       <Outlet />
+
+      {/* 로딩중 */}
       {!isLoaded && (
         <Loading>
           <FadeLoader color="#36d7b7" />
         </Loading>
       )}
-      {isPhone ? (
-        <ImgStyle
-          src={phoneImgFront}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              sendMessage('ValueManager', 'setUnityFalse');
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              sendMessage('ValueManager', 'setUnityTrue');
-              navigate(`/unity`);
-            }
-          }}
-        />
-      ) : (
-        <ImgStyle
-          src={phoneImg}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              sendMessage('ValueManager', 'setUnityFalse');
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              sendMessage('ValueManager', 'setUnityTrue');
-              navigate(`/unity`);
-            }
-          }}
-        />
-      )}
+      {/* 휴대폰 모달 */}
+      <ImgStyle
+        isPhone={isPhone}
+        phone={phoneImg}
+        phoneFront={phoneImgFront}
+        alt="phone"
+        onClick={phoneHandler}
+      />
+      {/* 비디오 모달 */}
+      {isVideo && <OpenViduInModal onClose={closeVideo} />}
+      {/* 브금 모달 */}
+      {isAudio && <Audio onClose={closeAudio} />}
+      {/* 게시판 모달 */}
+      <button onClick={() => setIsBoard(true)}></button>
 
       <Unity
         unityProvider={unityProvider}
@@ -140,13 +146,12 @@ function UnityPage() {
         style={{ width: '100%', height: '95%' }}
         id="metassafy"
       />
-
-      {modal && <OpenViduInModal onClose={onClose} />}
     </div>
   );
 }
 
 export default UnityPage;
+
 const Loading = styled.div`
   position: absolute;
   top: 50%;
@@ -154,7 +159,9 @@ const Loading = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const ImgStyle = styled.img`
+const ImgStyle = styled.img.attrs(({ isPhone, phone, phoneFront }) => ({
+  src: isPhone ? phoneFront : phone,
+}))`
   width: 4rem;
   height: 6rem;
   float: left;

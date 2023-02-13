@@ -35,6 +35,8 @@ import { useSelector } from 'react-redux';
 import PhoneHomePage from './pages/phone_pages/PhoneHomePage';
 import PhoneApp from './pages/phone_pages/PhoneApp';
 import NotFound from './pages/NotFound';
+import BoardModalVersion from './components/board/BoardModalVersion';
+import BoardOuter from './components/board/BoardOuter';
 
 function App() {
   useInfo();
@@ -62,6 +64,12 @@ function App() {
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
+          <Route path="board/" element={<BoardOuter />}>
+            <Route path="list" element={<BoardPage />} />
+            <Route path=":id" element={<ArticlePage />} />
+            <Route path="write" element={<WritePage />} />
+            <Route path="write/:id" element={<WritePage />} />
+          </Route>
           <Route path="board/list" element={<BoardPage />} />
           <Route path="board/:id" element={<ArticlePage />} />
           <Route path="board/write" element={<WritePage />} />
@@ -109,6 +117,12 @@ function App() {
             <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
             <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
             <Route path="friend" element={<PhoneFriendPage />}></Route>
+          </Route>
+          <Route path="board/" element={<BoardModalVersion />}>
+            <Route path="list" element={<BoardPage />} />
+            <Route path=":id" element={<ArticlePage />} />
+            <Route path="write" element={<WritePage />} />
+            <Route path="write/:id" element={<WritePage />} />
           </Route>
         </Route>
       </Route>
