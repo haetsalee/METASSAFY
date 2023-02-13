@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class videoRoom : MonoBehaviour
+public class videoRoom : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     public GameObject enterBtn;
@@ -21,14 +21,20 @@ public class videoRoom : MonoBehaviour
     private void OnTriggerEnter(Collider other)
 
     {
+         
+        if (other.gameObject.GetComponent<PhotonView>().IsMine)
+        {
+            enterBtn.SetActive(true);
+        }
+        
        
-        enterBtn.SetActive(true);
- 
     }
     private void OnTriggerExit(Collider other)
     {
-        enterBtn.SetActive(false);
-
+        if (other.gameObject.GetComponent<PhotonView>().IsMine)
+        {
+            enterBtn.SetActive(false);
+        }
     }
  
     public void stopWithoutVideo()
