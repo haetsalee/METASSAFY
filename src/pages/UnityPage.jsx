@@ -56,11 +56,9 @@ function UnityPage() {
         sendMessage('ValueManager', 'setUnityFalse');
         setIsVideo(true);
       } else if (mode === 'board') {
-        console.log('보드 누름');
         boardHandler();
       } else if (mode === 'music') {
-        console.log('뮤직 누름');
-        setIsAudio(true);
+        setIsAudio((preState) => !preState);
       } else {
         const userId = mode.split('(')[1].split(')');
         if (userId[0] !== user.user_id) {
@@ -105,7 +103,7 @@ function UnityPage() {
   };
 
   return (
-    <div>
+    <DivStyle>
       <Outlet />
 
       {/* 로딩중 */}
@@ -126,20 +124,23 @@ function UnityPage() {
       {isVideo && <OpenViduInModal onClose={closeVideo} />}
       {/* 브금 모달 */}
       {isAudio && <Audio onClose={closeAudio} />}
-      {/* 게시판 모달 */}
-      {/* <button onClick={() => setIsBoard(true)}></button> */}
 
       <Unity
         unityProvider={unityProvider}
         tabIndex={1}
-        style={{ width: '100%', height: '95%' }}
+        style={{ width: '100%', height: '100%' }}
         id="metassafy"
       />
-    </div>
+    </DivStyle>
   );
 }
 
 export default UnityPage;
+
+const DivStyle = styled.div`
+  height: 100vh;
+  overflow: hidden;
+`;
 
 const Loading = styled.div`
   position: absolute;
