@@ -44,8 +44,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.JoinOrCreateRoom("Lobby", null, null);
-            
+            PhotonNetwork.JoinOrCreateRoom("Lobby", null, null); 
         }
     }
     public override void OnJoinedRoom()

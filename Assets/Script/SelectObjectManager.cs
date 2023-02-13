@@ -22,6 +22,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     Boolean isRoomInfoOpen = true; //Àá½Ã ¹Ù²Þ
     public GameObject tree;
+    public GameObject popup;
     public VideoPlayer my_video;
 
     void Update()
@@ -73,6 +74,14 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     goToRoom("BUK");
                 }
+                if (hit.collider.name == "board")
+                {
+                    clickBoard();
+                }
+                if (hit.collider.name=="±¤ÁÖ"|| hit.collider.name == "´ëÀü")
+                {
+                    popup.SetActive(true);
+                }
                 if (hit.collider.name == "tree")
                 {
                     // GameObject tree= GameObject.FindGameObjectWithTag("tree");
@@ -91,7 +100,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 }
                 if (hit.collider.name == "record") {
                     Debug.Log(hit.collider.name);
-
+                    playMusic();
                 }
                 
 
@@ -99,8 +108,11 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
         }
     }
-
-
+    //°ø»çÁß ÆË¾÷ ¾ø¾Ú
+    public void canclePopup()
+    {
+        popup.SetActive(false);
+    }
     public void cancleTree()
     {
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
@@ -176,6 +188,18 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
     openPhone (name);
+#endif
+    }
+
+    public void clickBoard() {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone ("board");
+#endif
+    }
+
+    public void playMusic() {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+    openPhone ("music");
 #endif
     }
 
