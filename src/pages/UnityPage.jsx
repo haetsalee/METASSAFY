@@ -10,9 +10,11 @@ import OpenViduInModal from '../components/phone/OpenViduInModal';
 import Audio from '../components/audio/Audio';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
+import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function UnityPage() {
-  const user = useSelector((state) => state.auth.user);
+  const user = getJsonLocalUserInfo();
+  console.log(user);
   const navigate = useNavigate();
 
   const [isVideo, setIsVideo] = useState(false);
@@ -62,7 +64,6 @@ function UnityPage() {
         const userId = mode.split('(')[1].split(')');
         if (userId[0] !== user.user_id) {
           setIsPhone(true);
-          sendMessage('ValueManager', 'setUnityFalse');
           navigate(`phone/profile/${userId[0]}`);
         }
       }

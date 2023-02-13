@@ -517,68 +517,44 @@ class OpenViduPage extends Component {
         )}
 
         {this.state.sessionCamera && (
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '15px' }} id="session-title">
-              {mySessionId}
-            </p>
-            <div
-              id="session-header"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              {/* <input
-              className="btn btn-large"
-              type="button"
-              id="buttonScreenShare"
-              onClick={this.publishScreenShare}
-              value="화면 공유하기"
-              style={{ visibility: 'hidden' }}
-            /> */}
-              <HeadBtnStyle
-                id="buttonScreenShare"
-                onClick={this.publishScreenShare}
-              >
-                {this.state.shareScreen == true ? <FiX /> : <FiAirplay />}
-              </HeadBtnStyle>
+          <MeetingRoomStyle>
+            <BottomDivStyle>
+              <MeetingTitleStyle>{mySessionId}</MeetingTitleStyle>
+              <ControlButtonWrapperStyle>
+                <ControlButtonStyle
+                  id="buttonScreenShare"
+                  onClick={this.publishScreenShare}
+                  color={!this.state.shareScreen}
+                >
+                  {!!this.state.shareScreen ? <FiX /> : <FiAirplay />}
+                </ControlButtonStyle>
+                <ControlButtonStyle
+                  id="buttonMuteAudio"
+                  onClick={this.muteUnmuteAudio}
+                  color={!!this.state.publishAudio}
+                >
+                  {this.state.publishAudio ? (
+                    <BiVolumeFull />
+                  ) : (
+                    <BiVolumeMute />
+                  )}
+                </ControlButtonStyle>
+                <ControlButtonStyle
+                  id="buttonMuteVideo"
+                  onClick={this.muteUnmuteVideo}
+                  color={!!this.state.publishVideo}
+                >
+                  {this.state.publishVideo ? <BiVideo /> : <BiVideoOff />}
+                </ControlButtonStyle>
 
-              {/* <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={this.muteUnmuteAudio}
-              value={
-                this.state.publishAudio == true ? '소리끄기' : '소리켜기'
-              }
-            /> */}
-              <HeadBtnStyle id="buttonMuteAudio" onClick={this.muteUnmuteAudio}>
-                {this.state.publishAudio == true ? (
-                  <BiVolumeMute />
-                ) : (
-                  <BiVolumeFull />
-                )}
-              </HeadBtnStyle>
-              {/* <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={this.muteUnmuteVideo}
-              value={
-                this.state.publishVideo == true ? '화면끄기' : '화면켜기'
-              }
-            /> */}
-              <HeadBtnStyle id="buttonMuteVideo" onClick={this.muteUnmuteVideo}>
-                {this.state.publishVideo == true ? <BiVideoOff /> : <BiVideo />}
-              </HeadBtnStyle>
-              {/* <input
-              className="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              onClick={this.leaveSession}
-              value="회의실 나가기"
-            /> */}
-              <OutBtnStyle id="buttonLeaveSession" onClick={this.leaveSession}>
-                <FiPhoneOff />
-              </OutBtnStyle>
-            </div>
+                <OutBtnStyle
+                  id="buttonLeaveSession"
+                  onClick={this.leaveSession}
+                >
+                  <FiPhoneOff />
+                </OutBtnStyle>
+              </ControlButtonWrapperStyle>
+            </BottomDivStyle>
             <div id="session" style={{ display: 'flex' }}>
               {this.state.mainStreamManager !== undefined ? (
                 <div id="main-video" className="col-md-6">
@@ -660,7 +636,7 @@ class OpenViduPage extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </MeetingRoomStyle>
         )}
       </SectionStyle>
     );
@@ -811,8 +787,15 @@ const BtnStyle = styled.button`
   }
 `;
 
-const HeadBtnStyle = styled.button`
-  background-color: #eadcff;
+const MeetingRoomStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const ControlButtonStyle = styled.button`
+  background-color: ${(props) => (props.color ? '#eadcff' : '#fd4242')};
+  color: ${(props) => (props.color ? 'gray' : 'white')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -821,7 +804,6 @@ const HeadBtnStyle = styled.button`
   margin: 10px;
   padding: 10px;
   font-size: 30px;
-  color: gray;
   cursor: pointer;
 `;
 
@@ -837,4 +819,18 @@ const OutBtnStyle = styled.button`
   font-size: 30px;
   color: white;
   cursor: pointer;
+`;
+
+const BottomDivStyle = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const MeetingTitleStyle = styled.p`
+  font-size: 1.5rem;
+`;
+
+const ControlButtonWrapperStyle = styled.div`
+  display: flex;
+  justify-content: center;
 `;
