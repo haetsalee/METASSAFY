@@ -7,19 +7,89 @@ using System;
 
 public class Player : MonoBehaviourPunCallbacks
 {
-    Animator animator;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (photonView!= null)
         {
-            animator.SetTrigger("isDance");
+            if (photonView.IsMine)
+            {
+                animator = GetComponent<Animator>();
+                Dance1();
+                Dance2();
+                Joyful();
+                Kick();
+                Wave();
+
+            }
+        }
+
+    }
+
+    void Dance1()
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            animator.SetBool("isDance1", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isDance1", false);
+        }
+    }
+
+    void Dance2()
+    {
+        if (Input.GetKey(KeyCode.X))
+        {
+            animator.SetBool("isDance2", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isDance2", false);
+        }
+    }
+
+    void Joyful()
+    {
+        if (Input.GetKey(KeyCode.C))
+        {
+            animator.SetBool("isJoyful", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isJoyful", false);
+        }
+    }
+
+    void Kick()
+    {
+        if (Input.GetKey(KeyCode.V))
+        {
+            animator.SetBool("isKick", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isKick", false);
+        }
+    }
+
+    void Wave()
+    {
+        if (Input.GetKey(KeyCode.B))
+        {
+            animator.SetBool("isWave", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isWave", false);
         }
     }
    
