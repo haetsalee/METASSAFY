@@ -4,8 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // gltfLoader사용
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Player } from './Player';
-import { House } from './House';
-import { TextureTile } from './Texture';
+import { Portal } from './Portal';
 import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
@@ -16,6 +15,7 @@ import phoneImg from '../../assets/images/phone.png';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
+import { height } from '@mui/system';
 
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
@@ -31,9 +31,18 @@ function MetaverseThree() {
 
     setCanvasTag(canvas);
 
+    // Loader
+    // gltf로더 로드
+    let gltfLoader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    gltfLoader.setDRACOLoader(dracoLoader);
+
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v9.png');
+    // const floorTexture = textureLoader.load('images/map_v9.png');
+    const floorTexture = textureLoader.load('images/aaa.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -67,7 +76,7 @@ function MetaverseThree() {
 
     // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('white');
+    scene.background = new THREE.Color('black');
 
     // Camera
 
@@ -157,6 +166,8 @@ function MetaverseThree() {
     scene.add(floorMesh);
     meshes.push(floorMesh);
 
+    //////////////////////////////////////////////////////////////
+    // MetaSSAFY로고 회전
     const portalMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(2, 2),
       new THREE.MeshStandardMaterial({
@@ -173,6 +184,43 @@ function MetaverseThree() {
     portalMesh.position.set(-5, 2, 0);
     scene.add(portalMesh);
     meshes.push(portalMesh);
+
+    /////////////////////////////////
+    // Texture - 포탈 텍스쳐
+    const ImgRelToSSAFYTexture = textureLoader.load('images/SSAFY.png');
+    ImgRelToSSAFYTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToSSAFYTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToSSAFYTexture.repeat.x = 1;
+    ImgRelToSSAFYTexture.repeat.y = 1;
+
+    const ImgRelToSSAFYMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(3, 3),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToSSAFYTexture,
+        // alphaMap: ImgRelToSSAFYTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToSSAFYMesh.name = 'ImgRelToSSAFY';
+    // ImgRelToSSAFYMesh.rotation.y = Math.PI / 3;
+    // ImgRelToSSAFYMesh.rotation.x = -Math.PI / 2;
+    ImgRelToSSAFYMesh.receiveShadow = true;
+    // ImgRelToSSAFYMesh.castShadow = true;
+    ImgRelToSSAFYMesh.position.set(0, 1.5, -5);
+    scene.add(ImgRelToSSAFYMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_ssafy = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: 0,
+      y: 0,
+      z: -5,
+    });
+    //////////////////////////////////////////////////////////////
 
     ////////////////////
 
@@ -313,15 +361,8 @@ function MetaverseThree() {
     spotMeshJira.receiveShadow = true;
     scene.add(spotMeshJira);
 
-    // gltf로더 로드
-    let gltfLoader = new GLTFLoader();
-    const dracoLoader = new DRACOLoader();
-
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-    gltfLoader.setDRACOLoader(dracoLoader);
-
     // 집 로드
-    const house = new House({
+    const portal_metassafy = new Portal({
       gltfLoader,
       scene,
       modelSrc: '/model/portal.glb',
@@ -373,7 +414,8 @@ function MetaverseThree() {
       portalMesh.rotateY(delta);
 
       if (player.mixer) player.mixer.update(delta);
-      if (house.mixer) house.mixer.update(delta);
+      if (portal_metassafy.mixer) portal_metassafy.mixer.update(delta);
+      if (portal_ssafy.mixer) portal_ssafy.mixer.update(delta);
 
       if (player.modelMesh) {
         camera.lookAt(player.modelMesh.position);
