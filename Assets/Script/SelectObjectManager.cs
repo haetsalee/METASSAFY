@@ -143,18 +143,12 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
             }
         }
     }
-
-    private void clickBoard()
+ 
+    public void enterVideo(string RoomName)
     {
+        //리액트 측에 비디오라는 메세지 보내기
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-    openPhone ("board");
-#endif
-    }
-    public void enterVideo()
-    {
-//리액트 측에 비디오라는 메세지 보내기
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-    openPhone ("video");
+    openPhone (RoomName);
 #endif
     }
 
