@@ -5,13 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Player } from './Player';
 import { House } from './House';
+import { TextureTile } from './Texture';
 import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
 import { DoubleSide } from 'three';
 
 import phoneImg from '../../assets/images/phone.png';
-import phoneImgFront from '../../assets/images/phone_front.png';
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +46,13 @@ function MetaverseThree() {
     portalTexture.repeat.x = 1;
     portalTexture.repeat.y = 1;
 
+    // Texture - 프로그래머스 텍스쳐
+    // const programmersTexture = textureLoader.load('images/programmers.png');
+    // programmersTexture.wrapS = THREE.RepeatWrapping;
+    // programmersTexture.wrapT = THREE.RepeatWrapping;
+    // programmersTexture.repeat.x = 1;
+    // programmersTexture.repeat.y = 1;
+
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
     const renderer = new THREE.WebGLRenderer({
@@ -72,7 +79,7 @@ function MetaverseThree() {
       -1000,
       1000
     );
-    const cameraPosition = new THREE.Vector3(1, 6, 5);
+    const cameraPosition = new THREE.Vector3(1, 3, 5);
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     camera.zoom = 0.2;
     camera.updateProjectionMatrix();
@@ -112,13 +119,13 @@ function MetaverseThree() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    // const orbitControls = new OrbitControls(camera, renderer.domElement);
-    // orbitControls.enableDamping = true;
-    // // orbitControls.minDistance = 5;
-    // // orbitControls.maxDistance = 15;
-    // orbitControls.enablePan = false;
-    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    // orbitControls.update();
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
+    orbitControls.enablePan = false;
+    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    orbitControls.update();
 
     // Mesh
     const meshes = [];
@@ -138,7 +145,6 @@ function MetaverseThree() {
     // scene.add(startMesh);
     // meshes.push(startMesh);
 
-    // 3d 텍스트
     const floorMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(50, 50),
       new THREE.MeshStandardMaterial({
@@ -160,7 +166,7 @@ function MetaverseThree() {
         side: DoubleSide,
       })
     );
-    portalMesh.name = 'protal';
+    portalMesh.name = 'portal';
     portalMesh.rotation.y = Math.PI / 3;
     portalMesh.receiveShadow = true;
     // portalMesh.castShadow = true;
@@ -178,7 +184,7 @@ function MetaverseThree() {
       new THREE.MeshBasicMaterial({
         // color: 'skyblue',
         // transparent: true,
-        // opacity: 0,
+        // opacity: 0.5,
         map: pointerMeshTexture,
         // size: 0.1,
         transparent: true,
@@ -200,7 +206,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'purple',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshMetaSSAFY.position.set(-5, 0.01, 0);
@@ -214,7 +220,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'purple',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshBeakJoon.position.set(0.35, 0.005, 7);
@@ -226,9 +232,10 @@ function MetaverseThree() {
     const spotMeshProgrammers = new THREE.Mesh(
       new THREE.PlaneGeometry(0.8, 0.8),
       new THREE.MeshStandardMaterial({
+        // map: programmersTexture,
         color: 'green',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshProgrammers.position.set(2.8, 0.005, 5.3);
@@ -242,7 +249,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshSSAFY.position.set(1.5, 0.005, -6.5);
@@ -256,7 +263,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshSWEA.position.set(5.25, 0.005, 3.6);
@@ -270,7 +277,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshMM.position.set(4.5, 0.005, -4.8);
@@ -284,7 +291,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'pink',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshGitlab.position.set(6.8, 0.005, -3.35);
@@ -298,7 +305,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'blue',
         transparent: true,
-        opacity: 0,
+        opacity: 0.5,
       })
     );
     spotMeshJira.position.set(7.9, 0.005, -0.3);
@@ -317,10 +324,10 @@ function MetaverseThree() {
     const house = new House({
       gltfLoader,
       scene,
-      modelSrc: '/models/house.glb',
-      x: 5,
-      y: -1.3,
-      z: 2,
+      modelSrc: '/model/portal.glb',
+      x: -5,
+      y: 0.5,
+      z: 0,
     });
 
     // 지도 로드
@@ -366,6 +373,7 @@ function MetaverseThree() {
       portalMesh.rotateY(delta);
 
       if (player.mixer) player.mixer.update(delta);
+      if (house.mixer) house.mixer.update(delta);
 
       if (player.modelMesh) {
         camera.lookAt(player.modelMesh.position);
@@ -568,36 +576,7 @@ function MetaverseThree() {
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
-      {isPhone ? (
-        <ImgStyle
-          src={phoneImgFront}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              navigate(`/metassafy`);
-            }
-          }}
-        />
-      ) : (
-        <ImgStyle
-          src={phoneImg}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              navigate(`/metassafy`);
-            }
-          }}
-        />
-      )}
-      {/* <ImgStyle
+      <ImgStyle
         src={phoneImg}
         alt="phone"
         onClick={() => {
@@ -609,12 +588,8 @@ function MetaverseThree() {
             navigate(`/metassafy`);
           }
         }}
-      /> */}
-      <canvas
-        id="react-unity-webgl-canvas-1"
-        className="meta-ssafy2"
-        ref={canvasRef}
-      ></canvas>
+      />
+      <canvas id="metassafy" className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
     </PositionDiv>
   );
@@ -630,8 +605,8 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 80%;
-  left: 85%;
+  top: 70%;
+  left: 5%;
   position: absolute;
 `;
 
