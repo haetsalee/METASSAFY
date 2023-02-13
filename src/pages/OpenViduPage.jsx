@@ -1,24 +1,16 @@
-import { OpenVidu } from 'openvidu-browser';
-import { useSelector } from 'react-redux';
-
 import axios from 'axios';
 import React, { Component } from 'react';
-import UserVideoComponent from './openVidu/UserVideoComponent';
-
-import { OutlinedInput, InputAdornment } from '@mui/material';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import useMyFetch from '../hooks/use-my-fetch';
+import { OpenVidu } from 'openvidu-browser';
+import UserVideoComponent from './openVidu/UserVideoComponent';
 import MainVideoComponent from './openVidu/MainVideoComponent';
 
-import {
-  BiVolumeFull,
-  BiVolumeMute,
-  BiVideo,
-  BiVideoOff,
-} from 'react-icons/bi';
-import { FiAirplay, FiPhoneOff, FiX } from 'react-icons/fi';
+import { FiX, FiAirplay, FiPhoneOff } from 'react-icons/fi';
+import { BiVolumeFull, BiVolumeMute } from 'react-icons/bi';
+import { BiVideo, BiVideoOff } from 'react-icons/bi';
+
+import styled from 'styled-components';
 
 const APPLICATION_SERVER_URL = 'https://www.metassafy.store/api/session';
 
@@ -547,12 +539,13 @@ class OpenViduPage extends Component {
                   {this.state.publishVideo ? <BiVideo /> : <BiVideoOff />}
                 </ControlButtonStyle>
 
-                <OutBtnStyle
+                <ControlButtonStyle
                   id="buttonLeaveSession"
                   onClick={this.leaveSession}
+                  color={false}
                 >
                   <FiPhoneOff />
-                </OutBtnStyle>
+                </ControlButtonStyle>
               </ControlButtonWrapperStyle>
             </BottomDivStyle>
             <div id="session" style={{ display: 'flex' }}>
