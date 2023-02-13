@@ -57,10 +57,12 @@ class OpenViduPage extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   onbeforeunload(event) {
