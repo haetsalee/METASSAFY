@@ -22,6 +22,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     Boolean isRoomInfoOpen = true; //Àá½Ã ¹Ù²Þ
     public GameObject tree;
+    public GameObject popup;
     public VideoPlayer my_video;
 
     void Update()
@@ -73,9 +74,13 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     goToRoom("BUK");
                 }
-                if (hit.collider.name=="±¤ÁÖÄ·ÆÛ½º"|| hit.collider.name == "´ëÀüÄ·ÆÛ½º")
+                if (hit.collider.name == "board")
                 {
-                    Debug.Log("À¸¾î");
+                    clickBoard();
+                }
+                if (hit.collider.name=="±¤ÁÖ"|| hit.collider.name == "´ëÀü")
+                {
+                    popup.SetActive(true);
                 }
                 if (hit.collider.name == "tree")
                 {
@@ -103,8 +108,11 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
         }
     }
-
-
+    //°ø»çÁß ÆË¾÷ ¾ø¾Ú
+    public void canclePopup()
+    {
+        popup.SetActive(false);
+    }
     public void cancleTree()
     {
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
