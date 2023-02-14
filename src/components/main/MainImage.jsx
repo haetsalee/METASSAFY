@@ -14,11 +14,9 @@ export default MainImage;
 
 const ImgWrapperStyle = styled.div`
   width: 100%;
-  height: 35rem;
+  height: 75vh;
   background-image: url(${background});
   background-size: cover;
-  position: absolute;
-  top: 0;
   z-index: -1;
   display: flex;
   justify-content: center;

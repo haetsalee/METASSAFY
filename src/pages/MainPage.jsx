@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+
+import MainContent from '../components/main/MainContent';
 import MainImage from '../components/main/MainImage';
 
 function MainPage() {
@@ -9,7 +11,8 @@ function MainPage() {
     <SectionStyle>
       <MainImage />
       <WrapperStyle>
-        {/* <img style={{ width: '100%' }} src="images/metassafy.gif"></img> */}
+        <MainContent />
+        <MainContent />
       </WrapperStyle>
     </SectionStyle>
   );
@@ -26,7 +29,4 @@ const SectionStyle = styled.section`
 
 const WrapperStyle = styled.div`
   width: 1200px;
-  background-color: pink;
 `;
-
-const ImgWrapperStyle = styled.div``;
