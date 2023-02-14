@@ -7,8 +7,11 @@ import {
   fetchGetImageUrl,
   fetchProfileImage,
 } from '../../../services/profile-service';
+import { FiArrowRight } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 function BackgroundModifyBox({ user_id, image, isSubmit }) {
+  const navigate = useNavigate();
   const [thumbnail, setThumbnail] = useState(image);
   const [file, setFile] = useState();
   const [isChange, setIsChange] = useState(false);
@@ -47,6 +50,10 @@ function BackgroundModifyBox({ user_id, image, isSubmit }) {
   return (
     <WrapperStyle>
       <BackgroundBoxStyle>
+        <PasswordButtonStyle onClick={() => navigate('/password')}>
+          <p>비밀번호 변경</p>
+          <FiArrowRight />
+        </PasswordButtonStyle>
         <form method="post" encType="multipart/form-data">
           <div className="button">
             <label htmlFor="chooseFile">
@@ -121,4 +128,22 @@ const CircleImgStyle = styled.img`
   transform: translate(-50%, -50%);
   filter: brightness(50%);
   opacity: 0.5;
+`;
+
+const PasswordButtonStyle = styled.button`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #b1acac;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  margin: 0.5rem 0.5rem 0 0;
+  cursor: pointer;
+
+  & svg {
+    margin-left: 0.3rem;
+    font-size: 1rem;
+  }
 `;

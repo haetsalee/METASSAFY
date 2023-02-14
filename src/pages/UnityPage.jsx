@@ -11,13 +11,6 @@ import phoneImgFront from '../assets/images/phone_front.png';
 import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function UnityPage() {
-  const user = getJsonLocalUserInfo();
-  // console.log('====', user);
-  const navigate = useNavigate();
-
-  const [isVideo, setIsVideo] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
-
   const {
     unityProvider,
     addEventListener,
@@ -34,6 +27,13 @@ function UnityPage() {
       preserveDrawingBuffer: true,
     },
   });
+
+  const user = getJsonLocalUserInfo();
+  // console.log('====', user);
+  const navigate = useNavigate();
+
+  const [isVideo, setIsVideo] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
 
   useEffect(() => {
     // console.log('loaded', isLoaded);

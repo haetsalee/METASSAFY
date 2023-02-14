@@ -18,7 +18,6 @@ import WebProfileModify from './pages/WebProfileModify';
 import DevelopersPage from './pages/DevelopersPage';
 import LoginPage from './pages/LoginPage';
 import UnityPage from './pages/UnityPage';
-import VideoChatPage from './pages/VideoChatPage';
 import OpenViduPage from './pages/OpenViduPage';
 
 import useInfo from './hooks/use-info';
@@ -35,6 +34,7 @@ import PhoneApp from './pages/phone_pages/PhoneApp';
 import NotFound from './pages/NotFound';
 import BoardModalVersion from './components/board/BoardModalVersion';
 import BoardOuter from './components/board/BoardOuter';
+import PasswordPage from './components/auth/password/PasswordPage';
 
 function App() {
   useInfo();
@@ -59,6 +59,7 @@ function App() {
         <Route path="/" element={<PrivateRoute />}>
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
+          <Route path="password" element={<PasswordPage />} />
           <Route path="board/" element={<BoardOuter />}>
             <Route path="list" element={<BoardPage />} />
             <Route path=":id" element={<ArticlePage />} />
