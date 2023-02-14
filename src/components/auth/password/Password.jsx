@@ -52,6 +52,7 @@ const Password = () => {
     const { data, error } = await fetchPasswordChange({
       id: user.user_id,
       password: userPasswordValue,
+      genderF: user.genderF,
     });
 
     // 비밀번호 변경 성공 시 메인 페이지로
