@@ -4,18 +4,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // gltfLoader사용
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Player } from './Player';
-import { House } from './House';
+import { Portal } from './Portal';
 import { Map } from './Map';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import gsap from 'gsap';
 import { DoubleSide } from 'three';
 
 import phoneImg from '../../assets/images/phone.png';
-import phoneImgFront from '../../assets/images/phone_front.png';
 
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { getJsonLocalUserInfo } from '../../utils/local-storage';
+import { height } from '@mui/system';
 
 function MetaverseThree() {
   const canvasRef = useRef(null); // useRef사용
@@ -31,20 +31,22 @@ function MetaverseThree() {
 
     setCanvasTag(canvas);
 
+    // Loader
+    // gltf로더 로드
+    let gltfLoader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    gltfLoader.setDRACOLoader(dracoLoader);
+
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
-    const floorTexture = textureLoader.load('images/map_v9.png');
+    // const floorTexture = textureLoader.load('images/map_v9.png');
+    const floorTexture = textureLoader.load('images/aaa.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
     floorTexture.repeat.y = 1;
-
-    // Texture - 포탈 텍스쳐
-    const portalTexture = textureLoader.load('images/logo.png');
-    portalTexture.wrapS = THREE.RepeatWrapping;
-    portalTexture.wrapT = THREE.RepeatWrapping;
-    portalTexture.repeat.x = 1;
-    portalTexture.repeat.y = 1;
 
     // Renderer
     // const canvas = document.querySelector('#three-canvas');
@@ -60,7 +62,7 @@ function MetaverseThree() {
 
     // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('white');
+    scene.background = new THREE.Color('black');
 
     // Camera
 
@@ -72,7 +74,7 @@ function MetaverseThree() {
       -1000,
       1000
     );
-    const cameraPosition = new THREE.Vector3(1, 6, 5);
+    const cameraPosition = new THREE.Vector3(1, 2.5, 5);
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     camera.zoom = 0.2;
     camera.updateProjectionMatrix();
@@ -90,7 +92,7 @@ function MetaverseThree() {
     // scene.add(camera);
 
     // Light
-    const ambientLight = new THREE.AmbientLight('white', 0.7);
+    const ambientLight = new THREE.AmbientLight('white', 0.8);
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight('white', 0.5);
@@ -112,13 +114,13 @@ function MetaverseThree() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    // const orbitControls = new OrbitControls(camera, renderer.domElement);
-    // orbitControls.enableDamping = true;
-    // // orbitControls.minDistance = 5;
-    // // orbitControls.maxDistance = 15;
-    // orbitControls.enablePan = false;
-    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    // orbitControls.update();
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    // orbitControls.minDistance = 5;
+    // orbitControls.maxDistance = 15;
+    orbitControls.enablePan = false;
+    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    orbitControls.update();
 
     // Mesh
     const meshes = [];
@@ -138,9 +140,8 @@ function MetaverseThree() {
     // scene.add(startMesh);
     // meshes.push(startMesh);
 
-    // 3d 텍스트
     const floorMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(50, 50),
+      new THREE.PlaneGeometry(40, 40),
       new THREE.MeshStandardMaterial({
         map: floorTexture,
       })
@@ -151,6 +152,15 @@ function MetaverseThree() {
     scene.add(floorMesh);
     meshes.push(floorMesh);
 
+    //////////////////////////////////////////////////////////////
+
+    // Texture - 포탈 텍스쳐
+    const portalTexture = textureLoader.load('images/logo.png');
+    portalTexture.wrapS = THREE.RepeatWrapping;
+    portalTexture.wrapT = THREE.RepeatWrapping;
+    portalTexture.repeat.x = 1;
+    portalTexture.repeat.y = 1;
+    // MetaSSAFY로고 회전
     const portalMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(2, 2),
       new THREE.MeshStandardMaterial({
@@ -160,13 +170,361 @@ function MetaverseThree() {
         side: DoubleSide,
       })
     );
-    portalMesh.name = 'protal';
+    portalMesh.name = 'portal';
     portalMesh.rotation.y = Math.PI / 3;
     portalMesh.receiveShadow = true;
     // portalMesh.castShadow = true;
-    portalMesh.position.set(-5, 2, 0);
+    portalMesh.position.set(0, 2, 8);
     scene.add(portalMesh);
     meshes.push(portalMesh);
+
+    // 집 로드
+    const portal_metassafy = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: 0,
+      y: 0,
+      z: 8,
+    });
+
+    // 스팟매쉬 - spotMeshMetaSSAFY
+    const spotMeshMetaSSAFY = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'purple',
+        transparent: true,
+        opacity: 0.0,
+      })
+    );
+    spotMeshMetaSSAFY.position.set(0, 0.01, 8);
+    spotMeshMetaSSAFY.rotation.x = -Math.PI / 2;
+    spotMeshMetaSSAFY.receiveShadow = true;
+    scene.add(spotMeshMetaSSAFY);
+
+    /////////////////////////////////
+    // Texture - 싸피 텍스쳐
+    const ImgRelToSSAFYTexture = textureLoader.load('images/SSAFY.png');
+    ImgRelToSSAFYTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToSSAFYTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToSSAFYTexture.repeat.x = 1;
+    ImgRelToSSAFYTexture.repeat.y = 1;
+
+    const ImgRelToSSAFYMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToSSAFYTexture,
+        // alphaMap: ImgRelToSSAFYTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToSSAFYMesh.name = 'ImgRelToSSAFY';
+    // ImgRelToSSAFYMesh.rotation.y = Math.PI / 3;
+    // ImgRelToSSAFYMesh.rotation.x = -Math.PI / 2;
+    ImgRelToSSAFYMesh.receiveShadow = true;
+    // ImgRelToSSAFYMesh.castShadow = true;
+    ImgRelToSSAFYMesh.position.set(2, 1.5, -6);
+    scene.add(ImgRelToSSAFYMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_ssafy = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: 2,
+      y: 0,
+      z: -5,
+    });
+
+    // 스팟매쉬 - Edu SSAFY
+    const spotMeshSSAFY = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'pink',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshSSAFY.position.set(2, 0.05, -5);
+    spotMeshSSAFY.rotation.x = -Math.PI / 2;
+    spotMeshSSAFY.receiveShadow = true;
+    scene.add(spotMeshSSAFY);
+
+    // 스팟매쉬 - spotMeshMetaSSAFY
+    // const spotMeshMetaSSAFY = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'purple',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshMetaSSAFY.position.set(-5, 0.01, 0);
+    // spotMeshMetaSSAFY.rotation.x = -Math.PI / 2;
+    // spotMeshMetaSSAFY.receiveShadow = true;
+    // scene.add(spotMeshMetaSSAFY);
+
+    //////////////////////////////////////////////////////////////
+
+    /////////////////////////////////
+    // Texture - 깃랩
+    const ImgRelToGitlabTexture = textureLoader.load('images/Gitlab.png');
+    ImgRelToGitlabTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToGitlabTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToGitlabTexture.repeat.x = 1;
+    ImgRelToGitlabTexture.repeat.y = 1;
+
+    const ImgRelToGitlabMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToGitlabTexture,
+        // alphaMap: ImgRelToGitlabTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToGitlabMesh.name = 'ImgRelToGitlab';
+    // ImgRelToGitlabMesh.rotation.y = Math.PI / 3;
+    // ImgRelToGitlabMesh.rotation.x = -Math.PI / 2;
+    ImgRelToGitlabMesh.receiveShadow = true;
+    // ImgRelToGitlabMesh.castShadow = true;
+    ImgRelToGitlabMesh.position.set(-2, 1.5, -6);
+    scene.add(ImgRelToGitlabMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_gitlab = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: -2,
+      y: 0,
+      z: -5,
+    });
+
+    // 스팟매쉬 - Edu Gitlab
+    const spotMeshGitlab = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshGitlab.position.set(-2, 0.05, -5);
+    spotMeshGitlab.rotation.x = -Math.PI / 2;
+    spotMeshGitlab.receiveShadow = true;
+    scene.add(spotMeshGitlab);
+
+    //////////////////////////////////////////////////////////////
+
+    /////////////////////////////////
+    // Texture - 깃랩
+    const ImgRelToMMTexture = textureLoader.load('images/mattermost.png');
+    ImgRelToMMTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToMMTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToMMTexture.repeat.x = 1;
+    ImgRelToMMTexture.repeat.y = 1;
+
+    const ImgRelToMMMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToMMTexture,
+        // alphaMap: ImgRelToMMTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToMMMesh.name = 'ImgRelToMM';
+    // ImgRelToMMMesh.rotation.y = Math.PI / 3;
+    // ImgRelToMMMesh.rotation.x = -Math.PI / 2;
+    ImgRelToMMMesh.receiveShadow = true;
+    // ImgRelToMMMesh.castShadow = true;
+    ImgRelToMMMesh.position.set(6, 1.5, -6);
+    scene.add(ImgRelToMMMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_MM = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: 6,
+      y: 0,
+      z: -5,
+    });
+
+    // 스팟매쉬 - Edu MM
+    const spotMeshMM = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshMM.position.set(6, 0.05, -5);
+    spotMeshMM.rotation.x = -Math.PI / 2;
+    spotMeshMM.receiveShadow = true;
+    scene.add(spotMeshMM);
+
+    //////////////////////////////////////////////////////////////
+
+    /////////////////////////////////
+    // Texture -
+    const ImgRelToJiraTexture = textureLoader.load('images/jira.png');
+    ImgRelToJiraTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToJiraTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToJiraTexture.repeat.x = 1;
+    ImgRelToJiraTexture.repeat.y = 1;
+
+    const ImgRelToJiraMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToJiraTexture,
+        // alphaMap: ImgRelToJiraTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToJiraMesh.name = 'ImgRelToJira';
+    // ImgRelToJiraMesh.rotation.y = Math.PI / 3;
+    // ImgRelToJiraMesh.rotation.x = -Math.PI / 2;
+    ImgRelToJiraMesh.receiveShadow = true;
+    // ImgRelToJiraMesh.castShadow = true;
+    ImgRelToJiraMesh.position.set(-6, 1.5, -6);
+    scene.add(ImgRelToJiraMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_jira = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: -6,
+      y: 0,
+      z: -5,
+    });
+
+    // 스팟매쉬 - Edu Jira
+    const spotMeshJira = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshJira.position.set(-6, 0.05, -5);
+    spotMeshJira.rotation.x = -Math.PI / 2;
+    spotMeshJira.receiveShadow = true;
+    scene.add(spotMeshJira);
+
+    //////////////////////////////////////////////////////////////
+    /////////////////////////////////
+    // Texture -
+    const ImgRelToSWEATexture = textureLoader.load('images/SWEA.png');
+    ImgRelToSWEATexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToSWEATexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToSWEATexture.repeat.x = 1;
+    ImgRelToSWEATexture.repeat.y = 1;
+
+    const ImgRelToSWEAMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToSWEATexture,
+        // alphaMap: ImgRelToSWEATexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToSWEAMesh.name = 'ImgRelToSWEA';
+    // ImgRelToSWEAMesh.rotation.y = Math.PI / 3;
+    // ImgRelToSWEAMesh.rotation.x = -Math.PI / 2;
+    ImgRelToSWEAMesh.receiveShadow = true;
+    // ImgRelToSWEAMesh.castShadow = true;
+    ImgRelToSWEAMesh.position.set(6, 1.5, 7);
+    scene.add(ImgRelToSWEAMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_swea = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: 6,
+      y: 0,
+      z: 8,
+    });
+
+    // 스팟매쉬 - Edu SWEA
+    const spotMeshSWEA = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshSWEA.position.set(6, 0.05, 8);
+    spotMeshSWEA.rotation.x = -Math.PI / 2;
+    spotMeshSWEA.receiveShadow = true;
+    scene.add(spotMeshSWEA);
+
+    //////////////////////////////////////////////////////////////
+    /////////////////////////////////
+    // Texture -
+    const ImgRelToWebexTexture = textureLoader.load('images/webex.png');
+    ImgRelToWebexTexture.wrapS = THREE.RepeatWrapping;
+    ImgRelToWebexTexture.wrapT = THREE.RepeatWrapping;
+    ImgRelToWebexTexture.repeat.x = 1;
+    ImgRelToWebexTexture.repeat.y = 1;
+
+    const ImgRelToWebexMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
+      new THREE.MeshStandardMaterial({
+        map: ImgRelToWebexTexture,
+        // alphaMap: ImgRelToWebexTexture,
+        transparent: true,
+        side: DoubleSide,
+      })
+    );
+    ImgRelToWebexMesh.name = 'ImgRelToWebex';
+    // ImgRelToWebexMesh.rotation.y = Math.PI / 3;
+    // ImgRelToWebexMesh.rotation.x = -Math.PI / 2;
+    ImgRelToWebexMesh.receiveShadow = true;
+    // ImgRelToWebexMesh.castShadow = true;
+    ImgRelToWebexMesh.position.set(-6, 1.5, 7);
+    scene.add(ImgRelToWebexMesh);
+    meshes.push(portalMesh);
+
+    // 포탈 부르기 = draw에서 설정 필요
+    const portal_webex = new Portal({
+      gltfLoader,
+      scene,
+      modelSrc: '/model/portal.glb',
+      x: -6,
+      y: 0,
+      z: 8,
+    });
+
+    // 스팟매쉬 - Edu Webex
+    const spotMeshWebex = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshStandardMaterial({
+        color: 'red',
+        transparent: true,
+        opacity: 0,
+      })
+    );
+    spotMeshWebex.position.set(-6, 0.05, 8);
+    spotMeshWebex.rotation.x = -Math.PI / 2;
+    spotMeshWebex.receiveShadow = true;
+    scene.add(spotMeshWebex);
+
+    //////////////////////////////////////////////////////////////
 
     ////////////////////
 
@@ -178,7 +536,7 @@ function MetaverseThree() {
       new THREE.MeshBasicMaterial({
         // color: 'skyblue',
         // transparent: true,
-        // opacity: 0,
+        // opacity: 0.5,
         map: pointerMeshTexture,
         // size: 0.1,
         transparent: true,
@@ -194,134 +552,90 @@ function MetaverseThree() {
     pointerMesh.receiveShadow = true;
     scene.add(pointerMesh);
 
-    // 스팟매쉬 - spotMeshMetaSSAFY
-    const spotMeshMetaSSAFY = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        color: 'purple',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshMetaSSAFY.position.set(-5, 0.01, 0);
-    spotMeshMetaSSAFY.rotation.x = -Math.PI / 2;
-    spotMeshMetaSSAFY.receiveShadow = true;
-    scene.add(spotMeshMetaSSAFY);
-
     // 스팟매쉬 - baekjoon
-    const spotMeshBeakJoon = new THREE.Mesh(
-      new THREE.PlaneGeometry(2, 1),
-      new THREE.MeshStandardMaterial({
-        color: 'purple',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshBeakJoon.position.set(0.35, 0.005, 7);
-    spotMeshBeakJoon.rotation.x = -Math.PI / 2;
-    spotMeshBeakJoon.receiveShadow = true;
-    scene.add(spotMeshBeakJoon);
+    // const spotMeshBeakJoon = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(2, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'purple',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshBeakJoon.position.set(0.35, 0.005, 7);
+    // spotMeshBeakJoon.rotation.x = -Math.PI / 2;
+    // spotMeshBeakJoon.receiveShadow = true;
+    // scene.add(spotMeshBeakJoon);
 
     // 스팟매쉬 - programmers
-    const spotMeshProgrammers = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.8, 0.8),
-      new THREE.MeshStandardMaterial({
-        color: 'green',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshProgrammers.position.set(2.8, 0.005, 5.3);
-    spotMeshProgrammers.rotation.x = -Math.PI / 2;
-    spotMeshProgrammers.receiveShadow = true;
-    scene.add(spotMeshProgrammers);
+    // const spotMeshProgrammers = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(0.8, 0.8),
+    //   new THREE.MeshStandardMaterial({
+    //     // map: programmersTexture,
+    //     color: 'green',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshProgrammers.position.set(2.8, 0.005, 5.3);
+    // spotMeshProgrammers.rotation.x = -Math.PI / 2;
+    // spotMeshProgrammers.receiveShadow = true;
+    // scene.add(spotMeshProgrammers);
 
-    // 스팟매쉬 - Edu SSAFY
-    const spotMeshSSAFY = new THREE.Mesh(
-      new THREE.PlaneGeometry(2, 2),
-      new THREE.MeshStandardMaterial({
-        color: 'pink',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshSSAFY.position.set(1.5, 0.005, -6.5);
-    spotMeshSSAFY.rotation.x = -Math.PI / 2;
-    spotMeshSSAFY.receiveShadow = true;
-    scene.add(spotMeshSSAFY);
-
-    // 스팟매쉬 - Edu SWEA
-    const spotMeshSWEA = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.2, 1.2),
-      new THREE.MeshStandardMaterial({
-        color: 'pink',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshSWEA.position.set(5.25, 0.005, 3.6);
-    spotMeshSWEA.rotation.x = -Math.PI / 2;
-    spotMeshSWEA.receiveShadow = true;
-    scene.add(spotMeshSWEA);
+    // // 스팟매쉬 - Edu SWEA
+    // const spotMeshSWEA = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1.2, 1.2),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'pink',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshSWEA.position.set(5.25, 0.005, 3.6);
+    // spotMeshSWEA.rotation.x = -Math.PI / 2;
+    // spotMeshSWEA.receiveShadow = true;
+    // scene.add(spotMeshSWEA);
 
     // 스팟매쉬 - Edu Mattermost
-    const spotMeshMM = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        color: 'red',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshMM.position.set(4.5, 0.005, -4.8);
-    spotMeshMM.rotation.x = -Math.PI / 2;
-    spotMeshMM.receiveShadow = true;
-    scene.add(spotMeshMM);
+    // const spotMeshMM = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'red',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshMM.position.set(4.5, 0.005, -4.8);
+    // spotMeshMM.rotation.x = -Math.PI / 2;
+    // spotMeshMM.receiveShadow = true;
+    // scene.add(spotMeshMM);
 
     // 스팟매쉬 - GitLab
-    const spotMeshGitlab = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        color: 'pink',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshGitlab.position.set(6.8, 0.005, -3.35);
-    spotMeshGitlab.rotation.x = -Math.PI / 2;
-    spotMeshGitlab.receiveShadow = true;
-    scene.add(spotMeshGitlab);
+    // const spotMeshGitlab = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'pink',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshGitlab.position.set(6.8, 0.005, -3.35);
+    // spotMeshGitlab.rotation.x = -Math.PI / 2;
+    // spotMeshGitlab.receiveShadow = true;
+    // scene.add(spotMeshGitlab);
 
     // 스팟매쉬 - Jira
-    const spotMeshJira = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshStandardMaterial({
-        color: 'blue',
-        transparent: true,
-        opacity: 0,
-      })
-    );
-    spotMeshJira.position.set(7.9, 0.005, -0.3);
-    spotMeshJira.rotation.x = -Math.PI / 2;
-    spotMeshJira.receiveShadow = true;
-    scene.add(spotMeshJira);
-
-    // gltf로더 로드
-    let gltfLoader = new GLTFLoader();
-    const dracoLoader = new DRACOLoader();
-
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-    gltfLoader.setDRACOLoader(dracoLoader);
-
-    // 집 로드
-    const house = new House({
-      gltfLoader,
-      scene,
-      modelSrc: '/models/house.glb',
-      x: 5,
-      y: -1.3,
-      z: 2,
-    });
+    // const spotMeshJira = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     color: 'blue',
+    //     transparent: true,
+    //     opacity: 0.5,
+    //   })
+    // );
+    // spotMeshJira.position.set(7.9, 0.005, -0.3);
+    // spotMeshJira.rotation.x = -Math.PI / 2;
+    // spotMeshJira.receiveShadow = true;
+    // scene.add(spotMeshJira);
 
     // 지도 로드
     // gltfLoader.load(
@@ -366,6 +680,13 @@ function MetaverseThree() {
       portalMesh.rotateY(delta);
 
       if (player.mixer) player.mixer.update(delta);
+      if (portal_metassafy.mixer) portal_metassafy.mixer.update(delta);
+      if (portal_ssafy.mixer) portal_ssafy.mixer.update(delta);
+      if (portal_gitlab.mixer) portal_gitlab.mixer.update(delta);
+      if (portal_jira.mixer) portal_jira.mixer.update(delta);
+      if (portal_MM.mixer) portal_MM.mixer.update(delta);
+      if (portal_webex.mixer) portal_webex.mixer.update(delta);
+      if (portal_swea.mixer) portal_swea.mixer.update(delta);
 
       if (player.modelMesh) {
         camera.lookAt(player.modelMesh.position);
@@ -399,17 +720,17 @@ function MetaverseThree() {
             console.log('멈춤');
           }
 
-          if (
-            Math.abs(
-              spotMeshBeakJoon.position.x - player.modelMesh.position.x
-            ) < 1 &&
-            Math.abs(
-              spotMeshBeakJoon.position.z - player.modelMesh.position.z
-            ) < 1
-          ) {
-            // redirection
-            window.location.href = 'https://www.acmicpc.net/';
-          }
+          // if (
+          //   Math.abs(
+          //     spotMeshBeakJoon.position.x - player.modelMesh.position.x
+          //   ) < 1 &&
+          //   Math.abs(
+          //     spotMeshBeakJoon.position.z - player.modelMesh.position.z
+          //   ) < 1
+          // ) {
+          //   // redirection
+          //   window.location.href = 'https://www.acmicpc.net/';
+          // }
           /////////////////////////// REDIRECTION ////////////////////////////
           if (
             Math.abs(
@@ -436,16 +757,16 @@ function MetaverseThree() {
           ) {
             window.location.href = 'https://lab.ssafy.com/';
           }
-          if (
-            Math.abs(
-              spotMeshProgrammers.position.x - player.modelMesh.position.x
-            ) < 1 &&
-            Math.abs(
-              spotMeshProgrammers.position.z - player.modelMesh.position.z
-            ) < 1
-          ) {
-            window.location.href = 'https://programmers.co.kr/';
-          }
+          // if (
+          //   Math.abs(
+          //     spotMeshProgrammers.position.x - player.modelMesh.position.x
+          //   ) < 1 &&
+          //   Math.abs(
+          //     spotMeshProgrammers.position.z - player.modelMesh.position.z
+          //   ) < 1
+          // ) {
+          //   window.location.href = 'https://programmers.co.kr/';
+          // }
           if (
             Math.abs(spotMeshSWEA.position.x - player.modelMesh.position.x) <
               1 &&
@@ -459,6 +780,14 @@ function MetaverseThree() {
             Math.abs(spotMeshJira.position.z - player.modelMesh.position.z) < 1
           ) {
             window.location.href = 'https://ssafy.atlassian.net/jira/your-work';
+          }
+          if (
+            Math.abs(spotMeshWebex.position.x - player.modelMesh.position.x) <
+              1 &&
+            Math.abs(spotMeshWebex.position.z - player.modelMesh.position.z) < 1
+          ) {
+            window.location.href =
+              'https://ssafyclass.webex.com/webappng/sites/ssafyclass/dashboard?siteurl=ssafyclass';
           }
           if (
             Math.abs(spotMeshMM.position.x - player.modelMesh.position.x) < 1 &&
@@ -568,36 +897,7 @@ function MetaverseThree() {
     >
       {/* <canvas id="myThreeJsCanvas"></canvas>;    */}
       {/* <Card> */}
-      {isPhone ? (
-        <ImgStyle
-          src={phoneImgFront}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              navigate(`/metassafy`);
-            }
-          }}
-        />
-      ) : (
-        <ImgStyle
-          src={phoneImg}
-          alt="phone"
-          onClick={() => {
-            if (isPhone === false) {
-              setIsPhone(true);
-              navigate(`phone/home`);
-            } else {
-              setIsPhone(false);
-              navigate(`/metassafy`);
-            }
-          }}
-        />
-      )}
-      {/* <ImgStyle
+      <ImgStyle
         src={phoneImg}
         alt="phone"
         onClick={() => {
@@ -609,12 +909,8 @@ function MetaverseThree() {
             navigate(`/metassafy`);
           }
         }}
-      /> */}
-      <canvas
-        id="react-unity-webgl-canvas-1"
-        className="meta-ssafy2"
-        ref={canvasRef}
-      ></canvas>
+      />
+      <canvas id="metassafy" className="meta-ssafy2" ref={canvasRef}></canvas>
       {/* </Card> */}
     </PositionDiv>
   );
@@ -630,8 +926,8 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 80%;
-  left: 85%;
+  top: 70%;
+  left: 5%;
   position: absolute;
 `;
 
