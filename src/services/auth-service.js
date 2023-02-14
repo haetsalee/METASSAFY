@@ -106,3 +106,19 @@ export const fetchUserInfoById = async (id) => {
     return { data: error.message, status: error.response?.status, error };
   }
 };
+
+export const fetchPasswordChange = async ({ id, password }) => {
+  const requestBody = {
+    user_id: id,
+    user_pwd: password,
+  };
+
+  try {
+    const response = await API.post('/auth/update', requestBody);
+    const { data, status } = response;
+    console.log('update', data, status);
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
+  }
+};
