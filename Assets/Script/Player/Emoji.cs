@@ -49,7 +49,7 @@ public class Emoji : MonoBehaviourPunCallbacks
         {
             if (idx == 1)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F1))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -57,7 +57,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 2)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F2))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -65,7 +65,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 3)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F3))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha3))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -73,7 +73,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 4)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F4))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -81,7 +81,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 5)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F5))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha5))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -89,7 +89,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 6)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F6))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha6))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -97,7 +97,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 7)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F7))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha7))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -105,7 +105,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 8)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F8))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha8))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -113,7 +113,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 9)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F9))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha9))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -121,7 +121,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 10)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F10))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha0))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -129,7 +129,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 11)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F11))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Minus))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;
@@ -137,7 +137,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 12)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F12))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Equals))
                 {
                     emojis[idx].SetActive(true);
                     action = idx;

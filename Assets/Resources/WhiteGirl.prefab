@@ -1147,6 +1147,7 @@ GameObject:
   - component: {fileID: 4255249056724277099}
   - component: {fileID: 4238540619718735083}
   - component: {fileID: 5959398296835619782}
+  - component: {fileID: 1382735963208573483}
   m_Layer: 7
   m_Name: WhiteGirl
   m_TagString: Player
@@ -1421,6 +1422,31 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &1382735963208573483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665284970266405481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fcec19420e44941b727db5d4b07127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emojis:
+  - {fileID: 6210872185427815223}
+  - {fileID: 2167827460536493354}
+  - {fileID: 5728359631303033460}
+  - {fileID: 1220809597253140953}
+  - {fileID: 5443884852077561977}
+  - {fileID: 6639241187117599435}
+  - {fileID: 28669869353329533}
+  - {fileID: 8775758025666076829}
+  - {fileID: 402467123615883165}
+  - {fileID: 508490369017438047}
+  - {fileID: 5542615723119573006}
+  - {fileID: 5693010258549393609}
 --- !u!1 &3684807342788859385
 GameObject:
   m_ObjectHideFlags: 0
