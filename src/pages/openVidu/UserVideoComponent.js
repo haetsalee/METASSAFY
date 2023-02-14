@@ -12,8 +12,8 @@ export default class UserVideoComponent extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex' }}>
-        {this.props.streamManager !== undefined ? (
+      <>
+        {this.props.streamManager && (
           <VideoDivStyle>
             <OpenViduVideoComponent
               streamManager={this.props.streamManager}
@@ -23,13 +23,14 @@ export default class UserVideoComponent extends Component {
               <p>{this.getNicknameTag()}</p>
             </div> */}
           </VideoDivStyle>
-        ) : null}
-      </div>
+        )}
+      </>
     );
   }
 }
 
 const VideoDivStyle = styled.div`
   /* border: 10px gray solid; */
-  width: 200px;
+  width: auto;
+  height: 100%;
 `;

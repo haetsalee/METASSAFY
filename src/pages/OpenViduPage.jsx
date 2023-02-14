@@ -510,6 +510,66 @@ class OpenViduPage extends Component {
 
         {this.state.sessionCamera && (
           <MeetingRoomStyle>
+            <TopDivStyle id="session">
+              {this.state.mainStreamManager && (
+                <MainVideoWrapperStyle id="main-video">
+                  <MainVideoComponent
+                    streamManager={this.state.mainStreamManager}
+                  />
+                </MainVideoWrapperStyle>
+              )}
+
+              <SubVideoWrapperStyle>
+                {/* 공유화면 */}
+                {(this.state.shareScreen ||
+                  !!this.state.subscriberScreens.length) && (
+                  <ShareWrapperStyle id="screen-container">
+                    {this.state.shareScreen && (
+                      <SharingVideoStyle
+                        onClick={() =>
+                          this.handleMainVideoStream(this.state.shareScreen)
+                        }
+                      >
+                        <UserVideoComponent
+                          streamManager={this.state.shareScreen}
+                        />
+                      </SharingVideoStyle>
+                    )}
+                    {this.state.subscriberScreens.map((sub, i) => (
+                      <SharingVideoStyle
+                        key={i}
+                        onClick={() => this.handleMainVideoStream(sub)}
+                      >
+                        <UserVideoComponent streamManager={sub} />
+                      </SharingVideoStyle>
+                    ))}
+                  </ShareWrapperStyle>
+                )}
+
+                {/* 얼굴 */}
+                <FaceWrapperStyle id="video-container">
+                  {this.state.publisher && (
+                    <PersonVideoStyle
+                      onClick={() =>
+                        this.handleMainVideoStream(this.state.publisher)
+                      }
+                    >
+                      <UserVideoComponent
+                        streamManager={this.state.publisher}
+                      />
+                    </PersonVideoStyle>
+                  )}
+                  {this.state.subscribers.map((sub, i) => (
+                    <PersonVideoStyle
+                      key={i}
+                      onClick={() => this.handleMainVideoStream(sub)}
+                    >
+                      <UserVideoComponent streamManager={sub} />
+                    </PersonVideoStyle>
+                  ))}
+                </FaceWrapperStyle>
+              </SubVideoWrapperStyle>
+            </TopDivStyle>
             <BottomDivStyle>
               <MeetingTitleStyle>{mySessionId}</MeetingTitleStyle>
               <ControlButtonWrapperStyle>
@@ -548,87 +608,6 @@ class OpenViduPage extends Component {
                 </ControlButtonStyle>
               </ControlButtonWrapperStyle>
             </BottomDivStyle>
-            <div id="session" style={{ display: 'flex' }}>
-              {this.state.mainStreamManager !== undefined ? (
-                <div id="main-video" className="col-md-6">
-                  <MainVideoComponent
-                    streamManager={this.state.mainStreamManager}
-                  />
-                  {/* <input
-                  className="btn btn-large btn-success"
-                  type="button"
-                  id="buttonSwitchCamera"
-                  onClick={this.sendMessage}
-                  value="SendMessage Test"
-                /> */}
-                </div>
-              ) : null}
-              <div>
-                <div
-                  id="video-container"
-                  style={{
-                    display: 'flex',
-                    overflowX: 'auto',
-                    maxWidth: '500px',
-                  }}
-                  className="col-md-6"
-                >
-                  {this.state.publisher !== undefined ? (
-                    <div
-                      className="stream-container col-md-6 col-xs-6"
-                      onClick={() =>
-                        this.handleMainVideoStream(this.state.publisher)
-                      }
-                    >
-                      <UserVideoComponent
-                        streamManager={this.state.publisher}
-                      />
-                    </div>
-                  ) : null}
-                  {this.state.subscribers.map((sub, i) => (
-                    <div
-                      key={i}
-                      className="stream-container col-md-6 col-xs-6"
-                      onClick={() => this.handleMainVideoStream(sub)}
-                    >
-                      <UserVideoComponent streamManager={sub} />
-                    </div>
-                  ))}
-                </div>
-                <div
-                  id="screen-container"
-                  style={{
-                    display: 'flex',
-                    overflowX: 'auto',
-
-                    maxWidth: '500px',
-                  }}
-                  className="col-md-6"
-                >
-                  {this.state.shareScreen !== undefined ? (
-                    <div
-                      className="stream-container col-md-6 col-xs-6"
-                      onClick={() =>
-                        this.handleMainVideoStream(this.state.shareScreen)
-                      }
-                    >
-                      <UserVideoComponent
-                        streamManager={this.state.shareScreen}
-                      />
-                    </div>
-                  ) : null}
-                  {this.state.subscriberScreens.map((sub, i) => (
-                    <div
-                      key={i}
-                      className="stream-container col-md-6 col-xs-6"
-                      onClick={() => this.handleMainVideoStream(sub)}
-                    >
-                      <UserVideoComponent streamManager={sub} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </MeetingRoomStyle>
         )}
       </SectionStyle>
@@ -784,6 +763,87 @@ const MeetingRoomStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+`;
+
+const TopDivStyle = styled.div`
+  display: flex;
+  width: 100%;
+  height: 80%;
+`;
+
+const MainVideoWrapperStyle = styled.div`
+  width: 55%;
+  height: 100%;
+  margin-right: 0.7rem;
+  display: flex;
+  align-items: center;
+  /* background-color: pink; */
+`;
+
+const SubVideoWrapperStyle = styled.div`
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: aqua; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #617485;
+    border-radius: 10px;
+    background-clip: padding-box;
+    /* border: 1px solid transparent; */
+  }
+  &::-webkit-scrollbar-track {
+    /* background-color: #617485; */
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+`;
+
+const ShareWrapperStyle = styled.div`
+  display: flex;
+  width: 100%;
+  height: 10rem;
+  /* background-color: beige; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #617485;
+    border-radius: 10px;
+    background-clip: padding-box;
+    /* border: 1px solid transparent; */
+  }
+  &::-webkit-scrollbar-track {
+    /* background-color: #617485; */
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+`;
+
+const SharingVideoStyle = styled.div`
+  width: 15rem;
+  height: 100%;
+`;
+
+const FaceWrapperStyle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  width: 100%;
+  height: 80%;
+`;
+
+const PersonVideoStyle = styled.div`
+  width: 33%;
+  height: 33%;
 `;
 
 const ControlButtonStyle = styled.button`
@@ -800,27 +860,20 @@ const ControlButtonStyle = styled.button`
   cursor: pointer;
 `;
 
-const OutBtnStyle = styled.button`
-  background-color: #fd4242;
+const BottomDivStyle = styled.div`
+  width: 100%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  border: 0px;
-  margin: 10px;
-  padding: 10px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-`;
-
-const BottomDivStyle = styled.div`
-  width: 100%;
-  display: flex;
+  position: relative;
 `;
 
 const MeetingTitleStyle = styled.p`
   font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  margin-left: 1rem;
 `;
 
 const ControlButtonWrapperStyle = styled.div`
