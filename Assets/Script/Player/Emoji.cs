@@ -6,7 +6,7 @@ using UnityEngine;
 public class Emoji : MonoBehaviourPunCallbacks
 {
 
-    public GameObject[] emojis = new GameObject[15];
+    public GameObject[] emojis = new GameObject[16];
 
     private int action;
     private float timer;
@@ -46,6 +46,7 @@ public class Emoji : MonoBehaviourPunCallbacks
         setEmoji(12);
         setEmoji(13);
         setEmoji(14);
+        setEmoji(15);
 
     }
 
@@ -147,6 +148,13 @@ public class Emoji : MonoBehaviourPunCallbacks
             else if (idx == 14)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.E))
+                {
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
+                }
+            }
+            else if (idx == 15)
+            {
+                if (action == 0 && Input.GetKeyDown(KeyCode.F))
                 {
                     photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
