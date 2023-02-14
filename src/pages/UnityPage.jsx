@@ -12,7 +12,7 @@ import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function UnityPage() {
   const user = getJsonLocalUserInfo();
-  console.log('====', user);
+  // console.log('====', user);
   const navigate = useNavigate();
 
   const [isVideo, setIsVideo] = useState(false);
@@ -36,7 +36,7 @@ function UnityPage() {
   });
 
   useEffect(() => {
-    console.log('loaded', isLoaded);
+    // console.log('loaded', isLoaded);
     if (isLoaded) {
       console.log(`${user.name}(${user.user_id}) 가 메타싸피에 접속`);
       sendMessage('ValueManager', 'getUserId', `${user.name}(${user.user_id})`);
@@ -44,9 +44,9 @@ function UnityPage() {
   }, [isLoaded]);
 
   useEffect(() => {
-    console.log('add event');
+    // console.log('add event');
     addEventListener('openPhone', (mode) => {
-      console.log('openPhone event', mode);
+      // console.log('openPhone event', mode);
       if (
         mode === 'videoRoom' ||
         mode === 'videoRoom2' ||
@@ -66,21 +66,21 @@ function UnityPage() {
       }
     });
     return () => {
-      console.log('remove event');
+      // console.log('remove event');
       removeEventListener('openPhone', () => {});
     };
-  }, []);
+  });
 
   // 비디오 룸 닫기
   const closeVideo = () => {
-    console.log('close video');
+    // console.log('close video');
     setIsVideo(false);
     sendMessage('videoRoom', 'restartUntiy');
   };
 
   // 폰 모달
   const phoneHandler = () => {
-    console.log('phone click', isPhone);
+    // console.log('phone click', isPhone);
     if (isPhone === false) {
       setIsPhone(true);
       sendMessage('ValueManager', 'setUnityFalse');
@@ -94,7 +94,7 @@ function UnityPage() {
 
   // 게시판 클릭하면 이동
   const boardHandler = () => {
-    console.log('board handler');
+    // console.log('board handler');
     navigate('board/list');
   };
 
