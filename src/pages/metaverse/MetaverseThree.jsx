@@ -62,7 +62,7 @@ function MetaverseThree() {
 
     // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('white');
 
     // Camera
 
@@ -92,7 +92,7 @@ function MetaverseThree() {
     // scene.add(camera);
 
     // Light
-    const ambientLight = new THREE.AmbientLight('white', 0.8);
+    const ambientLight = new THREE.AmbientLight('white', 0.7);
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight('white', 0.5);
@@ -114,13 +114,13 @@ function MetaverseThree() {
     directionalLight.shadow.camera.far = 100;
     scene.add(directionalLight);
 
-    const orbitControls = new OrbitControls(camera, renderer.domElement);
-    orbitControls.enableDamping = true;
-    // orbitControls.minDistance = 5;
-    // orbitControls.maxDistance = 15;
-    orbitControls.enablePan = false;
-    orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
-    orbitControls.update();
+    // const orbitControls = new OrbitControls(camera, renderer.domElement);
+    // orbitControls.enableDamping = true;
+    // // orbitControls.minDistance = 5;
+    // // orbitControls.maxDistance = 15;
+    // orbitControls.enablePan = false;
+    // orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
+    // orbitControls.update();
 
     // Mesh
     const meshes = [];
@@ -144,6 +144,9 @@ function MetaverseThree() {
       new THREE.PlaneGeometry(40, 40),
       new THREE.MeshStandardMaterial({
         map: floorTexture,
+        // alphaMap: floorTexture,
+        // transparent: true,
+        // side: DoubleSide,
       })
     );
     floorMesh.name = 'floor';
@@ -926,8 +929,8 @@ const ImgStyle = styled.img`
   width: 4rem;
   height: 6rem;
   float: left;
-  top: 70%;
-  left: 5%;
+  top: 80%;
+  left: 85%;
   position: absolute;
 `;
 
