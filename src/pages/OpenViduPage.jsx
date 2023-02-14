@@ -776,6 +776,8 @@ const MainVideoWrapperStyle = styled.div`
   width: 55%;
   height: 100%;
   margin-right: 0.7rem;
+  display: flex;
+  align-items: center;
   /* background-color: pink; */
 `;
 
