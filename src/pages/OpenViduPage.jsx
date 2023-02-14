@@ -189,7 +189,7 @@ class OpenViduPage extends Component {
 
         // On every new Stream received...
         sessionCamera.on('streamCreated', (event) => {
-          if (event.stream.typeOfVideo == 'CAMERA') {
+          if (event.stream.typeOfVideo === 'CAMERA') {
             console.log(
               event,
               '-----------------------------------------sessionCamera event--------------------------------------------'
@@ -220,7 +220,7 @@ class OpenViduPage extends Component {
         });
 
         sessionScreen.on('streamCreated', (event) => {
-          if (event.stream.typeOfVideo == 'SCREEN') {
+          if (event.stream.typeOfVideo === 'SCREEN') {
             console.log(
               event,
               '-----------------------------------------sessionScreen event--------------------------------------------'
@@ -787,22 +787,6 @@ const SubVideoWrapperStyle = styled.div`
   display: flex;
   flex-direction: column;
   /* background-color: aqua; */
-  overflow-x: hidden;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 0.3rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #617485;
-    border-radius: 10px;
-    background-clip: padding-box;
-    /* border: 1px solid transparent; */
-  }
-  &::-webkit-scrollbar-track {
-    /* background-color: #617485; */
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
 `;
 
 const ShareWrapperStyle = styled.div`
@@ -811,8 +795,8 @@ const ShareWrapperStyle = styled.div`
   height: 5rem;
   margin-bottom: 0.5rem;
   /* background-color: beige; */
-  overflow-x: auto;
   overflow-y: hidden;
+  overflow-x: auto;
   &::-webkit-scrollbar {
     width: 0.3rem;
   }
@@ -830,8 +814,9 @@ const ShareWrapperStyle = styled.div`
 `;
 
 const SharingVideoStyle = styled.div`
-  width: 15rem;
+  max-width: 33%;
   height: 100%;
+  object-fit: contain;
 `;
 
 const FaceWrapperStyle = styled.div`

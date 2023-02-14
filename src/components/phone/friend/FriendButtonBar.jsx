@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { TbUsers, TbUserPlus, TbUserCheck, TbUserSearch } from 'react-icons/tb';
-import API from '../../../utils/api';
 
 const FriendListBar = ({
   onClickPage,

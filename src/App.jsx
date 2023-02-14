@@ -8,7 +8,7 @@ import Layout from './components/layout/Layout';
 import MainPage from './pages/MainPage';
 import DebuggingPage from './pages/DebuggingPage';
 import Page1 from './pages/Page1';
-import Page2 from './pages/Page2';
+// import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
@@ -60,7 +60,7 @@ function App() {
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
           <Route path="Page1" element={<Page1 />} />
-          <Route path="Page2" element={<Page2 />} />
+          {/* <Route path="Page2" element={<Page2 />} /> */}
           <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
