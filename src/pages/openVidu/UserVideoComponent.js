@@ -31,6 +31,6 @@ export default class UserVideoComponent extends Component {
 
 const VideoDivStyle = styled.div`
   /* border: 10px gray solid; */
-  width: auto;
+  width: 100%;
   height: 100%;
 `;

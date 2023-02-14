@@ -11,9 +11,8 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { socket, connectSocket } from '../Socket';
-import Card from '../components/UI/Card';
-import Chat from '../modules/chat/Chat';
+// import { socket, connectSocket } from '../Socket';
+// import Chat from '../modules/chat/Chat';
 import { getJsonLocalUserInfo } from '../utils/local-storage';
 
 function Page2() {

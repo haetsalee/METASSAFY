@@ -40,6 +40,9 @@ export default class OpenViduVideoComponent extends Component {
 
 const VideoStyle = styled.video`
   border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const UserNameStyle = styled.div`
