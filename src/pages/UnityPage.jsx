@@ -29,7 +29,7 @@ function UnityPage() {
     dataUrl: 'Build/Build.data',
     frameworkUrl: 'Build/Build.framework.js',
     codeUrl: 'Build/Build.wasm',
-    streamingAssetsUrl: 'streamingassets',
+    streamingAssetsUrl: 'StreamingAssets',
     webglContextAttributes: {
       preserveDrawingBuffer: true,
     },
