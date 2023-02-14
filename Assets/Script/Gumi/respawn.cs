@@ -47,12 +47,11 @@ public class respawn : MonoBehaviourPun
 
     void sceneReroad()
     {
-        Debug.Log("로비 클릭");
-
+        
         //모든 플레이어 중에서
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
-        {    //이동한 애(=자기 자신)을 네트워크에서 끊고 
+        {    //이동한 애(=자기 자신)을 네트워크에서 끊기
             if (players[i].GetComponent<PhotonView>().IsMine)
             {
                 PhotonNetwork.Disconnect();
