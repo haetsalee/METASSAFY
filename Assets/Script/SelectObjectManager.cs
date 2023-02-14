@@ -156,13 +156,15 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     {
         if (my_video != null)
         {
-            if (my_video.isPlaying)
+            if (my_video.GetDirectAudioMute(0))
             {
-                my_video.Pause();
+                //Debug.Log(my_video.GetDirectAudioMute(0));
+                my_video.SetDirectAudioMute(0, false);
             }
             else
             {
-                my_video.Play();
+                //Debug.Log(my_video.GetDirectAudioMute(0));
+                my_video.SetDirectAudioMute(0, true);
             }
         }
     }
