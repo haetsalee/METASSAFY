@@ -11,9 +11,12 @@ public class Emoji : MonoBehaviourPunCallbacks
     private int action;
     private float timer;
 
-
+    GameObject me;
     void Start() {
-
+        findMe();
+        timer = 2.0f;
+        action = 0;
+        /*
         if (photonView != null)
         {
             //내가 로컬 플레이어일까?
@@ -22,7 +25,7 @@ public class Emoji : MonoBehaviourPunCallbacks
                 timer = 2.0f;
                 action = 0;
             }
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -51,118 +54,135 @@ public class Emoji : MonoBehaviourPunCallbacks
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);   
                 }
+ 
             }
             else if (idx == 2)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha2))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha2)  )
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 3)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha3))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha3) )
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 4)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha4))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha4) )
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 5)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha5))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha5)  )
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 6)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha6))
+                if (action == 0 && Input.GetKeyDown(KeyCode.Alpha6)  )
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 7)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Alpha7))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 8)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Alpha8))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 9)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Alpha9))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 10)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Alpha0))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 11)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Minus))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
             else if (idx == 12)
             {
                 if (action == 0 && Input.GetKeyDown(KeyCode.Equals))
                 {
-                    emojis[idx].SetActive(true);
-                    action = idx;
+                    photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }
             }
 
+            photonView.RPC("deleteEmoji", RpcTarget.All, idx);
 
 
-            if (action != idx) return;
+        }
+    }
 
-            if (action > 0)
+    [PunRPC]
+    void showEmoji(int idx)
+    {
+
+        emojis[idx].SetActive(true);
+        action = idx;
+
+         
+
+    }
+    [PunRPC]
+    void deleteEmoji(int idx)
+    {
+        if (action != idx) return;
+
+        if (action > 0)
+        {
+
+
+            timer -= Time.deltaTime;
+
+            if (timer < 0)
             {
+                action = 0;
+                timer = 2.0f;
+                emojis[idx].SetActive(false);
+            }
 
 
-                timer -= Time.deltaTime;
-
-                if (timer < 0)
-                {
-                    action = 0;
-                    timer = 2.0f;
-                    emojis[idx].SetActive(false);
-                }
-
-
+        }
+    }
+    void findMe()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {    //이동한 애(=자기 자신)을 네트워크에서 끊기
+            if (players[i].GetComponent<PhotonView>().IsMine)
+            {
+                me = players[i];
             }
         }
     }
+     
 }
