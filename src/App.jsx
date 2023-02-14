@@ -7,9 +7,7 @@ import PrivateRoute from './libs/PrivateRoute';
 import Layout from './components/layout/Layout';
 import MainPage from './pages/MainPage';
 import DebuggingPage from './pages/DebuggingPage';
-import Page1 from './pages/Page1';
-// import Page2 from './pages/Page2';
-import Page3 from './pages/Page3';
+import PhonePage from './pages/PhonePage';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
 import IntroPage from './pages/IntroPage';
@@ -26,7 +24,7 @@ import OpenViduPage from './pages/OpenViduPage';
 import useInfo from './hooks/use-info';
 import PhoneChatingList from './pages/phone_pages/PhoneChatingList';
 import PhoneChatingRoom from './pages/phone_pages/PhoneChatingRoom';
-import Metaverse from './pages/Metaverse';
+import MetaversePage from './pages/MetaversePage';
 import PhoneFriendPage from './pages/phone_pages/PhoneFriendPage';
 import PhoneChatEdit from './pages/phone_pages/PhoneChatEdit';
 import ArticlePage from './pages/ArticlePage';
@@ -59,9 +57,6 @@ function App() {
         </Route>
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
-          <Route path="Page1" element={<Page1 />} />
-          {/* <Route path="Page2" element={<Page2 />} /> */}
-          <Route path="Page3" element={<Page3 />} />
           {/* 실제 서비스 페이지 */}
           <Route path="intro" element={<IntroPage />} />
           <Route path="board/" element={<BoardOuter />}>
@@ -79,9 +74,9 @@ function App() {
             element={<WebProfilePage user_id={user?.user_id} />}
           />
           <Route path="profile/modify" element={<WebProfileModify />} />
-          <Route path="metassafy/" element={<Metaverse />}>
+          <Route path="metassafy/" element={<MetaversePage />}>
             <Route path="videochat/" element={<OpenViduPage />} />
-            <Route path="phone/" element={<Page1 />}>
+            <Route path="phone/" element={<PhonePage />}>
               <Route path="home" element={<PhoneHomePage />} />
               <Route path="app" element={<PhoneApp />} />
               <Route
@@ -103,7 +98,7 @@ function App() {
 
         <Route path="unity" element={<UnityPage />}>
           <Route path="videochat/" element={<OpenViduPage />} />
-          <Route path="phone/" element={<Page1 />}>
+          <Route path="phone/" element={<PhonePage />}>
             <Route path="home" element={<PhoneHomePage />} />
             <Route path="app" element={<PhoneApp />} />
             <Route
