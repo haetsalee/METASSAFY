@@ -232,14 +232,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_ssafy = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: 2,
-      y: 0,
-      z: -5,
-    });
+    // const portal_ssafy = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: 2,
+    //   y: 0,
+    //   z: -5,
+    // });
 
     // 스팟매쉬 - Edu SSAFY
     const spotMeshSSAFY = new THREE.Mesh(
@@ -298,14 +298,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_gitlab = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: -2,
-      y: 0,
-      z: -5,
-    });
+    // const portal_gitlab = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: -2,
+    //   y: 0,
+    //   z: -5,
+    // });
 
     // 스팟매쉬 - Edu Gitlab
     const spotMeshGitlab = new THREE.Mesh(
@@ -350,14 +350,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_MM = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: 6,
-      y: 0,
-      z: -5,
-    });
+    // const portal_MM = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: 6,
+    //   y: 0,
+    //   z: -5,
+    // });
 
     // 스팟매쉬 - Edu MM
     const spotMeshMM = new THREE.Mesh(
@@ -402,14 +402,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_jira = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: -6,
-      y: 0,
-      z: -5,
-    });
+    // const portal_jira = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: -6,
+    //   y: 0,
+    //   z: -5,
+    // });
 
     // 스팟매쉬 - Edu Jira
     const spotMeshJira = new THREE.Mesh(
@@ -453,14 +453,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_swea = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: 6,
-      y: 0,
-      z: 8,
-    });
+    // const portal_swea = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: 6,
+    //   y: 0,
+    //   z: 8,
+    // });
 
     // 스팟매쉬 - Edu SWEA
     const spotMeshSWEA = new THREE.Mesh(
@@ -504,14 +504,14 @@ function MetaverseThree() {
     meshes.push(portalMesh);
 
     // 포탈 부르기 = draw에서 설정 필요
-    const portal_webex = new Portal({
-      gltfLoader,
-      scene,
-      modelSrc: '/model/portal.glb',
-      x: -6,
-      y: 0,
-      z: 8,
-    });
+    // const portal_webex = new Portal({
+    //   gltfLoader,
+    //   scene,
+    //   modelSrc: '/model/portal.glb',
+    //   x: -6,
+    //   y: 0,
+    //   z: 8,
+    // });
 
     // 스팟매쉬 - Edu Webex
     const spotMeshWebex = new THREE.Mesh(
@@ -681,15 +681,21 @@ function MetaverseThree() {
       const delta = clock.getDelta();
 
       portalMesh.rotateY(delta);
+      ImgRelToGitlabMesh.rotateY(delta * 0.1);
+      ImgRelToJiraMesh.rotateY(-delta * 0.1);
+      ImgRelToMMMesh.rotateY(delta * 0.1);
+      ImgRelToSSAFYMesh.rotateY(-delta * 0.1);
+      ImgRelToWebexMesh.rotateY(delta * 0.1);
+      ImgRelToSWEAMesh.rotateY(-delta * 0.1);
 
       if (player.mixer) player.mixer.update(delta);
       if (portal_metassafy.mixer) portal_metassafy.mixer.update(delta);
-      if (portal_ssafy.mixer) portal_ssafy.mixer.update(delta);
-      if (portal_gitlab.mixer) portal_gitlab.mixer.update(delta);
-      if (portal_jira.mixer) portal_jira.mixer.update(delta);
-      if (portal_MM.mixer) portal_MM.mixer.update(delta);
-      if (portal_webex.mixer) portal_webex.mixer.update(delta);
-      if (portal_swea.mixer) portal_swea.mixer.update(delta);
+      // if (portal_ssafy.mixer) portal_ssafy.mixer.update(delta);
+      // if (portal_gitlab.mixer) portal_gitlab.mixer.update(delta);
+      // if (portal_jira.mixer) portal_jira.mixer.update(delta);
+      // if (portal_MM.mixer) portal_MM.mixer.update(delta);
+      // if (portal_webex.mixer) portal_webex.mixer.update(delta);
+      // if (portal_swea.mixer) portal_swea.mixer.update(delta);
 
       if (player.modelMesh) {
         camera.lookAt(player.modelMesh.position);
