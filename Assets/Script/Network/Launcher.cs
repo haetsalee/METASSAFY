@@ -38,7 +38,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinOrCreateRoom("Seoul", null, null);
         }
-        else if (SceneManager.GetActiveScene().name == "Gumi")
+        else if (SceneManager.GetActiveScene().name == "BUK")
         {
             PhotonNetwork.JoinOrCreateRoom("BUK", null, null);
         }

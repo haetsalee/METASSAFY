@@ -45,6 +45,8 @@ MonoBehaviour:
   - addPlayer
   - RPC_Chat
   - updatePlayer
+  - deleteEmoji
+  - showEmoji
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
