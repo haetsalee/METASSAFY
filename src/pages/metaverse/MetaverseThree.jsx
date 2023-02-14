@@ -270,7 +270,7 @@ function MetaverseThree() {
 
     /////////////////////////////////
     // Texture - 깃랩
-    const ImgRelToGitlabTexture = textureLoader.load('images/Gitlab.png');
+    const ImgRelToGitlabTexture = textureLoader.load('images/gitlab.png');
     ImgRelToGitlabTexture.wrapS = THREE.RepeatWrapping;
     ImgRelToGitlabTexture.wrapT = THREE.RepeatWrapping;
     ImgRelToGitlabTexture.repeat.x = 1;
@@ -425,7 +425,7 @@ function MetaverseThree() {
     //////////////////////////////////////////////////////////////
     /////////////////////////////////
     // Texture -
-    const ImgRelToSWEATexture = textureLoader.load('images/SWEA.png');
+    const ImgRelToSWEATexture = textureLoader.load('images/swea.png');
     ImgRelToSWEATexture.wrapS = THREE.RepeatWrapping;
     ImgRelToSWEATexture.wrapT = THREE.RepeatWrapping;
     ImgRelToSWEATexture.repeat.x = 1;
