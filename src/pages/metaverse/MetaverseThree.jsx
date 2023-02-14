@@ -74,7 +74,7 @@ function MetaverseThree() {
       -1000,
       1000
     );
-    const cameraPosition = new THREE.Vector3(1, 3, 5);
+    const cameraPosition = new THREE.Vector3(1, 2.5, 5);
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     camera.zoom = 0.2;
     camera.updateProjectionMatrix();
@@ -362,7 +362,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0,
       })
     );
     spotMeshMM.position.set(6, 0.05, -5);
@@ -414,7 +414,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0,
       })
     );
     spotMeshJira.position.set(-6, 0.05, -5);
@@ -465,7 +465,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0,
       })
     );
     spotMeshSWEA.position.set(6, 0.05, 8);
@@ -516,7 +516,7 @@ function MetaverseThree() {
       new THREE.MeshStandardMaterial({
         color: 'red',
         transparent: true,
-        opacity: 0.5,
+        opacity: 0,
       })
     );
     spotMeshWebex.position.set(-6, 0.05, 8);
