@@ -23,6 +23,9 @@ const SectionStyle = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
 `;
 
 const WrapperStyle = styled.div`

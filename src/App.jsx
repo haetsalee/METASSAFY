@@ -107,8 +107,7 @@ function App() {
               element={<ProfilePage user_id={user?.user_id} />}
             />
             <Route path="openvidu-page" element={<OpenViduPage />} />
-
-            <Route path="profile/modify" element={<ProfileModify />}></Route>
+            <Route path="profile/modify" element={<ProfileModify />} />
             <Route path="chat/" element={<PhoneChatingList />} />
             <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
             <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />

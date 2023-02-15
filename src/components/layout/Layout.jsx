@@ -17,4 +17,6 @@ export default Layout;
 
 const MainStyle = styled.main`
   min-height: 100vh;
+  width: 100%;
+  padding-top: 4rem;
 `;

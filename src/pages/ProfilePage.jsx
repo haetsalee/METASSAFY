@@ -17,23 +17,17 @@ function ProfilePage() {
   const user = my.user_id === user_id ? my : other;
 
   return (
-    <DivStyle>
-      <PhoneOutLine>
-        <WhiteBox />
-        <ProfileDiv>
-          <Profile user={user}></Profile>
-          {/* <GetUserStack name="ssafy"></GetUserStack> */}
-        </ProfileDiv>
-      </PhoneOutLine>
-    </DivStyle>
+    <PhoneOutLine>
+      <WhiteBox />
+      <ProfileDiv>
+        <Profile user={user}></Profile>
+        {/* <GetUserStack name="ssafy"></GetUserStack> */}
+      </ProfileDiv>
+    </PhoneOutLine>
   );
 }
 
 export default ProfilePage;
-
-const DivStyle = styled.div`
-  margin-top: 4rem;
-`;
 
 const ProfileDiv = styled.div`
   width: 100%;
