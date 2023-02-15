@@ -13,7 +13,7 @@ public class Emoji : MonoBehaviourPunCallbacks
 
     GameObject me;
     void Start() {
-        findMe();
+       
         timer = 2.0f;
         action = 0;
         /*
@@ -197,16 +197,6 @@ public class Emoji : MonoBehaviourPunCallbacks
 
         }
     }
-    void findMe()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < players.Length; i++)
-        {    //이동한 애(=자기 자신)을 네트워크에서 끊기
-            if (players[i].GetComponent<PhotonView>().IsMine)
-            {
-                me = players[i];
-            }
-        }
-    }
+  
      
 }
