@@ -44,9 +44,9 @@ public class UserService {
 
     public User getUser(String user_id) {
         User user = mapper.getUser(user_id);
-        if(user.getGender() == 'w'){
+        if(user.getGender() == 'm'){
             user.setGenderF("남성");
-        }else if(user.getGender() == 'f'){
+        }else if(user.getGender() == 'w'){
             user.setGenderF("여성");
         }else{
             user.setGenderF("미정");
@@ -109,9 +109,9 @@ public class UserService {
     public User getUserWithRefresh(String refresh_token) {
         User user = mapper.getUserWithRefresh(refresh_token);
 
-        if(user.getGender() == 'w'){
+        if(user.getGender() == 'm'){
             user.setGenderF("남성");
-        }else if(user.getGender() == 'f'){
+        }else if(user.getGender() == 'w'){
             user.setGenderF("여성");
         }else{
             user.setGenderF("미정");
@@ -138,9 +138,9 @@ public class UserService {
 
     private void setGenderFList(List<User> users){
         for(User user : users){
-            if(user.getGender() == 'w'){
+            if(user.getGender() == 'm'){
                 user.setGenderF("남성");
-            }else if(user.getGender() == 'f'){
+            }else if(user.getGender() == 'w'){
                 user.setGenderF("여성");
             }else{
                 user.setGenderF("미정");
