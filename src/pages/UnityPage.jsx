@@ -56,6 +56,7 @@ function UnityPage() {
         sendMessage('ValueManager', 'setUnityFalse');
         setIsVideo(true);
       } else if (mode === 'board') {
+        sendMessage('ValueManager', 'setUnityFalse');
         boardHandler();
       } else {
         const userId = mode.split('(')[1].split(')');
