@@ -17,7 +17,7 @@ const SectionStyle = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5rem;
+  padding-top: 4rem;
   @media screen and (max-width: 500px) {
     margin-top: 0;
   }

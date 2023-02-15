@@ -31,7 +31,7 @@ export default ProfilePage;
 
 const ProfileDiv = styled.div`
   width: 100%;
-  height: 85%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   &::-webkit-scrollbar {

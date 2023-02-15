@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Unity, useUnityContext } from 'react-unity-webgl';
-import FadeLoader from 'react-spinners/FadeLoader';
+// import FadeLoader from 'react-spinners/FadeLoader';
 import OpenViduInModal from '../components/phone/OpenViduInModal';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
 import { getJsonLocalUserInfo } from '../utils/local-storage';
+import CircularProgressWithLabel from '../components/UI/CircularProgressWithLabel';
 
 function UnityPage() {
   const {
@@ -17,6 +18,7 @@ function UnityPage() {
     removeEventListener,
     sendMessage,
     isLoaded,
+    loadingProgression,
   } = useUnityContext({
     loaderUrl: 'Build/Build.loader.js',
     dataUrl: 'Build/Build.data',
@@ -102,11 +104,12 @@ function UnityPage() {
   return (
     <DivStyle>
       <Outlet />
-
-      {/* 로딩중 */}
       {!isLoaded && (
         <Loading>
-          <FadeLoader color="#36d7b7" />
+          {/* <FadeLoader color="#36d7b7" /> */}
+          <CircularProgressWithLabel
+            value={Math.round(loadingProgression * 100)}
+          />
         </Loading>
       )}
       {/* 휴대폰 모달 */}
@@ -119,7 +122,6 @@ function UnityPage() {
       />
       {/* 비디오 모달 */}
       {isVideo && <OpenViduInModal onClose={closeVideo} />}
-
       <Unity
         unityProvider={unityProvider}
         tabIndex={1}

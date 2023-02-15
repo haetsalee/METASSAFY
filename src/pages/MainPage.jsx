@@ -1,18 +1,16 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import MainContent from '../components/main/MainContent';
 import MainImage from '../components/main/MainImage';
+import FirstContent from '../components/main/FirstContent';
+import SecondContent from '../components/main/SecondContent';
 
 function MainPage() {
-  useEffect(() => {});
-
   return (
     <SectionStyle>
       <MainImage />
       <WrapperStyle>
-        <MainContent />
-        <MainContent />
+        <FirstContent />
+        <SecondContent />
       </WrapperStyle>
     </SectionStyle>
   );
@@ -25,6 +23,9 @@ const SectionStyle = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
 `;
 
 const WrapperStyle = styled.div`

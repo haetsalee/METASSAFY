@@ -4,26 +4,19 @@ import MainNavigation from './MainNavigation';
 
 function Layout(props) {
   return (
-    <div>
-      {/* <div style={{ display: 'flex', justifyContent: 'center' }}> */}
+    <section>
       <MainNavigation />
-      {/* </div> */}
       <MainStyle>
         <Outlet />
       </MainStyle>
-    </div>
+    </section>
   );
 }
 
 export default Layout;
 
 const MainStyle = styled.main`
-  // margin: 3rem auto;
-  /* width: 100%; */
-  min-height: 100vh - 60px;
-  /* background-color: #c2fbfb; */
-  /* position: absolute;
-  top: 0; */
-  // max-width: 40rem;
-  // margin: 10rem;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 4rem;
 `;
