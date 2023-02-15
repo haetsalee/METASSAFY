@@ -10,6 +10,10 @@ public class VideoManager : MonoBehaviour
     void Start()
     {
         videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "ssafy_video.webm");
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "ssafy_video.ogv");
+        videoPlayer.Play();
+        videoPlayer.SetDirectAudioMute(0, true);
     }
+
+
 }

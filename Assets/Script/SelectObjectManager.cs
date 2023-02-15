@@ -20,7 +20,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     private static extern void openPhone(string mode);
     Vector3 m_vecMouseDownPos;
 
-    Boolean isRoomInfoOpen = true; //잠시 바꿈
+    //Boolean isRoomInfoOpen = true; //잠시 바꿈
     public GameObject tree;
     public GameObject popup;
     public VideoPlayer my_video;
@@ -74,11 +74,15 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
                 {
                     goToRoom("BUK");
                 }
+                /*if (hit.collider.name == "대전")
+                {
+                    goToRoom("Daejeon");
+                }*/
                 if (hit.collider.name == "board")
                 {
                     clickBoard();
                 }
-                if (hit.collider.name=="광주"|| hit.collider.name == "대전")
+                if (hit.collider.name=="광주" || hit.collider.name == "대전")
                 {
                     popup.SetActive(true);
                 }
@@ -120,7 +124,6 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     }
     void goToRoom(string name)
     {
-        Debug.Log("구미 클릭");
 
         //모든 플레이어 중에서
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -136,33 +139,19 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
 
     }
 
-    public void goToLobby()
-    {
-        Debug.Log("로비 클릭");
-
-        //모든 플레이어 중에서
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < players.Length; i++)
-        {    //이동한 애(=자기 자신)을 네트워크에서 끊고 
-            if (players[i].GetComponent<PhotonView>().IsMine)
-            {
-                PhotonNetwork.Disconnect();
-            }
-        }
-        //씬 이동
-        SceneManager.LoadScene("WorldMap");
-    }
     void playVideo()
     {
         if (my_video != null)
         {
-            if (my_video.isPlaying)
+            if (my_video.GetDirectAudioMute(0))
             {
-                my_video.Pause();
+                //Debug.Log(my_video.GetDirectAudioMute(0));
+                my_video.SetDirectAudioMute(0, false);
             }
             else
             {
-                my_video.Play();
+                //Debug.Log(my_video.GetDirectAudioMute(0));
+                my_video.SetDirectAudioMute(0, true);
             }
         }
     }

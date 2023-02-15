@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using Photon.Pun;
 
 public class respawn : MonoBehaviourPun
 {
@@ -17,7 +16,6 @@ public class respawn : MonoBehaviourPun
     }
     public GameObject map;
     // Update is called once per frame
-    Vector3 target = new Vector3(0, 0, 0);
 
     void Update()
     {

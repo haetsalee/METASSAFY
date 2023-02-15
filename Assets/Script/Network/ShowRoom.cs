@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class ShowRoom : MonoBehaviourPunCallbacks
 {
     public PhotonView PV;
-    Boolean isOpen = false;
-    Boolean isAdd = false;
+   // Boolean isOpen = false;
+    //Boolean isAdd = false;
     public GameObject infoArea;
     void Start()
     {

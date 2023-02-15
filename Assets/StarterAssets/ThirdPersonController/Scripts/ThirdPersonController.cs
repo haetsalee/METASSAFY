@@ -166,7 +166,6 @@ namespace StarterAssets
 
                     JumpAndGravity();
                     GroundedCheck();
-                    Dance();
                     Move();
                 }
             }
@@ -182,7 +181,6 @@ namespace StarterAssets
             _animIDSpeed = Animator.StringToHash("Speed");
             _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDJump = Animator.StringToHash("Jump");
-            _animIDDance = Animator.StringToHash("Dance");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
@@ -363,20 +361,6 @@ namespace StarterAssets
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
-        }
-
-        private void Dance()
-        {
-            _animator.SetBool("Dance", false);
-            // Dance
-            
-            if (_hasAnimator && _input.dance)
-            {
-                    // update animator if using character
-                    _animator.SetBool("Dance", true);
-            }
-
-
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
