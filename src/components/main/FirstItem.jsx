@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import useScrollFadeIn from '../../hooks/use-scroll-fade-in';
 
-const Content = ({ direction, content }) => {
+function FirstItem({ direction, content }) {
   const animatedItem = useScrollFadeIn('up', 1, 0);
 
   return (
@@ -15,9 +15,9 @@ const Content = ({ direction, content }) => {
       </ImgDivStyle>
     </WrapperStyle>
   );
-};
+}
 
-export default Content;
+export default FirstItem;
 
 const WrapperStyle = styled.div`
   width: 100%;
@@ -40,12 +40,16 @@ const TextDivStyle = styled.div`
 `;
 
 const TitleStyle = styled.div`
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 2rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
 `;
 
 const ContentStyle = styled.div`
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
 `;
 
