@@ -3182,9 +3182,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1967339729936407840}
   - component: {fileID: 7582059790036810914}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

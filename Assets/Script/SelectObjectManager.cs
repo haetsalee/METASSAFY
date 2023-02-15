@@ -122,7 +122,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
         tree.SetActive(false);
     }
-    void goToRoom(string name)
+    public void goToRoom(string name)
     {
 
         //모든 플레이어 중에서
