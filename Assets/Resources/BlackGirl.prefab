@@ -471,9 +471,9 @@ GameObject:
   m_Component:
   - component: {fileID: 696406207068232691}
   - component: {fileID: 4431726296782019336}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ground
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1279,7 +1279,7 @@ GameObject:
   - component: {fileID: 7698535738693564068}
   m_Layer: 7
   m_Name: BlackGirl
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
