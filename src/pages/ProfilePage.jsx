@@ -17,21 +17,27 @@ function ProfilePage() {
   const user = my.user_id === user_id ? my : other;
 
   return (
-    <PhoneOutLine>
-      <WhiteBox />
-      <ProfileDiv>
-        <Profile user={user}></Profile>
-        {/* <GetUserStack name="ssafy"></GetUserStack> */}
-      </ProfileDiv>
-    </PhoneOutLine>
+    <DivStyle>
+      <PhoneOutLine>
+        <WhiteBox />
+        <ProfileDiv>
+          <Profile user={user}></Profile>
+          {/* <GetUserStack name="ssafy"></GetUserStack> */}
+        </ProfileDiv>
+      </PhoneOutLine>
+    </DivStyle>
   );
 }
 
 export default ProfilePage;
 
+const DivStyle = styled.div`
+  margin-top: 4rem;
+`;
+
 const ProfileDiv = styled.div`
   width: 100%;
-  height: 85%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   &::-webkit-scrollbar {

@@ -31,12 +31,15 @@ const ProfileModify = () => {
 
 export default ProfileModify;
 
+const DivStyle = styled.div``;
+
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
+  padding-top: 4rem;
 `;
 
 const PhoneStyle = styled.div`
