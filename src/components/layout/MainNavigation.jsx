@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import { logoutProcess } from '../../services/auth-service';
 import { loginSlice } from '../../store/slice/authSlice';
@@ -157,5 +156,3 @@ const UlStyle = styled.ul`
     }
   }
 `;
-
-const LiStyle = styled.li``;
