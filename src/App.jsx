@@ -58,7 +58,6 @@ function App() {
         {/* 로그인 필요한 라우터 */}
         <Route path="/" element={<PrivateRoute />}>
           {/* 실제 서비스 페이지 */}
-          <Route path="intro" element={<IntroPage />} />
           <Route path="password" element={<PasswordPage />} />
           <Route path="board/" element={<BoardOuter />}>
             <Route path="list" element={<BoardPage />} />

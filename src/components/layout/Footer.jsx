@@ -22,7 +22,6 @@ function Footer() {
             <LinkColumnStyle>
               <p>서비스</p>
               <Link to="/metassafy">메타싸피</Link>
-              <Link to="/intro">소개</Link>
               <Link to="/developers">개발팀</Link>
             </LinkColumnStyle>
             <LinkColumnStyle>

@@ -1,9 +1,9 @@
 import emoji from '../../assets/images/main/emoji.gif';
-import music from '../../assets/images/main/link.png';
-import map from '../../assets/images/main/link.png';
-import meeting from '../../assets/images/main/link.png';
-import chat from '../../assets/images/main/link.png';
-import link from '../../assets/images/main/link.png';
+import music from '../../assets/images/main/link.gif';
+import map from '../../assets/images/main/link.gif';
+import meeting from '../../assets/images/main/meeting.gif';
+import chat from '../../assets/images/main/chat.gif';
+import link from '../../assets/images/main/link.gif';
 
 export const firstContent = {
   title: '온라인으로\n만나보세요.',
@@ -12,7 +12,7 @@ export const firstContent = {
   contents: [
     {
       key: 1,
-      title: '다양한 이모지로 감정 공유하기',
+      title: '다양한 감정 공유하기',
       content: '이모지로 감정을 나타내고 춤을 추며 나를 드러내보아요.',
       img: emoji,
     },
