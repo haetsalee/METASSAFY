@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MainImage from '../components/main/MainImage';
 import FirstContent from '../components/main/FirstContent';
 import SecondContent from '../components/main/SecondContent';
+import Footer from '../components/layout/Footer';
 
 function MainPage() {
   return (
@@ -12,6 +13,7 @@ function MainPage() {
         <FirstContent />
         <SecondContent />
       </WrapperStyle>
+      <Footer />
     </SectionStyle>
   );
 }

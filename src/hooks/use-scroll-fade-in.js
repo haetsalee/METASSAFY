@@ -39,7 +39,7 @@ const useScrollFadeIn = (direction = 'up', duration = 1, delay = 0) => {
 
     if (current) {
       // 동작할 함수, 세팅 값(70% 노출 시 이벤트 실행)
-      observer = new IntersectionObserver(handleScroll, { threshold: 0.7 });
+      observer = new IntersectionObserver(handleScroll, { threshold: 0.5 });
       observer.observe(current);
 
       return () => observer && observer.disconnect();

@@ -40,7 +40,6 @@ import BlockBoxAnimation from './pages/BlockBox/BlockBoxAnimation';
 function App() {
   useInfo();
   const user = useSelector((state) => state.auth.user);
-  // const user = getJsonLocalUserInfo()['userId'] || 'annonymous';
 
   return (
     <AppContainer>
@@ -55,18 +54,18 @@ function App() {
     PC에서 즐거운 경험을 제공합니다."
         />
       </BlockBox>
-      <Routes>
-        {/* Navbar */}
-        <Route element={<Layout />}>
-          {/* 일반 라우터 */}
-          <Route path="/" element={<MainPage />} />
-          <Route path="debugging" element={<DebuggingPage />} />
-          <Route path="intro" element={<IntroPage />} />
-          <Route path="developers" element={<DevelopersPage />} />
-          <Route path="openvidu-page" element={<OpenViduPage />} />
-          <Route element={<PublicRoute />}>
-            {/* <Route path="login" element={<LoginPage />} /> */}
-            <Route path="/login" element={<LoginPage />} />
+    <Routes>
+      {/* Navbar */}
+      <Route element={<Layout />}>
+        {/* 일반 라우터 */}
+        <Route path="/" element={<MainPage />} />
+        <Route path="debugging" element={<DebuggingPage />} />
+        <Route path="intro" element={<IntroPage />} />
+        <Route path="developers" element={<DevelopersPage />} />
+        <Route path="openvidu-page" element={<OpenViduPage />} />
+        <Route element={<PublicRoute />}>
+          {/* <Route path="login" element={<LoginPage />} /> */}
+          <Route path="/login" element={<LoginPage />} />
           </Route>
           {/* 로그인 필요한 라우터 */}
           <Route path="/" element={<PrivateRoute />}>
