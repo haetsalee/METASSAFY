@@ -1,12 +1,14 @@
 import DevelopersList from '../components/developers/DevelopersList';
 import developersImg from '../assets/images/develop_check.jpg';
+import top from '../assets/images/top2.png';
+import dev from '../assets/images/dev.gif';
 
 import styled from 'styled-components';
 
 export default function DevelopersPage() {
   return (
     <div>
-      <DevelopImg src={developersImg} alt="developersImg" />
+      <DevelopImg src={dev} alt="developersImg" />
       <DevelopersList />
     </div>
   );
@@ -14,6 +16,6 @@ export default function DevelopersPage() {
 
 const DevelopImg = styled.img`
   width: 100%;
-  height: auto;
+  height: 80vh;
   object-fit: cover;
 `;

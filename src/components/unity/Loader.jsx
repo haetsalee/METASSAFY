@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import useInterval from '../../hooks/use-interval';
-import keyboard from '../../assets/images/loader/keyboard.png';
+import loadingIn from '../../assets/images/loader/loadingIn.png';
 
 const texts = [
   '그거 아시나요? 구미 캠퍼스에는 "인내의 숲"이 있어요!',
@@ -35,7 +35,7 @@ function Loader({ progress }) {
     <>
       <TextStyle>{text}</TextStyle>
       <CircularProgressWithLabel value={Math.round(progress * 100)} />
-      <ImgStyle src={keyboard}></ImgStyle>
+      <ImgStyle src={loadingIn}></ImgStyle>
     </>
   );
 }
@@ -51,6 +51,6 @@ const TextStyle = styled.div`
 `;
 
 const ImgStyle = styled.img`
-  width: 40rem;
+  width: 55rem;
   margin-top: 2rem;
 `;
