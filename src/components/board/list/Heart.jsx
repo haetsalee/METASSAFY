@@ -61,11 +61,11 @@ const ButtonStyle = styled.button`
   cursor: pointer;
 
   & svg {
-    color: #f0b0bc;
+    color: #ff7f77;
     font-size: 1.3rem;
   }
 
   &:hover svg {
-    color: black;
+    color: #f0b0bc;
   }
 `;

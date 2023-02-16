@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import useInterval from '../../hooks/use-interval';
+import keyboard from '../../assets/images/loader/keyboard.png';
 
 const texts = [
   '그거 아시나요? 구미 캠퍼스에는 "인내의 숲"이 있어요!',
@@ -10,6 +12,8 @@ const texts = [
   'B 키로 인사할 수 있어요.',
   'Z ~ B 키로 춤출 수 있어요.',
   '대외비인 부울경 캠퍼스에는 특별한 맵이..?!',
+  '싸피에 유령이 나타난다는 소식이...?',
+  '마음에 드는 배경 음악과 함께 춤을 춰봐요.',
 ];
 
 function getRandomInt(min, max) {
@@ -28,8 +32,9 @@ function Loader({ progress }) {
 
   return (
     <>
-      <CircularProgressWithLabel value={Math.round(progress * 100)} />
       <TextStyle>{text}</TextStyle>
+      <CircularProgressWithLabel value={Math.round(progress * 100)} />
+      <ImgStyle src={keyboard}></ImgStyle>
     </>
   );
 }
@@ -41,5 +46,10 @@ const TextStyle = styled.div`
   text-align: center;
   font-size: 1.2rem;
   color: #4f88cd;
+  margin-bottom: 3rem;
+`;
+
+const ImgStyle = styled.img`
+  width: 40rem;
   margin-top: 2rem;
 `;
