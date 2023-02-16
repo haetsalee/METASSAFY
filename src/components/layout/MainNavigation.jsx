@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import { logoutProcess } from '../../services/auth-service';
 import { loginSlice } from '../../store/slice/authSlice';
@@ -55,9 +54,6 @@ function MainNavigation() {
         <nav>
           <UlStyle isScroll={isScroll}>
             <li>{user && <NavLink to="/metassafy">MetaSSAFY</NavLink>}</li>
-            <li>
-              <NavLink to="/intro">소개</NavLink>
-            </li>
             <li>
               <NavLink to="/developers">개발팀</NavLink>
             </li>
@@ -157,5 +153,3 @@ const UlStyle = styled.ul`
     }
   }
 `;
-
-const LiStyle = styled.li``;
