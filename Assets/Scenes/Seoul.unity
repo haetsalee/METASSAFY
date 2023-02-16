@@ -9258,7 +9258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4}
   m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &547887383
@@ -9281,7 +9281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 000d2d233e816944182c9a1cb23e8e50, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca62c9830f8dba4f8cdf9ae07606144, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21764,6 +21764,10 @@ PrefabInstance:
     - target: {fileID: 3213107669759780717, guid: e8d67ddac1760b44e96f41b91c9b898a, type: 3}
       propertyPath: m_text
       value: enter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213107669759780717, guid: e8d67ddac1760b44e96f41b91c9b898a, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3213107669959262827, guid: e8d67ddac1760b44e96f41b91c9b898a, type: 3}
       propertyPath: m_AnchorMax.y
