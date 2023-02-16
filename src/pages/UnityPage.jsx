@@ -45,14 +45,13 @@ function UnityPage() {
 
   useEffect(() => {
     addEventListener('openPhone', (mode) => {
-      console.log(mode + '에 입장');
       if (mode.includes('videoRoom')) {
         if (mode.includes('2')) {
-          setSection('SectionB');
+          setSection('SessionB');
         } else if (mode.includes('3')) {
-          setSection('SectionC');
+          setSection('SessionC');
         } else {
-          setSection('SectionA');
+          setSection('SessionA');
         }
         sendMessage('ValueManager', 'setUnityFalse');
         setIsVideo(true);
