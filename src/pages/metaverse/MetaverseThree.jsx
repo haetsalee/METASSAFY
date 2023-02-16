@@ -42,7 +42,7 @@ function MetaverseThree() {
     // Texture - 바닥 텍스쳐
     const textureLoader = new THREE.TextureLoader();
     // const floorTexture = textureLoader.load('images/map_v9.png');
-    const floorTexture = textureLoader.load('images/aaa.png');
+    const floorTexture = textureLoader.load('images/map_v11.png');
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.x = 1;
@@ -125,20 +125,28 @@ function MetaverseThree() {
     // Mesh
     const meshes = [];
 
-    // StartMesh
-    // const startMesh = new THREE.Mesh(
-    //   new THREE.PlaneGeometry(1, 1),
-    //   new THREE.MeshStandardMaterial({
-    //     // map: 'floorTexture',
-    //     color: 'red',
-    //   })
-    // );
-    // startMesh.name = 'floor';
-    // startMesh.position.y = 0.01;
-    // startMesh.rotation.x = -Math.PI / 2;
-    // startMesh.receiveShadow = true;
-    // scene.add(startMesh);
-    // meshes.push(startMesh);
+    const phoneExTexture = textureLoader.load('images/phoneEx.png');
+    phoneExTexture.wrapS = THREE.RepeatWrapping;
+    phoneExTexture.wrapT = THREE.RepeatWrapping;
+    phoneExTexture.repeat.x = 1;
+    phoneExTexture.repeat.y = 1;
+    // MetaSSAFY로고 회전
+    const phoneExMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 3),
+      new THREE.MeshStandardMaterial({
+        map: phoneExTexture,
+        // alphaMap: phoneExTexture,
+        // transparent: true,
+        side: DoubleSide,
+      })
+    );
+    phoneExMesh.name = 'phoneEx';
+    // phoneExMesh.rotation.y = Math.PI / 3;
+    phoneExMesh.receiveShadow = true;
+    // phoneExMesh.castShadow = true;
+    phoneExMesh.position.set(9, 2, 6);
+    scene.add(phoneExMesh);
+    meshes.push(phoneExMesh);
 
     const floorMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(40, 40),
