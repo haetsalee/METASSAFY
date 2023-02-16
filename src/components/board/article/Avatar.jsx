@@ -9,7 +9,7 @@ const Avatar = ({ img, user }) => {
       src={img}
       alt="avatar img"
       onClick={() => {
-        navigation(`../../profile/${user}`);
+        navigation(`../profile/${user}`);
       }}
     />
   );
