@@ -11,25 +11,6 @@ const SubmitButton = (props) => {
 
 export default SubmitButton;
 
-// const ButtonStyle = styled.button`
-//   width: 100%;
-//   border-radius: 8px;
-//   border-width: 1px;
-//   margin-bottom: 10px;
-//   cursor: pointer;
-//   border-style: solid;
-//   font-family: 'korail_bold';
-//   font-size: 12px;
-//   ${(props) => {
-//     return css`
-//       color: ${props.color || 'black'};
-//       background-color: ${props.backgroundColor || '#98c3e9'};
-//       border-color: ${props.borderColor || '#98c3e9'};
-//       height: ${props.height || '36px'};
-//     `;
-//   }}
-// `;
-
 const ButtonStyle = styled.button`
   position: relative;
   border: none;
