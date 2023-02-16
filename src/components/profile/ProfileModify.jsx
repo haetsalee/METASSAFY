@@ -4,15 +4,11 @@ import styled from 'styled-components';
 import PhoneOutLine from '../UI/PhoneOutLine';
 import ModifyInputBoxList from './ModifyInputBoxList';
 import BackgroundModifyBox from './common/BackgroundModifyBox';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const ProfileModify = () => {
   const user = useSelector((state) => state.auth.user);
   const [isSubmit, setIsSubmit] = useState(false);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <PhoneOutLine style={{ margin: '0' }}>

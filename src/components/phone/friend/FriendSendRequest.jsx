@@ -16,7 +16,7 @@ const FriendSendRequest = () => {
       .then((res) => {
         setSendRequests(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   const onDeleteRequest = (friend_no) => {
@@ -26,7 +26,7 @@ const FriendSendRequest = () => {
           sendRequests.filter((item) => item.friend_no !== friend_no)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   };
 
   return (

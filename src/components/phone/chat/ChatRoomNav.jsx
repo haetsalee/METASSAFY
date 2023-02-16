@@ -5,7 +5,6 @@ import ChatRoomNavStatus from './ChatRoomNavStatus';
 import chatImg from '../../../assets/images/chatroom.png';
 
 function ChatRoomNav(props) {
-  console.log(props, '---');
   return (
     <ChatRoomNavStyle>
       <ChatRoomNavImgStyle src={chatImg} alt={props.chatRoom.croom_name} />

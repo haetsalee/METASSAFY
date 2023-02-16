@@ -15,10 +15,8 @@ export class Portal {
       info.scene.add(this.modelMesh);
 
       this.mixer = new AnimationMixer(this.modelMesh);
-      console.log(glb);
       this.actions = [];
       this.actions[0] = this.mixer.clipAction(glb.animations[0]);
-      console.log(this.actions);
       this.actions[0].play();
     });
   }

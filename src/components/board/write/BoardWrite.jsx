@@ -59,8 +59,6 @@ const BoardWrite = () => {
       boardDto.thumbnail = originFiles[0] ? originFiles[0].path : null;
     }
 
-    // console.log(boardDto);
-
     const formData = new FormData();
     formData.append(
       'boardDto',

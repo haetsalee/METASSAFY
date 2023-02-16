@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 function ChatRoomNavStatus(props) {
-  // console.log(props);
-
   const userNum = props.chatRoom?.participants?.length;
   let users = '';
   props.chatRoom?.participants?.map((participants) => {
     users += participants + ', ';
   });
   const CurrentUser = users.substring(0, users.length - 2);
+
   return (
     <ChatRoomNavStatusStyle>
       <div>

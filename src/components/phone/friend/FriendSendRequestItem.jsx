@@ -13,7 +13,7 @@ const FriendSendRequestItem = ({ friend, onDeleteRequest }) => {
       .then((res) => {
         setFriendInfo(res.data[0]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   return (

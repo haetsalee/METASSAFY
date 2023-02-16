@@ -5,7 +5,6 @@ export default class OpenViduVideoComponent extends Component {
   constructor(props) {
     super(props);
     this.videoRef = React.createRef();
-    console.log(this.props.name + '00000000000000000000');
   }
 
   componentDidUpdate(props) {

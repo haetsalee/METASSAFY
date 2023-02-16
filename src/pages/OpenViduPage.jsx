@@ -96,10 +96,10 @@ class OpenViduPage extends Component {
         to: this.state.subscribers, // Array of Connection objects (optional. Broadcast to everyone if empty)
       })
       .then(() => {
-        console.log('Message successfully sent');
+        // console.log('Message successfully sent');
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   }
 
@@ -175,25 +175,11 @@ class OpenViduPage extends Component {
         var sessionCamera = this.state.sessionCamera;
         var sessionScreen = this.state.sessionScreen;
 
-        console.log(
-          sessionCamera,
-          '-----------------------------sessionCamera--------------------------------------'
-        );
-
-        console.log(
-          sessionScreen,
-          '-----------------------------sessionScreen--------------------------------------'
-        );
-
         // --- 3) Specify the actions when events take place in the session ---
 
         // On every new Stream received...
         sessionCamera.on('streamCreated', (event) => {
           if (event.stream.typeOfVideo === 'CAMERA') {
-            console.log(
-              event,
-              '-----------------------------------------sessionCamera event--------------------------------------------'
-            );
             // Subscribe to the Stream to receive it. Second parameter is undefined
             // so OpenVidu doesn't create an HTML video by its own
             let subscriber = sessionCamera.subscribe(event.stream, undefined);
@@ -208,23 +194,19 @@ class OpenViduPage extends Component {
         });
 
         sessionCamera.on('signal', (event) => {
-          console.log(event.data); // Message
-          console.log(event.from); // Connection object of the sender
-          console.log(event.type); // The type of message
+          // console.log(event.data); // Message
+          // console.log(event.from); // Connection object of the sender
+          // console.log(event.type); // The type of message
         });
 
         sessionCamera.on('signal:my-chat', (event) => {
-          console.log(event.data); // Message
-          console.log(event.from); // Connection object of the sender
-          console.log(event.type); // The type of message ("my-chat")
+          // console.log(event.data); // Message
+          // console.log(event.from); // Connection object of the sender
+          // console.log(event.type); // The type of message ("my-chat")
         });
 
         sessionScreen.on('streamCreated', (event) => {
           if (event.stream.typeOfVideo === 'SCREEN') {
-            console.log(
-              event,
-              '-----------------------------------------sessionScreen event--------------------------------------------'
-            );
             // Subscribe to the Stream to receive it. HTML video will be appended to element with 'container-cameras' id
             let subscriberScreen = sessionScreen.subscribe(
               event.stream,
@@ -246,7 +228,7 @@ class OpenViduPage extends Component {
 
         // On every asynchronous exception...
         sessionCamera.on('exception', (exception) => {
-          console.warn(exception);
+          // console.warn(exception);
         });
 
         sessionScreen.on('streamDestroyed', (event) => {
@@ -255,7 +237,7 @@ class OpenViduPage extends Component {
         });
 
         sessionScreen.on('exception', (exception) => {
-          console.warn(exception);
+          // console.warn(exception);
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -306,13 +288,7 @@ class OpenViduPage extends Component {
                 publisher: publisher,
               });
             })
-            .catch((error) => {
-              console.log(
-                'There was an error connecting to the session:',
-                error.code,
-                error.message
-              );
-            });
+            .catch((error) => {});
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -325,14 +301,13 @@ class OpenViduPage extends Component {
             .then(() => {
               document.getElementById('buttonScreenShare').style.visibility =
                 'visible';
-              console.log('Session screen connected');
             })
             .catch((error) => {
-              console.log(
-                'There was an error connecting to the session:',
-                error.code,
-                error.message
-              );
+              // console.log(
+              //   'There was an error connecting to the session:',
+              //   error.code,
+              //   error.message
+              // );
             });
         });
       }
@@ -355,7 +330,6 @@ class OpenViduPage extends Component {
         .getMediaStream()
         .getVideoTracks()[0]
         .addEventListener('ended', () => {
-          console.log('User pressed the "Stop sharing" button');
           this.state.sessionScreen.unpublish(this.state.shareScreen);
           document.getElementById('buttonScreenShare').style.visibility =
             'visible';
@@ -374,23 +348,21 @@ class OpenViduPage extends Component {
     });
 
     shareScreen.on('videoElementCreated', (event) => {
-      console.log(
-        'shareScreen videoElementCreated-----------------------' + event
-      );
+      // console.log(
+      //   'shareScreen videoElementCreated-----------------------' + event
+      // );
       event.element['muted'] = true;
     });
 
     shareScreen.once('accessDenied', (event) => {
       this.state.shareScreen = undefined;
-      console.error('Screen Share: Access Denied');
+      // console.error('Screen Share: Access Denied');
     });
   }
 
   leaveSession() {
     const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;
-
-    console.log(sessionCamera, ' : ', sessionScreen);
 
     if (sessionCamera) {
       sessionCamera.disconnect();

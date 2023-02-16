@@ -14,7 +14,6 @@ function Page1() {
   useEffect(() => {
     const getUserInfo = async () => {
       const userInfo = await fetchUserInfo();
-      console.log(userInfo);
     };
 
     getUserInfo();

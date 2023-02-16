@@ -53,16 +53,22 @@ function MainNavigation() {
         </LogoStyle>
         <nav>
           <UlStyle isScroll={isScroll}>
-            <li>{user && <NavLink to="/metassafy">MetaSSAFY</NavLink>}</li>
+            {user && (
+              <li>
+                <NavLink to="/metassafy">MetaSSAFY</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/developers">개발팀</NavLink>
             </li>
             <li>
               <NavLink to="/board/list">게시판</NavLink>
             </li>
-            <li>
-              <NavLink to={`/profile/${user?.user_id}`}>프로필</NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink to={`/profile/${user?.user_id}`}>프로필</NavLink>
+              </li>
+            )}
             <li>
               {!user && <NavLink to="/login">로그인</NavLink>}
               {user && (

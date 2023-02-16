@@ -19,7 +19,6 @@ const Heart = ({ type, no, isLike, setBoardList, setLikeNum, setIsLike }) => {
 
   const move = () => {
     const query = `key=${key}&popularity=${popularity}&user_id=${user.user_id}&word=${word}`;
-    // console.log(query);
     navigate(`../list?${query}`);
   };
 

@@ -3,10 +3,6 @@ import ArticleButtonWrapper from './ArticleButtonWrapper';
 import ArticleInfoWriter from './ArticleInfoWriter';
 
 const ArticleInfo = ({ article }) => {
-  // useEffect(() => {
-  //   console.log(article);
-  // }, [article]);
-
   return (
     <SectionStyle style={{ width: '100%' }}>
       <ContentDivStyle>

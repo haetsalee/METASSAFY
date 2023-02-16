@@ -84,8 +84,6 @@ const BoardWriteImage = ({
 
   const handleUploadImg = (e) => {
     const files = e.target.files;
-    // console.log(files);
-    // setFiles(files);
     setFiles((preState) => {
       return [...preState, ...files];
     });

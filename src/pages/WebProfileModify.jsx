@@ -3,15 +3,11 @@ import styled from 'styled-components';
 
 import WebModifyInputBoxList from '../components/profile/WebModifyInputBoxList';
 import BackgroundModifyBox from '../components/profile/common/BackgroundModifyBox';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const ProfileModify = () => {
   const user = useSelector((state) => state.auth.user);
   const [isSubmit, setIsSubmit] = useState(false);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <CenterDIv>

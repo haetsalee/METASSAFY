@@ -3,7 +3,6 @@ import styled from 'styled-components';
 function ChatTime(props) {
   let time = props.time.substring(11, 16);
 
-  // console.log(time);
   // 2023-02-03 14:44:23
   return (
     <ChatTextBox>

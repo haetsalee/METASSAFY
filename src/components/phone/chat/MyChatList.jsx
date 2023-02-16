@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom';
 import chatImg from '../../../assets/images/chatroom.png';
 
 function MyChatList(props) {
-  // console.log('----------------');
-  // console.log(props.room);
   return (
     <NavLink style={NavStyles} to={`room/${props.room.croom_no}`}>
       <ChatRoomListStyle>

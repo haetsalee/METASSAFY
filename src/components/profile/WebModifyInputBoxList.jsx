@@ -99,7 +99,6 @@ const InputBoxList = ({ setIsSubmit }) => {
   };
 
   const onSubmitHandler = async () => {
-    console.log('제출!!', info, techList);
     setIsLoad(true);
     await fetchProfileModify(info);
 
@@ -196,12 +195,10 @@ const InputBoxList = ({ setIsSubmit }) => {
                 }
 
                 newBirthday += day;
-                console.log(newBirthday);
 
                 state['birthday'] = newBirthday;
                 return state;
               });
-              console.log(String(e['$d']));
             }}
           />
         </InputsStyle>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscAdd } from 'react-icons/vsc';
 import { NavLink } from 'react-router-dom';
+
 const RecommendListItem = ({ friend }) => {
   return (
     <>
@@ -24,7 +25,7 @@ const RecommendListItem = ({ friend }) => {
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>
-          <VscAdd color="#212121" onClick={() => console.log('친구신청')} />
+          <VscAdd color="#212121" />
         </IconStyle>
       </GroupStyle>
       <HrStyle />

@@ -8,14 +8,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const CalendarInput = ({ value, onChange }) => {
-  // const [result, setResult] = useState(dayjs(value));
   const [result, setResult] = useState(dayjs('1999-12-31', 'YYYY-MM-DD'));
 
   const handleChange = (e) => {
     setResult(e);
     onChange(e);
   };
-  // console.log(result);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

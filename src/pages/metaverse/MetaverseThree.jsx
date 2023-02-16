@@ -726,7 +726,7 @@ function MetaverseThree() {
             Math.abs(destinationPoint.z - player.modelMesh.position.z) < 0.03
           ) {
             player.moving = false;
-            console.log('멈춤');
+            // console.log('멈춤');
           }
 
           // if (

@@ -17,26 +17,23 @@ import { useState } from 'react';
 function PhoneHomePage() {
   const navigate = useNavigate();
   const [camera, setCamera] = useState(false);
+
   function onCapture() {
-    console.log('onCapture');
     html2canvas(document.getElementById('react-unity-webgl-canvas-1'))
       .then((canvas) => {
         onSaveAs(canvas.toDataURL('image/png'), 'image-download.png');
         const captures = document.getElementById('captures');
         const isit = document.getElementById('capture');
-        console.log(isit);
         captures.removeChild(isit);
         canvas.id = 'capture';
         canvas.style.width = '100%';
         canvas.style.height = 'auto';
         captures.appendChild(canvas);
-        console.log(canvas);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }
 
   function onSaveAs(url, filename) {
-    console.log('onSaveAs');
     const link = document.createElement('a');
 
     document.body.appendChild(link);

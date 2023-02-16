@@ -18,7 +18,6 @@ const FriendList = () => {
         }
       )
       .then(function () {
-        console.log(user_id);
         setFriends(friends.filter((item) => item.user_id !== user_id));
       });
   };
@@ -33,7 +32,7 @@ const FriendList = () => {
       .then((res) => {
         setFriends(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   return (

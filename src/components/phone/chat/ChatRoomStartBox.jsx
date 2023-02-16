@@ -31,9 +31,6 @@ function ChatRoomStartBox(props) {
         temp[0] === result[0] && temp[1] === result[1] && temp[2] === result[2]
       );
     });
-    // console.log(props.tempList, '작업중??');
-    // console.log(result);
-    // console.log(props.tempList.includes(result));
     setCheck(newList.length || false);
   }, [props]);
 

@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Unity, useUnityContext } from 'react-unity-webgl';
-// import FadeLoader from 'react-spinners/FadeLoader';
 import OpenViduInModal from '../components/phone/OpenViduInModal';
 import phoneImg from '../assets/images/phone.png';
 import phoneImgFront from '../assets/images/phone_front.png';
 import { getJsonLocalUserInfo } from '../utils/local-storage';
-import CircularProgressWithLabel from '../components/UI/CircularProgressWithLabel';
+import Loader from '../components/unity/Loader';
 
 function UnityPage() {
   const {
@@ -31,24 +30,20 @@ function UnityPage() {
   });
 
   const user = getJsonLocalUserInfo();
-  // console.log('====', user);
   const navigate = useNavigate();
 
   const [isVideo, setIsVideo] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
 
   useEffect(() => {
-    // console.log('loaded', isLoaded);
     if (isLoaded) {
-      console.log(`${user.name}(${user.user_id}) 가 메타싸피에 접속`);
+      // console.log(`${user.name}(${user.user_id}) 가 메타싸피에 접속`);
       sendMessage('ValueManager', 'getUserId', `${user.name}(${user.user_id})`);
     }
   }, [isLoaded]);
 
   useEffect(() => {
-    // console.log('add event');
     addEventListener('openPhone', (mode) => {
-      // console.log('openPhone event', mode);
       if (
         mode === 'videoRoom' ||
         mode === 'videoRoom2' ||
@@ -69,21 +64,18 @@ function UnityPage() {
       }
     });
     return () => {
-      // console.log('remove event');
       removeEventListener('openPhone', () => {});
     };
   });
 
   // 비디오 룸 닫기
   const closeVideo = () => {
-    // console.log('close video');
     setIsVideo(false);
     sendMessage('videoRoom', 'restartUntiy');
   };
 
   // 폰 모달
   const phoneHandler = () => {
-    // console.log('phone click', isPhone);
     if (isPhone === false) {
       setIsPhone(true);
       sendMessage('ValueManager', 'setUnityFalse');
@@ -97,7 +89,6 @@ function UnityPage() {
 
   // 게시판 클릭하면 이동
   const boardHandler = () => {
-    // console.log('board handler');
     navigate('board/list');
   };
 
@@ -106,10 +97,7 @@ function UnityPage() {
       <Outlet />
       {!isLoaded && (
         <Loading>
-          {/* <FadeLoader color="#36d7b7" /> */}
-          <CircularProgressWithLabel
-            value={Math.round(loadingProgression * 100)}
-          />
+          <Loader progress={loadingProgression} />
         </Loading>
       )}
       {/* 휴대폰 모달 */}

@@ -19,7 +19,6 @@ function PhoneChatingList(props) {
   const [searchList, setSearchList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [inviteList, setInviteList] = useState([]);
-  console.log(roomList);
   const [forTime, setForTime] = useState(0);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ function PhoneChatingList(props) {
       .then((res) => {
         setSearchList(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, [search]);
 
   useEffect(() => {
@@ -44,14 +43,12 @@ function PhoneChatingList(props) {
             },
           })
             .then((res) => {
-              // console.log(res.data);
               setRoomList(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log());
         }
       );
     });
-    // console.log(temp);
     //Participant의 not_read_chat을 갱신
 
     return () => clearTimeout(timeout);

@@ -13,7 +13,6 @@ function ProfilePage() {
   const user_id = params.user_id;
   const my = useMyFetch();
   const other = useOtherFetch(user_id);
-  // console.log(my, other, '-----');
   const user = my.user_id === user_id ? my : other;
 
   return (
