@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
 import PublicRoute from './libs/PublicRoute';
 import PrivateRoute from './libs/PrivateRoute';
@@ -35,13 +36,24 @@ import NotFound from './pages/NotFound';
 import BoardModalVersion from './components/board/BoardModalVersion';
 import BoardOuter from './components/board/BoardOuter';
 import PasswordPage from './components/auth/password/PasswordPage';
-
+import BlockBoxAnimation from './pages/BlockBox/BlockBoxAnimation';
 function App() {
   useInfo();
   const user = useSelector((state) => state.auth.user);
-  // const user = getJsonLocalUserInfo()['userId'] || 'annonymous';
 
   return (
+    <AppContainer>
+      <BlockBox style={{ position: 'relative' }}>
+        <p style={{ fontSize: '20px', position: 'absolute' }}>
+          METASSAFY는
+          <br />
+          PC에서 즐거운 경험을 제공합니다.
+        </p>
+        <BlockBoxAnimation
+          text="METASSAFY는
+    PC에서 즐거운 경험을 제공합니다."
+        />
+      </BlockBox>
     <Routes>
       {/* Navbar */}
       <Route element={<Layout />}>
@@ -54,27 +66,53 @@ function App() {
         <Route element={<PublicRoute />}>
           {/* <Route path="login" element={<LoginPage />} /> */}
           <Route path="/login" element={<LoginPage />} />
-        </Route>
-        {/* 로그인 필요한 라우터 */}
-        <Route path="/" element={<PrivateRoute />}>
-          {/* 실제 서비스 페이지 */}
-          <Route path="password" element={<PasswordPage />} />
-          <Route path="board/" element={<BoardOuter />}>
-            <Route path="list" element={<BoardPage />} />
-            <Route path=":id" element={<ArticlePage />} />
-            <Route path="write" element={<WritePage />} />
-            <Route path="write/:id" element={<WritePage />} />
           </Route>
-          <Route path="board/list" element={<BoardPage />} />
-          <Route path="board/:id" element={<ArticlePage />} />
-          <Route path="board/write" element={<WritePage />} />
-          <Route path="board/write/:id" element={<WritePage />} />
-          <Route
-            path="profile/:user_id"
-            element={<WebProfilePage user_id={user?.user_id} />}
-          />
-          <Route path="profile/modify" element={<WebProfileModify />} />
-          <Route path="metassafy/" element={<MetaversePage />}>
+          {/* 로그인 필요한 라우터 */}
+          <Route path="/" element={<PrivateRoute />}>
+            {/* 실제 서비스 페이지 */}
+            <Route path="intro" element={<IntroPage />} />
+            <Route path="password" element={<PasswordPage />} />
+            <Route path="board/" element={<BoardOuter />}>
+              <Route path="list" element={<BoardPage />} />
+              <Route path=":id" element={<ArticlePage />} />
+              <Route path="write" element={<WritePage />} />
+              <Route path="write/:id" element={<WritePage />} />
+            </Route>
+            <Route path="board/list" element={<BoardPage />} />
+            <Route path="board/:id" element={<ArticlePage />} />
+            <Route path="board/write" element={<WritePage />} />
+            <Route path="board/write/:id" element={<WritePage />} />
+            <Route
+              path="profile/:user_id"
+              element={<WebProfilePage user_id={user?.user_id} />}
+            />
+            <Route path="profile/modify" element={<WebProfileModify />} />
+            <Route path="metassafy/" element={<MetaversePage />}>
+              <Route path="videochat/" element={<OpenViduPage />} />
+              <Route path="phone/" element={<PhonePage />}>
+                <Route path="home" element={<PhoneHomePage />} />
+                <Route path="app" element={<PhoneApp />} />
+                <Route
+                  path="profile/:user_id"
+                  element={<ProfilePage user_id={user?.user_id} />}
+                />
+                <Route
+                  path="profile/modify"
+                  element={<ProfileModify />}
+                ></Route>
+                <Route path="chat/" element={<PhoneChatingList />} />
+                <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
+                <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
+                <Route path="friend" element={<PhoneFriendPage />}></Route>
+              </Route>
+            </Route>
+          </Route>
+        </Route>
+        {/* Navbar 제외 */}
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/register" element={<Register />} />
+
+          <Route path="unity" element={<UnityPage />}>
             <Route path="videochat/" element={<OpenViduPage />} />
             <Route path="phone/" element={<PhonePage />}>
               <Route path="home" element={<PhoneHomePage />} />
@@ -83,49 +121,54 @@ function App() {
                 path="profile/:user_id"
                 element={<ProfilePage user_id={user?.user_id} />}
               />
-              <Route path="profile/modify" element={<ProfileModify />}></Route>
+              <Route path="openvidu-page" element={<OpenViduPage />} />
+              <Route path="profile/modify" element={<ProfileModify />} />
               <Route path="chat/" element={<PhoneChatingList />} />
               <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
               <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
               <Route path="friend" element={<PhoneFriendPage />}></Route>
             </Route>
+            <Route path="board/" element={<BoardModalVersion />}>
+              <Route path="list" element={<BoardPage />} />
+              <Route path=":id" element={<ArticlePage />} />
+              <Route path="write" element={<WritePage />} />
+              <Route path="write/:id" element={<WritePage />} />
+            </Route>
           </Route>
         </Route>
-      </Route>
-      {/* Navbar 제외 */}
-      <Route path="/" element={<PrivateRoute />}>
-        <Route path="/register" element={<Register />} />
-
-        <Route path="unity" element={<UnityPage />}>
-          <Route path="videochat/" element={<OpenViduPage />} />
-          <Route path="phone/" element={<PhonePage />}>
-            <Route path="home" element={<PhoneHomePage />} />
-            <Route path="app" element={<PhoneApp />} />
-            <Route
-              path="profile/:user_id"
-              element={<ProfilePage user_id={user?.user_id} />}
-            />
-            <Route path="openvidu-page" element={<OpenViduPage />} />
-            <Route path="profile/modify" element={<ProfileModify />} />
-            <Route path="chat/" element={<PhoneChatingList />} />
-            <Route path="chat/room/:id" element={<PhoneChatingRoom />} />
-            <Route path="chat/room/:id/edit" element={<PhoneChatEdit />} />
-            <Route path="friend" element={<PhoneFriendPage />}></Route>
-          </Route>
-          <Route path="board/" element={<BoardModalVersion />}>
-            <Route path="list" element={<BoardPage />} />
-            <Route path=":id" element={<ArticlePage />} />
-            <Route path="write" element={<WritePage />} />
-            <Route path="write/:id" element={<WritePage />} />
-          </Route>
+        {/* 404 */}
+        <Route element={<Layout />}>
+          <Route path="/*" element={<NotFound />} />
         </Route>
-      </Route>
-      {/* 404 */}
-      <Route element={<Layout />}>
-        <Route path="/*" element={<NotFound />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </AppContainer>
   );
 }
 
 export default App;
+
+const BlockBox = styled.div`
+  display: none;
+  /* overflow-x: hidden; */
+  @media (max-width: 992px) {
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    /* padding: 3rem; */
+    justify-content: center;
+    align-items: center;
+    font-size: 300%;
+    color: var(--white);
+    background-color: white;
+    /* overflow-x: hidden; */
+  }
+`;
+
+const AppContainer = styled.div`
+  position: relative;
+  height: 100%;
+  padding: 0;
+  overflow-x: hidden;
+`;
