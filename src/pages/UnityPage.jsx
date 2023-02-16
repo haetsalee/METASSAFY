@@ -34,6 +34,7 @@ function UnityPage() {
 
   const [isVideo, setIsVideo] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+  const [section, setSection] = useState('SectionA');
 
   useEffect(() => {
     if (isLoaded) {
@@ -44,12 +45,15 @@ function UnityPage() {
 
   useEffect(() => {
     addEventListener('openPhone', (mode) => {
-      if (
-        mode === 'videoRoom' ||
-        mode === 'videoRoom2' ||
-        mode === 'videoRoom3'
-      ) {
-        //비디오룸 들어가서 회의실 입장 클릭
+      if (mode.includes('videoRoom')) {
+        console.log(mode);
+        if (mode.includes('2')) {
+          setSection('SectionB');
+        } else if (mode.includes('3')) {
+          setSection('SectionC');
+        } else {
+          setSection('SectionA');
+        }
         sendMessage('ValueManager', 'setUnityFalse');
         setIsVideo(true);
       } else if (mode === 'board') {
@@ -109,7 +113,9 @@ function UnityPage() {
         onClick={phoneHandler}
       />
       {/* 비디오 모달 */}
-      {isVideo && <OpenViduInModal onClose={closeVideo} />}
+      {isVideo && (
+        <OpenViduInModal onClose={closeVideo} roomSection={section} />
+      )}
       <Unity
         unityProvider={unityProvider}
         tabIndex={1}

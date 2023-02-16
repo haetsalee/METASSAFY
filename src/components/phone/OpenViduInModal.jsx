@@ -4,10 +4,11 @@ import PhoneClose from './PhoneClose';
 import OpenViduPage from '../../pages/OpenViduPage';
 
 const OpenViduInModal = (props) => {
+  console.log(props.roomSection);
   return (
     <PhoneModal>
       <PhoneClose onClose={props.onClose} />
-      <OpenViduPage></OpenViduPage>
+      <OpenViduPage roomSection={props.roomSection}></OpenViduPage>
     </PhoneModal>
   );
 };

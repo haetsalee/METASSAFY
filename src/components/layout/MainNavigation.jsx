@@ -55,7 +55,7 @@ function MainNavigation() {
           <UlStyle isScroll={isScroll}>
             {user && (
               <li>
-                <NavLink to="/metassafy">MetaSSAFY</NavLink>
+                <NavLink to="/metassafy">METASSAFY</NavLink>
               </li>
             )}
             <li>

@@ -19,7 +19,7 @@ class OpenViduPage extends Component {
     super(props);
 
     this.state = {
-      mySessionId: 'SessionA',
+      mySessionId: this.props.roomSection,
       // myUserName: 'Participant' + Math.floor(Math.random() * 100),
       myUserName: this.props.user.name + '_' + this.props.user.user_id,
       sessionCamera: undefined,
