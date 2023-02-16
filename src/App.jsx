@@ -6,11 +6,9 @@ import PrivateRoute from './libs/PrivateRoute';
 
 import Layout from './components/layout/Layout';
 import MainPage from './pages/MainPage';
-import DebuggingPage from './pages/DebuggingPage';
 import PhonePage from './pages/PhonePage';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
-import IntroPage from './pages/IntroPage';
 import BoardPage from './pages/BoardPage';
 import ProfilePage from './pages/ProfilePage';
 import WebProfilePage from './pages/WebProfilePage';
@@ -47,12 +45,8 @@ function App() {
       <Route element={<Layout />}>
         {/* 일반 라우터 */}
         <Route path="/" element={<MainPage />} />
-        <Route path="debugging" element={<DebuggingPage />} />
-        <Route path="intro" element={<IntroPage />} />
         <Route path="developers" element={<DevelopersPage />} />
-        <Route path="openvidu-page" element={<OpenViduPage />} />
         <Route element={<PublicRoute />}>
-          {/* <Route path="login" element={<LoginPage />} /> */}
           <Route path="/login" element={<LoginPage />} />
         </Route>
         {/* 로그인 필요한 라우터 */}
@@ -65,10 +59,6 @@ function App() {
             <Route path="write" element={<WritePage />} />
             <Route path="write/:id" element={<WritePage />} />
           </Route>
-          <Route path="board/list" element={<BoardPage />} />
-          <Route path="board/:id" element={<ArticlePage />} />
-          <Route path="board/write" element={<WritePage />} />
-          <Route path="board/write/:id" element={<WritePage />} />
           <Route
             path="profile/:user_id"
             element={<WebProfilePage user_id={user?.user_id} />}

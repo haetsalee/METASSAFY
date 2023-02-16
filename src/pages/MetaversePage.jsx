@@ -5,7 +5,6 @@ import MetaverseThree from './metaverse/MetaverseThree';
 const MetaversePage = () => {
   return (
     <FlexDiv>
-      {/* <h1>meta</h1> */}
       <Outlet />
       <MetaverseThree />
     </FlexDiv>

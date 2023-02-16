@@ -942,6 +942,7 @@ const ImgStyle = styled.img`
   top: 80%;
   left: 85%;
   position: absolute;
+  cursor: pointer;
 `;
 
 ///잠시 save
