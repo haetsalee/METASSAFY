@@ -1,6 +1,8 @@
 import DevelopersCard from './DevelopersCard';
 import styled from 'styled-components';
 
+import guitar from '../../assets/images/guitar.gif';
+
 function DevelopersList() {
   return (
     <DevelopDiv>
@@ -30,10 +32,7 @@ function DevelopersList() {
 노력하면 뭐든 할 수 있다!!
 좋은 팀원분들 항상 감사합니다."
         />
-        <InvitedImgStyle
-          src="https://em-content.zobj.net/thumbs/120/openmoji/338/guitar_1f3b8.png"
-          alt=""
-        />
+        <InvitedImgStyle src={guitar} alt="" />
         <BlankDiv />
       </FlexDiv>
       <FlexDiv>
@@ -59,8 +58,8 @@ function DevelopersList() {
           name="이햇살"
           career="lasteah22@gmail.com"
           describe="메타버스속의 싸피를 기획하고 구현하며 즐거웠습니다! 
-좋은 팀원들분들과 함께해서 보람찬 6주를 보낸 것 같습니다.
-하면된다!절절포!"
+좋은 팀원분들과 함께해서 보람찬 6주를 보낸 것 같습니다.
+하면된다! 절절포!"
         />
         <InvitedImgStyle
           src="https://em-content.zobj.net/source/microsoft-teams/337/sun-with-face_1f31e.png"
@@ -91,7 +90,7 @@ function DevelopersList() {
           describe="나태하지말기!
 인생에서 가장 빠른 6주 였습니다.
 좋은 팀원들 덕분에 흐릿했던 시작이 창대하게 끝낼 수 있었습니다. 
-감사합니다
+감사합니다.
 🌚올림"
         />
         <InvitedImgStyle
@@ -126,5 +125,5 @@ const BlankDiv = styled.div`
 `;
 
 const DevelopDiv = styled.div`
-  margin: 10rem 0rem;
+  margin: 3rem 0rem;
 `;

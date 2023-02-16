@@ -55,7 +55,7 @@ const ContentStyle = styled.div`
 
 const ImgDivStyle = styled.div`
   width: 100%;
-  height: 14rem;
+  height: 16rem;
   margin: 1rem 0;
 `;
 

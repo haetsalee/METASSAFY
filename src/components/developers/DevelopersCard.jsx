@@ -11,7 +11,8 @@ function DevelopersCard(props) {
             <NameP>{props.name}</NameP>
           </NameWorkDiv>
           <RoadMapP>
-            <ImgStyle src={emailImg} alt="email" /> {props.career}
+            <ImgStyle src={emailImg} alt="email" />
+            <p>{props.career}</p>
           </RoadMapP>
         </NameDiv>
       </DevelopDiv>
@@ -39,13 +40,12 @@ const ImgStyle = styled.img`
 const NameDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  width: 90%;
+  width: 100%;
 `;
 
 const NameWorkDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: flex-end;
   width: 40%;
 `;
@@ -53,16 +53,25 @@ const NameWorkDiv = styled.div`
 const DevelopDiv = styled.div`
   width: 30rem;
   display: flex;
-  margin: 1rem 2rem;
+  margin: 1rem 0;
 `;
 
 const WorkP = styled.p`
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-right: 1rem;
+  background-color: #b5dafa;
+  width: 3rem;
+  height: 2rem;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 2rem;
 `;
 
 const NameP = styled.p`
   font-size: 2rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
 `;
 
 const RoadMapP = styled.pre`
@@ -71,6 +80,11 @@ const RoadMapP = styled.pre`
   font-size: 1rem;
   white-space: pre-wrap;
   color: #436b71c9;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  & p {
+    margin-left: 0.5rem;
+  }
 `;
 
 const DescribeDiv = styled.div`
@@ -83,4 +97,6 @@ const DescribeP = styled.p`
   word-break: break-all;
   line-height: 2rem;
   white-space: pre-wrap;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-bottom: 0.5rem;
 `;

@@ -84,7 +84,7 @@ const ImgStyle = styled.img`
   width: auto;
   height: 12rem;
   margin: 0.3rem 0;
-  border: 1px solid #4ea6f8a9;
+  /* border: 1px solid #4ea6f8a9; */
   border-radius: 8px;
   object-fit: cover;
 `;
