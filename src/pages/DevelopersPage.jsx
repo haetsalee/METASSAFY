@@ -1,7 +1,4 @@
 import DevelopersList from '../components/developers/DevelopersList';
-import developersImg from '../assets/images/develop_check.jpg';
-import top from '../assets/images/top2.png';
-import devImg from '../assets/images/dev.gif';
 import dev from '../assets/images/dev.mp4';
 
 import styled from 'styled-components';
@@ -23,5 +20,4 @@ const VideoStyle = styled.video`
   border: none;
   outline: none;
   object-fit: fill;
-  /* object-fit: contain; */
 `;
