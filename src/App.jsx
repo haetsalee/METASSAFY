@@ -7,7 +7,6 @@ import PrivateRoute from './libs/PrivateRoute';
 
 import Layout from './components/layout/Layout';
 import MainPage from './pages/MainPage';
-import DebuggingPage from './pages/DebuggingPage';
 import PhonePage from './pages/PhonePage';
 import Register from './pages/Register';
 import ProfileModify from './components/profile/ProfileModify';
@@ -54,7 +53,6 @@ function App() {
         <Route element={<Layout />}>
           {/* 일반 라우터 */}
           <Route path="/" element={<MainPage />} />
-          <Route path="debugging" element={<DebuggingPage />} />
           <Route path="developers" element={<DevelopersPage />} />
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<LoginPage />} />

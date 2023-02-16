@@ -86,6 +86,7 @@ const ImgStyle = styled.img`
   margin: 0.3rem 0;
   border: 1px solid #4ea6f8a9;
   border-radius: 8px;
+  object-fit: cover;
 `;
 
 const LineDivStyle = styled.div`
