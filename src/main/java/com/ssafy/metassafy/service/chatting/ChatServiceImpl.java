@@ -135,12 +135,6 @@ public class ChatServiceImpl implements ChatService{
         sqlSession.getMapper(ChatMapper.class).updateLastChat(chatDto);
     }
 
-    //친구 채팅방에 초대
-//    @Override
-//    public void registParticipant(ChatDto chatDto) throws Exception {
-//        sqlSession.getMapper(ChatMapper.class).registParticipant(chatDto);
-//    }
-
     @Override
     public boolean deleteParticipant(ParticipantDto participantDto) throws Exception {
         return sqlSession.getMapper(ChatMapper.class).deleteParticipant(participantDto) == 1;

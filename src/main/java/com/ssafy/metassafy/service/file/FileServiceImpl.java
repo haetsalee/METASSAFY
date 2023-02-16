@@ -82,22 +82,6 @@ public class FileServiceImpl implements FileService{
     }
 
 
-//    private void mkdir(String bucketName, String folderName) {
-//        ObjectMetadata objectMetadata = new ObjectMetadata();
-//        objectMetadata.setContentLength(0L);
-//        objectMetadata.setContentType("application/x-directory");
-//        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName, new ByteArrayInputStream(new byte[0]), objectMetadata);
-//
-//        try {
-//            s3.putObject(putObjectRequest);
-//            System.out.format("Folder %s has been created.\n", folderName);
-//        } catch (AmazonS3Exception e) {
-//            e.printStackTrace();
-//        } catch(SdkClientException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private void upload(String bucketName, String fileName, File uploadFile) {
         s3.putObject(new PutObjectRequest(bucketName, fileName, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));

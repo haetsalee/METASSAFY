@@ -25,10 +25,4 @@ public class SockjsConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/pub");
     }
 
-    // configureClientInboundChannel은 STOMP 연결 시도 시 호출되는 메소드
-    //인터셉터를 등록해서 연결을 시도하면 FilterChannelInterceptor가 실행되게 설정
-//    @Override
-//    public void configureClientInboundChannel(ChannelRegistration registration) {
-//        registration.interceptors(new FilterChannelInterceptor());
-//    }
 }

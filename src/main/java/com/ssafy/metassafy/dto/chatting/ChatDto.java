@@ -21,5 +21,3 @@ public class ChatDto {
     private String regtime;
 
 }
-
-// 구독을 하고 있다가 구독을 끊이면 이제 안보고 있는 것...

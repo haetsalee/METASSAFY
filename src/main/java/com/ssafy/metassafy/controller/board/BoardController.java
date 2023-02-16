@@ -101,14 +101,6 @@ public class BoardController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-//    LikeDto {
-//        @ApiModelProperty(value = "좋아요 타입(게시글, 댓글, 대댓글 등)")
-//        private int like_type;
-//        @ApiModelProperty(value = "작성자 아이디")
-//        private String user_id;
-//        @ApiModelProperty(value = "글번호")
-//        private int no;
-
     @ApiOperation(value = "좋아요", notes = "게시글, 메모, 메메모에 좋아요를 누른다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping("/like")
     public ResponseEntity<String> uploadLike(@RequestBody @ApiParam(value = "좋아요 정보( like_type(게시글 : 1, 메모 : 2, 메메모 : 3), user_id(작성자 아이디), no(식별자 번호) )", required = true) LikeDto likeDto) throws Exception{
@@ -141,8 +133,6 @@ public class BoardController {
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
-
-
 
 
 }

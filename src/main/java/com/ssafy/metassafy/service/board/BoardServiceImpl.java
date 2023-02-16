@@ -20,9 +20,9 @@ import java.util.List;
 public class BoardServiceImpl implements  BoardService{
 
     private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
-//    @Autowired
+
     private final SqlSession sqlSession;
-//    @Autowired
+
     private final FileService fileService;
 
     @Override

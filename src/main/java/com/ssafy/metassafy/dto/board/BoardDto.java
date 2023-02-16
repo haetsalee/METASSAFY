@@ -12,13 +12,6 @@ import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-//- 내가 좋아요한지, 전체 좋아요 수
-//        - 글 이미지 thumbnail
-//        - 제목 title
-//        - 조회수 hit
-//        - 작성자 (이름, 기수, 지역) user_id
-//        - 작성 날짜 regtime
-//        - 글 내용 content
 
 @Getter
 @Setter

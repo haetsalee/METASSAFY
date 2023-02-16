@@ -35,10 +35,6 @@ public class OpenviduController {
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
     }
 
-    /**
-     * @param params The Session properties
-     * @return The Session ID
-     */
     @PostMapping
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
@@ -49,13 +45,6 @@ public class OpenviduController {
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
-    /**
-     * @param sessionId The Session in which to create the Connection
-     * @param params    The Connection properties
-     * @return The Token associated to the Connection
-     */
-
-    //    http://123.123.12.123:9999/metassafy/session/{sessionId}/connections
     @PostMapping("/{sessionId}/connections")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
