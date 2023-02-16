@@ -122,7 +122,7 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
         //GameObject tree = GameObject.FindGameObjectWithTag("tree");
         tree.SetActive(false);
     }
-    void goToRoom(string name)
+    public void goToRoom(string name)
     {
 
         //모든 플레이어 중에서
@@ -143,15 +143,16 @@ public class SelectObjectManager : MonoBehaviourPunCallbacks, IDragHandler
     {
         if (my_video != null)
         {
-            if (my_video.GetDirectAudioMute(0))
+            if (my_video.isPlaying)
             {
                 //Debug.Log(my_video.GetDirectAudioMute(0));
-                my_video.SetDirectAudioMute(0, false);
+                my_video.Pause();
             }
             else
             {
                 //Debug.Log(my_video.GetDirectAudioMute(0));
-                my_video.SetDirectAudioMute(0, true);
+                //my_video.SetDirectAudioMute(0, true);
+                my_video.Play();
             }
         }
     }
