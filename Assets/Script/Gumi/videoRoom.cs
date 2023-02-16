@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -9,34 +10,44 @@ using UnityEngine.InputSystem;
 public class videoRoom : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-    public GameObject enterBtn;
+    public GameObject [] enterBtn;
     public TMP_InputField m_inputField;
+
+    string now;
      
     [DllImport("__Internal")]
     private static extern void openPhone(string mode);
     void Start()
     {
-        
+        now = "";
     }
     private void OnTriggerEnter(Collider other)
 
     {
-         
+
+        
         if (other.gameObject.GetComponent<PhotonView>().IsMine)
         {
-            enterBtn.SetActive(true);
+            enterBtn[findIdx()].SetActive(true);
         }
         
        
     }
     private void OnTriggerExit(Collider other)
     {
+        
         if (other.gameObject.GetComponent<PhotonView>().IsMine)
         {
-            enterBtn.SetActive(false);
+            enterBtn[findIdx()].SetActive(false);
         }
     }
- 
+    private int findIdx()
+    {
+        int idx = 0;
+        if (this.gameObject.name == "videoRoom2") idx = 1;
+        else if (this.gameObject.name == "videoRoom3") idx = 2;
+        return idx;
+    }
     public void stopWithoutVideo()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
