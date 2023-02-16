@@ -148,6 +148,21 @@ function MetaverseThree() {
     scene.add(phoneExMesh);
     meshes.push(phoneExMesh);
 
+    // StartMesh
+    // const startMesh = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1),
+    //   new THREE.MeshStandardMaterial({
+    //     // map: 'floorTexture',
+    //     color: 'red',
+    //   })
+    // );
+    // startMesh.name = 'floor';
+    // startMesh.position.y = 0.01;
+    // startMesh.rotation.x = -Math.PI / 2;
+    // startMesh.receiveShadow = true;
+    // scene.add(startMesh);
+    // meshes.push(startMesh);
+
     const floorMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(40, 40),
       new THREE.MeshStandardMaterial({

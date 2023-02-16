@@ -56,7 +56,6 @@ const LoginForm = (props) => {
     if (data === 'Success') {
       // 리덕스에도 저장
       dispatch(loginSlice(getJsonLocalUserInfo()));
-      console.log('로그인?');
       navigate('/metassafy');
     } else {
       resetuserId();
