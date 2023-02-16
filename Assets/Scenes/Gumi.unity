@@ -4072,13 +4072,13 @@ MonoBehaviour:
       - m_Target: {fileID: 101920288}
         m_TargetAssemblyTypeName: videoRoom, Assembly-CSharp
         m_MethodName: enterVideo
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: videoRoom3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &226485144
@@ -5695,13 +5695,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1209429060}
         m_TargetAssemblyTypeName: videoRoom, Assembly-CSharp
         m_MethodName: enterVideo
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: videoRoom2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &323431755
@@ -12717,13 +12717,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1450215148}
         m_TargetAssemblyTypeName: videoRoom, Assembly-CSharp
         m_MethodName: enterVideo
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: videoRoom
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &741980849

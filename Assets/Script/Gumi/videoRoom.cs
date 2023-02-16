@@ -84,13 +84,13 @@ public class videoRoom : MonoBehaviourPunCallbacks
     {
         
     }
-    public void enterVideo()
+    public void enterVideo(string name)
     {
         
         stopWithoutVideo();
         //리액트 측에 비디오라는 메세지 보내기
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-    openPhone (this.gameObject.name);
+    openPhone (name);
 #endif
     }
 }
