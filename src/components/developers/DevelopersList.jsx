@@ -125,5 +125,5 @@ const BlankDiv = styled.div`
 `;
 
 const DevelopDiv = styled.div`
-  margin: 10rem 0rem;
+  margin: 3rem 0rem;
 `;
