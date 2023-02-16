@@ -1,5 +1,5 @@
 import emoji from '../../assets/images/main/emoji.gif';
-import music from '../../assets/images/main/link.gif';
+import music from '../../assets/images/main/music.gif';
 import map from '../../assets/images/main/link.gif';
 import meeting from '../../assets/images/main/meeting.gif';
 import chat from '../../assets/images/main/chat.gif';
