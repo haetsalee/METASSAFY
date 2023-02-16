@@ -7,25 +7,18 @@ import API from '../../../utils/api';
 const FriendList = () => {
   const [friends, setFriends] = useState([]);
 
-  const onDeleteFriend = (user_id) => {
-    axios
-      .post(
-        'http://i8d211.p.ssafy.io:8088/metassafy/friend/deleteFriend/' +
-          'ssafy/' +
-          user_id,
-        {
-          user_id: user_id,
-        }
-      )
-      .then(function () {
-        setFriends(friends.filter((item) => item.user_id !== user_id));
-      });
-  };
-
   let user = 'annonymous';
   if (window.localStorage.getItem('USER')) {
     user = JSON.parse(window.localStorage.getItem('USER')).user_id;
   }
+
+  const onDeleteFriend = (user_id) => {
+    API.post(`/friend/deleteFriend/${user}/${user_id}`, {
+      user_id: user_id,
+    }).then(function () {
+      setFriends(friends.filter((item) => item.user_id !== user_id));
+    });
+  };
 
   useEffect(() => {
     API.get('/friend/getFriendList/' + user)
