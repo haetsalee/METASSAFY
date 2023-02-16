@@ -114,7 +114,7 @@ function UnityPage() {
         unityProvider={unityProvider}
         tabIndex={1}
         style={{ width: '100%', height: '100%' }}
-        id="metassafy"
+        id="react-unity-webgl-canvas-1"
       />
     </DivStyle>
   );
@@ -132,6 +132,10 @@ const Loading = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ImgStyle = styled.img.attrs(({ isPhone, phone, phoneFront }) => ({
