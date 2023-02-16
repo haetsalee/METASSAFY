@@ -1,9 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import API from '../../../utils/api';
 import { VscAdd } from 'react-icons/vsc';
 import { NavLink } from 'react-router-dom';
 
 const RecommendListItem = ({ friend }) => {
+  let user = 'annonymous';
+  if (window.localStorage.getItem('USER')) {
+    user = JSON.parse(window.localStorage.getItem('USER')).user_id;
+  }
+
+  const onAddFriend = (to_user_id) => {
+    API.get('friend/call/notify/' + user + '/' + to_user_id)
+      .then((res) => {
+        if (res.data === true) {
+          alert('신청 보냄');
+        } else {
+          alert('이미 친구거나 방치한 친구요청이 있습니다.');
+        }
+      })
+      .catch((err) => console.log());
+  };
+
   return (
     <>
       <GroupStyle>
@@ -25,7 +43,7 @@ const RecommendListItem = ({ friend }) => {
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>
-          <VscAdd color="#212121" />
+          <VscAdd color="#212121" onClick={() => onAddFriend(friend.user_id)} />
         </IconStyle>
       </GroupStyle>
       <HrStyle />
