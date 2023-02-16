@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Emoji : MonoBehaviourPunCallbacks
 {
-
+#pragma warning disable
     public GameObject[] emojis = new GameObject[16];
 
     private int action;
     private float timer;
 
     GameObject me;
+
     void Start() {
        
         timer = 2.0f;

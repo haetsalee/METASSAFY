@@ -47,7 +47,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(0);
-                    setSkinRes(hit.collider.name);
+                    
                 }
                 else if (hit.collider.name == "BlackBoy")
                 {
@@ -59,7 +59,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(1);
-                    setSkinRes(hit.collider.name);
+                    
                 }
                 else if (hit.collider.name == "BlueBoy")
                 {
@@ -71,7 +71,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(2);
-                    setSkinRes(hit.collider.name);
+                    
                 }
                 else if (hit.collider.name == "WhiteGirl")
                 {
@@ -83,7 +83,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(3);
-                    setSkinRes(hit.collider.name);
+                   
                 }
                 else if (hit.collider.name == "BlackGirl")
                 {
@@ -95,7 +95,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = false;
 
                     setSkinNo(4);
-                    setSkinRes(hit.collider.name);
+                     
                 }
                 else if (hit.collider.name == "BlueGirl")
                 {
@@ -107,7 +107,7 @@ public class SkinManager : MonoBehaviour
                     GameObject.Find("BlueGirl").GetComponent<Outline>().enabled = true;
 
                     setSkinNo(5);
-                    setSkinRes(hit.collider.name);
+                   
                 }
 
             }
@@ -115,15 +115,7 @@ public class SkinManager : MonoBehaviour
         }
     }
 
-    public void setSkinRes(string name)
-    {
-        
-        TextMesh res = GameObject.Find("result").GetComponent<TextMesh>();
-        if (res == null) return;
-        res.text = name + " º±≈√";
-
-         
-    }
+     
     public void setSkinNo(int no)
     {
         skin = no;
