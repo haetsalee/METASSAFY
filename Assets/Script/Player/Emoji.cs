@@ -155,7 +155,7 @@ public class Emoji : MonoBehaviourPunCallbacks
             }
             else if (idx == 15)
             {
-                if (action == 0 && Input.GetKeyDown(KeyCode.F))
+                if (action == 0 && Input.GetKeyDown(KeyCode.T))
                 {
                     photonView.RPC("showEmoji", RpcTarget.All, idx);
                 }

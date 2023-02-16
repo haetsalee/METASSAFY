@@ -375,14 +375,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649513214302636595}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.045, y: 2.06, z: 0.09000015}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 326208169784662138}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &8809649610670791436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1804,6 +1804,15 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: isWave
+  - Type: 4
+    SynchronizeType: 2
+    Name: isDying
+  - Type: 4
+    SynchronizeType: 2
+    Name: isSit
+  - Type: 4
+    SynchronizeType: 2
+    Name: isWheel
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1821,12 +1830,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emojis:
   - {fileID: 0}
-  - {fileID: 2736157707943736667}
-  - {fileID: 2323632521642095837}
-  - {fileID: 9187574531632550545}
-  - {fileID: 8236708579908228957}
   - {fileID: 2771153939911042891}
   - {fileID: 160009897418463282}
+  - {fileID: 2323632521642095837}
+  - {fileID: 8236708579908228957}
+  - {fileID: 9187574531632550545}
+  - {fileID: 2736157707943736667}
   - {fileID: 7151499464801952178}
   - {fileID: 1351230070629175455}
   - {fileID: 893394030622527228}

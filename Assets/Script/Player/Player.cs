@@ -27,7 +27,8 @@ public class Player : MonoBehaviourPunCallbacks
                 Joyful();
                 Kick();
                 Wave();
-
+                Dying();
+                Sit();
             }
         }
 
@@ -92,5 +93,31 @@ public class Player : MonoBehaviourPunCallbacks
             animator.SetBool("isWave", false);
         }
     }
-   
+
+    void Dying()
+    {
+        if (Input.GetKey(KeyCode.N))
+        {
+            animator.SetBool("isDying", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isDying", false);
+        }
+    }
+
+
+    void Sit()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            animator.SetBool("isSit", true);
+        }
+        else if (Input.anyKey)
+        {
+            animator.SetBool("isSit", false);
+        }
+    }
+
+
 }
