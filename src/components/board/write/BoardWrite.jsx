@@ -39,7 +39,6 @@ const BoardWrite = () => {
     }
   }, [article_no, user.user_id]);
 
-  console.log('files', files);
   // 작성 결과 제출
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,8 +58,6 @@ const BoardWrite = () => {
       boardDto.article_no = article_no;
       boardDto.thumbnail = originFiles[0] ? originFiles[0].path : null;
     }
-
-    console.log(boardDto);
 
     const formData = new FormData();
     formData.append(
@@ -90,7 +87,7 @@ const BoardWrite = () => {
       else {
         const { status } = await fetchBoardPost(formData);
         if (status) {
-          navigator('/board/list');
+          navigator('../list');
         }
       }
     };
@@ -134,6 +131,9 @@ export default BoardWrite;
 const WriteSection = styled.section`
   width: 70%;
   margin-top: 8rem;
+  @media screen and (max-width: 500px) {
+    margin-top: 2rem;
+  }
 `;
 
 const HrStyle = styled.hr`

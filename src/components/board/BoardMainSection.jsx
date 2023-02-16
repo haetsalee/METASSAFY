@@ -37,7 +37,7 @@ const BoardMainSection = () => {
   ]);
 
   const goWrite = () => {
-    navigate('/board/write');
+    navigate('../write');
   };
 
   return (
@@ -68,6 +68,11 @@ const WrapperStyle = styled.div`
   width: 1200px;
   display: flex;
   padding-top: 3rem;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    flex-direction: column;
+    padding-top: 1rem;
+  }
 `;
 
 const DivStyle = styled.div`
@@ -91,5 +96,8 @@ const ButtonStyle = styled.button`
   cursor: pointer;
   &:hover {
     border: 1px solid black;
+  }
+  @media screen and (max-width: 500px) {
+    margin-right: 1rem;
   }
 `;

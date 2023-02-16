@@ -1,4 +1,4 @@
-import Phone from '../../components/UI/Phone';
+import PhoneOutLine from '../../components/UI/PhoneOutLine';
 
 import ChatRoomSearch from '../../components/phone/chat/ChatRoomSearch';
 import ChatRoomSearchResult from '../../components/phone/chat/ChatRoomSearchResult';
@@ -19,7 +19,6 @@ function PhoneChatingList(props) {
   const [searchList, setSearchList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [inviteList, setInviteList] = useState([]);
-  console.log(roomList);
   const [forTime, setForTime] = useState(0);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ function PhoneChatingList(props) {
       .then((res) => {
         setSearchList(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, [search]);
 
   useEffect(() => {
@@ -44,21 +43,19 @@ function PhoneChatingList(props) {
             },
           })
             .then((res) => {
-              // console.log(res.data);
               setRoomList(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log());
         }
       );
     });
-    // console.log(temp);
     //Participant의 not_read_chat을 갱신
 
     return () => clearTimeout(timeout);
   }, [forTime]);
 
   return (
-    <Phone>
+    <PhoneOutLine>
       <ChatRoomNavStyle>
         <ChatListP>
           <strong>채팅방</strong>
@@ -77,7 +74,7 @@ function PhoneChatingList(props) {
           setCroom={props.setCroom}
         />
       </PhoneChatingListStyle>
-    </Phone>
+    </PhoneOutLine>
   );
 }
 

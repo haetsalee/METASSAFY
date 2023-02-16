@@ -1,6 +1,4 @@
 import AuthTitle from '../components/auth/AuthTitle';
-import AuthClose from '../components/auth/login/AuthClose';
-import LoginBottom from '../components/auth/login/LoginBottom';
 import LoginPageForm from '../components/auth/login/LoginPageForm';
 import styled from 'styled-components';
 

@@ -7,19 +7,21 @@ const ArticleButtonWrapper = ({ article_no }) => {
   const navigate = useNavigate();
 
   const moveHandler = () => {
-    navigate(`/board/write/${article_no}`);
+    navigate(`../write/${article_no}`);
   };
 
   const removeHandler = async () => {
-    const { status } = await fetchBoardDelete(article_no);
-    if (status === 200) {
-      alert('게시물이 삭제 되었습니다.');
-      navigate(-1);
+    if (window.confirm('게시물을 삭제하시겠습니까?')) {
+      const { status } = await fetchBoardDelete(article_no);
+      if (status === 200) {
+        alert('게시물이 삭제 되었습니다.');
+        navigate(-1);
+      }
     }
   };
 
   return (
-    <div>
+    <DivStyle>
       <ButtonStyle onClick={moveHandler}>
         <BsBookmark />
         <p>수정하기</p>
@@ -28,11 +30,19 @@ const ArticleButtonWrapper = ({ article_no }) => {
         <BsTrash />
         <p>삭제하기</p>
       </ButtonStyle>
-    </div>
+    </DivStyle>
   );
 };
 
 export default ArticleButtonWrapper;
+
+const DivStyle = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+`;
 
 const ButtonStyle = styled.button`
   width: 100%;
@@ -50,5 +60,10 @@ const ButtonStyle = styled.button`
 
   & svg {
     margin-right: 0.2rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 30%;
+    margin-left: 1rem;
   }
 `;

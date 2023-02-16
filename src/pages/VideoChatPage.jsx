@@ -112,7 +112,7 @@ class VideoChatPage extends Component {
 
         // On every asynchronous exception...
         mySession.on('exception', (exception) => {
-          console.warn(exception);
+          // console.warn(exception);
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -164,11 +164,11 @@ class VideoChatPage extends Component {
               });
             })
             .catch((error) => {
-              console.log(
-                'There was an error connecting to the session:',
-                error.code,
-                error.message
-              );
+              // console.log(
+              //   'There was an error connecting to the session:',
+              //   error.code,
+              //   error.message
+              // );
             });
         });
       }
@@ -177,7 +177,6 @@ class VideoChatPage extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-    console.log('disconnect 잘 되고 있나요??-----');
     const mySession = this.state.session;
 
     if (mySession) {
@@ -230,7 +229,7 @@ class VideoChatPage extends Component {
         }
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
   }
 

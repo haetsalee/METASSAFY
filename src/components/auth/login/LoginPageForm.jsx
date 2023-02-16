@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../../../services/auth-service';
 import { getJsonLocalUserInfo } from '../../../utils/local-storage';
 import { loginSlice } from '../../../store/slice/authSlice';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import useInput from '../../../hooks/use-input';
 import AuthInput from '../AuthInput';
@@ -56,7 +56,7 @@ const LoginForm = (props) => {
     if (data === 'Success') {
       // 리덕스에도 저장
       dispatch(loginSlice(getJsonLocalUserInfo()));
-      navigate('/');
+      // PublicRouter로 자동 이동됨
     } else {
       resetuserId();
       resetuserPassword();

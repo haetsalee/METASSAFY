@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -8,7 +8,6 @@ import {
 import CalendarInput from './Inputs/CalendarInput';
 import DropdownInput from './Inputs/DropdownInput';
 import RowRadioButtonsGroup from './Inputs/RowRadioButtonGroup';
-import dayjs from 'dayjs';
 import useInfo from '../../hooks/use-info';
 import { BiSave } from 'react-icons/bi';
 import MultipleSelectChip from './Inputs/MultipleSelectChip';
@@ -54,23 +53,15 @@ const positionList = {
   ],
 };
 
-const InputBoxList = () => {
+const InputBoxList = ({ setIsSubmit }) => {
   const navigate = useNavigate();
   const user = useInfo();
-  // const  test = {"user_id":"zzzzz","user_pwd":"zzzzz",
-  // "student_no":"2222","name":"zzzzz",
-  // "area":"구미","email":"zz@z","gender":"w",
-  // "birthday":"2023-02-03T04:09:23.840Z","age":10,"interest":"BE",
-  // "regtime":1675121266000,
-  // "profile_img":"https://kr.object.ncloudstorage.com/metassafy/06c4fb8f-7409-40c0-a2b7-6e83f0ca0cebdefault.png",
-  // "profile_txt":"앙뇽~~~~~~~~~~~~~~~~!!!!",
-  // "first_semester":"파이썬","common":null,"special":null,"free":null,"first_semester_class":0,"common_class":0,"special_class":0,"free_class":0,"x":0,"y":0,"z":0,"common_team":0,"special_team":0,"free_team":0,"current_role":null,
-  // "generation":8,"major":"비전공",
-  // "common_jo":"미정","special_jo":"미정","free_jo":"미정"};
+  const [isLoad, setIsLoad] = useState(false);
+
   const [info, setInfo] = useState({
     user_id: '',
     name: '',
-    genderF: '', // w, m
+    genderF: '', //남성, 여성
     birthday: '',
     generation: 0, // 기수
     area: '', // 지역
@@ -86,7 +77,7 @@ const InputBoxList = () => {
     const initInfo = {
       user_id: user.user_id,
       name: user.name || '',
-      genderF: user.genderF || '', // w, m
+      genderF: user.genderF || '', // 남성, 여성
       birthday: user.birthday || '',
       generation: user.generation || '', // 기수
       area: user.area || '', // 지역
@@ -99,10 +90,6 @@ const InputBoxList = () => {
     setInfo({ ...initInfo });
   }, [user]);
 
-  useEffect(() => {
-    console.log('변화 정보!!!', info);
-  }, [info]);
-
   const handleChange = (e, key) => {
     setInfo((preState) => {
       const state = { ...preState };
@@ -111,13 +98,18 @@ const InputBoxList = () => {
     });
   };
 
-  const onSubmitHandler = () => {
-    // submit
-    console.log('제출!!', info, techList);
-    fetchProfileModify(info);
+  const onSubmitHandler = async () => {
+    setIsLoad(true);
+    await fetchProfileModify(info);
+
     const techs = techList.map((tech) => tech.tech_id);
-    fetchTechSave(user.user_id, techs);
-    setTimeout(() => navigate(`../profile/${user.user_id}`), 200);
+    await fetchTechSave(user.user_id, techs);
+    // submit
+    setIsSubmit(true); // 제출 체크 -> 프로필 이미지 업로드
+
+    setTimeout(() => {
+      navigate(`../profile/${user.user_id}`);
+    }, '2000');
   };
 
   return (
@@ -203,12 +195,10 @@ const InputBoxList = () => {
                 }
 
                 newBirthday += day;
-                console.log(newBirthday);
 
                 state['birthday'] = newBirthday;
                 return state;
               });
-              console.log(String(e['$d']));
             }}
           />
         </InputsStyle>
@@ -284,10 +274,16 @@ const InputBoxList = () => {
           ></MultipleSelectChip>
         </InputsStyle>
       </InputLineStyle>
+
       <ButtonStyle onClick={onSubmitHandler}>
         저장
         <BiSave />
       </ButtonStyle>
+      {isLoad && (
+        <ProgressStyle>
+          <CircularProgress />
+        </ProgressStyle>
+      )}
     </InputListStyle>
   );
 };
@@ -301,6 +297,7 @@ const InputListStyle = styled.div`
   padding: 0.3rem 2rem;
   width: 100%;
   overflow: auto;
+  position: relative;
   &::-webkit-scrollbar {
     width: 0.2rem;
   }
@@ -355,4 +352,9 @@ const FlexDiv = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+`;
+
+const ProgressStyle = styled.div`
+  position: sticky;
+  bottom: 9rem;
 `;

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { TbUsers, TbUserPlus, TbUserCheck, TbUserSearch } from 'react-icons/tb';
-import API from '../../../utils/api';
 
 const FriendListBar = ({
   onClickPage,
@@ -17,11 +16,7 @@ const FriendListBar = ({
       >
         <FlexDiv>
           <TbUsers color="#617485" style={{ marginTop: '0.5rem' }} />
-          {show.Page && (
-            <CheckNameSpan>
-              <strong>친구 목록</strong>
-            </CheckNameSpan>
-          )}
+          {show.Page && <CheckNameSpan>친구 목록</CheckNameSpan>}
         </FlexDiv>
       </IconButtonStyle>
       <IconButtonStyle
@@ -30,11 +25,7 @@ const FriendListBar = ({
       >
         <FlexDiv>
           <TbUserPlus color="#617485" style={{ marginTop: '0.5rem' }} />
-          {show.Request && (
-            <CheckNameSpan>
-              <strong>받은 친구 요청</strong>
-            </CheckNameSpan>
-          )}
+          {show.Request && <CheckNameSpan>받은 친구 요청</CheckNameSpan>}
         </FlexDiv>
       </IconButtonStyle>
       <IconButtonStyle
@@ -43,11 +34,7 @@ const FriendListBar = ({
       >
         <FlexDiv>
           <TbUserCheck color="#617485" style={{ marginTop: '0.5rem' }} />
-          {show.SendRequest && (
-            <CheckNameSpan>
-              <strong>보낸 친구 요청</strong>
-            </CheckNameSpan>
-          )}
+          {show.SendRequest && <CheckNameSpan>보낸 친구 요청</CheckNameSpan>}
         </FlexDiv>
       </IconButtonStyle>
       <IconButtonStyle
@@ -56,11 +43,7 @@ const FriendListBar = ({
       >
         <FlexDiv>
           <TbUserSearch color="#617485" style={{ marginTop: '0.5rem' }} />
-          {show.Search && (
-            <CheckNameSpan>
-              <strong>유저 검색</strong>
-            </CheckNameSpan>
-          )}
+          {show.Search && <CheckNameSpan>유저 검색</CheckNameSpan>}
         </FlexDiv>
       </IconButtonStyle>
     </ButtonBarStyle>

@@ -18,7 +18,7 @@ const FriendSearch = () => {
       .then((res) => {
         setSearchUser(res.data.filter((item) => item.user_id !== user));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   const onAddFriend = (to_user_id) => {
@@ -30,7 +30,7 @@ const FriendSearch = () => {
           alert('이미 친구거나 방치한 친구요청이 있습니다.');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   };
 
   const getValue = (event) => {

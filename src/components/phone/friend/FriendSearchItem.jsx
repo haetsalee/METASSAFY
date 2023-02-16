@@ -28,7 +28,6 @@ const FriendSearchItem = (props) => {
           <VscAdd
             color="#212121"
             onClick={() => {
-              console.log(props.user_id);
               props.onAddFriend(props.user_id);
             }}
           />

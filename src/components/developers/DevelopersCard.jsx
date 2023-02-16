@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import emailImg from '../../assets/images/email.png';
 
 function DevelopersCard(props) {
   return (
@@ -9,12 +10,12 @@ function DevelopersCard(props) {
             <WorkP>{props.work}</WorkP>
             <NameP>{props.name}</NameP>
           </NameWorkDiv>
-          <RoadMapP>{props.career}</RoadMapP>
+          <RoadMapP>
+            <ImgStyle src={emailImg} alt="email" /> {props.career}
+          </RoadMapP>
         </NameDiv>
       </DevelopDiv>
-      <DescribeDiv>
-        <DescribeP>{props.describe}</DescribeP>
-      </DescribeDiv>
+      <DescribeP>{props.describe}</DescribeP>
       <StyleHr />
     </DevDiv>
   );
@@ -28,6 +29,11 @@ const StyleHr = styled.hr`
 
 const DevDiv = styled.div`
   width: 30rem;
+`;
+
+const ImgStyle = styled.img`
+  width: 25px;
+  border-radius: 50%;
 `;
 
 const NameDiv = styled.div`
@@ -60,7 +66,9 @@ const NameP = styled.p`
 `;
 
 const RoadMapP = styled.pre`
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
   white-space: pre-wrap;
   color: #436b71c9;
 `;
@@ -68,9 +76,11 @@ const RoadMapP = styled.pre`
 const DescribeDiv = styled.div`
   height: 10rem;
   padding: 1rem 2rem;
+  white-space: pre-wrap;
 `;
 
 const DescribeP = styled.p`
   word-break: break-all;
-  line-height: 1.5rem;
+  line-height: 2rem;
+  white-space: pre-wrap;
 `;

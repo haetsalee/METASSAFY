@@ -18,7 +18,6 @@ const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    console.log(config.url);
     // 인증 관련 요청일 경우
     if (config.url.includes('/auth')) {
       // 로그인 안한 상태
@@ -38,7 +37,6 @@ API.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -51,11 +49,8 @@ API.interceptors.response.use(
     const {
       response: { status },
     } = error;
-    console.log(error);
 
     if (status === 401) {
-      console.log('401');
-
       try {
         const response = await API.get('/user/getNewAccessToken');
 
@@ -68,7 +63,6 @@ API.interceptors.response.use(
         const originalResponse = await API.request(error.config);
         return originalResponse;
       } catch (err) {
-        console.log(err);
         new Error(err);
       }
     }

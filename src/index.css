@@ -24,11 +24,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 html,
 body,
 div,
@@ -114,7 +109,7 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  /* font: inherit; */
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -152,4 +147,17 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: #617485;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px transparent;
 }

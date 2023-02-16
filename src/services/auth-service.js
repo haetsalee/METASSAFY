@@ -35,7 +35,6 @@ export const fetchLogin = async ({ id, password }) => {
     if (data === 'Success') {
       await loginProcess(response.headers); // 토큰 저장
     }
-    console.log('login', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -63,7 +62,6 @@ export const fetchRegister = async ({
 
   try {
     const { data, status } = await API.post('/user/regist', requestBody);
-    console.log('register', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -73,7 +71,6 @@ export const fetchRegister = async ({
 export const fetchIsExistId = async (id) => {
   try {
     const { data, status } = await API.get(`/user/isExist/${id}`);
-    console.log('id check', data, status);
     return { data, status, error: null };
   } catch (error) {
     return { data: error.message, status: error.response.status, error };
@@ -85,7 +82,6 @@ export const fetchUserInfo = async () => {
     const { data, status } = await API.get(`/user/auth/getUser`);
     if (status === 200) {
       setLocalUserInfo(data);
-      console.log('userinfo', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
@@ -98,11 +94,26 @@ export const fetchUserInfoById = async (id) => {
   try {
     const { data, status } = await API.get(`/user/auth/getUserById/${id}`);
     if (status === 200) {
-      console.log('userinfo by id', data);
       return { data, status, error: null };
     }
     return { data, status, error: 'Fail' };
   } catch (error) {
     return { data: error.message, status: error.response?.status, error };
+  }
+};
+
+export const fetchPasswordChange = async ({ id, password, genderF }) => {
+  const requestBody = {
+    user_id: id,
+    user_pwd: password,
+    genderF,
+  };
+
+  try {
+    const response = await API.post('/user/auth/update', requestBody);
+    const { data, status } = response;
+    return { data, status, error: null };
+  } catch (error) {
+    return { data: error.message, status: error.response.status, error };
   }
 };

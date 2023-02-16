@@ -13,7 +13,7 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
       .then((res) => {
         setFriendInfo(res.data[0]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   return (
@@ -43,8 +43,6 @@ const FriendRequestItem = ({ friend, onRejectFriend, onAcceptFriend }) => {
               onClick={() => {
                 onAcceptFriend(friend.friend_no);
                 friend.accept = true;
-                console.log(friend.accept);
-                console.log(friend.friend_no);
               }}
               disabled={friend.accept}
             />

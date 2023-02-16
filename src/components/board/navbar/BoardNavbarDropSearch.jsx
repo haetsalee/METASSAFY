@@ -28,7 +28,7 @@ const BoardNavbarDropSearch = () => {
     e.preventDefault();
 
     const query = `key=${search[searchType].key}&popularity=false&user_id=${user.user_id}&word=${searchValue}`;
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
 
     // setSearchValue('');
   };
@@ -79,6 +79,10 @@ const UlStyle = styled.ul`
   margin-top: 0.2rem;
   z-index: 10;
   background-color: white;
+  @media screen and (max-width: 500px) {
+    width: 8rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const LiStyle = styled.li`
@@ -111,6 +115,9 @@ const SearchformStyle = styled.form`
     }
     &::placeholder {
       color: #7d78787b;
+    }
+    @media screen and (max-width: 500px) {
+      width: 5rem;
     }
   }
 

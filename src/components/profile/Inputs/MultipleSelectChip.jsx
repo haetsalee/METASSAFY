@@ -22,16 +22,6 @@ const MenuProps = {
   },
 };
 
-// function getStyles(name, personName, theme) {
-//   console.log(name, personName, theme);
-//   return {
-//     fontWeight:
-//       personName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
-
 const MultipleSelectChip = ({ setTechList, techList }) => {
   // const theme = useTheme();
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';

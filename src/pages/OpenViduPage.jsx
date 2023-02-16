@@ -1,15 +1,16 @@
-import { OpenVidu } from 'openvidu-browser';
-import { useSelector } from 'react-redux';
-
 import axios from 'axios';
 import React, { Component } from 'react';
-import UserVideoComponent from './openVidu/UserVideoComponent';
-
-import { OutlinedInput, InputAdornment } from '@mui/material';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import useMyFetch from '../hooks/use-my-fetch';
+import { OpenVidu } from 'openvidu-browser';
+import UserVideoComponent from './openVidu/UserVideoComponent';
+import MainVideoComponent from './openVidu/MainVideoComponent';
+
+import { FiX, FiAirplay, FiPhoneOff } from 'react-icons/fi';
+import { BiVolumeFull, BiVolumeMute } from 'react-icons/bi';
+import { BiVideo, BiVideoOff } from 'react-icons/bi';
+
+import styled from 'styled-components';
 
 const APPLICATION_SERVER_URL = 'https://www.metassafy.store/api/session';
 
@@ -18,7 +19,7 @@ class OpenViduPage extends Component {
     super(props);
 
     this.state = {
-      mySessionId: 'SessionA',
+      mySessionId: this.props.roomSection,
       // myUserName: 'Participant' + Math.floor(Math.random() * 100),
       myUserName: this.props.user.name + '_' + this.props.user.user_id,
       sessionCamera: undefined,
@@ -48,10 +49,12 @@ class OpenViduPage extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.onbeforeunload);
+    this.leaveSession();
   }
 
   onbeforeunload(event) {
@@ -93,10 +96,10 @@ class OpenViduPage extends Component {
         to: this.state.subscribers, // Array of Connection objects (optional. Broadcast to everyone if empty)
       })
       .then(() => {
-        console.log('Message successfully sent');
+        // console.log('Message successfully sent');
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   }
 
@@ -172,25 +175,11 @@ class OpenViduPage extends Component {
         var sessionCamera = this.state.sessionCamera;
         var sessionScreen = this.state.sessionScreen;
 
-        console.log(
-          sessionCamera,
-          '-----------------------------sessionCamera--------------------------------------'
-        );
-
-        console.log(
-          sessionScreen,
-          '-----------------------------sessionScreen--------------------------------------'
-        );
-
         // --- 3) Specify the actions when events take place in the session ---
 
         // On every new Stream received...
         sessionCamera.on('streamCreated', (event) => {
-          if (event.stream.typeOfVideo == 'CAMERA') {
-            console.log(
-              event,
-              '-----------------------------------------sessionCamera event--------------------------------------------'
-            );
+          if (event.stream.typeOfVideo === 'CAMERA') {
             // Subscribe to the Stream to receive it. Second parameter is undefined
             // so OpenVidu doesn't create an HTML video by its own
             let subscriber = sessionCamera.subscribe(event.stream, undefined);
@@ -205,23 +194,19 @@ class OpenViduPage extends Component {
         });
 
         sessionCamera.on('signal', (event) => {
-          console.log(event.data); // Message
-          console.log(event.from); // Connection object of the sender
-          console.log(event.type); // The type of message
+          // console.log(event.data); // Message
+          // console.log(event.from); // Connection object of the sender
+          // console.log(event.type); // The type of message
         });
 
         sessionCamera.on('signal:my-chat', (event) => {
-          console.log(event.data); // Message
-          console.log(event.from); // Connection object of the sender
-          console.log(event.type); // The type of message ("my-chat")
+          // console.log(event.data); // Message
+          // console.log(event.from); // Connection object of the sender
+          // console.log(event.type); // The type of message ("my-chat")
         });
 
         sessionScreen.on('streamCreated', (event) => {
-          if (event.stream.typeOfVideo == 'SCREEN') {
-            console.log(
-              event,
-              '-----------------------------------------sessionScreen event--------------------------------------------'
-            );
+          if (event.stream.typeOfVideo === 'SCREEN') {
             // Subscribe to the Stream to receive it. HTML video will be appended to element with 'container-cameras' id
             let subscriberScreen = sessionScreen.subscribe(
               event.stream,
@@ -243,7 +228,7 @@ class OpenViduPage extends Component {
 
         // On every asynchronous exception...
         sessionCamera.on('exception', (exception) => {
-          console.warn(exception);
+          // console.warn(exception);
         });
 
         sessionScreen.on('streamDestroyed', (event) => {
@@ -252,7 +237,7 @@ class OpenViduPage extends Component {
         });
 
         sessionScreen.on('exception', (exception) => {
-          console.warn(exception);
+          // console.warn(exception);
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -303,13 +288,7 @@ class OpenViduPage extends Component {
                 publisher: publisher,
               });
             })
-            .catch((error) => {
-              console.log(
-                'There was an error connecting to the session:',
-                error.code,
-                error.message
-              );
-            });
+            .catch((error) => {});
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -322,14 +301,13 @@ class OpenViduPage extends Component {
             .then(() => {
               document.getElementById('buttonScreenShare').style.visibility =
                 'visible';
-              console.log('Session screen connected');
             })
             .catch((error) => {
-              console.log(
-                'There was an error connecting to the session:',
-                error.code,
-                error.message
-              );
+              // console.log(
+              //   'There was an error connecting to the session:',
+              //   error.code,
+              //   error.message
+              // );
             });
         });
       }
@@ -352,7 +330,6 @@ class OpenViduPage extends Component {
         .getMediaStream()
         .getVideoTracks()[0]
         .addEventListener('ended', () => {
-          console.log('User pressed the "Stop sharing" button');
           this.state.sessionScreen.unpublish(this.state.shareScreen);
           document.getElementById('buttonScreenShare').style.visibility =
             'visible';
@@ -371,23 +348,21 @@ class OpenViduPage extends Component {
     });
 
     shareScreen.on('videoElementCreated', (event) => {
-      console.log(
-        'shareScreen videoElementCreated-----------------------' + event
-      );
+      // console.log(
+      //   'shareScreen videoElementCreated-----------------------' + event
+      // );
       event.element['muted'] = true;
     });
 
     shareScreen.once('accessDenied', (event) => {
       this.state.shareScreen = undefined;
-      console.error('Screen Share: Access Denied');
+      // console.error('Screen Share: Access Denied');
     });
   }
 
   leaveSession() {
     const sessionCamera = this.state.sessionCamera;
     const sessionScreen = this.state.sessionScreen;
-
-    console.log(sessionCamera, ' : ', sessionScreen);
 
     if (sessionCamera) {
       sessionCamera.disconnect();
@@ -457,170 +432,157 @@ class OpenViduPage extends Component {
     const myUserName = this.state.myUserName;
 
     return (
-      <div>
+      <SectionStyle>
         {/* <div>{this.props.user.name}</div> */}
-        <div className="container">
-          {this.state.sessionCamera === undefined ? (
-            <div
-              id="join"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <div id="img-div">
-                <img
-                  src="images/logo.png"
-                  style={{ width: '100px' }}
-                  alt="회의실"
-                />
-              </div>
-              <div id="join-dialog" className="jumbotron vertical-center">
-                <p> 회의실에 참여하세요 </p>
-                <br />
-                <form className="form-group" onSubmit={this.joinSession}>
-                  <p>
-                    <label>참여자 이름 </label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="userName"
-                      // value={myUserName}
-                      value={
-                        this.props.user.name + '_' + this.props.user.user_id ||
-                        ''
-                      }
-                      onChange={this.handleChangeUserName}
-                      required
-                      // 읽기 전용
-                      readOnly
-                    />
-                  </p>
-                  <br />
-                  <p>
-                    <label> Session</label>
-                    <br />
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={this.handleChangeSessionId}
-                      required
-                      // 읽기 전용
-                      readOnly
-                    />
-                  </p>
-                  <br />
-                  <p className="text-center">
-                    <BtnStyle>Join</BtnStyle>
-                    {/* <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="JOIN"
-                    /> */}
-                  </p>
-                  <br />
-                </form>
-              </div>
-            </div>
-          ) : null}
+        {!this.state.sessionCamera && (
+          <WaitingRoomStyle>
+            <LogoDivStyle id="img-div">
+              <img
+                src="images/logo.png"
+                style={{ width: '200px' }}
+                alt="회의실"
+              />
+            </LogoDivStyle>
+            <JoinDivStyle>
+              <TitleStyle>회의실에 참여하세요</TitleStyle>
+              <form onSubmit={this.joinSession}>
+                <InputWrapperStyle>
+                  <LabelStyle>참여자 이름</LabelStyle>
+                  <InputStyle
+                    type="text"
+                    id="userName"
+                    value={myUserName}
+                    // value={
+                    //   this.props.user.name + '_' + this.props.user.user_id ||
+                    //   'Me'
+                    // }
+                    onChange={this.handleChangeUserName}
+                    required
+                    // 읽기 전용 readOnly
+                  />
+                </InputWrapperStyle>
+                <InputWrapperStyle>
+                  <LabelStyle>Session</LabelStyle>
+                  <InputStyle
+                    type="text"
+                    id="sessionId"
+                    value={mySessionId}
+                    onChange={this.handleChangeSessionId}
+                    required
+                    // 읽기 전용 readOnly
+                  />
+                </InputWrapperStyle>
+                <ButtonWrapperStyle>
+                  <BtnStyle>Join</BtnStyle>
+                </ButtonWrapperStyle>
+              </form>
+            </JoinDivStyle>
+          </WaitingRoomStyle>
+        )}
 
-          {this.state.sessionCamera !== undefined ? (
-            <div id="session">
-              <div id="session-header">
-                <h1 id="session-title">{mySessionId}</h1>
-                <input
-                  className="btn btn-large"
-                  type="button"
-                  id="buttonScreenShare"
-                  onClick={this.publishScreenShare}
-                  value="Screen share"
-                  style={{ visibility: 'hidden' }}
-                />
-                <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.leaveSession}
-                  value="Leave session"
-                />
-                <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteAudio}
-                  value="Mute/Unmute Audio"
-                />
-                <input
-                  className="btn btn-large btn-danger"
-                  type="button"
-                  id="buttonLeaveSession"
-                  onClick={this.muteUnmuteVideo}
-                  value="Mute/Unmute Video"
-                />
-              </div>
-              {this.state.mainStreamManager !== undefined ? (
-                <div id="main-video" className="col-md-6">
-                  <UserVideoComponent
+        {this.state.sessionCamera && (
+          <MeetingRoomStyle>
+            <TopDivStyle id="session">
+              {this.state.mainStreamManager && (
+                <MainVideoWrapperStyle id="main-video">
+                  <MainVideoComponent
                     streamManager={this.state.mainStreamManager}
                   />
-                  <input
-                    className="btn btn-large btn-success"
-                    type="button"
-                    id="buttonSwitchCamera"
-                    onClick={this.sendMessage}
-                    value="SendMessage Test"
-                  />
-                </div>
-              ) : null}
-              <div id="video-container" className="col-md-6">
-                {this.state.publisher !== undefined ? (
-                  <div
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() =>
-                      this.handleMainVideoStream(this.state.publisher)
-                    }
-                  >
-                    <UserVideoComponent streamManager={this.state.publisher} />
-                  </div>
-                ) : null}
-                {this.state.subscribers.map((sub, i) => (
-                  <div
-                    key={i}
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() => this.handleMainVideoStream(sub)}
-                  >
-                    <UserVideoComponent streamManager={sub} />
-                  </div>
-                ))}
-              </div>
-              <div id="screen-container" className="col-md-6">
-                {this.state.shareScreen !== undefined ? (
-                  <div
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() =>
-                      this.handleMainVideoStream(this.state.shareScreen)
-                    }
-                  >
-                    <UserVideoComponent
-                      streamManager={this.state.shareScreen}
-                    />
-                  </div>
-                ) : null}
-                {this.state.subscriberScreens.map((sub, i) => (
-                  <div
-                    key={i}
-                    className="stream-container col-md-6 col-xs-6"
-                    onClick={() => this.handleMainVideoStream(sub)}
-                  >
-                    <UserVideoComponent streamManager={sub} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-        </div>
-      </div>
+                </MainVideoWrapperStyle>
+              )}
+
+              <SubVideoWrapperStyle>
+                {/* 공유화면 */}
+                {(this.state.shareScreen ||
+                  !!this.state.subscriberScreens.length) && (
+                  <ShareWrapperStyle id="screen-container">
+                    {this.state.shareScreen && (
+                      <SharingVideoStyle
+                        onClick={() =>
+                          this.handleMainVideoStream(this.state.shareScreen)
+                        }
+                      >
+                        <UserVideoComponent
+                          streamManager={this.state.shareScreen}
+                        />
+                      </SharingVideoStyle>
+                    )}
+                    {this.state.subscriberScreens.map((sub, i) => (
+                      <SharingVideoStyle
+                        key={i}
+                        onClick={() => this.handleMainVideoStream(sub)}
+                      >
+                        <UserVideoComponent streamManager={sub} />
+                      </SharingVideoStyle>
+                    ))}
+                  </ShareWrapperStyle>
+                )}
+
+                {/* 얼굴 */}
+                <FaceWrapperStyle id="video-container">
+                  {this.state.publisher && (
+                    <PersonVideoStyle
+                      onClick={() =>
+                        this.handleMainVideoStream(this.state.publisher)
+                      }
+                    >
+                      <UserVideoComponent
+                        streamManager={this.state.publisher}
+                      />
+                    </PersonVideoStyle>
+                  )}
+                  {this.state.subscribers.map((sub, i) => (
+                    <PersonVideoStyle
+                      key={i}
+                      onClick={() => this.handleMainVideoStream(sub)}
+                    >
+                      <UserVideoComponent streamManager={sub} />
+                    </PersonVideoStyle>
+                  ))}
+                </FaceWrapperStyle>
+              </SubVideoWrapperStyle>
+            </TopDivStyle>
+            <BottomDivStyle>
+              <MeetingTitleStyle>{mySessionId}</MeetingTitleStyle>
+              <ControlButtonWrapperStyle>
+                <ControlButtonStyle
+                  id="buttonScreenShare"
+                  onClick={this.publishScreenShare}
+                  color={!this.state.shareScreen}
+                >
+                  {!!this.state.shareScreen ? <FiX /> : <FiAirplay />}
+                </ControlButtonStyle>
+                <ControlButtonStyle
+                  id="buttonMuteAudio"
+                  onClick={this.muteUnmuteAudio}
+                  color={!!this.state.publishAudio}
+                >
+                  {this.state.publishAudio ? (
+                    <BiVolumeFull />
+                  ) : (
+                    <BiVolumeMute />
+                  )}
+                </ControlButtonStyle>
+                <ControlButtonStyle
+                  id="buttonMuteVideo"
+                  onClick={this.muteUnmuteVideo}
+                  color={!!this.state.publishVideo}
+                >
+                  {this.state.publishVideo ? <BiVideo /> : <BiVideoOff />}
+                </ControlButtonStyle>
+
+                <ControlButtonStyle
+                  id="buttonLeaveSession"
+                  onClick={this.leaveSession}
+                  color={false}
+                >
+                  <FiPhoneOff />
+                </ControlButtonStyle>
+              </ControlButtonWrapperStyle>
+            </BottomDivStyle>
+          </MeetingRoomStyle>
+        )}
+      </SectionStyle>
     );
   }
 
@@ -659,6 +621,69 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(OpenViduPage);
+
+const SectionStyle = styled.section`
+  width: 100%;
+  height: 100%;
+`;
+
+const WaitingRoomStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const LogoDivStyle = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
+  width: 40%;
+`;
+
+const JoinDivStyle = styled.div`
+  width: 60%;
+  padding: 1rem;
+`;
+
+const TitleStyle = styled.p`
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+`;
+
+const InputWrapperStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+`;
+
+const LabelStyle = styled.label`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+`;
+
+const InputStyle = styled.input`
+  width: 50%;
+  padding: 0.3rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #2c343b;
+  border-bottom: 1px solid #cccccc;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+`;
+
+const ButtonWrapperStyle = styled.div`
+  margin-top: 2.5rem;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+`;
 
 const BtnStyle = styled.button`
   position: relative;
@@ -704,4 +729,127 @@ const BtnStyle = styled.button`
       opacity: 0;
     }
   }
+`;
+
+const MeetingRoomStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
+
+const TopDivStyle = styled.div`
+  display: flex;
+  width: 100%;
+  height: 90%;
+`;
+
+const MainVideoWrapperStyle = styled.div`
+  width: 55%;
+  height: 100%;
+  margin-right: 0.7rem;
+  display: flex;
+  align-items: center;
+  /* background-color: pink; */
+`;
+
+const SubVideoWrapperStyle = styled.div`
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: aqua; */
+`;
+
+const ShareWrapperStyle = styled.div`
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+  /* background-color: beige; */
+  overflow-y: hidden;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #617485;
+    border-radius: 10px;
+    background-clip: padding-box;
+    /* border: 1px solid transparent; */
+  }
+  &::-webkit-scrollbar-track {
+    /* background-color: #617485; */
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+`;
+
+const SharingVideoStyle = styled.div`
+  max-width: 33%;
+  height: 100%;
+  object-fit: contain;
+`;
+
+const FaceWrapperStyle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  width: 100%;
+  height: 80%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #617485;
+    border-radius: 10px;
+    background-clip: padding-box;
+    /* border: 1px solid transparent; */
+  }
+  &::-webkit-scrollbar-track {
+    /* background-color: #617485; */
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+`;
+
+const PersonVideoStyle = styled.div`
+  width: 33%;
+  height: 33%;
+`;
+
+const ControlButtonStyle = styled.button`
+  background-color: ${(props) => (props.color ? '#eadcff' : '#fd4242')};
+  color: ${(props) => (props.color ? 'gray' : 'white')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 0px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+`;
+
+const BottomDivStyle = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const MeetingTitleStyle = styled.p`
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  margin-left: 1rem;
+`;
+
+const ControlButtonWrapperStyle = styled.div`
+  display: flex;
+  justify-content: center;
 `;

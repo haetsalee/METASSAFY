@@ -27,13 +27,10 @@ const authSlice = createSlice({
     });
     builder.addCase(registerAction.pending, (state, action) => {
       state = { ...action.payload };
-      console.log(state, 'pending');
       return state;
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
-      console.log(action);
       state = { ...action.payload };
-      console.log(state, 'fulfilled');
       return state;
     });
   },

@@ -44,7 +44,7 @@ if (R && typeof R.ownKeys === 'function') {
 }
 
 function ProcessEmitWarning(warning) {
-  if (console && console.warn) console.warn(warning);
+//   if (console && console.warn) console.warn(warning);
 }
 
 var NumberIsNaN = Number.isNaN || function NumberIsNaN(value) {
@@ -6750,7 +6750,7 @@ var OpenVidu = (function () {
         this.jsonRpcClient = new RpcBuilder.clients.JsonRpcClient(config);
     };
     OpenVidu.prototype.onMasterNodeCrashedNotification = function (response) {
-        console.error('Master Node has crashed');
+        // console.error('Master Node has crashed');
         this.masterNodeHasCrashed = true;
         this.session.onLostConnection('nodeCrashed');
         this.jsonRpcClient.close(4103, 'Master Node has crashed');
@@ -6999,7 +6999,7 @@ var OpenVidu = (function () {
                         else {
                             _this.sendRequest('sessionStatus', { sessionId: _this.session.sessionId }, function (error, response) {
                                 if (error != null) {
-                                    console.error('Error checking session status', error);
+                                    // console.error('Error checking session status', error);
                                 }
                                 else {
                                     if (_this.life === response.life) {
@@ -7013,7 +7013,7 @@ var OpenVidu = (function () {
                         }
                     };
                     if (error.code === 40007 && error.message === 'reconnection error') {
-                        console.error('Invalid RPC sessionId. Client network disconnection or Master Node crash');
+                        // console.error('Invalid RPC sessionId. Client network disconnection or Master Node crash');
                         rpcSessionStatus();
                     }
                     else {
@@ -9612,11 +9612,11 @@ var Stream = (function () {
                         return [4, this.removeFilterAux(true)];
                     case 2:
                         _a.sent();
-                        console.debug("Success removing Virtual Background filter for stream ".concat(this.streamId));
+                        // console.debug("Success removing Virtual Background filter for stream ".concat(this.streamId));
                         return [3, 4];
                     case 3:
                         error_4 = _a.sent();
-                        console.error("Error removing Virtual Background filter for stream ".concat(this.streamId), error_4);
+                        // console.error("Error removing Virtual Background filter for stream ".concat(this.streamId), error_4);
                         return [3, 4];
                     case 4:
                         if (this.mediaStream) {
@@ -9896,7 +9896,7 @@ var Stream = (function () {
             return false;
         }
         else {
-            console.warn("Trying to reconnect stream ".concat(this.streamId, " (").concat(this.isLocal() ? 'Publisher' : 'Subscriber', ") but an ongoing reconnection process is active. Waiting for response..."));
+            // console.warn("Trying to reconnect stream ".concat(this.streamId, " (").concat(this.isLocal() ? 'Publisher' : 'Subscriber', ") but an ongoing reconnection process is active. Waiting for response..."));
             this.reconnectionEventEmitter.once('success', function () { return resolve(); });
             this.reconnectionEventEmitter.once('error', function (error) { return reject(error); });
             return true;
@@ -10411,13 +10411,13 @@ var Stream = (function () {
             var wsReadyState = _this.session.openvidu.getWsReadyState();
             if (wsReadyState === 1) {
                 var responseTimeout_1 = setTimeout(function () {
-                    console.warn("[".concat(event, "] Websocket timeout of ").concat(msResponseTimeout, "ms"));
+                    // console.warn("[".concat(event, "] Websocket timeout of ").concat(msResponseTimeout, "ms"));
                     return resolve(false);
                 }, msResponseTimeout);
                 _this.session.openvidu.sendRequest('echo', {}, function (error, response) {
                     clearTimeout(responseTimeout_1);
                     if (!!error) {
-                        console.warn("[".concat(event, "] Websocket 'echo' returned error: ").concat(error));
+                        // console.warn("[".concat(event, "] Websocket 'echo' returned error: ").concat(error));
                         return resolve(false);
                     }
                     else {
@@ -10426,7 +10426,7 @@ var Stream = (function () {
                 });
             }
             else {
-                console.warn("[".concat(event, "] Websocket readyState is ").concat(wsReadyState));
+                // console.warn("[".concat(event, "] Websocket readyState is ").concat(wsReadyState));
                 return resolve(false);
             }
         });
@@ -12398,7 +12398,7 @@ function RpcBuilder(packer, options, transport, onRequest) {
             }
             function retry(transport) {
                 transport = unifyTransport(transport);
-                console.warn(retried + ' retry for request message:', message);
+                // console.warn(retried + ' retry for request message:', message);
                 var timeout = processedResponses.pop(id, dest);
                 clearTimeout(timeout);
                 return sendRequest(transport);

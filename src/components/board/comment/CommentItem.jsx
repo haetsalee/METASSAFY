@@ -10,12 +10,14 @@ import Heart from '../list/Heart';
 import CommentInput from './CommentInput';
 import { BsArrowReturnRight } from 'react-icons/bs';
 import CocomentItem from './CocomentItem';
+import { useNavigate } from 'react-router-dom';
 
 const CommentItem = ({ comment, setComments, user_id }) => {
   const [likeNum, setLikeNum] = useState(comment.memo_like);
   const [isLike, setIsLike] = useState(comment.my_like);
   const [isWriting, setIsWriting] = useState(false);
   const [cocomments, setCocomments] = useState([]);
+  const navigation = useNavigate();
 
   // 댓글 좋아요 갱신
   useEffect(() => {
@@ -30,7 +32,6 @@ const CommentItem = ({ comment, setComments, user_id }) => {
         comment.memo_no,
         user_id
       );
-      console.log(data, status);
       // 대댓 없으면
       if (status === 500) {
         setCocomments([]);
@@ -46,9 +47,11 @@ const CommentItem = ({ comment, setComments, user_id }) => {
 
   // 댓글 삭제
   const deleteHandler = async () => {
-    await fetchCommentDelete(comment.memo_no);
-    const { data } = await fetchCommentGet(comment.article_no, user_id);
-    setComments(data);
+    if (window.confirm('댓글을 삭제하시겠습니까?')) {
+      await fetchCommentDelete(comment.memo_no);
+      const { data } = await fetchCommentGet(comment.article_no, user_id);
+      setComments(data);
+    }
   };
 
   // 메메모 작성
@@ -56,12 +59,11 @@ const CommentItem = ({ comment, setComments, user_id }) => {
     setIsWriting((preState) => !preState);
   };
 
-  console.log(cocomments);
   return (
     <LiSection>
       {/* 댓글 */}
       <CommentWrapper>
-        <Avatar img={comment.profile_img} />
+        <Avatar img={comment.profile_img} user={comment.user_id} />
         <CommentDiv>
           <DivStyle>
             <TitleStyle>
@@ -152,6 +154,14 @@ const TitleStyle = styled.div`
     font-size: 0.7rem;
     color: #868e96;
   }
+
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    & span {
+      padding: 0;
+    }
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -159,6 +169,9 @@ const ButtonWrapper = styled.div`
   padding-left: 1.5rem;
   padding-right: 1rem;
   color: #868e96;
+  @media screen and (max-width: 500px) {
+    padding: 0;
+  }
 `;
 
 const ButtonStyle = styled.button`
@@ -169,6 +182,10 @@ const ButtonStyle = styled.button`
   color: #799fc1;
   padding-right: 0.6rem;
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    width: 3.5rem;
+    padding: 0;
+  }
 `;
 
 const LikeDivStyle = styled.div`

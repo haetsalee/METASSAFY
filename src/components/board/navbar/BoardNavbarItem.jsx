@@ -26,11 +26,12 @@ const BoardNavbarItem = ({ menu, index, activeIndex, setActiveIndex }) => {
       popularity = true;
     } else if (menu.type === 'my') {
       key = 'user_id';
+      word = user_id;
       query = user_id;
     }
 
     query = `key=${key}&popularity=${popularity}&user_id=${user_id}&word=${word}`;
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
   };
 
   return (
@@ -76,6 +77,14 @@ const LiStyle = styled.li`
     :hover, :active {
       color: #617485;
       background-color: #e0f4ff;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 12rem;
+    & > button {
+      font-size: 0.7rem;
+      word-break: keep-all;
     }
   }
 `;

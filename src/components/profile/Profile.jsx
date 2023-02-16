@@ -13,30 +13,10 @@ import {
 } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
 
-// const user = {
-//   age: 25,
-//   area: '구미',
-//   birthday: 'Fri Dec 17 1999 21:11:54 GMT+0900 (한국 표준시)',
-//   common_class: '2',
-//   email: 'ssafy@naver.com',
-//   first_semester: '자바',
-//   gender: '여성',
-//   generation: 8,
-//   interest: 'FE',
-//   major: '전공',
-//   name: '윤소현',
-//   profile_img:
-//     'https://kr.object.ncloudstorage.com/metassafy/1e149903-44a1-40ef-8720-067916b22390aaaa.png',
-//   profile_txt: '나에요옹~나에요옹~나에요옹~나에요옹~나에요옹~',
-//   student_no: 123456,
-//   user_id: 'ssafy',
-// };
-
 function Profile({ user }) {
-  // function Profile() {
-
-  console.log(user, 'adsfad');
-  // const user = useSelector((state) => state.auth.user);
+  if (!Object.keys(user).length) {
+    return;
+  }
 
   return (
     <PhoneUserProfileStyle>
@@ -59,10 +39,10 @@ function Profile({ user }) {
         <InfoListStyle>
           <InfoBox icon={<FaRegSmile />} text={user.profile_txt}></InfoBox>
           <InfoBox icon={<FaBirthdayCake />} text={user.birthday}></InfoBox>
-          {user.gender !== '미정' && (
+          {user.gender !== 'z' && (
             <InfoBox
               icon={<FaCreativeCommonsBy />}
-              text={user.gender}
+              text={user.gender === 'w' ? '여성' : '남성'}
             ></InfoBox>
           )}
           <InfoBox icon={<HiOutlineMail />} text={user.email}></InfoBox>

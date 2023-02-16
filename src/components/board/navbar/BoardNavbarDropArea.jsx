@@ -24,7 +24,7 @@ const BoardNavbarDropArea = ({ type }) => {
     if (index === 0) {
       query = `key=null&popularity=false&user_id=${user.user_id}&word=null`;
     }
-    navigate(`/board/list?${query}`);
+    navigate(`../list?${query}`);
   };
 
   return (
@@ -47,6 +47,12 @@ const UlStyle = styled.ul`
   margin-top: 0.2rem;
   z-index: 10;
   background-color: white;
+
+  @media screen and (max-width: 500px) {
+    width: 5rem;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+  }
 `;
 
 const LiStyle = styled.li`

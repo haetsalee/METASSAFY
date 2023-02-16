@@ -13,14 +13,12 @@ function ChatInviteList(props) {
 
   const navigate = useNavigate();
 
-  // console.log(props.inviteList);
   const tempInviteList = props.inviteList.map((item) => item[1]);
   let newChatRoomName = '';
   props.inviteList.map((item) => {
     newChatRoomName += item[0] + ', ';
   });
   newChatRoomName = newChatRoomName.substring(0, newChatRoomName.length - 2);
-  // console.log(newChatRoomName);
 
   const frm = new FormData();
 
@@ -46,7 +44,6 @@ function ChatInviteList(props) {
 
   // frm.append('croom_img', null);
 
-  // console.log(tempInviteList);
   function makeChatRoom() {
     API.post(`/chat/room`, frm, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -54,7 +51,7 @@ function ChatInviteList(props) {
       .then((res) => {
         navigate(`room/${res.data}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }
 
   return (

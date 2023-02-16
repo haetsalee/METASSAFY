@@ -16,6 +16,7 @@ export default BoardTopSection;
 const SectionStyle = styled.section`
   background-color: white;
   height: 18rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

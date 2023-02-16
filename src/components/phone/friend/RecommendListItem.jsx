@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscAdd } from 'react-icons/vsc';
 import { NavLink } from 'react-router-dom';
+
 const RecommendListItem = ({ friend }) => {
   return (
     <>
@@ -11,7 +12,7 @@ const RecommendListItem = ({ friend }) => {
             <NavLink to={`../profile/${friend.user_id}`}>
               <FriendImgStyle
                 img
-                src={friend.image}
+                src={friend.profile_img}
                 alt={friend.name}
               ></FriendImgStyle>
             </NavLink>
@@ -20,11 +21,11 @@ const RecommendListItem = ({ friend }) => {
             <NameTextStyle>
               <strong>{friend.name}</strong>
             </NameTextStyle>
-            <StateTextStyle>{friend.user_id}</StateTextStyle>
+            <StateTextStyle>@{friend.user_id}</StateTextStyle>
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>
-          <VscAdd color="#212121" onClick={() => console.log('친구신청')} />
+          <VscAdd color="#212121" />
         </IconStyle>
       </GroupStyle>
       <HrStyle />

@@ -8,7 +8,6 @@ import API from '../../../utils/api';
 
 function BackgroundBox(props) {
   const user = getJsonLocalUserInfo()['user_id'] || 'annonymous';
-  console.log(user, props.who, '--------');
 
   function onAddFriend() {
     API.get('friend/call/notify/' + user + '/' + props.who)
@@ -19,7 +18,7 @@ function BackgroundBox(props) {
           alert('이미 친구거나 방치한 친구요청이 있습니다.');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }
 
   return (

@@ -2,14 +2,12 @@ import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatRoomNavStatus from './ChatRoomNavStatus';
+import chatImg from '../../../assets/images/chatroom.png';
 
 function ChatRoomNav(props) {
   return (
     <ChatRoomNavStyle>
-      <ChatRoomNavImgStyle
-        src="https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg"
-        alt=""
-      />
+      <ChatRoomNavImgStyle src={chatImg} alt={props.chatRoom.croom_name} />
       <ChatRoomNavStatus chatRoom={props.chatRoom} />
       <NavLink to={`edit`}>
         <ChatRoomSettingSvg

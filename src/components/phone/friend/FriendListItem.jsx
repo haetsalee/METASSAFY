@@ -25,10 +25,6 @@ const FriendItem = ({ friend, onDeleteFriend }) => {
           </TextGroupStyle>
         </FriendItemStyle>
         <IconStyle>
-          {/* <VscComment
-              color="#212121"
-              onClick={() => console.log('채팅방 이동')}
-            /> */}
           <VscChromeClose
             color="#212121"
             onClick={() => onDeleteFriend(friend.user_id)}

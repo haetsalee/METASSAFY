@@ -17,16 +17,15 @@ const FriendRequest = () => {
       .then((res) => {
         setRequests(res.data.filter((request) => request.accept === false));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, [newRequests]);
 
   useEffect(() => {
     API.get('/friend/receive/notify/' + user)
       .then((res) => {
-        console.log(res.data);
         setNewRequests(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   }, []);
 
   const onRejectFriend = (friend_no) => {
@@ -38,11 +37,10 @@ const FriendRequest = () => {
           requests.filter((request) => request.friend_no !== friend_no)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   };
 
   const onAcceptFriend = (friend_no) => {
-    console.log('수락');
     API.post('friend/acceptFriend', {
       friend_no: friend_no,
     })
@@ -51,7 +49,7 @@ const FriendRequest = () => {
           requests.filter((request) => request.friend_no !== friend_no)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   };
 
   return (
@@ -71,6 +69,5 @@ const FriendRequest = () => {
 export default FriendRequest;
 
 const FriendRequestStyle = styled.div`
-  /* padding: 1rem; */
   border-radius: 1rem 1rem 1rem 0rem;
 `;
