@@ -87,11 +87,7 @@ const MultipleSelectChip = ({ setTechList, techList }) => {
           MenuProps={MenuProps}
         >
           {names.map((name, index) => (
-            <MenuItem
-              key={name.tech_id}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
+            <MenuItem key={name.tech_id} value={name}>
               <ImgStyle src={name.tech_logo} alt="tech logo" />
             </MenuItem>
           ))}

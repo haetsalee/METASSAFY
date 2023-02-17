@@ -34,7 +34,6 @@ const DesktopDatePickerStyle = styled(DesktopDatePicker)(({ theme }) => ({
   width: '11rem',
 
   '& input': {
-    // backgroundColor: '#2196f3',
     padding: '0.7rem',
     fontSize: '0.9rem',
   },

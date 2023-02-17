@@ -47,7 +47,6 @@ export const fetchRegister = async ({
   name,
   email,
   studentId,
-  // generation,
   area,
 }) => {
   const requestBody = {
@@ -56,7 +55,6 @@ export const fetchRegister = async ({
     name: name,
     email: email,
     student_no: studentId,
-    // user_generation: generation,
     area: area,
   };
 

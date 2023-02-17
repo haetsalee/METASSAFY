@@ -5,7 +5,6 @@ export const fetchProfileModify = async (info) => {
   try {
     const response = await API.post('/user/auth/update', info, {
       'Content-Type': 'application/json',
-      // 'jwt-auth-token': TOKEN,
     });
     const { data, status } = response;
     if (data === 'Success') {

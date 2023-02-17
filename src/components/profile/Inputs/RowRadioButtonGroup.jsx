@@ -26,9 +26,6 @@ const RowRadioButtonsGroup = ({ data, defaultValue, value, onChange }) => {
 
   return (
     <FormControl>
-      {/* <FormLabel id="demo-row-radio-buttons-group-label">
-        {data.label}
-      </FormLabel> */}
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"

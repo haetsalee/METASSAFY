@@ -4,14 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Heart from '../list/Heart';
 
-//   const date = new Date(card.regtime);
-//   const strDate =
-//     String(date.getFullYear()).slice(2, 4) +
-//     '.' +
-//     String(date.getMonth()).padStart(2, '0') +
-//     '.' +
-//     String(date.getDate()).padStart(2, '0');
-
 const ArticleInfoWriter = ({ article }) => {
   const [likeNum, setLikeNum] = useState(article.like);
   const [isLike, setIsLike] = useState(article.my_like);

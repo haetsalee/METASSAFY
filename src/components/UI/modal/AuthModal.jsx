@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 
 import styled, { keyframes } from 'styled-components';
 
-// const Backdrop = (props) => {
-//   return <div className={classes.backdrop} onClick={props.onClose} />;
-// };
-
 const ModalOverlay = (props) => {
   return (
     <ModalStyle>

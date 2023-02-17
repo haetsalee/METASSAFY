@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 
 import styled, { keyframes } from 'styled-components';
 
-// const Backdrop = (props) => {
-//   return <div className={classes.backdrop} onClick={props.onClose} />;
-// };
-
 const ModalOverlay = (props) => {
   return (
     <ModalStyle>
@@ -31,19 +27,6 @@ const Modal = (props) => {
 };
 
 export default Modal;
-
-// const ModalStyle = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100vh;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 30;
-//   background-color: rgba(0, 0, 0, 0.3);
-// `;
 
 const ModalStyle = styled.div`
   position: fixed;
