@@ -5,13 +5,9 @@ const Avatar = ({ img, user }) => {
   const navigation = useNavigate();
 
   return (
-    <ImgStyle
-      src={img}
-      alt="avatar img"
-      onClick={() => {
-        navigation(`../../../profile/${user}`);
-      }}
-    />
+    <a href={`/profile/${user}`} target="_blank">
+      <ImgStyle src={img} alt="avatar img" />
+    </a>
   );
 };
 

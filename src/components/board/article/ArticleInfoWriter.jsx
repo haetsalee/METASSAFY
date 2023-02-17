@@ -23,10 +23,14 @@ const ArticleInfoWriter = ({ article }) => {
   return (
     <WrapperStyle>
       <DivStyle>
-        <WriterStyle
-          onClick={() => navigation(`../profile/${article.user_id}`)}
-        >
-          {article.name}
+        <WriterStyle>
+          <a
+            href={`/profile/${article.user_id}`}
+            target="_blank"
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            {article.name}
+          </a>
         </WriterStyle>
         <TimeDivStyle>
           <TimeStyle>
